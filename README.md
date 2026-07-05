@@ -1,53 +1,41 @@
-# Laravel Nova 5 Skill
+# Dev Skills
 
-AI agent skill for building Laravel Nova 5 administration panels. Teaches your AI assistant how to work with Nova resources, fields, actions, filters, lenses, metrics, dashboards, authorization, and customization.
+A collection of [Agent Skills](https://skills.sh) for AI coding assistants — Claude Code, Cursor, Windsurf, Copilot, and any tool that speaks the `SKILL.md` format.
+
+Each skill lives in its own folder under [`skills/`](./skills), with a `SKILL.md` (loaded by the agent) and a `README.md` (for humans browsing GitHub or skills.sh).
+
+## Available Skills
+
+| Skill | Description | Install |
+|---|---|---|
+| [laravel-nova-5](./skills/laravel-nova-5) | Build Laravel Nova 5 admin panels — resources, fields, actions, filters, lenses, metrics, dashboards. | `npx skills add jotafurtado/dev-skills --skill laravel-nova-5` |
+| [filament-v5-official-first](./skills/filament-v5-official-first) | Forces Filament v5 UIs to use official components (infolists, forms, tables, actions) instead of custom CSS/Blade. | `npx skills add jotafurtado/dev-skills --skill filament-v5-official-first` |
 
 ## Install
 
-```bash
-php artisan boost:add-skill jotafurtado/laravel-skills
-```
-
-Or with npx:
+Install a single skill:
 
 ```bash
-npx skills add jotafurtado/laravel-skills
+npx skills add jotafurtado/dev-skills --skill <skill-name>
 ```
 
-## What's Covered
+Or with Laravel Boost:
 
-- Resource creation and configuration
-- All field types including computed, dependent, and repeater fields
-- Panels, tabs, and collapsible sections
-- Relationships (all Eloquent types)
-- Actions (sync, queued, batchable, standalone)
-- Filters (select, boolean, date)
-- Lenses with custom queries
-- Metrics (Value, Trend, Partition, Progress, Table)
-- Dashboards
-- Authorization and policies
-- Custom tools, cards, fields, and menus
-- File uploads and storage
-- Localization and stubs
-- Nova 5 specific features (Tailwind v4, Vue 3.5, Inertia 2.x)
-
-## Structure
-
-```
-skills/
-└── laravel-nova-5/
-    ├── SKILL.md                              # Main skill file
-    └── references/
-        ├── actions-and-filters.md            # Actions, filters, lenses
-        ├── metrics-and-dashboards.md         # Metrics and dashboards
-        └── customization.md                  # Tools, menus, notifications, stubs
+```bash
+php artisan boost:add-skill jotafurtado/dev-skills --skill <skill-name>
 ```
 
-## Requirements
+Browse all skills in this repo interactively:
 
-- PHP 8.1+
-- Laravel 10+
-- Nova 5.x
+```bash
+npx skills add jotafurtado/dev-skills
+```
+
+## Adding a New Skill
+
+1. Create `skills/<skill-name>/SKILL.md` with YAML frontmatter (`name`, `description` are required — `description` is what triggers the skill, so make it specific).
+2. Add a `skills/<skill-name>/README.md` for humans (what it does, install command, requirements).
+3. Add a row to the table above.
 
 ## License
 

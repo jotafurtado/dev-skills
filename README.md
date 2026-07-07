@@ -10,6 +10,7 @@ Each skill lives in its own folder under [`skills/`](./skills), with a `SKILL.md
 |---|---|---|
 | [laravel-nova-5](./skills/laravel-nova-5) | Build Laravel Nova 5 admin panels — resources, fields, actions, filters, lenses, metrics, dashboards. | `npx skills add jotafurtado/dev-skills --skill laravel-nova-5` |
 | [laravel-filament-v5](./skills/laravel-filament-v5) | Build Filament v5 admin panels with official components first — resources, infolists, forms, tables, actions, widgets, relation managers, testing, and UI composition. | `npx skills add jotafurtado/dev-skills --skill laravel-filament-v5` |
+| [prepare-commit](./skills/prepare-commit) | Prepare Git commits with Conventional Commits messages in Brazilian Portuguese and keep CHANGELOG.md up to date. | `npx skills add jotafurtado/dev-skills --skill prepare-commit` |
 
 ## Install
 

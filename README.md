@@ -9,7 +9,7 @@ Each skill lives in its own folder under [`skills/`](./skills), with a `SKILL.md
 | Skill | Description | Install |
 |---|---|---|
 | [laravel-nova-5](./skills/laravel-nova-5) | Build Laravel Nova 5 admin panels — resources, fields, actions, filters, lenses, metrics, dashboards. | `npx skills add jotafurtado/dev-skills --skill laravel-nova-5` |
-| [filament-v5-official-first](./skills/filament-v5-official-first) | Forces Filament v5 UIs to use official components (infolists, forms, tables, actions) instead of custom CSS/Blade. | `npx skills add jotafurtado/dev-skills --skill filament-v5-official-first` |
+| [laravel-filament-v5](./skills/laravel-filament-v5) | Build Filament v5 admin panels with official components first — resources, infolists, forms, tables, actions, widgets, relation managers, testing, and UI composition. | `npx skills add jotafurtado/dev-skills --skill laravel-filament-v5` |
 
 ## Install
 

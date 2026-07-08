@@ -28,7 +28,7 @@ metadata:
 
 Prepare small, reviewable, traceable commits using Conventional Commits, and keep `CHANGELOG.md` up to date when a change has meaningful impact on the product, API, integration, operations, or public documentation.
 
-Commit message language: **Brazilian Portuguese by default.** Only write commit messages in another language if the user explicitly says so for that project or that commit.
+Language: **Brazilian Portuguese by default**, for both the commit message and any CHANGELOG entry. If the user explicitly requests another language (e.g. "write this commit in English") — for the whole project or just that commit — use that language instead, for the commit message and the CHANGELOG entry alike. A request scoped to "this commit" does not change the project's default for future commits.
 
 ## Safety Rules
 
@@ -132,7 +132,7 @@ Default mapping:
 - Removals -> `### Removed`
 - `docs` -> `### Documentation` if that section already exists; otherwise `### Changed`
 
-Write entries in the same language as the rest of the changelog file, for example:
+Write entries in the same language as the rest of the changelog file, unless the user explicitly requested a different language for this commit — in that case, follow their request instead, even if it doesn't match the rest of the file. Example (default, Portuguese):
 
 ```markdown
 - Adiciona filtros por status aos relatórios administrativos.

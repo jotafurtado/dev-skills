@@ -2,11 +2,13 @@
 
 Used inside `public static function form(Schema $schema): Schema`. Top-level is `$schema->components([...])`.
 
+Signatures in the tables below are focused fragments; add the component imports and surrounding Resource/schema class context.
+
 | Component | For | Minimal signature | 5.x doc |
 |---|---|---|---|
 | `TextInput` | Text, email, number, password | `TextInput::make('email')->email()->required()` | [text-input](https://filamentphp.com/docs/5.x/forms/text-input.md) |
 | `Textarea` | Plain long text | `Textarea::make('notes')->rows(4)` | [textarea](https://filamentphp.com/docs/5.x/forms/textarea.md) |
-| `Select` | Options, relationships | `Select::make('author_id')->relationship('author', 'name')->searchable()->preload()` | [select](https://filamentphp.com/docs/5.x/forms/select.md) |
+| `Select` | Options, relationships | `Select::make('author_id')->relationship('author', 'name')->searchable()`; add `->preload()` only for a bounded option set that should load with the page | [select](https://filamentphp.com/docs/5.x/forms/select.md) |
 | `Checkbox` / `Toggle` | Boolean | `Toggle::make('is_active')` | [toggle](https://filamentphp.com/docs/5.x/forms/toggle.md) |
 | `ToggleButtons` | Few visible options (status!) | `ToggleButtons::make('status')->options(OrderStatus::class)->inline()` | [toggle-buttons](https://filamentphp.com/docs/5.x/forms/toggle-buttons.md) |
 | `Radio` / `CheckboxList` | Options in a list | `CheckboxList::make('tags')->options([...])` | [checkbox-list](https://filamentphp.com/docs/5.x/forms/checkbox-list.md) |
@@ -23,9 +25,9 @@ Used inside `public static function form(Schema $schema): Schema`. Top-level is 
 
 ## Recurring form patterns
 
-- **Relationship selects**: always `->relationship('author', 'name')->searchable()->preload()`. To let the user create a related record inline, add `->createOptionForm([...])`.
+- **Relationship selects**: use `->relationship('author', 'name')`; add `->searchable()` when search helps. `->preload()` eagerly loads options on page load, so use it for bounded datasets and omit it for large relationships. To create related records inline, add `->createOptionForm([...])`.
 - **Reactive fields**: `->live()` (or `->live(onBlur: true)` for text inputs) plus injected `Get`/`Set` from `Filament\Schemas\Components\Utilities\*` — never `Filament\Forms\Get` (v3/v4).
-- **Conditional per operation**: inject `string $operation` or compare `Operation::Create` / `Operation::Edit` — never string comparisons.
+- **Conditional per operation**: prefer `hiddenOn()` / `visibleOn()` / `disabledOn()`. Use `Operation::Create` / `Operation::Edit` in Resource configuration where accepted; custom utility callbacks receive `string $operation` and compare with `'create'`, `'edit'`, or `'view'`.
 - **Slug fields**: `->live(onBlur: true)` on the source + `->disabled()->dehydrated()` on the slug when it must persist but not be edited.
 - **Saving fields to a related model**: layout components (`Section`, `Grid`, `Fieldset`) accept `->relationship('metadata')` for `BelongsTo`/`HasOne`/`MorphOne` — the wrapped fields load and save on the related record automatically. Never write manual mutators for this.
 - **Enums**: `->options(OrderStatus::class)` works on `Select`, `ToggleButtons`, `Radio`, `CheckboxList` when the enum implements `HasLabel`.

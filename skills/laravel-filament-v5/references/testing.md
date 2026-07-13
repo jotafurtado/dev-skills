@@ -5,10 +5,24 @@ Everything in a panel is tested through Livewire helpers — `livewire(PageClass
 **What IS a Livewire component** (pass to `livewire()`): resource pages (`ListUsers`, `CreateUser`, `EditUser`…), relation managers, widgets, custom pages.
 **What is NOT**: resource classes, schema components, actions — test those through the page that hosts them.
 
+Snippets are focused Pest fragments. Add the shown model/page imports plus `use function Pest\Livewire\livewire;`; preserve the project's test setup and database traits.
+
+## Post-change minimum
+
+After a Filament UI change, test each touched surface for which the official helpers apply:
+
+1. Resource page: `assertOk()`, then its changed table, schema state, form, or action behavior.
+2. Resource View page: pass `record`, call `assertOk()`, and assert the relevant infolist state with `assertSchemaStateSet()`.
+3. Relation manager: assert the host page renders it with `assertSeeLivewire()`, then test the manager directly with `ownerRecord`, `pageClass`, `assertOk()`, and relevant records/actions.
+4. Widget or custom page: load its Livewire class and assert the changed behavior.
+
+Run only applicable tests, but do not treat a successful List/Edit page test as coverage for a changed View page or relation manager.
+
 ## Setup
 
 ```php
 use App\Models\User;
+use function Pest\Laravel\actingAs;
 
 beforeEach(function () {
     actingAs(User::factory()->create());
@@ -39,6 +53,9 @@ it('can load the page', function () {
 ## Create / Edit pages
 
 ```php
+use App\Filament\Resources\Users\Pages\CreateUser;
+use App\Filament\Resources\Users\Pages\EditUser;
+
 livewire(CreateUser::class)
     ->fillForm(['name' => 'Test', 'email' => 'test@example.com'])
     ->call('create')
@@ -54,11 +71,32 @@ livewire(EditUser::class, ['record' => $user])
 
 Assert validation failures with `->assertHasFormErrors(['email' => 'required'])`.
 
+## View pages
+
+```php
+use App\Filament\Resources\Users\Pages\ViewUser;
+use App\Models\User;
+
+it('can display a user', function () {
+    $user = User::factory()->create();
+
+    livewire(ViewUser::class, ['record' => $user->id])
+        ->assertOk()
+        ->assertSchemaStateSet([
+            'name' => $user->name,
+            'email' => $user->email,
+        ]);
+});
+```
+
+Use the same pattern for a custom `ViewRecord` page that defines its own instance `infolist()` method. For component-level checks, give schema components stable `->key(...)` values and use the documented schema assertions.
+
 ## Actions (including table and bulk)
 
 Use `Filament\Actions\Testing\TestAction` to target where the action lives:
 
 ```php
+use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\Testing\TestAction;
 
 // row action
@@ -78,10 +116,19 @@ Actions with modal forms: `->callAction('send', data: ['reason' => '...'])->asse
 ## Relation managers
 
 ```php
+use App\Filament\Resources\Categories\Pages\EditCategory;
+use App\Filament\Resources\Categories\RelationManagers\PostsRelationManager;
+
+livewire(EditCategory::class, ['record' => $category->id])
+    ->assertOk()
+    ->assertSeeLivewire(PostsRelationManager::class);
+
 livewire(PostsRelationManager::class, [
     'ownerRecord' => $category,
     'pageClass' => EditCategory::class,
-])->assertCanSeeTableRecords($category->posts);
+])
+    ->assertOk()
+    ->assertCanSeeTableRecords($category->posts);
 ```
 
 ## Detailed guides

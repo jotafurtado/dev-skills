@@ -1,33 +1,50 @@
-# Actions, Filters & Lenses
+# Actions, Filters, and Lenses
+
+Read the official v5 pages before implementing:
+
+- [Defining Actions](https://nova.laravel.com/docs/v5/actions/defining-actions.md)
+- [Registering Actions](https://nova.laravel.com/docs/v5/actions/registering-actions.md)
+- [Defining Filters](https://nova.laravel.com/docs/v5/filters/defining-filters.md)
+- [Registering Filters](https://nova.laravel.com/docs/v5/filters/registering-filters.md)
+- [Defining Lenses](https://nova.laravel.com/docs/v5/lenses/defining-lenses.md)
+- [Registering Lenses](https://nova.laravel.com/docs/v5/lenses/registering-lenses.md)
 
 ## Actions
 
-Generate with `php artisan nova:action SendWelcomeEmail`.
-
-### Defining Actions
+Generate with `php artisan nova:action SendWelcomeEmail`. Use `--queued` only
+when queueing is appropriate.
 
 ```php
+<?php
+
 namespace App\Nova\Actions;
 
 use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
+use Laravel\Nova\Actions\ActionResponse;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class SendWelcomeEmail extends Action
 {
+    /** @var \Stringable|string */
     public $name = 'Send Welcome Email';
 
-    public function handle(ActionFields $fields, Collection $models): mixed
-    {
+    public function handle(
+        ActionFields $fields,
+        Collection $models
+    ): ActionResponse {
         foreach ($models as $model) {
-            // send email logic...
+            // Dispatch application-owned mail work.
         }
 
-        return Action::message('Emails sent successfully!');
+        return ActionResponse::message('Emails sent successfully.');
     }
 
+    /**
+     * @return array<int, \Laravel\Nova\Fields\Field>
+     */
     public function fields(NovaRequest $request): array
     {
         return [
@@ -37,39 +54,83 @@ class SendWelcomeEmail extends Action
 }
 ```
 
-### Registering Actions
+Match `handle()`'s return type to the installed stub if it differs. Action
+`handle()` always receives a collection, including sole actions.
+
+### Registration and authorization
 
 ```php
+use App\Nova\Actions\SendWelcomeEmail;
+use Laravel\Nova\Http\Requests\NovaRequest;
+
+// Fragment: method on a Nova resource.
 public function actions(NovaRequest $request): array
 {
     return [
-        Actions\SendWelcomeEmail::make()
-            ->canSee(fn ($request) => $request->user()->is_admin)
-            ->canRun(fn ($request, $model) => $request->user()->can('email', $model))
-            ->confirmText('Are you sure you want to send this email?')
+        SendWelcomeEmail::make()
+            ->canSee(fn ($request) => $request->user()->can('emailAnyAccount'))
+            ->canRun(
+                fn ($request, $model) => $request->user()->can('email', $model)
+            )
+            ->confirmText('Send this email?')
             ->confirmButtonText('Send')
             ->cancelButtonText('Cancel')
-            ->size('2xl'),               // sm, md, lg, xl, 2xl...7xl
+            ->size('2xl'),
     ];
 }
 ```
 
-### Action Responses
+Execution authorization order is:
+
+1. Registered action `canRun`, if defined.
+2. Policy `runAction` or `runDestructiveAction`, if defined.
+3. Policy `update` or `delete`, if defined.
+4. Otherwise, deny.
+
+`canSee` controls visibility, not whether a specific selected model may run.
+
+### Responses
+
+Use `ActionResponse`, and preserve documented argument order:
 
 ```php
-return Action::message('Done!');
-return Action::danger('Something went wrong.');
-return Action::redirect('/resources/users/'.$user->id);
-return Action::openInNewTab('https://example.com');
-return Action::download('/path/to/file.pdf', 'report.pdf');
-return Action::modal('custom-vue-component', ['data' => $value]);
+use Laravel\Nova\Actions\ActionResponse;
+
+// Fragment: returned from Action::handle().
+return ActionResponse::message('Done!');
+return ActionResponse::danger('Something went wrong.');
+return ActionResponse::redirect('https://example.com');
+return ActionResponse::visit('/resources/posts/new');
+return ActionResponse::openInNewTab('https://example.com');
+return ActionResponse::download(
+    'Invoice.pdf',
+    'https://example.com/invoice.pdf'
+);
 ```
 
-### Queued Actions
+`download()` receives the desired filename first and the downloadable URL
+second. Escape untrusted data included in response messages because Nova does
+not escape those messages before rendering.
 
-Implement `ShouldQueue` for long-running actions:
+For a custom modal response, follow the official example and return
+`Action::modal('custom-vue-component', ['value' => $value])` from `handle()`.
+
+For a registered static download action, use the separate documented API:
 
 ```php
+use Laravel\Nova\Actions\Action;
+
+// Fragment: item returned from a resource's actions() method.
+Action::downloadUrl('Download User Summaries', function () {
+    return route('users.summaries');
+})->standalone(),
+```
+
+### Queued and batchable actions
+
+```php
+<?php
+
 namespace App\Nova\Actions;
 
 use Illuminate\Bus\Queueable;
@@ -81,198 +142,97 @@ use Laravel\Nova\Fields\ActionFields;
 
 class GenerateReport extends Action implements ShouldQueue
 {
-    use InteractsWithQueue, Queueable;
+    use InteractsWithQueue;
+    use Queueable;
 
     public function handle(ActionFields $fields, Collection $models): void
     {
         foreach ($models as $model) {
-            // heavy processing...
+            // Perform application-owned report work.
             $this->markAsFinished($model);
         }
     }
-
-    public function handleResult(ActionFields $fields, $results)
-    {
-        return Action::message('Report generation has been queued.');
-    }
 }
 ```
 
-Use `markAsFinished($model)` and `markAsFailed($model, $exception)` to update status.
+Queue workers must be configured and running. Nova does not support `File`
+fields on queued actions. `markAsFinished()` and `markAsFailed()` update action
+log state; there is no documented generic `handleResult()` hook to add.
 
-### Batchable Actions
+For action batching, implement `Laravel\Nova\Contracts\BatchableAction`, use
+`Illuminate\Bus\Batchable`, and copy the documented `withBatch(ActionFields
+$fields, PendingBatch $batch): void` signature and callbacks. Add all imports,
+including `Batch`, `PendingBatch`, and `Throwable`.
 
-Implement `BatchableAction` interface and use `Batchable` trait:
+Register resource-independent actions with `->standalone()` and single-model
+actions with `->sole()`. Do not invent a `$standalone` property. Use
+`->withoutConfirmation()` only when immediate execution is safe and intentional.
 
-```php
-use Illuminate\Bus\Batchable;
-use Laravel\Nova\Contracts\BatchableAction;
-
-class BulkExport extends Action implements ShouldQueue, BatchableAction
-{
-    use InteractsWithQueue, Queueable, Batchable;
-
-    public function withBatch(ActionFields $fields, PendingBatch $batch): void
-    {
-        $batch->then(function (Batch $batch) {
-            // all jobs completed...
-        })->catch(function (Batch $batch, \Throwable $e) {
-            // handle failure...
-        });
-    }
-}
-```
-
-### Standalone Actions (No Resource Required)
-
-```php
-class RefreshCache extends Action
-{
-    public $standalone = true;
-
-    public function handle(ActionFields $fields, Collection $models): mixed
-    {
-        cache()->flush();
-        return Action::message('Cache cleared.');
-    }
-}
-```
-
-### Run Without Confirmation
-
-```php
-Actions\QuickApprove::make()->withoutConfirmation(),
-```
-
-### Built-in CSV Export
-
-```php
-use Laravel\Nova\Actions\ExportAsCsv;
-
-ExportAsCsv::make()->withFormat(fn ($model) => [
-    'ID' => $model->getKey(),
-    'Name' => $model->name,
-    'Email' => $model->email,
-]),
-```
-
-### Action Log
-
-Attach `Actionable` trait to your Eloquent model:
-
-```php
-use Laravel\Nova\Actions\Actionable;
-
-class User extends Authenticatable
-{
-    use Actionable;
-}
-```
-
-Disable logging per action: `public $withoutActionEvents = true;`.
-
-### Action Authorization Priority
-
-1. `canRun` method on the action (if defined)
-2. Model policy's `runAction` / `runDestructiveAction` methods (if defined)
-3. Model policy's `update` / `delete` methods
-
----
+Attach `Laravel\Nova\Actions\Actionable` to the Eloquent model only when action
+logging is needed. For very high-volume actions, evaluate the documented
+`withoutActionEvents` options and their audit trade-off.
 
 ## Filters
 
-Generate with `php artisan nova:filter UserType`.
-
-### Defining Filters
+Before writing a custom filter, check whether a documented filterable field
+meets the requirement. Generate select filters with
+`php artisan nova:filter UserType`; use the documented `--boolean` or `--date`
+option for those variants.
 
 ```php
+<?php
+
 namespace App\Nova\Filters;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Laravel\Nova\Filters\Filter;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class UserType extends Filter
 {
-    public function apply(NovaRequest $request, Builder $query, mixed $value): Builder
-    {
+    /** @var string */
+    public $component = 'select-filter';
+
+    public function apply(
+        NovaRequest $request,
+        Builder $query,
+        mixed $value
+    ): Builder {
         return $query->where('type', $value);
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function options(NovaRequest $request): array
     {
         return [
-            'Admin' => 'admin',
+            'Administrator' => 'admin',
             'Editor' => 'editor',
-            'Viewer' => 'viewer',
         ];
     }
 }
 ```
 
-### Registering Filters
-
-```php
-public function filters(NovaRequest $request): array
-{
-    return [
-        new Filters\UserType,
-    ];
-}
-```
-
-Nova 5 supports **searchable select filters** out of the box.
-
-### Boolean Filter
-
-```php
-use Laravel\Nova\Filters\BooleanFilter;
-
-class ActiveUsers extends BooleanFilter
-{
-    public function apply(NovaRequest $request, Builder $query, mixed $value): Builder
-    {
-        if ($value['active'] ?? false) {
-            return $query->where('active', true);
-        }
-
-        return $query;
-    }
-
-    public function options(NovaRequest $request): array
-    {
-        return ['Active' => 'active'];
-    }
-}
-```
-
-### Date Filter
-
-```php
-use Laravel\Nova\Filters\DateFilter;
-
-class CreatedAfter extends DateFilter
-{
-    public function apply(NovaRequest $request, Builder $query, mixed $value): Builder
-    {
-        return $query->whereDate('created_at', '>=', $value);
-    }
-}
-```
-
----
+Filter option keys are display labels; values reach `apply()`. Register the
+filter in the resource's `filters(NovaRequest $request): array` method using
+`new UserType` or `UserType::make()`. For dynamic reusable filters, override
+`key()` as documented so multiple instances remain unique. Select filters may
+be made searchable by chaining `->searchable()` during registration.
 
 ## Lenses
 
-Lenses provide specialized resource views with custom Eloquent queries:
-
-```bash
-php artisan nova:lens MostValuableUsers
-```
+Lenses customize a resource query. Generate with
+`php artisan nova:lens MostValuableUsers`.
 
 ```php
+<?php
+
 namespace App\Nova\Lenses;
 
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
@@ -282,65 +242,47 @@ use Laravel\Nova\Lenses\Lens;
 
 class MostValuableUsers extends Lens
 {
-    public static function query(LensRequest $request, $query)
-    {
-        return $request->withOrdering($request->withFilters(
-            $query->select('users.id', 'users.name')
-                  ->selectRaw('sum(licenses.price) as revenue')
-                  ->join('licenses', 'users.id', '=', 'licenses.user_id')
-                  ->groupBy('users.id', 'users.name')
-                  ->orderByDesc('revenue')
-        ));
+    public static function query(
+        LensRequest $request,
+        Builder $query
+    ): Builder|Paginator {
+        return $request->withOrdering(
+            $request->withFilters(
+                $query
+                    ->select([
+                        'users.id',
+                        'users.name',
+                        DB::raw('sum(licenses.price) as revenue'),
+                    ])
+                    ->join('licenses', 'users.id', '=', 'licenses.user_id')
+                    ->groupBy('users.id', 'users.name')
+                    ->withCasts(['revenue' => 'float'])
+            ),
+            fn ($query) => $query->orderBy('revenue', 'desc')
+        );
     }
 
     public function fields(NovaRequest $request): array
     {
         return [
             ID::make('ID', 'id'),
-            Text::make('Name'),
-            Number::make('Revenue')->sortable(),
+            Text::make('Name', 'name'),
+            Number::make('Revenue', 'revenue'),
         ];
     }
 
-    public function filters(NovaRequest $request): array
+    public function uriKey()
     {
-        return [];
-    }
-
-    public function actions(NovaRequest $request): array
-    {
-        return [];
-    }
-
-    public function cards(NovaRequest $request): array
-    {
-        return [new \App\Nova\Metrics\NewUsers];
+        return 'most-valuable-users';
     }
 }
 ```
 
-### Registering Lenses
+Always apply `withFilters()` and `withOrdering()` as documented. Select the
+resource ID when “Select All Matching” and deletion should remain available.
+Lenses inherit resource actions by default; call `parent::actions($request)`
+when extending rather than unintentionally discarding them.
 
-```php
-public function lenses(NovaRequest $request): array
-{
-    return [
-        Lenses\MostValuableUsers::make()
-            ->canSee(fn ($request) => $request->user()->is_admin),
-    ];
-}
-```
-
-### Lens Polling
-
-```php
-public static $polling = true;
-public static $pollingInterval = 10;
-public static $showPollingToggle = true;
-```
-
-### Per-Page Options on Lens
-
-```php
-public static $perPageOptions = [25, 50, 100];
-```
+Register lenses in the resource's `lenses()` method and apply `canSee` there
+when visibility is conditional. Enable lens polling or larger page sizes only
+after considering query cost.

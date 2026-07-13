@@ -2,6 +2,8 @@
 
 `Filament\Tables\Actions\*` was **removed** in v5. Every action — page header, table row, bulk, infolist, form — imports from `Filament\Actions\*`.
 
+Signatures below are focused fragments; import each action class and the host `Filament\Tables\Table` in the target class.
+
 | Component | Minimal signature | 5.x doc |
 |---|---|---|
 | `Action` | `Action::make('approve')->requiresConfirmation()->action(fn ($record) => ...)` | [overview](https://filamentphp.com/docs/5.x/actions/overview.md) |
@@ -11,6 +13,14 @@
 ## Where actions live on a table
 
 ```php
+use Filament\Actions\ActionGroup;
+use Filament\Actions\CreateAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
+use Filament\Tables\Table;
+
 $table
     ->recordActions([          // per row
         ActionGroup::make([
@@ -34,5 +44,5 @@ $table
 - **Visibility**: `->visible(fn ($record) => ...)` / `->hidden(...)` — prefer over conditionally building the actions array.
 - **Feedback**: after a state change, send `Notification::make()->title('...')->success()->send()` (`Filament\Notifications\Notification`). Silent actions feel broken.
 - **Row actions**: 3+ actions on a row → wrap in `ActionGroup::make([...])`, most common first (View, Edit, Delete).
-- **Icons**: `->icon(Heroicon::PencilSquare)` — enum only, never string names.
+- **Icons**: for Heroicons in PHP, prefer `->icon(Heroicon::PencilSquare)` for autocomplete and contextual sizing. Use string names for installed third-party/custom icon sets, as documented by Filament's icons guide.
 - **Business logic**: the closure in `->action()` should delegate to an application-layer action/service class; the Filament action handles UI concerns (confirmation, notification, redirect).

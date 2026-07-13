@@ -1,287 +1,215 @@
-# Customization: Tools, Menus, Notifications & Stubs
+# Customization
 
-## Custom Tools
+Use this reference for custom components, menus, notifications, localization,
+assets, stubs, search, and impersonation. Authorization and resource
+replication live in their dedicated references.
 
-Build full-page tools with their own Vue component and routes:
+Official pages:
 
-```bash
+- [Tools](https://nova.laravel.com/docs/v5/customization/tools.md)
+- [Resource Tools](https://nova.laravel.com/docs/v5/customization/resource-tools.md)
+- [Cards](https://nova.laravel.com/docs/v5/customization/cards.md)
+- [Custom Fields](https://nova.laravel.com/docs/v5/customization/fields.md)
+- [Custom Filters](https://nova.laravel.com/docs/v5/customization/filters.md)
+- [Menus](https://nova.laravel.com/docs/v5/customization/menus.md)
+- [Notifications](https://nova.laravel.com/docs/v5/customization/notifications.md)
+- [Localization](https://nova.laravel.com/docs/v5/customization/localization.md)
+- [Assets](https://nova.laravel.com/docs/v5/customization/assets.md)
+- [CSS / JavaScript](https://nova.laravel.com/docs/v5/customization/frontend.md)
+- [Stubs](https://nova.laravel.com/docs/v5/customization/stubs.md)
+- [Impersonation](https://nova.laravel.com/docs/v5/customization/impersonation.md)
+
+## Generate from Nova scaffolds
+
+Use the command matching the component:
+
+```shell
 php artisan nova:tool acme/analytics-dashboard
+php artisan nova:resource-tool acme/stripe-inspector
+php artisan nova:card acme/weather-widget
+php artisan nova:field acme/color-picker
+php artisan nova:custom-filter acme/date-range-filter
+php artisan nova:asset acme/analytics
 ```
 
-Register in `NovaServiceProvider`:
+`nova:filter` generates a PHP resource filter; `nova:custom-filter` generates a
+custom frontend filter package. Do not interchange them.
+
+Generated components live under `nova-components`, contain their own Composer
+package and build setup, and may be registered as Composer path repositories.
+Use the generated installed scaffold as the source of truth for Vue, Inertia,
+Laravel Mix, Node, NPM, and CSS conventions. Do not rewrite it from remembered
+Nova or Tailwind versions.
+
+### Register tools and resource tools
 
 ```php
+use Acme\AnalyticsDashboard\AnalyticsDashboard;
+
+// Fragment: method on App\Providers\NovaServiceProvider.
 public function tools(): array
 {
     return [
-        new \Acme\AnalyticsDashboard\AnalyticsDashboard,
+        (new AnalyticsDashboard)
+            ->canSee(fn ($request) => $request->user()->can('viewAnalytics')),
     ];
 }
 ```
 
-Each tool includes its own service provider and a single-file Vue component. Tool authorization:
-
-```php
-(new AnalyticsDashboard)->canSee(fn ($request) => $request->user()->is_admin),
-```
-
----
-
-## Resource Tools
-
-Resource tools appear on a resource's detail page (not the sidebar):
-
-```bash
-php artisan nova:resource-tool acme/stripe-inspector
-```
-
-Register in a resource's `fields()` method:
-
 ```php
 use Acme\StripeInspector\StripeInspector;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
+// Fragment: method on a Nova resource.
 public function fields(NovaRequest $request): array
 {
     return [
         ID::make()->sortable(),
-
         StripeInspector::make()
-            ->issuesRefunds()  // dynamic option
-            ->canSee(fn ($request) => $request->user()->is_admin),
+            ->issuesRefunds()
+            ->canSee(fn ($request) => $request->user()->can('manageBilling')),
     ];
 }
 ```
 
-Dynamic options: call any method on the tool instance to set key-value options accessible in the Vue component via `panel.fields`.
+Resource tool options are metadata consumed through the Vue `panel` prop. Prefer
+explicit option methods backed by `withMeta`; use dynamic options only where the
+official generated resource-tool behavior is suitable.
 
----
+Cards register in a resource or dashboard `cards()` method. Custom fields
+register in resource `fields()`. Custom filters register in `filters()`. Add
+authorization to every application-owned API route exposed by a tool, card,
+field, or filter; component visibility is not route protection.
 
-## Custom Cards
+## Menus
 
-```bash
-php artisan nova:card acme/weather-widget
-```
-
-Register cards in a resource's `cards()` method or in a dashboard.
-
----
-
-## Custom Fields
-
-```bash
-php artisan nova:field acme/color-picker
-```
-
-Creates a custom field with its own Vue component for index, detail, and form views.
-
----
-
-## Custom Filters
-
-```bash
-php artisan nova:filter acme/date-range-filter
-```
-
----
-
-## Menus & Navigation
-
-Customize the Nova sidebar in `NovaServiceProvider`:
+Define custom menus in `NovaServiceProvider::boot()`:
 
 ```php
+use App\Nova\Category;
+use App\Nova\Dashboards\Main;
+use App\Nova\Post;
+use Illuminate\Http\Request;
 use Laravel\Nova\Menu\MenuItem;
 use Laravel\Nova\Menu\MenuSection;
 use Laravel\Nova\Nova;
 
-Nova::mainMenu(fn ($request) => [
-    MenuSection::dashboard(Main::class)->icon('chart-bar'),
-
-    MenuSection::make('Content', [
-        MenuItem::resource(Post::class),
-        MenuItem::resource(Category::class),
-    ])->icon('document-text')->collapsable(),
-
-    MenuSection::make('Users', [
-        MenuItem::resource(User::class),
-        MenuItem::resource(Role::class),
-    ])->icon('users')->collapsable(),
-
-    MenuSection::make('External', [
-        MenuItem::externalLink('Documentation', 'https://nova.laravel.com/docs'),
-    ])->icon('book-open'),
-]);
+// Fragment: inside NovaServiceProvider::boot(), after parent::boot().
+Nova::mainMenu(function (Request $request) {
+    return [
+        MenuSection::dashboard(Main::class)->icon('chart-bar'),
+        MenuSection::make('Content', [
+            MenuItem::resource(Post::class),
+            MenuItem::resource(Category::class),
+        ])->icon('document-text')->collapsable(),
+    ];
+});
 ```
 
-### User Menu
+When the main menu is fully customized, custom tool links are not inserted
+automatically; add each tool's menu deliberately.
+
+The user menu callback receives an existing `Menu` and supports `MenuItem`
+objects only:
 
 ```php
-Nova::userMenu(fn ($request, $menu) => $menu
-    ->prepend(MenuItem::link('My Profile', '/resources/users/'.$request->user()->getKey()))
-    ->append(MenuItem::externalLink('Help', 'https://help.example.com'))
-);
+use Illuminate\Http\Request;
+use Laravel\Nova\Menu\Menu;
+use Laravel\Nova\Menu\MenuItem;
+use Laravel\Nova\Nova;
+
+// Fragment: inside NovaServiceProvider::boot().
+Nova::userMenu(function (Request $request, Menu $menu) {
+    return $menu
+        ->prepend(MenuItem::link(
+            'My Profile',
+            '/resources/users/'.$request->user()->getKey()
+        ))
+        ->append(MenuItem::externalLink('Help', 'https://example.com/help'));
+});
 ```
 
----
+The logout item cannot be removed. Do not place `MenuSection` or `MenuGroup`
+objects in the user menu.
 
 ## Notifications
-
-Nova includes a built-in notification center. Send notifications to users:
 
 ```php
 use Laravel\Nova\Notifications\NovaNotification;
 use Laravel\Nova\URL;
 
+// Fragment: $user uses Laravel's Notifiable trait.
 $user->notify(
     NovaNotification::make()
-        ->message('Your report is ready!')
+        ->message('Your report is ready to download.')
         ->action('Download', URL::remote('https://example.com/report.pdf'))
         ->icon('download')
-        ->type('info')  // info, success, warning, error
+        ->type('info')
 );
 ```
 
----
+Documented types are `success`, `error`, `warning`, and `info`. Application
+notification classes may use `Laravel\Nova\Notifications\NovaChannel` and
+`toNova()`. Use `Nova::withoutNotificationCenter()` to disable the center; the
+similarly named `withoutNotifications()` call is not the documented API.
 
-## Authentication
+## Localization and stubs
 
-Nova 5 integrates with Laravel Fortify. Configure in `config/nova.php`:
+After `nova:install`, translations live under `lang/vendor/nova`. Generate a
+locale copy with:
 
-```php
-'guard' => 'web',
-
-'passwords' => 'users',
-```
-
-### Gate Authorization
-
-In `NovaServiceProvider`, define who can access Nova:
-
-```php
-protected function gate(): void
-{
-    Gate::define('viewNova', function (User $user) {
-        return in_array($user->email, [
-            'admin@example.com',
-        ]);
-    });
-}
-```
-
----
-
-## Impersonation
-
-Enable user impersonation:
-
-```php
-// In NovaServiceProvider
-Nova::impersonation(true);
-```
-
----
-
-## Localization
-
-Publish and customize Nova translations:
-
-```bash
+```shell
 php artisan nova:translate pt-BR
 ```
 
-Or manually create `lang/vendor/nova/pt-BR.json`:
+Use resource `label()` / `singularLabel()` and component `name()` methods
+documented for each type. Frontend packages can receive translations through
+`Nova::translations()` and use the generated localization helpers.
 
-```json
-{
-    "Create :resource": "Criar :resource",
-    "Update :resource": "Atualizar :resource",
-    "Delete": "Excluir"
-}
-```
+Publish customizable generation stubs with:
 
----
-
-## Stubs
-
-Publish and customize Nova stubs:
-
-```bash
+```shell
 php artisan nova:stubs
 ```
 
-Publishes stubs to `stubs/nova/` for full customization of generated files.
+Nova writes them to `stubs/nova`. Delete a local stub to fall back to Nova's
+default; keep customized signatures synchronized with the installed version.
 
----
+## Frontend assets
 
-## Assets (CSS / JavaScript)
+Custom packages should retain generated asset registration and build commands.
+Use `Nova.request()` for the preconfigured Axios client, `Nova.visit()` for
+navigation, and the documented event/toast APIs where needed. Keep route
+authorization server-side.
 
-Register custom styles and scripts in `NovaServiceProvider`:
+For application-wide scripts or styles, generate a Nova asset with
+`nova:asset`. The v5 docs state that generated assets are auto-loaded through
+Laravel's autoloader, so no additional registration is required. Build them
+with the generated `npm run dev`, `npm run prod`, or `npm run watch` scripts.
+Do not assume a public path, Tailwind directive, or manifest format without
+checking that scaffold.
 
-```php
-Nova::style('custom-theme', public_path('css/nova-custom.css'));
-Nova::script('custom-scripts', public_path('js/nova-custom.js'));
-```
+## Global search
 
----
+Set resource `$search` columns for database search. If the Eloquent model uses
+Laravel Scout's `Searchable` trait, Nova automatically uses Scout unless the
+resource's documented `usesScout()` method disables it. There is no documented
+`public static $searchUsing = 'scout'` switch.
 
-## Global Search
+Use `$title` / `title()` and `subtitle()` for search result display. When a
+subtitle accesses a relationship, consider targeted eager loading. Use the
+official global-search and Scout pages for result limits, debounce, covers, and
+`scoutQuery()`:
 
-Configure searchable columns per resource:
+- [Global Search](https://nova.laravel.com/docs/v5/search/global-search.md)
+- [Scout Integration](https://nova.laravel.com/docs/v5/search/scout-integration.md)
 
-```php
-public static $search = ['id', 'name', 'email'];
+## Impersonation
 
-// Full-text search via Scout:
-public static $searchUsing = 'scout';
-```
+Enable impersonation by adding `Laravel\Nova\Auth\Impersonatable` to the
+authenticatable Eloquent model. Customize `canImpersonate()` and
+`canBeImpersonated()` as documented, and consider auditing
+`StartedImpersonating` / `StoppedImpersonating` events.
 
-Customize the global search result subtitle:
-
-```php
-public function subtitle(): ?string
-{
-    return "Author: {$this->user->name}";
-}
-```
-
----
-
-## Resource Replication
-
-Override to customize clone behavior:
-
-```php
-public function replicate()
-{
-    return tap(parent::replicate(), function ($resource) {
-        $resource->model()->name = 'Copy of '.$resource->model()->name;
-    });
-}
-```
-
-**Note:** Markdown/Trix fields with `withFiles` may not be replicated.
-
----
-
-## Configuration
-
-Publish the Nova config:
-
-```bash
-php artisan vendor:publish --tag=nova-config
-```
-
-Key options in `config/nova.php`:
-
-```php
-return [
-    'path' => '/nova',             // URL prefix
-    'guard' => 'web',              // auth guard
-    'passwords' => 'users',        // password broker
-    'currency' => 'BRL',           // default currency
-    'brand' => [
-        'name' => 'My App',
-        'logo' => '/img/logo.svg',
-    ],
-    'pagination' => 'simple',      // simple or links
-];
-```
+Do not use `Nova::impersonation(true)`; it is not the documented Nova 5 setup.

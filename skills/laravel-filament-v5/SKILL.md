@@ -1,6 +1,6 @@
 ---
 name: laravel-filament-v5
-description: "Builds Filament v5 interfaces using official components before any custom markup/CSS. Use when creating or editing anything Filament: resources, infolists, forms, tables, actions, widgets, relation managers, panels, or panel tests. Triggers on mentions of Filament, admin panel, infolist, form schema, table column, status badge, dashboard, or requests to render/display data inside a Filament page."
+description: "Builds Filament v5 interfaces using official components before custom markup/CSS. Use when code or requests explicitly involve Filament, such as Filament resources, schemas, infolists, forms, tables, actions, widgets, relation managers, panels, or Filament tests. Also use for Filament-specific classes, namespaces, Artisan commands, or APIs. Do not trigger from an isolated mention of an admin panel, dashboard, status badge, or generic data display without another Filament signal."
 license: MIT
 compatible_agents:
   - Claude Code
@@ -15,34 +15,31 @@ tags:
   - backend
 metadata:
   author: jotafurtado
-  version: "2.0.0"
+  version: "2.1.0"
   domain: backend
   filament_version: "5.x"
-  laravel_version: ">=12.x"
-  php_version: ">=8.3"
+  laravel_version: ">=11.28"
+  php_version: ">=8.2"
+  livewire_version: ">=4.0"
+  tailwind_version: ">=4.1"
   role: specialist
   scope: implementation
   output-format: code
 ---
 
-# Laravel Filament v5 — Official Components, Free Composition
+# Laravel Filament v5 — Official Components First
 
-The mistake this skill prevents isn't a knowledge gap — it's overconfidence. You know how to render JSON with a styled `<pre>`, so you write the `<pre>`. But Filament v5 already ships `CodeEntry` with syntax highlighting, a copy button, and dark mode support, ready to use. The official component never made it into your list of options because you never stopped to consider it might exist. This skill exists to force that pause.
+Use Filament's documented component for the current UI surface before creating custom markup. Keep composition flexible, and use a documented workaround when no official equivalent exists.
 
 ## The mandatory gate (run BEFORE writing markup)
 
 Before writing `<div>`, `<span>`, `<pre>`, `@foreach`, Tailwind classes, or any custom Blade view inside a Filament context, **stop and run these 3 steps**:
 
-1. **Classify the data** into a presentation primitive using the quick map below: code/JSON, key-value, color, image, badge/status, list, repeatable collection, icon/boolean, date/time, money, formatted text, static text/notice, empty state.
-2. **Every primitive on that list HAS an official component.** Find it in the quick map, then load the matching reference file for the exact signature. There's no "too simple a case for a component" — the component IS the simple case.
-3. **If it's not in the map**, run the fetch protocol (last section) BEFORE concluding it doesn't exist. "I don't recall this component" is not evidence that it doesn't exist.
+1. **Classify the surface and primitive**: schema/infolist, form, table, action, widget, or page; then code/JSON, key-value, color, image, status, list, collection, boolean, date/time, money, text, notice, or empty state.
+2. **Choose the official component for that surface** using the quick map and the matching reference. Do not force a component from a different surface merely to avoid customization.
+3. **If no equivalent is listed**, run the fetch protocol. If current 5.x docs still provide no suitable component, document what was checked and why it does not fit, then use the smallest workaround (`ViewEntry`, custom schema component, Livewire, or Blade) while retaining official components for surrounding layout, actions, and states.
 
-Two clarifications so the gate doesn't over-restrict:
-
-- **Data rendering is locked to official components. Composition is free.** How you arrange sections, tabs, columns, callouts, and empty states is a design decision — `references/ui-composition.md` gives you the patterns to make those pages fluid and scannable. Use it actively; a page built only from correct components can still be a bad page.
-- **Custom CSS/Blade is allowed only for layout fine-tuning** (spacing, alignment, width) — **never** to render data. If you catch yourself writing a styled `<pre>`, a colored `<span>`, or a Blade loop inside a resource, that's the signal you skipped the gate. Go back to step 1.
-
-Confidence is not verification: the mistake happens exactly at the moment you "know" how to render something by hand. The more obvious a custom solution seems, the more likely an official component exists for it.
+Composition remains free: arrange official components with `Section`, `Tabs`, grids, columns, callouts, and empty states. Custom CSS/Blade is acceptable for documented gaps and layout fine-tuning, not as an unverified shortcut around an available component.
 
 ## Quick map: data primitive → official component
 
@@ -61,7 +58,7 @@ Confidence is not verification: the mistake happens exactly at the moment you "k
 | Static text / notice | `Text` / `Callout` | `Text` / `Callout` | — |
 | "Nothing here yet" | `EmptyState` (schema) | — | `->emptyStateHeading()` |
 
-Exact signatures, extra methods, and doc links live in `references/` — load the file for the surface you're touching.
+Exact signatures and official links live in `references/`. Snippets in this skill are focused fragments unless a full class is shown; add the imports and surrounding class context required by the target project.
 
 ## Reference routing table
 
@@ -77,7 +74,7 @@ Load **only** the reference files the task needs — they are the detailed inven
 | Buttons, modals, bulk/row actions | `references/actions.md` |
 | Dashboards, stats, charts, table widgets | `references/widgets.md` |
 | Related records (HasMany, BelongsToMany…) | `references/relation-managers.md` |
-| Pest/Livewire tests for panels | `references/testing.md` |
+| Pest/Livewire tests for resource pages (including View pages), relation managers, widgets, and custom pages | `references/testing.md` |
 | Page organization, visual hierarchy, UX flow | `references/ui-composition.md` — read whenever you build or restructure a whole page/resource |
 
 Something Filament-specific that doesn't fit any row above (multi-tenancy, clusters, global search, custom pages, import/export, notifications)? No reference covers it yet — go straight to the fetch protocol instead of guessing from general Laravel/Livewire knowledge.
@@ -86,40 +83,67 @@ Something Filament-specific that doesn't fit any row above (multi-tenancy, clust
 
 **JSON/code with `<pre>` + custom CSS → `CodeEntry`**
 
-```php
-// NEVER
-ViewEntry::make('payload')->view('filament.custom-json-pre') // <pre> with CSS
+Install its documented optional dependency first:
 
-// ALWAYS — highlighting via Phiki, dark mode, all built in
+```bash
+composer require phiki/phiki
+```
+
+```php
 use Filament\Infolists\Components\CodeEntry;
+use Filament\Infolists\Components\ViewEntry;
 use Phiki\Grammar\Grammar;
+
+// Avoid when CodeEntry covers the requirement:
+ViewEntry::make('payload')->view('filament.custom-json-pre'); // <pre> with CSS
 
 CodeEntry::make('payload')
     ->grammar(Grammar::Json)
-    ->copyable()
+    ->copyable();
 ```
 
 **Colored status with `<span>` + Tailwind → `badge()` + `HasColor` enum**
 
 ```php
-// NEVER
+// Avoid hand-written status markup:
 // <span class="rounded bg-green-100 px-2 text-green-800">{{ $status }}</span>
 
-// ALWAYS — same API in an infolist (TextEntry) or a table (TextColumn)
-TextEntry::make('status')->badge() // color/label/icon come from the enum
-
-// The enum carries the semantics:
+use BackedEnum;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Support\Contracts\{HasColor, HasIcon, HasLabel};
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Contracts\Support\Htmlable;
+
+TextEntry::make('status')->badge(); // color/label/icon come from the enum
 
 enum OrderStatus: string implements HasLabel, HasColor, HasIcon
 {
     case Pending = 'pending';
     case Shipped = 'shipped';
 
-    public function getLabel(): string { /* ... */ }
-    public function getColor(): string { /* 'warning', 'success'... */ }
-    public function getIcon(): Heroicon { /* ... */ }
+    public function getLabel(): string
+    {
+        return match ($this) {
+            self::Pending => 'Pending',
+            self::Shipped => 'Shipped',
+        };
+    }
+
+    public function getColor(): string
+    {
+        return match ($this) {
+            self::Pending => 'warning',
+            self::Shipped => 'success',
+        };
+    }
+
+    public function getIcon(): string | BackedEnum | Htmlable | null
+    {
+        return match ($this) {
+            self::Pending => Heroicon::Clock,
+            self::Shipped => Heroicon::Truck,
+        };
+    }
 }
 ```
 
@@ -134,7 +158,7 @@ enum OrderStatus: string implements HasLabel, HasColor, HasIcon
 | Inline SVG / icon string for a boolean | `IconEntry::make('is_active')->boolean()` |
 | Formatting date/money by hand in Blade | `TextEntry::make('...')->dateTime()` / `->money('USD')` |
 | Custom JS "copy to clipboard" | `->copyable()` (available on several entries) |
-| Rendering Markdown/HTML with an external lib | `TextEntry::make('body')->markdown()` / `->html()` |
+| Rendering Markdown/HTML with an external lib without checking Filament | `TextEntry::make('body')->markdown()` / `->html()` |
 | Hand-rolled "no records" div | `EmptyState::make(...)` / table `->emptyStateHeading()` |
 | Alert/notice box with custom Blade | `Callout::make(...)->warning()` |
 
@@ -142,7 +166,7 @@ enum OrderStatus: string implements HasLabel, HasColor, HasIcon
 
 Your v3/v4 Filament knowledge will betray you. In v5:
 
-- **Unified Schema**: `public function infolist(Schema $schema): Schema` and `public static function form(Schema $schema): Schema`. Top-level is `$schema->components([...])`. Never `$infolist->schema([...])` — that is v3 and no longer exists.
+- **Unified Schema**: top-level configuration uses `$schema->components([...])`. A Resource defines `public static function infolist(Schema $schema): Schema`; a custom `ViewRecord` page defines `public function infolist(Schema $schema): Schema` when it needs a page-specific infolist. Forms on Resources use `public static function form(Schema $schema): Schema`.
 - **Domain-based namespaces**:
   - Layout (Section, Grid, Tabs, Flex, Fieldset, Wizard, EmptyState, Callout, primes): `Filament\Schemas\Components\*`
   - Utilities (Get, Set): `Filament\Schemas\Components\Utilities\*`
@@ -152,10 +176,14 @@ Your v3/v4 Filament knowledge will betray you. In v5:
   - Actions: `Filament\Actions\*` — `Filament\Tables\Actions\*` was **removed** in v5.
 - **Renamed table methods**: `->recordActions([...])` (not `->actions()`), `->groupedBulkActions([...])` (not `->bulkActions()`), `->toolbarActions([...])`.
 - **Action modals**: `->schema([...])`, not `->form([...])`.
-- **Icons**: for any Heroicon, use the `Filament\Support\Icons\Heroicon` enum (e.g. `Heroicon::PencilSquare`), not the string form `'heroicon-o-pencil'` — the icon property type is `string|BackedEnum|null`, so the string still works, but the enum gives IDE autocomplete and is what v5's own examples favor. String names remain necessary for icon sets other than Heroicons. For navigation, use the `Outlined*` variants.
+- **Icons hierarchy**: for Heroicons in PHP, prefer `Filament\Support\Icons\Heroicon` for IDE autocomplete and automatic contextual sizing. Use icon-name strings for installed third-party/custom Blade Icons sets, and where a Blade API is documented with a string. Both are supported; do not rewrite a valid non-Heroicon name as a Heroicon.
 - **Domain enums**: backed string enums implementing `HasLabel`, `HasColor`, `HasIcon` (`Filament\Support\Contracts`) — this is how badge/select/filter get label, color, and icon for free.
-- **Conditional operation**: compare against `Operation::Create` / `Operation::Edit` / `Operation::View` — never the strings `'create'`/`'edit'`.
+- **Operation hierarchy**: use dedicated methods such as `hiddenOn()`, `visibleOn()`, and `disabledOn()` first. In Resource configuration, prefer `Operation::Create` / `Operation::Edit` / `Operation::View` where the documented method accepts them. Utility callbacks inject `string $operation`; compare it with the documented `'create'`, `'edit'`, or `'view'` values.
 - **File uploads are private by default**: only add `->visibility('public')` when public access is actually required.
+
+## Post-change verification
+
+After changing a Filament UI, load `references/testing.md` and run the narrowest relevant tests. At minimum, cover the touched Livewire surface when Filament documents a helper for it: load the resource page, assert View-page schema state, verify a relation manager is rendered and can load its records, and exercise changed actions/forms/tables. Also run the project's formatter and static analysis when available.
 
 ## Fetch protocol — freshness backup
 
@@ -168,4 +196,4 @@ The quick map + references cover day-to-day needs offline. Fetch the docs when: 
 
 ## Target project context
 
-This skill targets **Filament 5.x** on Laravel 12+ / PHP 8.3+ / Livewire 4 / Tailwind v4. Before generating code, read the project's `composer.json` (and `composer.lock` for exact versions) to confirm the installed `filament/filament`, `laravel/framework`, and PHP versions — all generated code must be valid for that specific combination, and project conventions (steering/CLAUDE.md files) override this skill's defaults where they conflict.
+This skill targets **Filament 5.x**. Current official requirements are PHP 8.2+, Laravel 11.28+, Livewire 4.0+, and Tailwind CSS 4.1+ for the documented installation flow. Before generating code, inspect `composer.json` and `composer.lock` for exact installed versions and read project guidance; generate code for that actual combination.

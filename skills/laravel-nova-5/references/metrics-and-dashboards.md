@@ -1,26 +1,28 @@
-# Metrics & Dashboards
+# Metrics and Dashboards
 
-## Metrics Overview
+Read:
 
-Nova offers five metric types: Value, Trend, Partition, Progress, and Table.
+- [Defining Metrics](https://nova.laravel.com/docs/v5/metrics/defining-metrics.md)
+- [Registering Metrics](https://nova.laravel.com/docs/v5/metrics/registering-metrics.md)
+- [Dashboards](https://nova.laravel.com/docs/v5/customization/dashboards.md)
 
----
+Nova 5 documents five metric types: Value, Trend, Partition, Progress, and
+Table. Use the generated class and result type for the installed version.
 
-## Value Metric
+## Value and trend metrics
 
-Displays a single value with optional comparison to a prior period.
-
-```bash
-php artisan nova:value NewUsers
-```
+Generate with `nova:value` or `nova:trend`:
 
 ```php
+<?php
+
 namespace App\Nova\Metrics;
 
 use App\Models\User;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Metrics\Value;
 use Laravel\Nova\Metrics\ValueResult;
+use Laravel\Nova\Nova;
 
 class NewUsers extends Value
 {
@@ -32,9 +34,9 @@ class NewUsers extends Value
     public function ranges(): array
     {
         return [
-            30 => '30 Days',
-            60 => '60 Days',
-            365 => '365 Days',
+            30 => Nova::__('30 Days'),
+            60 => Nova::__('60 Days'),
+            365 => Nova::__('365 Days'),
         ];
     }
 
@@ -43,26 +45,16 @@ class NewUsers extends Value
         return now()->addMinutes(5);
     }
 
-    public function name(): string
+    public function name()
     {
         return 'Users Created';
     }
 }
 ```
 
-Value query helpers: `count`, `average`, `sum`, `max`, `min`. Each accepts `($request, $model, $column)`.
-
----
-
-## Trend Metric
-
-Displays data over time as a line/bar chart.
-
-```bash
-php artisan nova:trend UsersPerDay
-```
-
 ```php
+<?php
+
 namespace App\Nova\Metrics;
 
 use App\Models\User;
@@ -81,26 +73,25 @@ class UsersPerDay extends Trend
     {
         return [
             7 => '7 Days',
-            14 => '14 Days',
             30 => '30 Days',
         ];
     }
 }
 ```
 
-Trend query helpers: `countByDays`, `countByWeeks`, `countByMonths`, `countByHours`, `countByMinutes`, `sumByDays`, `sumByWeeks`, `sumByMonths`, `averageByDays`, etc.
+The v5 docs list count, average, sum, max, and min helpers for value metrics and
+interval-specific helpers for trends. Copy the needed helper's current
+signature instead of generalizing every helper to one argument list. Query
+builders may be used where documented to scope data.
 
----
+Cache only when staleness is acceptable. Verify filter, range, and tenant
+behavior before caching sensitive or user-specific results.
 
-## Partition Metric
-
-Displays a doughnut/pie chart for categorical data.
-
-```bash
-php artisan nova:partition UsersPerPlan
-```
+## Partition, progress, and table metrics
 
 ```php
+<?php
+
 namespace App\Nova\Metrics;
 
 use App\Models\User;
@@ -116,27 +107,15 @@ class UsersPerPlan extends Partition
             ->label(fn ($value) => match ($value) {
                 'basic' => 'Basic',
                 'pro' => 'Professional',
-                default => ucfirst($value),
-            })
-            ->colors([
-                'basic' => '#4ade80',
-                'pro' => '#3b82f6',
-            ]);
+                default => ucfirst((string) $value),
+            });
     }
 }
 ```
 
----
-
-## Progress Metric
-
-Displays a progress bar toward a goal.
-
-```bash
-php artisan nova:progress OnboardingCompletion
-```
-
 ```php
+<?php
+
 namespace App\Nova\Metrics;
 
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -147,22 +126,14 @@ class OnboardingCompletion extends Progress
 {
     public function calculate(NovaRequest $request): ProgressResult
     {
-        return $this->result(80, 100); // current, target
+        return $this->result(80, 100);
     }
 }
 ```
 
----
-
-## Table Metric
-
-Displays a list of rows with titles, subtitles, and optional actions/icons.
-
-```bash
-php artisan nova:table NewReleases
-```
-
 ```php
+<?php
+
 namespace App\Nova\Metrics;
 
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -171,145 +142,140 @@ use Laravel\Nova\Metrics\Table;
 
 class NewReleases extends Table
 {
+    /**
+     * @return array<int, MetricTableRow>
+     */
     public function calculate(NovaRequest $request): array
     {
         return [
             MetricTableRow::make()
-                ->title('Nova 5.0')
-                ->subtitle('Released January 2025')
+                ->title('Version 1.0')
+                ->subtitle('Initial application release')
                 ->icon('star'),
-
-            MetricTableRow::make()
-                ->title('Laravel 11.x')
-                ->subtitle('Latest framework release'),
         ];
     }
 }
 ```
 
----
+Avoid examples that assert time-sensitive framework release status. Use
+application data and official result APIs for links, actions, icons, prefixes,
+suffixes, formatting, and colors.
 
-## Registering Metrics
+## Register metrics
 
-### On Resource Index
+Metrics are registered in a resource's `cards()` method or a dashboard's
+`cards()` method:
 
 ```php
+use App\Models\User;
+use App\Nova\Metrics\NewUsers;
+use App\Nova\Metrics\UsersPerDay;
+use Laravel\Nova\Http\Requests\NovaRequest;
+
+// Fragment: method on a Nova resource.
 public function cards(NovaRequest $request): array
 {
     return [
-        new Metrics\NewUsers,
-        new Metrics\UsersPerDay,
+        NewUsers::make()
+            ->defaultRange(30)
+            ->width('1/3'),
+
+        UsersPerDay::make()
+            ->refreshWhenActionsRun()
+            ->refreshWhenFiltersChange()
+            ->canSeeWhen('viewUsersPerDay', User::class),
     ];
 }
 ```
 
-### On Resource Detail
+Use `onlyOnDetail()` for detail metrics and scope calculations with the
+documented request resource ID. `refreshWhenActionsRun()` and
+`refreshWhenFiltersChange()` are opt-in. `canSee` and `canSeeWhen` belong on the
+registered metric instance.
+
+## Default dashboard
+
+Nova ships with `App\Nova\Dashboards\Main`. Customize its `cards()` method:
 
 ```php
-Metrics\UserRevenue::make()->onlyOnDetail(),
-```
+<?php
 
-### Metric Options
-
-```php
-Metrics\TotalUsers::make()
-    ->refreshWhenActionsRun()      // auto-refresh after actions
-    ->refreshWhenFiltersChange()   // auto-refresh on filter change
-    ->defaultRange(30)             // initial range selection
-    ->width('1/2'),                // 1/3, 1/2, 2/3, full
-```
-
-### Metric Caching
-
-```php
-public function cacheFor(): ?\DateTimeInterface
-{
-    return now()->addMinutes(5);
-    // or return now()->addHours(1);
-    // or return null; // no caching
-}
-```
-
-### Authorization
-
-```php
-Metrics\UsersPerDay::make()
-    ->canSee(fn ($request) => $request->user()->is_admin),
-
-// Or using policy shorthand:
-Metrics\UsersPerDay::make()
-    ->canSeeWhen('viewUsersPerDay', User::class),
-```
-
----
-
-## Sparkline Field
-
-Display inline charts on index/detail using Trend metrics or raw data:
-
-```php
-use Laravel\Nova\Fields\Sparkline;
-
-Sparkline::make('Post Views')->data([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
-
-Sparkline::make('Post Views')->data(fn () => json_decode($this->views_data)),
-
-Sparkline::make('Post Views')->data(new PostViewsOverTime($this->id)),
-```
-
----
-
-## Dashboards
-
-Custom dashboards display metric cards outside of any resource context.
-
-```bash
-php artisan nova:dashboard Main
-```
-
-```php
 namespace App\Nova\Dashboards;
 
 use App\Nova\Metrics\NewUsers;
-use App\Nova\Metrics\UsersPerDay;
-use App\Nova\Metrics\UsersPerPlan;
 use Laravel\Nova\Dashboards\Main as Dashboard;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Main extends Dashboard
 {
     public function cards(): array
     {
         return [
-            (new NewUsers)->width('1/3'),
-            (new UsersPerDay)->width('2/3'),
-            (new UsersPerPlan)->width('1/2'),
+            NewUsers::make()->width('1/3'),
         ];
-    }
-
-    public static function label(): string
-    {
-        return 'Overview';
     }
 }
 ```
 
-Register dashboards in `NovaServiceProvider`:
+The default `Main` dashboard is not generated with
+`php artisan nova:dashboard Main`; it ships with Nova. Use the command for a
+custom dashboard, for example:
+
+```shell
+php artisan nova:dashboard UserInsights
+```
+
+Custom dashboards extend `Laravel\Nova\Dashboard`. Customize the navigation
+name with the documented instance method:
 
 ```php
+<?php
+
+namespace App\Nova\Dashboards;
+
+use App\Nova\Metrics\UsersPerDay;
+use Laravel\Nova\Dashboard;
+
+class UserInsights extends Dashboard
+{
+    public function cards(): array
+    {
+        return [
+            UsersPerDay::make(),
+        ];
+    }
+
+    public function name()
+    {
+        return 'User Insights';
+    }
+}
+```
+
+Do not use `label()` for the dashboard navigation name.
+
+## Register and authorize dashboards
+
+Register dashboard instances in `NovaServiceProvider::dashboards()` with
+`::make()`. Apply visibility authorization during registration, not through an
+invented dashboard `authorize()` method:
+
+```php
+use App\Models\User;
+use App\Nova\Dashboards\Main;
+use App\Nova\Dashboards\UserInsights;
+
+// Fragment: method on App\Providers\NovaServiceProvider.
 protected function dashboards(): array
 {
     return [
-        new \App\Nova\Dashboards\Main,
+        Main::make(),
+        UserInsights::make()
+            ->canSeeWhen('viewUserInsights', User::class),
     ];
 }
 ```
 
-Dashboard authorization:
-
-```php
-public function authorize(Request $request): bool
-{
-    return $request->user()->is_admin;
-}
-```
+The equivalent closure form is
+`UserInsights::make()->canSee(fn ($request) => ...)`. Use
+`showRefreshButton()` on a registered dashboard when users need to refresh all
+contained metrics manually.

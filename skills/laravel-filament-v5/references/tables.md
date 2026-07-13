@@ -2,6 +2,8 @@
 
 Used inside `public static function table(Table $table): Table`.
 
+Signatures below are focused fragments. Add imports for the shown columns, filters, actions, icons, and `Filament\Tables\Table` in the target class.
+
 ## Columns (`Filament\Tables\Columns\*`)
 
 | Component | For | Minimal signature | 5.x doc |
@@ -21,11 +23,15 @@ Used inside `public static function table(Table $table): Table`.
 | `TrashedFilter` | Soft deletes | `TrashedFilter::make()` | [filters](https://filamentphp.com/docs/5.x/tables/filters/overview.md) |
 | `Filter` | Custom query | `Filter::make('published')->query(fn ($query) => $query->whereNotNull('published_at'))` | [filters](https://filamentphp.com/docs/5.x/tables/filters/overview.md) |
 
-## Empty state — never a custom "no records" div
+## Empty state — use the table API first
 
 The table renders an empty state automatically; customize it on the `Table` object ([doc](https://filamentphp.com/docs/5.x/tables/empty-state.md)):
 
 ```php
+use Filament\Actions\Action;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Table;
+
 $table
     ->emptyStateHeading('No posts yet')
     ->emptyStateDescription('Once you write your first post, it will appear here.')
@@ -43,4 +49,4 @@ $table
 - `->defaultSort('created_at', direction: 'desc')` — every list should have a deliberate default order.
 - `->searchable()` on key text columns; `->sortable()` where ordering is meaningful.
 - `->toggleable(isToggledHiddenByDefault: true)` for secondary columns — keeps the default view scannable (see `ui-composition.md`).
-- Enum-backed badge columns get color/label/icon from the enum's `HasColor`/`HasLabel`/`HasIcon` — never `->color(fn ...)` matching on raw strings.
+- For a reusable domain status, prefer a model-cast enum implementing `HasColor` / `HasLabel` / `HasIcon`, so tables, infolists, and forms share semantics. A documented `->color(fn (string $state) => ...)` callback remains valid for local or non-enum state; avoid duplicating the same mapping across surfaces.

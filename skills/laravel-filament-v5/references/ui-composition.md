@@ -20,10 +20,10 @@ Same order applies to infolists — Sections for scanning, Tabs for large read-o
 ## Visual hierarchy within a page
 
 - **Identity first**: the top section holds what identifies the record — name/title, status badge, owner, timestamps. A user landing on the page reads only this 80% of the time.
-- **Status is a badge, always** — `TextEntry::make('status')->badge()` with the enum providing color/icon. Color is the fastest signal on the page; that's why status never renders as plain text.
+- **Default finite workflow statuses to badges** — `TextEntry::make('status')->badge()` with an enum providing color/icon. Keep plain text when color or badge emphasis would imply semantics the value does not have.
 - **Collapse the long tail**: audit metadata, internal notes, raw payloads → `Section::make(...)->collapsible()->collapsed()`. Present but silent.
 - **Dense metadata blocks**: `->inlineLabel()` on entries (label beside value) reads better than stacked label-over-value for many short facts.
-- **Never render an empty hole**: `->placeholder('—')` on nullable entries; `EmptyState` / `->emptyStateHeading()` when a whole collection is empty — and give the empty state an action that leads to the fix ("Create the first X").
+- **Avoid unexplained empty space**: use `->placeholder('—')` for meaningful nullable values and `EmptyState` / `->emptyStateHeading()` for an empty collection. Add an action only when the user can and should resolve the state.
 
 ## Columns and width
 

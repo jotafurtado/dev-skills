@@ -2,6 +2,8 @@
 
 Apply to both forms AND infolists (same Schema system in v5). For *when* to use each one — hierarchy, page flow — see `references/ui-composition.md`; this file is the API inventory.
 
+Table signatures are focused fragments. Code blocks include the imports needed by the shown composition; add surrounding schema/class context.
+
 ## Structural components
 
 | Component | Minimal signature | 5.x doc |
@@ -29,9 +31,10 @@ Use these BEFORE reaching for a custom Blade view. ([primes doc](https://filamen
 
 ## Callout — notices, alerts, tips
 
-([callouts doc](https://filamentphp.com/docs/5.x/schemas/callouts.md)) Never build an alert box with a colored `<div>`:
+([callouts doc](https://filamentphp.com/docs/5.x/schemas/callouts.md)) Use `Callout` before hand-building an alert box with a colored `<div>`:
 
 ```php
+use Filament\Actions\Action;
 use Filament\Schemas\Components\Callout;
 
 Callout::make('Session expiring soon')
@@ -48,7 +51,9 @@ Callout::make('Session expiring soon')
 ([empty-states doc](https://filamentphp.com/docs/5.x/schemas/empty-states.md)) For tables, use the table's own `->emptyStateHeading()` API instead (see `references/tables.md`).
 
 ```php
+use Filament\Actions\Action;
 use Filament\Schemas\Components\EmptyState;
+use Filament\Support\Icons\Heroicon;
 
 EmptyState::make('No users yet')
     ->description('Get started by creating a new user.')

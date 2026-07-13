@@ -2,6 +2,8 @@
 
 Widgets are Livewire components. Three official templates cover almost every dashboard need — a custom widget view is the last resort, not the first. ([overview](https://filamentphp.com/docs/5.x/widgets/overview.md))
 
+Class examples omit the application namespace and are therefore fragments; retain the generated class context and add the displayed imports.
+
 ```bash
 php artisan make:filament-widget MyWidget            # asks: custom / chart / stats overview / table
 php artisan make:filament-widget StatsOverview --stats-overview
@@ -14,6 +16,7 @@ php artisan make:filament-widget LatestOrders --table
 ([stats-overview doc](https://filamentphp.com/docs/5.x/widgets/stats-overview.md))
 
 ```php
+use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -32,7 +35,7 @@ class StatsOverview extends BaseWidget
 }
 ```
 
-Note: the docs' own example uses the raw string `'heroicon-m-arrow-trending-up'` (the small "mini" variant) for `descriptionIcon()`. Using `Heroicon::ArrowTrendingUp` (the enum, per SKILL.md) is not a downgrade — Filament auto-resolves the `Heroicon` enum to the correctly-sized underlying icon for whatever context it's rendered in, so the enum form is both type-safe and produces the same result.
+For Heroicons in PHP, prefer the `Heroicon` enum so Filament selects the context-appropriate size. A string remains correct for installed third-party/custom icon sets and documented Blade icon-name attributes.
 
 Optional heading above the cards: `protected ?string $heading` / `$description`.
 

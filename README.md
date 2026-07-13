@@ -8,9 +8,9 @@ Each skill lives in its own folder under [`skills/`](./skills), with a `SKILL.md
 
 | Skill | Description | Install |
 |---|---|---|
-| [laravel-nova-5](./skills/laravel-nova-5) | Build Laravel Nova 5 admin panels — resources, fields, actions, filters, lenses, metrics, dashboards. | `npx skills add jotafurtado/dev-skills --skill laravel-nova-5` |
+| [laravel-nova-5](./skills/laravel-nova-5) | Build version-matched Laravel Nova 5 features with official documentation, progressive references, authorization, and verification. | `npx skills add jotafurtado/dev-skills --skill laravel-nova-5` |
 | [laravel-filament-v5](./skills/laravel-filament-v5) | Build Filament v5 admin panels with official components first — resources, infolists, forms, tables, actions, widgets, relation managers, testing, and UI composition. | `npx skills add jotafurtado/dev-skills --skill laravel-filament-v5` |
-| [prepare-commit](./skills/prepare-commit) | Prepare Git commits with Conventional Commits messages in Brazilian Portuguese and keep CHANGELOG.md up to date. | `npx skills add jotafurtado/dev-skills --skill prepare-commit` |
+| [prepare-commit](./skills/prepare-commit) | Prepare atomic Git commits with Conventional Commits, host-safe staging, project-aware language, and CHANGELOG.md maintenance. | `npx skills add jotafurtado/dev-skills --skill prepare-commit` |
 | [sdd-workflow](./skills/sdd-workflow) | Enforce a Spec-Driven Development pipeline (Requirements -> Design -> Tasks -> Grounded Execution) with versioned specs and phase-by-phase approval. | `npx skills add jotafurtado/dev-skills --skill sdd-workflow` |
 
 ## Install

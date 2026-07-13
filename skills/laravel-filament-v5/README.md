@@ -1,6 +1,6 @@
 # Laravel Filament v5
 
-AI agent skill that forces "official component first" behavior when building Filament v5 UIs. Instead of writing custom CSS/Blade for data presentation (JSON, key-value, colors, badges, images, icons, dates, money), the agent is anchored to enumerate Filament's official components — infolists, forms, tables, schemas, and actions — before reaching for markup. Data rendering is locked to official components; page composition stays free, guided by dedicated UI-composition patterns.
+AI agent skill that enforces "official component first" behavior when building Filament v5 UIs. Before writing custom CSS/Blade, the agent checks the documented component for the current surface—schema/infolist, form, table, action, widget, or page. When no official equivalent fits, it records the documentation checked and uses the smallest workaround while keeping page composition flexible.
 
 ## Install
 
@@ -18,6 +18,7 @@ php artisan boost:add-skill jotafurtado/dev-skills --skill laravel-filament-v5
 
 - Mandatory gate: classify the data primitive before writing custom markup
 - Quick map from data primitive → official component across infolist / form / table
+- Documented escape hatch when no component exists on the correct surface
 - Concrete anti-patterns (e.g. `<pre>` + CSS → `CodeEntry`, `<span>` + Tailwind → `badge()` + `HasColor` enum)
 - v5 API breaking changes vs v3/v4 (`Schema`, namespaces, `recordActions()`, `Filament\Actions\*`, etc.)
 - On-demand reference library: resources, infolists, forms, tables, layout/primes/callouts/empty states, actions, widgets & dashboards, relation managers, panel testing
@@ -28,7 +29,7 @@ php artisan boost:add-skill jotafurtado/dev-skills --skill laravel-filament-v5
 
 ```
 laravel-filament-v5/
-├── SKILL.md                        # Always loaded: gate, quick map, anti-patterns, v5 breaking changes, routing, fetch protocol
+├── SKILL.md                        # Entry point: gate, quick map, v5 changes, routing, fetch protocol
 └── references/                     # Loaded on demand per task
     ├── resources.md                # Resource anatomy: generation, navigation, getUrl(), authorization
     ├── infolists.md                # Read-only display entries
@@ -44,9 +45,13 @@ laravel-filament-v5/
 
 ## Requirements
 
-- PHP 8.3+
-- Laravel 12+
 - Filament 5.x
+- PHP 8.2+
+- Laravel 11.28+
+- Livewire 4.0+
+- Tailwind CSS 4.1+ for the current documented installation flow
+
+Sources: [Filament 5 installation](https://filamentphp.com/docs/5.x/introduction/installation.md) and [upgrade guide](https://filamentphp.com/docs/5.x/upgrade-guide.md).
 
 ## License
 

@@ -1,20 +1,50 @@
 # Infolists — read-only display (`Filament\Infolists\Components\*`)
 
-Used inside `public function infolist(Schema $schema): Schema` in View pages. Top-level is `$schema->components([...])`.
+Top-level configuration uses `$schema->components([...])`, but the method signature depends on its owner:
 
-This is memory, not documentation: minimal signature + link. If in doubt about a specific method, fetch the `.md` doc page — don't guess.
+In the Resource class, use a static method shared by its View page:
+
+```php
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Schema;
+
+public static function infolist(Schema $schema): Schema
+{
+    return $schema->components([
+        TextEntry::make('name'),
+    ]);
+}
+```
+
+In a custom `ViewRecord` page, use an instance method for the page-specific infolist:
+
+```php
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Schema;
+
+public function infolist(Schema $schema): Schema
+{
+    return $schema->components([
+        TextEntry::make('name'),
+    ]);
+}
+```
+
+Do not make the Resource method non-static or the custom View page method static. See the official [Viewing records](https://filamentphp.com/docs/5.x/resources/viewing-records.md) examples.
+
+The remaining snippets are focused fragments. If in doubt about a method, fetch its `.md` page instead of guessing.
 
 | Component | For | Minimal signature | 5.x doc |
 |---|---|---|---|
 | `TextEntry` | Text, date, money, badge, lists | `TextEntry::make('title')->badge()` · `->dateTime()` · `->money('USD')` · `->markdown()` · `->listWithLineBreaks()` | [text-entry](https://filamentphp.com/docs/5.x/infolists/text-entry.md) |
-| `CodeEntry`¹ | Code, JSON, payloads, logs | `CodeEntry::make('payload')->grammar(Grammar::Json)->copyable()` | [code-entry](https://filamentphp.com/docs/5.x/infolists/code-entry.md) |
+| `CodeEntry`¹ | Code, JSON, payloads, logs | After `composer require phiki/phiki`: `CodeEntry::make('payload')->grammar(Grammar::Json)->copyable()` | [code-entry](https://filamentphp.com/docs/5.x/infolists/code-entry.md) |
 | `KeyValueEntry` | Associative array / metadata | `KeyValueEntry::make('meta')` | [key-value-entry](https://filamentphp.com/docs/5.x/infolists/key-value-entry.md) |
 | `ColorEntry` | Color swatch | `ColorEntry::make('color')` | [color-entry](https://filamentphp.com/docs/5.x/infolists/color-entry.md) |
 | `ImageEntry` | Images, avatars | `ImageEntry::make('avatar')->circular()` · `->stacked()` | [image-entry](https://filamentphp.com/docs/5.x/infolists/image-entry.md) |
 | `IconEntry` | Icon, visual boolean | `IconEntry::make('is_active')->boolean()` — omit `->boolean()` if the attribute is already cast `bool` on the model, Filament detects it automatically | [icon-entry](https://filamentphp.com/docs/5.x/infolists/icon-entry.md) |
 | `RepeatableEntry` | Repeated collections/relations | `RepeatableEntry::make('comments')->schema([...])` | [repeatable-entry](https://filamentphp.com/docs/5.x/infolists/repeatable-entry.md) |
 
-¹ `CodeEntry` requires a separate package: `composer require phiki/phiki` — Filament doesn't bundle it, so you can pick which Phiki major version to use. If a project errors on `CodeEntry`/`Grammar` with a class-not-found, this is why.
+¹ `CodeEntry` requires `composer require phiki/phiki` plus `use Phiki\Grammar\Grammar;`. Filament does not bundle Phiki, allowing the project to choose its major version.
 
 ## Frequently useful `TextEntry` modifiers
 
@@ -29,4 +59,4 @@ This is memory, not documentation: minimal signature + link. If in doubt about a
 
 ## Escape hatch
 
-`ViewEntry::make('...')->view('...')` exists for genuinely custom visualizations (e.g. an interactive diagram). Using it to render a primitive from the quick map is a gate violation.
+`ViewEntry::make('...')->view('...')` exists for genuinely custom visualizations (for example, an interactive diagram). Use it only after checking that no documented entry on this surface expresses the requirement; record that gap near the implementation or in the change summary.

@@ -2,6 +2,8 @@
 
 A resource is a static class describing how a model is managed in the panel. This file covers the resource's own anatomy; the form/table content it delegates to is `references/forms.md` / `references/tables.md`. ([overview](https://filamentphp.com/docs/5.x/resources/overview.md))
 
+Snippets are focused fragments unless a full class is shown; preserve the surrounding namespace/class and add the displayed imports.
+
 ## Generating a resource
 
 ```bash
@@ -32,6 +34,8 @@ Resources/Customers/
 // CustomerResource.php
 use App\Filament\Resources\Customers\Schemas\CustomerForm;
 use App\Filament\Resources\Customers\Tables\CustomersTable;
+use Filament\Schemas\Schema;
+use Filament\Tables\Table;
 
 public static function form(Schema $schema): Schema
 {
@@ -48,6 +52,38 @@ Keep this delegation for any resource with more than a handful of fields/columns
 
 **Simple (modal) resources** (`--simple`) get one "Manage" page (List + create/edit/delete modals) and have no `getRelations()` — relation managers only attach to Edit/View pages, which simple resources don't have.
 
+## Resource infolist vs custom View page infolist
+
+Define the shared View-page infolist as a **static method on the Resource**:
+
+```php
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Schema;
+
+public static function infolist(Schema $schema): Schema
+{
+    return $schema->components([
+        TextEntry::make('name'),
+    ]);
+}
+```
+
+Define a page-specific infolist as an **instance method on the custom `ViewRecord` page**:
+
+```php
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Schema;
+
+public function infolist(Schema $schema): Schema
+{
+    return $schema->components([
+        TextEntry::make('name'),
+    ]);
+}
+```
+
+The official [Viewing records](https://filamentphp.com/docs/5.x/resources/viewing-records.md) page documents both contexts.
+
 ## Record identity
 
 ```php
@@ -62,6 +98,8 @@ protected static ?string $pluralModelLabel = 'customers';
 
 ```php
 use BackedEnum;
+use Filament\Support\Icons\Heroicon;
+use UnitEnum;
 
 protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserGroup; // Heroicon enum, per SKILL.md
 protected static ?string $navigationLabel = 'Customers';   // auto-derived from plural label if omitted
@@ -86,13 +124,20 @@ Never `route('filament.admin.resources.customers.index')` — the slug/route-nam
 ## Conditional form fields by operation
 
 ```php
+use Filament\Forms\Components\TextInput;
 use Filament\Support\Enums\Operation;
 
 TextInput::make('password')->password()->required()->hiddenOn(Operation::Edit);
 TextInput::make('password')->password()->required()->visibleOn(Operation::Create);
 ```
 
-Prefer `hiddenOn()`/`visibleOn()` over manually comparing an injected `$operation` string — same underlying `Operation` enum from the v5 breaking changes list in SKILL.md.
+Prefer `hiddenOn()` / `visibleOn()` over a custom callback when those methods express the condition.
+
+Hierarchy:
+
+1. Prefer dedicated `hiddenOn()` / `visibleOn()` / `disabledOn()` methods.
+2. In Resource configuration, use `Operation` enum cases where accepted, as in the official Resource overview.
+3. In utility callbacks, inject `string $operation` and compare against the documented values `'create'`, `'edit'`, or `'view'`.
 
 ## Authorization
 
@@ -116,6 +161,9 @@ protected static bool $shouldSkipAuthorization = true; // opt out entirely — r
 ## Query scoping
 
 ```php
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 public static function getEloquentQuery(): Builder
 {
     return parent::getEloquentQuery()

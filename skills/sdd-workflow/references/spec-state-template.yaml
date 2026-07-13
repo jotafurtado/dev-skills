@@ -1,0 +1,129 @@
+# Portable workflow state for sdd-workflow.
+# This file is an extension of this skill, not an official Kiro artifact.
+schema_version: 1
+
+# Immutable after the spec directory is created.
+sequence: 1
+slug: example-spec
+spec_id: 001-example-spec
+spec_root: sdd-specs/001-example-spec
+
+# type: feature | bugfix
+type: feature
+
+# mode:
+# requirements-first | design-first-hld | design-first-lld | quick-plan | bugfix
+mode: requirements-first
+
+# current_phase:
+# requirements | bugfix | design | tasks | execution | convergence | complete
+current_phase: requirements
+
+# status:
+# draft | awaiting-approval | ready | in-progress | blocked | complete
+status: draft
+
+created_at: null
+updated_at: null
+
+# Prefer the output of `git hash-object <artifact>` in Git repositories.
+# Store a hash whenever an artifact becomes approved, generated, or ready, and
+# update it after every agent-controlled task progress/evidence edit.
+# Other deterministic whole-file algorithms are allowed when recorded here.
+hash_algorithm: git-hash-object
+
+artifacts:
+  requirements:
+    path: requirements.md
+    applicable: true
+    revision: 1
+    status: draft
+    depends_on: []
+    content_hash: null
+    approval:
+      required: true
+      status: pending
+      approved_by: null
+      approved_at: null
+
+  bugfix:
+    path: bugfix.md
+    applicable: false
+    revision: 0
+    status: not-applicable
+    depends_on: []
+    content_hash: null
+    approval:
+      required: false
+      status: not-required
+      approved_by: null
+      approved_at: null
+
+  design:
+    path: design.md
+    applicable: true
+    revision: 0
+    status: missing
+    depends_on:
+      - requirements
+    content_hash: null
+    approval:
+      required: true
+      status: pending
+      approved_by: null
+      approved_at: null
+
+  tasks:
+    path: tasks.md
+    applicable: true
+    revision: 0
+    status: missing
+    depends_on:
+      - design
+    content_hash: null
+    approval:
+      required: false
+      status: not-required
+      approved_by: null
+      approved_at: null
+
+# authorization: pending | granted | revoked
+# Source-code execution still requires current user authorization and host
+# permission even when the spec artifacts are ready.
+execution:
+  authorization: pending
+  authorized_at: null
+  active_tasks: []
+  last_convergence_at: null
+  last_convergence_result: null
+
+# Mode adjustments when copying this template:
+# - requirements-first: current_phase = requirements.
+# - design-first-hld / design-first-lld:
+#   design.depends_on = []; requirements.depends_on = [design];
+#   tasks.depends_on = [requirements]; current_phase = design.
+# - quick-plan:
+#   requirements/design approval.required = false;
+#   requirements/design approval.status = not-required;
+#   mark each artifact generated after writing it; tasks still depends on
+#   design; current_phase starts at requirements, and source execution remains
+#   separately authorized.
+# - bugfix:
+#   requirements.applicable = false; bugfix.applicable = true;
+#   design.depends_on = [bugfix]; tasks.depends_on = [design];
+#   current_phase = bugfix.
+#
+# Artifact status values:
+# missing | draft | awaiting-approval | approved | generated | stale | ready |
+# in-progress | complete | not-applicable
+# Approval status values: pending | approved | not-required
+# Convergence result values: passed | failed | null
+# Use ISO 8601 timestamps. First creation uses revision 1; missing/not-applicable
+# artifacts use revision 0. Increment revision for every accepted content change.
+#
+# Gated transition:
+# draft -> awaiting-approval -> approved
+# Quick Plan transition: draft -> generated
+# Tasks transition: missing -> draft -> ready -> in-progress -> complete
+# Invalidated descendants become stale, keep their file/revision/hash, and reset
+# required approval to pending until reconciled.

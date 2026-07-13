@@ -1,33 +1,104 @@
-# Requirements / BDD Template (Reference)
+# Feature Requirements Template
 
-The Requirements artifact (Phase 1) must follow a formal structure, limiting scope to tangible business rules. It must adopt Ubiquitous Language and Acceptance Criteria based on "SHALL/WHEN/IF".
+Use for `requirements.md` in Requirements-First, Design-First, and Quick Plan
+feature specs. The contract is semantic: capture what and why without embedding
+implementation decisions that belong in `design.md`.
 
-## Mandatory Structure
+Kiro uses EARS-style behavior such as:
 
-### 1. Introduction
+```text
+WHEN [condition or event]
+THE SYSTEM SHALL [expected behavior]
+```
 
-Brief summary of the module or feature's purpose, its vital integrations, and macro scope.
+Use the user's language while preserving stable IDs.
 
-### 2. Glossary
+## Structure
 
-Definition of the domain's key terms, to eliminate ambiguity.
+```markdown
+# Requirements: [Spec title]
 
-### 3. Business Requirements (Epics / Details)
+## 1. Summary
 
-For each major function, create a block containing the User Story and its Criteria.
+[Purpose, user/business value, and concise context.]
 
-#### Example Structure:
+## 2. Scope
 
-### Requirement 1: [Requirement Name]
+### In scope
 
-**User Story:** As a [Actor], I want [Action / Feature], so that [Business Goal — Value].
+- [Behavior or outcome included.]
 
-#### Acceptance Criteria
+### Out of scope
 
-Use formal grammar and binding, affirmative sentences. Make systemic conditions explicit to guarantee precision and testability (with a focus on Property-Based Testing whenever possible).
+- [Explicit exclusion that prevents scope drift.]
 
-1. **WHEN** [context/action], **THE** [System/Service] **SHALL** [required action / calculation].
-2. **IF** [edge case/exception], **THEN THE** [System/Service] **SHALL** [alternative path].
-3. **FOR ALL** [elements of a list/tree], the [result] **SHALL** [guaranteed universal behavior].
+## 3. Context and dependencies
 
-> **SDD Tip:** Each acceptance criterion of a requirement must later be traceable to a test-execution Task.
+- **Actors:** [Users or systems.]
+- **Dependencies:** [External services, existing capabilities, or none.]
+- **Assumptions:** [Assumption that must be validated.]
+- **Constraints:** [Regulatory, compatibility, performance, or operational.]
+
+## 4. Glossary
+
+[Include only when domain terms are ambiguous. Omit the section otherwise.]
+
+## 5. Functional requirements
+
+### REQ-001 — [Requirement name]
+
+**User story:** As a [actor], I want [capability], so that [value].
+
+#### Acceptance criteria
+
+- **AC-001:** **WHEN** [condition/event], **THE SYSTEM SHALL** [observable behavior].
+- **AC-002:** **IF** [exception/edge case], **THEN THE SYSTEM SHALL** [observable alternative].
+
+### REQ-002 — [Requirement name]
+
+[Repeat with globally unique AC IDs.]
+
+## 6. Non-functional requirements
+
+- **NFR-001 — [Quality]:** [Measurable security, performance, reliability,
+  accessibility, compatibility, privacy, or operability requirement.]
+
+[Omit this section only when no non-functional requirement is material.]
+
+## 7. Edge cases
+
+- **EDGE-001:** [Boundary or unusual scenario and expected behavior.]
+
+## 8. Open questions
+
+- **Q-001:** [Unresolved question, owner, and blocking/non-blocking status.]
+
+[Write "None" when all questions are resolved.]
+```
+
+## Authoring rules
+
+- Keep `REQ-*`, `AC-*`, `NFR-*`, `EDGE-*`, and `Q-*` IDs stable after creation.
+- Acceptance criteria describe externally observable behavior and must be
+  testable. Avoid class names, database tables, libraries, or implementation
+  steps unless they are an explicit constraint.
+- EARS is required for event/condition-driven system behavior. Plain declarative
+  statements are acceptable for static constraints and non-functional
+  requirements.
+- Use universal language such as `FOR ALL` only when the behavior is genuinely
+  invariant across an input domain. That may become a correctness property in
+  `design.md`, but it does not automatically require property-based testing.
+- Resolve blocking open questions before approval.
+- Every acceptance criterion and material NFR must be referenced by at least one
+  task and one verification method before execution completes.
+
+## Optional requirements analysis
+
+For complex, regulated, security-sensitive, or Quick Plan work, analyze the
+draft before approval:
+
+1. Find ambiguous terms and unmeasurable statements.
+2. Find conflicting constraints or acceptance criteria.
+3. Identify undeclared assumptions and missing edge cases.
+4. Confirm scope exclusions and non-functional requirements.
+5. Update the artifact transparently and increment its revision in `spec.yaml`.

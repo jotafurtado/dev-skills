@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Build a Filament 5 OrderResource with a status filter and bulk approve action.",
+    "should_trigger": true
+  },
+  {
+    "query": "My Filament relation manager attach modal is exposing records from another tenant. Fix it.",
+    "should_trigger": true
+  },
+  {
+    "query": "Migrate these Filament\\Tables\\Actions imports and bulkActions calls to v5.",
+    "should_trigger": true
+  },
+  {
+    "query": "Review the FileUpload fields in our Filament panel for private-storage security.",
+    "should_trigger": true
+  },
+  {
+    "query": "Create a StatsOverviewWidget and chart widgets for the admin Filament dashboard.",
+    "should_trigger": true
+  },
+  {
+    "query": "How should I test a Filament ViewRecord infolist and its actions with Pest?",
+    "should_trigger": true
+  },
+  {
+    "query": "Add ImportAction and ExportAction to our invoice resource and keep tenant isolation.",
+    "should_trigger": true
+  },
+  {
+    "query": "The Filament v5 action modal rejects form(); what is the current API?",
+    "should_trigger": true
+  },
+  {
+    "query": "Polish this Filament settings page while retaining our panel theme.",
+    "should_trigger": true
+  },
+  {
+    "query": "Configure a second Filament panel with clusters and global search.",
+    "should_trigger": true
+  },
+  {
+    "query": "Build a generic Laravel admin controller and Blade index page.",
+    "should_trigger": false
+  },
+  {
+    "query": "Add a status badge to this React dashboard.",
+    "should_trigger": false
+  },
+  {
+    "query": "Review my Laravel Nova 5 User resource.",
+    "should_trigger": false
+  },
+  {
+    "query": "Create a responsive Tailwind table with row actions.",
+    "should_trigger": false
+  },
+  {
+    "query": "Write a Livewire component for editing a customer profile.",
+    "should_trigger": false
+  },
+  {
+    "query": "Design an admin panel for our SaaS product.",
+    "should_trigger": false
+  },
+  {
+    "query": "Explain Laravel model policies and gates in general.",
+    "should_trigger": false
+  },
+  {
+    "query": "Generate a PHP enum with labels and colors.",
+    "should_trigger": false
+  },
+  {
+    "query": "Our dashboard has too many widgets; suggest a better information architecture.",
+    "should_trigger": false
+  },
+  {
+    "query": "Make this HTML form accessible and improve its error messages.",
+    "should_trigger": false
+  }
+]

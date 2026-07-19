@@ -35,9 +35,9 @@ public static function getRelations(): array
 
 ## Behavior notes
 
-- **Read-only mode**: on the View page, mutating actions are hidden automatically. Override `public function isReadOnly(): bool { return false; }` to allow edits there, or disable globally with `$panel->readOnlyRelationManagersOnResourceViewPagesByDefault(false)`.
+- **Read-only mode**: on the View page, mutating actions are hidden automatically. Override `public function isReadOnly(): bool { return false; }` to allow edits there, or disable globally with `$panel->readOnlyRelationManagersOnResourceViewPagesByDefault(false)`. This is UI behavior, not a replacement for policies.
 - **Pivot attributes** (`BelongsToMany` / `MorphToMany`): add pivot columns to the table and pivot fields to the form like normal fields — but they MUST be listed in `->withPivot()` on **both** sides of the relationship.
-- **Attach/detach vs create**: `AttachAction` links existing records (with `->preloadRecordSelect()`, `->recordSelectSearchColumns([...])`, `->multiple()`); `CreateAction` makes new ones. `AssociateAction`/`DissociateAction` are the `HasMany` equivalents.
+- **Attach/detach vs create**: `AttachAction` links existing records (with `->preloadRecordSelect()`, `->recordSelectSearchColumns([...])`, `->multiple()`); `CreateAction` makes new ones. `AssociateAction`/`DissociateAction` are the `HasMany` equivalents. Scope eligible records with `recordSelectOptionsQuery()` and authorize the mutation; a `tableSelect()` filter alone is not a security boundary.
 - **Unconventional inverse names**: `$table->inverseRelationship('section')` when the inverse doesn't follow Laravel naming.
 - The whole relation manager is a standard table — every feature in `references/tables.md` applies.
-- After changing one, follow `references/testing.md`: assert the host Edit/View page renders the manager, then load it directly with `ownerRecord` and `pageClass`.
+- Read `references/security.md` for relationship and tenancy boundaries. After changing a manager, follow `references/testing.md`: assert the host Edit/View page renders it, then load it directly with `ownerRecord` and `pageClass`, including denied and cross-tenant cases when applicable.

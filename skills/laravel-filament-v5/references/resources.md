@@ -4,6 +4,13 @@ A resource is a static class describing how a model is managed in the panel. Thi
 
 Snippets are focused fragments unless a full class is shown; preserve the surrounding namespace/class and add the displayed imports.
 
+## On this page
+
+- Generation, generated structure, and extracted component classes
+- Resource versus page-specific infolists
+- Record identity, navigation, and URL generation
+- Operation-aware fields, authorization, and query scoping
+
 ## Generating a resource
 
 ```bash
@@ -276,6 +283,8 @@ Filament observes standard Laravel model policies automatically — no extra wir
 protected static bool $shouldSkipAuthorization = true; // opt out entirely — rare, justify it in a comment
 ```
 
+Custom actions/pages and inline-editable columns have separate authorization responsibilities. Read `references/security.md`; visibility and navigation checks are not substitutes for server-side authorization.
+
 ## Query scoping
 
 ```php
@@ -288,3 +297,5 @@ public static function getEloquentQuery(): Builder
         ->withoutGlobalScopes([SoftDeletingScope::class]); // only if you deliberately need scoped-out records
 }
 ```
+
+In a tenant-aware panel, do not remove global scopes indiscriminately: `withoutGlobalScopes()` can also remove tenancy protection. Prefer naming only the scope that must be removed and add cross-tenant tests; see `references/security.md`.

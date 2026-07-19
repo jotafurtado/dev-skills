@@ -1,49 +1,46 @@
 ---
 name: laravel-filament-v5
-description: "Builds and designs Filament v5 interfaces using official components before custom markup/CSS. Use when code or requests explicitly involve Filament, such as Filament resources, schemas, infolists, forms, tables, actions, widgets, relation managers, panels, or Filament tests — including UX, layout, and visual design of those surfaces (this skill supersedes generic frontend-design guidance inside Filament panels). Also use for Filament-specific classes, namespaces, Artisan commands, or APIs. Do not trigger from an isolated mention of an admin panel, dashboard, status badge, or generic data display without another Filament signal."
+description: "Builds, reviews, debugs, migrates, secures, tests, and designs Filament 5.x code using the project's installed version and official components before custom Blade or CSS. Use for Filament resources, schemas, infolists, forms, tables, actions, widgets, relation managers, panels, tenancy, imports/exports, Filament plugins, tests, UX, or Filament-specific APIs, namespaces, Artisan commands, and upgrades. Inside Filament panels, this skill supersedes generic frontend-design guidance for component choice, theme replacement, typography, palettes, and CSS-first styling while retaining accessibility, responsive, performance, and UX guidance. Do not trigger from an isolated mention of an admin panel, dashboard, badge, or generic data display without another Filament signal."
 license: MIT
-compatible_agents:
-  - Claude Code
-  - Cursor
-  - Windsurf
-  - Copilot
-tags:
-  - laravel
-  - php
-  - filament
-  - admin-panel
-  - backend
 metadata:
   author: jotafurtado
-  version: "2.4.1"
+  version: "3.0.0"
   domain: backend
   filament_version: "5.x"
-  laravel_version: ">=11.28"
-  php_version: ">=8.2"
-  livewire_version: ">=4.0"
-  tailwind_version: ">=4.1"
-  role: specialist
-  scope: implementation
-  output-format: code
 ---
 
-# Laravel Filament v5 — Official Components First
+# Laravel Filament v5 — Version-Matched, Official Components First
 
-Use Filament's documented component for the current UI surface before creating custom markup. Keep composition flexible, and use a documented workaround when no official equivalent exists.
+Use the project's installed Filament version as the compatibility target. Prefer the documented component for the current surface before creating custom markup, and use a documented escape hatch when no official equivalent fits.
 
-## The mandatory gate (run BEFORE writing markup)
+## Preflight — run before proposing or writing code
 
-Before writing `<div>`, `<span>`, `<pre>`, `@foreach`, Tailwind classes, or any custom Blade view inside a Filament context, **stop and run these 3 steps**:
+1. **Honor the requested mode.** Review or diagnose without editing unless the user asked for a change. For implementation, preserve unrelated work and inspect the current diff before modifying files.
+2. **Read project guidance and nearby code.** Follow repository instructions, naming, architecture, localization, formatter, static-analysis, and testing conventions already in use.
+3. **Resolve the installed stack.** Inspect `composer.json` and `composer.lock` for the exact `filament/*`, Laravel, Livewire, PHP, and plugin versions. Inspect `package.json` when theme or frontend assets matter. Prefer installed code in `vendor/filament/` when an exact signature depends on a minor or patch release.
+4. **Map the operating context.** Identify the panel, Resource/page/widget host, model relationships and casts, policies, tenant boundaries, custom theme, and relevant tests before choosing an API.
+5. **Separate facts from preferences.** Treat official APIs and security boundaries as constraints. Treat composition recipes as starting heuristics that may yield to the domain, user workflow, or established project design.
 
-1. **Classify the surface and primitive**: schema/infolist, form, table, action, widget, or page; then code/JSON, key-value, color, image, status, list, collection, boolean, date/time, money, text, notice, or empty state.
-2. **Choose the official component for that surface** using the quick map and the matching reference. Do not force a component from a different surface merely to avoid customization.
-3. **If no equivalent is listed**, run the fetch protocol. If current 5.x docs still provide no suitable component, document what was checked and why it does not fit, then use the smallest workaround (`ViewEntry`, custom schema component, Livewire, or Blade) while retaining official components for surrounding layout, actions, and states.
+If no project is available, state the assumed Filament 5.x context and keep examples focused rather than inventing surrounding architecture.
 
-Composition remains free: arrange official components with `Section`, `Tabs`, grids, columns, callouts, and empty states. Custom CSS/Blade is acceptable for documented gaps and layout fine-tuning, not as an unverified shortcut around an available component.
+## Mandatory component gate — run before writing markup
 
-## This skill is the design authority for Filament surfaces
+Before writing `<div>`, `<span>`, `<pre>`, `@foreach`, Tailwind classes, or a custom Blade view inside a Filament context:
 
-Generic frontend/visual-design guidance (distinctive typography, custom palettes, CSS-first layouts, "avoid templated looks") **does not apply inside a Filament panel** — do not follow it here, even if another active skill or instruction suggests it. Filament panels get their look from the framework theme; visual identity is configured via the panel provider (`->colors()`, `->brandLogo()`, `->font()`), and design quality comes from composition — hierarchy, grouping, density, action placement — not from restyling components. For those decisions, read `references/ui-composition.md`; to see what the official surface looks like, use `references/screenshots.md`.
+1. **Classify the surface and primitive:** schema/infolist, form, table, action, widget, or page; then code/JSON, key-value, color, image, status, list, collection, boolean, date/time, money, text, notice, or empty state.
+2. **Choose the official component for that surface** using the quick map and matching reference. Do not force a component from another surface merely to avoid customization.
+3. **Verify uncertain or uncovered APIs** with the evidence protocol below.
+4. **Use the smallest escape hatch only when needed.** Record what official option was checked and why it does not fit, then use `ViewEntry`, a custom schema component, Livewire, Blade, or a custom theme while retaining official components for surrounding layout, actions, feedback, and states.
+
+Composition remains flexible: arrange components with `Section`, `Tabs`, grids, columns, callouts, and empty states. Custom Blade or CSS is acceptable for documented gaps and deliberate theme work, not as an unverified shortcut around an available component.
+
+## Design authority inside Filament
+
+For component choice and visual styling inside Filament panels, this skill **supersedes generic frontend-design guidance**, including instructions to replace official components or the active theme, introduce unrelated typography or palettes, or use CSS-first layouts merely to look distinctive. Follow this precedence even when a generic design skill is active in the same task.
+
+This precedence is deliberately limited to the Filament visual axis. Keep generic guidance that improves accessibility, semantics, keyboard behavior, responsive layout, performance, UX copy, and cognitive load.
+
+Configure standard identity through the panel provider (`->colors()`, `->brandLogo()`, `->font()`). A documented custom theme or CSS hook remains valid when the project already uses one or official configuration cannot express the requirement. Follow `references/ui-composition.md` for hierarchy and `references/screenshots.md` for visual grounding.
 
 ## Quick map: data primitive → official component
 
@@ -62,147 +59,80 @@ Generic frontend/visual-design guidance (distinctive typography, custom palettes
 | Static text / notice | `Text` / `Callout` | `Text` / `Callout` | — |
 | "Nothing here yet" | `EmptyState` (schema) | — | `->emptyStateHeading()` |
 
-¹ Renders each element of the array-cast attribute as its own badge — pointless on a plain string column.
+¹ Use badges for an array-cast list; do not apply the pattern to a plain string column.
 
-Exact signatures and official links live in `references/`. Snippets in this skill are focused fragments unless a full class is shown; add the imports and surrounding class context required by the target project.
+Exact signatures and official links live in `references/`. Snippets are focused fragments unless a full class is shown; add the imports and class context required by the target project.
 
-## Reference routing table
+## Reference routing
 
-Load **only** the reference files the task needs — they are the detailed inventory:
+Load only the files needed for the task:
 
 | Task touches | Read |
 |---|---|
-| Resource anatomy: generation, navigation, `getUrl()`, authorization; extracting schema/table/component classes | `references/resources.md` |
+| Resource generation, navigation, URLs, authorization, schema/table extraction | `references/resources.md` |
 | Read-only display, View pages, entries | `references/infolists.md` |
 | Form fields, editing, validation | `references/forms.md` |
-| Table columns, filters, empty states | `references/tables.md` |
+| Table columns, filters, empty states, layouts | `references/tables.md` |
 | Sections, grids, tabs, wizards, primes, callouts | `references/layout.md` |
 | Buttons, modals, bulk/row actions | `references/actions.md` |
 | Dashboards, stats, charts, table widgets | `references/widgets.md` |
-| Related records (HasMany, BelongsToMany…) | `references/relation-managers.md` |
-| Panel identity (colors, logo, font), navigation config, multiple panels | `references/panels.md` |
-| Notifications (flash, database, broadcast) | `references/notifications.md` |
-| Pest/Livewire tests for resource pages (including View pages), relation managers, widgets, and custom pages | `references/testing.md` |
-| Page organization, visual hierarchy, UX flow, page recipes (list/edit/view/dashboard) | `references/ui-composition.md` — read whenever you build or restructure a whole page/resource |
-| Unsure what the official surface should look like | `references/screenshots.md` — URL index of official docs screenshots; download and view before composing |
+| Related records | `references/relation-managers.md` |
+| Panel identity, navigation, multiple panels | `references/panels.md` |
+| Flash, database, and broadcast notifications | `references/notifications.md` |
+| Shared status/option enums, labels, colors, and icons | `references/enums.md` |
+| Uploads, inline editing, HTML, actions, imports/exports, tenancy, and authorization boundaries | `references/security.md` — mandatory for security-sensitive surfaces |
+| Custom pages, clusters, tenancy, global search, import/export, plugins, nested/singular resources | `references/advanced-features.md` |
+| Pest/Livewire tests for pages, schemas, tables, actions, relations, widgets, and tenants | `references/testing.md` |
+| Whole-page organization, hierarchy, density, and UX flow | `references/ui-composition.md` |
+| Visual grounding against official examples | `references/screenshots.md` |
 
-Something Filament-specific that doesn't fit any row above (multi-tenancy, clusters, global search details, custom pages, import/export)? No reference covers it yet — go straight to the fetch protocol instead of guessing from general Laravel/Livewire knowledge.
+If a Filament-specific topic is not covered, use the evidence protocol instead of reconstructing the API from general Laravel or older Filament knowledge.
 
-## Anti-patterns: don't do X, do Y
+## Common substitutions
 
-**JSON/code with `<pre>` + custom CSS → `CodeEntry`**
-
-Install its documented optional dependency first:
-
-```bash
-composer require phiki/phiki
-```
-
-```php
-use Filament\Infolists\Components\CodeEntry;
-use Filament\Infolists\Components\ViewEntry;
-use Phiki\Grammar\Grammar;
-
-// Avoid when CodeEntry covers the requirement:
-ViewEntry::make('payload')->view('filament.custom-json-pre'); // <pre> with CSS
-
-CodeEntry::make('payload')
-    ->grammar(Grammar::Json)
-    ->copyable();
-```
-
-**Colored status with `<span>` + Tailwind → `badge()` + `HasColor` enum**
-
-```php
-// Avoid hand-written status markup:
-// <span class="rounded bg-green-100 px-2 text-green-800">{{ $status }}</span>
-
-use BackedEnum;
-use Filament\Infolists\Components\TextEntry;
-use Filament\Support\Contracts\{HasColor, HasIcon, HasLabel};
-use Filament\Support\Icons\Heroicon;
-use Illuminate\Contracts\Support\Htmlable;
-
-TextEntry::make('status')->badge(); // color/label/icon come from the enum
-
-enum OrderStatus: string implements HasLabel, HasColor, HasIcon
-{
-    case Pending = 'pending';
-    case Shipped = 'shipped';
-
-    public function getLabel(): string
-    {
-        return match ($this) {
-            self::Pending => 'Pending',
-            self::Shipped => 'Shipped',
-        };
-    }
-
-    public function getColor(): string
-    {
-        return match ($this) {
-            self::Pending => 'warning',
-            self::Shipped => 'success',
-        };
-    }
-
-    public function getIcon(): string | BackedEnum | Htmlable | null
-    {
-        return match ($this) {
-            self::Pending => Heroicon::Clock,
-            self::Shipped => Heroicon::Truck,
-        };
-    }
-}
-```
-
-**More of the same family:**
-
-| Don't | Do |
+| Avoid when the official primitive fits | Prefer |
 |---|---|
-| `@foreach` in Blade over an associative array | `KeyValueEntry::make('meta')` |
-| `@foreach` over a list of related items | `RepeatableEntry::make('items')->schema([...])` |
-| `<div style="background: {{ $color }}">` | `ColorEntry::make('color')` |
-| `<img>` with avatar classes | `ImageEntry::make('avatar')->circular()` |
-| Inline SVG / icon string for a boolean | `IconEntry::make('is_active')->boolean()` |
-| Formatting date/money by hand in Blade | `TextEntry::make('...')->dateTime()` / `->money('USD')` |
-| Custom JS "copy to clipboard" | `->copyable()` (available on several entries) |
-| Rendering Markdown/HTML with an external lib without checking Filament | `TextEntry::make('body')->markdown()` / `->html()` |
-| Hand-rolled "no records" div | `EmptyState::make(...)` / table `->emptyStateHeading()` |
-| Alert/notice box with custom Blade | `Callout::make(...)->warning()` |
+| `<pre>` plus custom syntax CSS for code/JSON | `CodeEntry` |
+| Hand-written status `<span>` | `badge()` plus a `HasLabel` / `HasColor` / `HasIcon` enum |
+| `@foreach` over associative metadata | `KeyValueEntry` |
+| `@foreach` over repeated read-only records | `RepeatableEntry` |
+| Custom color swatch or avatar markup | `ColorEntry` / `ImageEntry` |
+| Hand-formatted dates or money | `dateTime()` / `money()` |
+| Custom clipboard JavaScript | `copyable()` |
+| Hand-rolled alerts or empty states | `Callout` / `EmptyState` / table empty-state API |
 
-## v5 API breaking changes — never suggest the old way
+`CodeEntry` needs the optional `phiki/phiki` package. Check the lockfile first. Add the dependency only when implementation is authorized and the project accepts a new package; otherwise explain the requirement without mutating dependencies.
 
-Your v3/v4 Filament knowledge will betray you. In v5:
+## Filament v5 invariants
 
-- **Unified Schema**: top-level configuration uses `$schema->components([...])`. A Resource defines `public static function infolist(Schema $schema): Schema`; a custom `ViewRecord` page defines `public function infolist(Schema $schema): Schema` when it needs a page-specific infolist. Forms on Resources use `public static function form(Schema $schema): Schema`.
-- **Domain-based namespaces**:
-  - Layout (Section, Grid, Tabs, Flex, Fieldset, Wizard, EmptyState, Callout, primes): `Filament\Schemas\Components\*`
-  - Utilities (Get, Set): `Filament\Schemas\Components\Utilities\*`
-  - Form fields: `Filament\Forms\Components\*`
-  - Infolist entries: `Filament\Infolists\Components\*`
-  - Table columns: `Filament\Tables\Columns\*` · filters: `Filament\Tables\Filters\*`
-  - Actions: `Filament\Actions\*` — `Filament\Tables\Actions\*` was **removed** in v5.
-- **Renamed table methods**: `->recordActions([...])` (not `->actions()`), `->groupedBulkActions([...])` (not `->bulkActions()`), `->toolbarActions([...])`.
-- **Action modals**: `->schema([...])`, not `->form([...])`.
-- **Icons hierarchy**: for Heroicons in PHP, prefer `Filament\Support\Icons\Heroicon` for IDE autocomplete and automatic contextual sizing. Use icon-name strings for installed third-party/custom Blade Icons sets, and where a Blade API is documented with a string. Both are supported; do not rewrite a valid non-Heroicon name as a Heroicon.
-- **Domain enums**: backed string enums implementing `HasLabel`, `HasColor`, `HasIcon` (`Filament\Support\Contracts`) — this is how badge/select/filter get label, color, and icon for free.
-- **Operation hierarchy**: use dedicated methods such as `hiddenOn()`, `visibleOn()`, and `disabledOn()` first. In Resource configuration, prefer `Operation::Create` / `Operation::Edit` / `Operation::View` where the documented method accepts them. Utility callbacks inject `string $operation`; compare it with the documented `'create'`, `'edit'`, or `'view'` values.
-- **File uploads are private by default**: only add `->visibility('public')` when public access is actually required.
+Do not emit plausible v3/v4 APIs in v5 code:
 
-## Post-change verification
+- Configure schemas with `$schema->components([...])`. Resource `form()` and `infolist()` methods are static; a page-specific `ViewRecord::infolist()` method is an instance method.
+- Import layout components and utilities from `Filament\Schemas\Components\*`; form fields from `Filament\Forms\Components\*`; infolist entries from `Filament\Infolists\Components\*`; table columns/filters from `Filament\Tables\*`; actions from `Filament\Actions\*`.
+- Use `recordActions()`, `toolbarActions()`, and `groupedBulkActions()` instead of v3 table `actions()` / `bulkActions()`.
+- Configure action modal fields with `schema()`, not the old `form()` method.
+- Prefer `Filament\Support\Icons\Heroicon` for Heroicons in PHP. Keep valid strings for installed third-party/custom icon sets and documented Blade APIs.
+- Reuse backed enums implementing `HasLabel`, `HasColor`, and `HasIcon` when the domain state is shared across surfaces; read `references/enums.md` for the complete pattern and exact contracts.
+- Prefer `hiddenOn()`, `visibleOn()`, and `disabledOn()` where they express the operation directly. Use `Operation` enum values only where documented; utility callbacks receive documented string operations.
+- Treat file visibility deliberately: uploads default to private unless the selected disk is named `public`. Read `references/security.md` before changing upload behavior.
 
-After changing a Filament UI, load `references/testing.md` and run the narrowest relevant tests. At minimum, cover the touched Livewire surface when Filament documents a helper for it: load the resource page, assert View-page schema state, verify a relation manager is rendered and can load its records, and exercise changed actions/forms/tables. Also run the project's formatter and static analysis when available.
+## Security gate
 
-## Fetch protocol — freshness backup
+Load `references/security.md` before changing any upload, inline-editable column, raw HTML, relationship attach/associate flow, import/export, bulk action, tenant-scoped query, authorization rule, or sensitive form field. Do not treat UI visibility, disabled fields, filtered options, or a displayed table query as a security boundary. Enforce invariants server-side and add negative authorization or cross-tenant tests when the risk applies.
 
-The quick map + references cover day-to-day needs offline. Fetch the docs when: (a) the component/method isn't in any reference; (b) you hesitated about a signature; (c) the user mentioned something you don't recognize.
+## Verification
 
-1. **Canonical LLM index**: `https://filamentphp.com/docs/llms.txt` — lists every page; locate the relevant 5.x page.
-2. **Direct page — always fetch the `.md` variant**: `https://filamentphp.com/docs/5.x/{section}/{page}.md` (e.g. `5.x/infolists/code-entry.md`). The `.md` URLs return clean markdown instead of the HTML site — that's what llms.txt links to.
-3. **MCP `laravel-boost` (`search-docs`)**, if active: use `packages: ["filament/filament"]`. **Warning: the response mixes 3.x/4.x/5.x** — discard anything not tagged `filament/filament@5.x`. A 3.x snippet looks plausible and compiles wrong.
-4. Never resolve hesitation "from memory" with a v3/v4 signature. If you can't verify it, write the docs link in a comment and state explicitly that the signature needs confirmation — don't guess.
+After a change, load `references/testing.md` and run the narrowest relevant tests. Cover each touched Livewire host and behavior: page load, schema state, validation, table query, action, notification, relation manager, authorization, or tenant isolation as applicable. Run the project's formatter and static analysis when available. Review the final diff for unintended custom markup, stale namespaces, duplicate feedback, missing imports, and unrelated changes.
 
-## Target project context
+For review-only work, report findings with file/line evidence and do not modify the project.
 
-This skill targets **Filament 5.x**. Current official requirements are PHP 8.2+, Laravel 11.28+, Livewire 4.0+, and Tailwind CSS 4.1+ for the documented installation flow. Before generating code, inspect `composer.json` and `composer.lock` for exact installed versions and read project guidance; generate code for that actual combination.
+## Evidence protocol
+
+Use this order whenever an API, signature, command, default, or compatibility detail matters:
+
+1. **Installed project evidence:** exact versions in lockfiles, existing working code, and version-matched source under `vendor/filament/`.
+2. **Official Filament documentation:** use `https://filamentphp.com/docs/llms.txt` to locate the relevant page, then fetch its `https://filamentphp.com/docs/5.x/{section}/{page}.md` form.
+3. **Exact upstream source:** when minor-version behavior matters, inspect the matching Git tag or commit for the installed package.
+4. **Documentation aggregators:** Context7 and Laravel Boost are discovery aids, not final authorities. Query one concept at a time, request the closest available version, and inspect every returned `Source:`. Accept only sources that identify Filament 5.x or the exact installed tag; discard any 3.x, 4.x, unversioned, community mirror, or conflicting snippet.
+
+If evidence conflicts, prefer installed version-matched source over rolling 5.x docs, state the mismatch, and keep the implementation compatible with the project. If a signature remains unverified, do not guess or leave speculative code; explain what could not be confirmed.

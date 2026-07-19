@@ -1,6 +1,6 @@
 # Panels — provider & panel-level configuration (`Filament\Panel`)
 
-The panel provider is a Laravel service provider at `app/Providers/Filament/AdminPanelProvider.php`, extending `Filament\PanelProvider`. Its `panel(Panel $panel): Panel` method chains configuration on `Filament\Panel` — this is the "configuration" the 5.x docs refer to. Visual identity lives here by design-authority rule: colors, logo, and font come from the provider, never from CSS overrides (see `references/ui-composition.md`). ([panel configuration](https://filamentphp.com/docs/5.x/panel-configuration.md))
+The panel provider is a Laravel service provider at `app/Providers/Filament/AdminPanelProvider.php`, extending `Filament\PanelProvider`. Its `panel(Panel $panel): Panel` method chains configuration on `Filament\Panel` — this is the "configuration" the 5.x docs refer to. Start visual identity here with colors, logo, and font. Use a documented custom theme or CSS hook when the provider cannot express the requirement or the project already has an established theme (see `references/ui-composition.md`). ([panel configuration](https://filamentphp.com/docs/5.x/panel-configuration.md))
 
 Snippets are focused fragments; retain the generated provider class and add the displayed imports.
 
@@ -91,8 +91,8 @@ The installer's panel is marked `->default()`. Cross-panel URLs use the panel ID
 | Concern | API |
 |---|---|
 | Database notifications | `->databaseNotifications()` (optionally `position: DatabaseNotificationsPosition::Sidebar`, `use Filament\Enums\DatabaseNotificationsPosition;`) + `->databaseNotificationsPolling('30s')` — 30s default, `null` disables. Details in `references/notifications.md` |
-| Multi-tenancy | `->tenant(Team::class)` enables it on the panel — do not guess the rest; run the SKILL.md fetch protocol for the tenancy page |
-| Global search | `->globalSearch(false)` disables it panel-wide; per-record behavior is `$recordTitleAttribute` on the resource (`references/resources.md`) |
+| Multi-tenancy | `->tenant(Team::class)` enables the panel integration, but access, scoping, middleware, validation, and tests remain required; read `references/security.md` and `references/advanced-features.md` |
+| Global search | `->globalSearch(false)` disables it panel-wide; per-record behavior is `$recordTitleAttribute` on the Resource (`references/advanced-features.md`) |
 | Middleware | `->middleware([...])` for all panel routes, `->authMiddleware([...])` for authenticated routes only; pass `isPersistent: true` as second arg to also run on Livewire AJAX requests |
 
-For anything beyond this inventory (tenancy, plugins, custom pages, import/export), run the fetch protocol in SKILL.md against `https://filamentphp.com/docs/llms.txt` — don't reconstruct panel APIs from v3/v4 memory.
+For anything beyond this inventory, route through `references/advanced-features.md` and the evidence protocol in `SKILL.md`; do not reconstruct panel APIs from v3/v4 memory.

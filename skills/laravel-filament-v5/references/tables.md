@@ -14,6 +14,8 @@ Signatures below are focused fragments. Add imports for the shown columns, filte
 | `ColorColumn` | Color swatch | `ColorColumn::make('color')` | [columns/color](https://filamentphp.com/docs/5.x/tables/columns/color.md) |
 | `SelectColumn` / `ToggleColumn` / `TextInputColumn` / `CheckboxColumn` | Inline editing in the table | `ToggleColumn::make('is_featured')` | [columns/toggle](https://filamentphp.com/docs/5.x/tables/columns/toggle.md) |
 
+Inline-editable columns do not automatically enforce the model's `update` policy. Add the documented `disabled()` authorization check and negative tests; see `references/security.md`.
+
 ## Filters (`Filament\Tables\Filters\*`)
 
 | Component | For | Minimal signature | 5.x doc |
@@ -64,7 +66,7 @@ For records where a photo/identity block matters more than comparable facts (peo
 ## Table-level conventions
 
 - Actions go in `->recordActions([...])`, `->groupedBulkActions([...])`, `->toolbarActions([...])` — the v3 `->actions()` / `->bulkActions()` no longer exist. Details in `references/actions.md`.
-- `->defaultSort('created_at', direction: 'desc')` — every list should have a deliberate default order.
+- Use `->defaultSort('created_at', direction: 'desc')` when the domain has a meaningful default order; otherwise make the intentionally unordered behavior clear in review.
 - `->searchable()` on key text columns; `->sortable()` where ordering is meaningful.
 - `->toggleable(isToggledHiddenByDefault: true)` for secondary columns — keeps the default view scannable (see `ui-composition.md`).
 - For a reusable domain status, prefer a model-cast enum implementing `HasColor` / `HasLabel` / `HasIcon`, so tables, infolists, and forms share semantics. A documented `->color(fn (string $state) => ...)` callback remains valid for local or non-enum state; avoid duplicating the same mapping across surfaces.

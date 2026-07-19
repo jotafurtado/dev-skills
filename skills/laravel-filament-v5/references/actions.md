@@ -41,8 +41,9 @@ $table
 
 - **Confirmation**: destructive or irreversible actions get `->requiresConfirmation()` — never a bare `->action()` that deletes.
 - **Modal with input**: `->schema([...])` + the data arrives in `->action(function (array $data, $record) { ... })`.
-- **Visibility**: `->visible(fn ($record) => ...)` / `->hidden(...)` — prefer over conditionally building the actions array.
-- **Feedback**: after a state change, send `Notification::make()->title('...')->success()->send()` (`Filament\Notifications\Notification`). Silent actions feel broken.
-- **Row actions**: 3+ actions on a row → wrap in `ActionGroup::make([...])`, most common first (View, Edit, Delete).
+- **Authorization**: custom actions that read or mutate protected data need explicit authorization. Use policies and the action's documented authorization API; `->visible()` / `->hidden()` improve the UI but are not the server-side boundary. Read `references/security.md`.
+- **Visibility**: use `->visible(fn ($record) => ...)` / `->hidden(...)` for presentation instead of conditionally building the actions array.
+- **Feedback**: first check whether the Resource page or built-in action already sends success/failure feedback. Add or customize a `Filament\Notifications\Notification` for custom state changes when needed, without emitting a duplicate notification.
+- **Row actions**: when several low-frequency actions make a row noisy, wrap them in `ActionGroup::make([...])`; keep the common action easy to reach and destructive actions last.
 - **Icons**: for Heroicons in PHP, prefer `->icon(Heroicon::PencilSquare)` for autocomplete and contextual sizing. Use string names for installed third-party/custom icon sets, as documented by Filament's icons guide.
-- **Business logic**: the closure in `->action()` should delegate to an application-layer action/service class; the Filament action handles UI concerns (confirmation, notification, redirect).
+- **Business logic**: follow the project's existing architecture. Keep small UI-local mutations readable in the callback; delegate reusable, transactional, or domain-heavy work to the established application/domain layer.

@@ -8,20 +8,21 @@ The Filament docs ship high-resolution screenshots of every component and page p
 https://filamentphp.com/docs/images/5.x/{light|dark}/{name}.jpg
 ```
 
-`{name}` comes from the index below. Images are ~3000px wide JPEGs; `light` is enough for composition analysis. Download to a temp directory and view:
+`{name}` comes from the index below. Images are high-resolution JPEGs; `light` is usually enough for composition analysis. Use the agent/runtime's temporary-file mechanism, give each pattern a unique filename, and view the result. For example on a POSIX system:
 
 ```bash
-curl -sL -o /tmp/shot.jpg "https://filamentphp.com/docs/images/5.x/light/tables/example.jpg"
+shot_dir="$(mktemp -d)"
+curl -fsSL -o "$shot_dir/filament-table-example.jpg" "https://filamentphp.com/docs/images/5.x/light/tables/example.jpg"
 ```
 
-Reuse a file you already downloaded this session (e.g. keep one file per pattern in `/tmp`) instead of re-fetching the same screenshot for each task.
+Reuse a file already downloaded in the current task instead of re-fetching the same screenshot. Do not assume `/tmp` semantics on every platform, and remove temporary artifacts through the runtime's normal cleanup path when they are no longer needed.
 
 ## Discovering screenshots not in this index
 
 Every docs `.md` page declares its screenshots as `<AutoScreenshot name="..." ...>` tags. To enumerate what a page illustrates:
 
 ```bash
-curl -sL "https://filamentphp.com/docs/5.x/{section}/{page}.md" | grep -oE '<AutoScreenshot name="[^"]+"' 
+curl -fsSL "https://filamentphp.com/docs/5.x/{section}/{page}.md" | grep -oE '<AutoScreenshot name="[^"]+"'
 ```
 
 Page list: `https://filamentphp.com/docs/llms.txt`.
@@ -84,4 +85,4 @@ Widgets, feedback, and overlays:
 
 ## How to use what you see
 
-Extract composition facts, not pixels: where the primary action sits, how many visual levels exist, what is bold vs muted, where actions align, how much whitespace separates groups. Then express the same structure with the official components from the other references — never by writing CSS to imitate the screenshot.
+Extract composition facts, not pixels: where the primary action sits, how many visual levels exist, what is bold vs muted, where actions align, and how whitespace separates groups. Then express the structure with official components and documented theme hooks; do not copy pixel values from the screenshot.

@@ -7,6 +7,13 @@ Everything in a panel is tested through Livewire helpers — `livewire(PageClass
 
 Snippets are focused Pest fragments. Add the shown model/page imports plus `use function Pest\Livewire\livewire;`; preserve the project's test setup and database traits.
 
+## On this page
+
+- Post-change minimum and setup
+- List, create/edit, and view pages
+- Actions and relation managers
+- Authorization, tenant isolation, and official detailed guides
+
 ## Post-change minimum
 
 After a Filament UI change, test each touched surface for which the official helpers apply:
@@ -29,7 +36,13 @@ beforeEach(function () {
 });
 ```
 
-Multi-panel: `Filament::setCurrentPanel('admin')`. Multi-tenant: `Filament::setTenant($team)`.
+Multi-panel: `Filament::setCurrentPanel('admin')`. For a multi-tenant Livewire test, set the tenant and current panel, then call `Filament::bootCurrentPanel()` when tenant scopes or model listeners need booting:
+
+```php
+Filament::setTenant($team);
+Filament::setCurrentPanel('admin');
+Filament::bootCurrentPanel();
+```
 
 ## List page
 
@@ -130,6 +143,12 @@ livewire(PostsRelationManager::class, [
     ->assertOk()
     ->assertCanSeeTableRecords($category->posts);
 ```
+
+## Authorization and tenant isolation
+
+For a protected mutation, test the allowed and denied actor through the actual Livewire host. Do not stop at asserting that an action is hidden: attempt the action or page access and assert that the record did not change. For tenancy, create records in at least two tenants and assert that the current actor cannot see, resolve, attach, update, or bulk-process the other tenant's records.
+
+Include crafted identifiers where the boundary accepts a record key, relationship key, or stored file path. Read `references/security.md` for the minimum threat cases and use the exact action/schema assertion from the installed-version docs.
 
 ## Detailed guides
 

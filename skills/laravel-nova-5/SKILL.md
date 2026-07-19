@@ -13,7 +13,7 @@ tags:
   - nova
   - backend
 metadata:
-  author: community
+  author: jotafurtado
   version: "2.0.0"
   domain: backend
   nova_version: "5.x"

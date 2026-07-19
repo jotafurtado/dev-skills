@@ -15,7 +15,7 @@ tags:
   - backend
 metadata:
   author: jotafurtado
-  version: "2.4.0"
+  version: "2.4.1"
   domain: backend
   filament_version: "5.x"
   laravel_version: ">=11.28"

@@ -22,13 +22,13 @@ public function panel(Panel $panel): Panel
         ->brandLogo(asset('images/logo.svg'))
         ->darkModeBrandLogo(asset('images/logo-dark.svg'))
         ->brandLogoHeight('2rem')
-        ->font('Inter');
+        ->font('Poppins');
 }
 ```
 
 - `->colors()` maps a name to a `Color` constant, a single hex/RGB string (`'primary' => '#6366f1'` — Filament generates the palette), or a full `50 => ... 950 => ...` array of OKLCH colors. Names: `danger`, `gray`, `info`, `primary`, `success`, `warning`.
 - `->brandLogo()` accepts a URL string or a closure returning view/HTML (e.g. `fn () => view('filament.admin.logo')` for an inline SVG). `->darkModeBrandLogo()` is the dark-mode variant.
-- `->font()` first arg is the family name; all Google Fonts are available via the default Bunny Fonts provider. Self-host with named args: `->font('Inter', url: asset('css/fonts.css'), provider: LocalFontProvider::class)` (`use Filament\FontProviders\LocalFontProvider;`).
+- `->font()` first arg is the family name (default is Inter — only call this to change it); all Google Fonts are available via the default Bunny Fonts provider. Self-host with named args: `->font('Inter', url: asset('css/fonts.css'), provider: LocalFontProvider::class)` (`use Filament\FontProviders\LocalFontProvider;`).
 
 ## Navigation
 

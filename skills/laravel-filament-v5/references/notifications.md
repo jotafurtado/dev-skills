@@ -6,7 +6,7 @@ Signatures below are focused fragments; import `Filament\Notifications\Notificat
 
 ## Flash notifications
 
-`send()` flashes via session — works from Livewire, queued jobs, or anywhere. ([overview](https://filamentphp.com/docs/5.x/notifications/overview.md))
+`send()` flashes via session — works from anywhere in request-handling code, including JavaScript, not just Livewire components. Not from queued jobs: a queue worker has no user session, so the flash never reaches the browser — use the database or broadcast channel there. ([overview](https://filamentphp.com/docs/5.x/notifications/overview.md))
 
 ```php
 use Filament\Actions\Action;

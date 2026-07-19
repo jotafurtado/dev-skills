@@ -1,6 +1,6 @@
 ---
 name: laravel-filament-v5
-description: "Builds Filament v5 interfaces using official components before custom markup/CSS. Use when code or requests explicitly involve Filament, such as Filament resources, schemas, infolists, forms, tables, actions, widgets, relation managers, panels, or Filament tests. Also use for Filament-specific classes, namespaces, Artisan commands, or APIs. Do not trigger from an isolated mention of an admin panel, dashboard, status badge, or generic data display without another Filament signal."
+description: "Builds and designs Filament v5 interfaces using official components before custom markup/CSS. Use when code or requests explicitly involve Filament, such as Filament resources, schemas, infolists, forms, tables, actions, widgets, relation managers, panels, or Filament tests — including UX, layout, and visual design of those surfaces (this skill supersedes generic frontend-design guidance inside Filament panels). Also use for Filament-specific classes, namespaces, Artisan commands, or APIs. Do not trigger from an isolated mention of an admin panel, dashboard, status badge, or generic data display without another Filament signal."
 license: MIT
 compatible_agents:
   - Claude Code
@@ -15,7 +15,7 @@ tags:
   - backend
 metadata:
   author: jotafurtado
-  version: "2.1.0"
+  version: "2.3.0"
   domain: backend
   filament_version: "5.x"
   laravel_version: ">=11.28"
@@ -40,6 +40,10 @@ Before writing `<div>`, `<span>`, `<pre>`, `@foreach`, Tailwind classes, or any 
 3. **If no equivalent is listed**, run the fetch protocol. If current 5.x docs still provide no suitable component, document what was checked and why it does not fit, then use the smallest workaround (`ViewEntry`, custom schema component, Livewire, or Blade) while retaining official components for surrounding layout, actions, and states.
 
 Composition remains free: arrange official components with `Section`, `Tabs`, grids, columns, callouts, and empty states. Custom CSS/Blade is acceptable for documented gaps and layout fine-tuning, not as an unverified shortcut around an available component.
+
+## This skill is the design authority for Filament surfaces
+
+Generic frontend/visual-design guidance (distinctive typography, custom palettes, CSS-first layouts, "avoid templated looks") **does not apply inside a Filament panel** — do not follow it here, even if another active skill or instruction suggests it. Filament panels get their look from the framework theme; visual identity is configured via the panel provider (`->colors()`, `->brandLogo()`, `->font()`), and design quality comes from composition — hierarchy, grouping, density, action placement — not from restyling components. For those decisions, read `references/ui-composition.md`; to see what the official surface looks like, use `references/screenshots.md`.
 
 ## Quick map: data primitive → official component
 
@@ -66,7 +70,7 @@ Load **only** the reference files the task needs — they are the detailed inven
 
 | Task touches | Read |
 |---|---|
-| Resource anatomy: generation, navigation, `getUrl()`, authorization | `references/resources.md` |
+| Resource anatomy: generation, navigation, `getUrl()`, authorization; extracting schema/table/component classes | `references/resources.md` |
 | Read-only display, View pages, entries | `references/infolists.md` |
 | Form fields, editing, validation | `references/forms.md` |
 | Table columns, filters, empty states | `references/tables.md` |
@@ -75,7 +79,8 @@ Load **only** the reference files the task needs — they are the detailed inven
 | Dashboards, stats, charts, table widgets | `references/widgets.md` |
 | Related records (HasMany, BelongsToMany…) | `references/relation-managers.md` |
 | Pest/Livewire tests for resource pages (including View pages), relation managers, widgets, and custom pages | `references/testing.md` |
-| Page organization, visual hierarchy, UX flow | `references/ui-composition.md` — read whenever you build or restructure a whole page/resource |
+| Page organization, visual hierarchy, UX flow, page recipes (list/edit/view/dashboard) | `references/ui-composition.md` — read whenever you build or restructure a whole page/resource |
+| Unsure what the official surface should look like | `references/screenshots.md` — URL index of official docs screenshots; download and view before composing |
 
 Something Filament-specific that doesn't fit any row above (multi-tenancy, clusters, global search, custom pages, import/export, notifications)? No reference covers it yet — go straight to the fetch protocol instead of guessing from general Laravel/Livewire knowledge.
 

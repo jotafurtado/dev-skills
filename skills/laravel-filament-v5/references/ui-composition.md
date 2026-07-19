@@ -69,8 +69,8 @@ Order widgets by decision value: what the admin acts on daily goes first. A dash
 ### Navigation
 
 - Sidebar items get an icon each; group related resources with `->navigationGroup()` labels (Shop, Content, Settings). Groups are collapsible; don't exceed ~7 items per group.
-- Numeric `->navigationBadge()` only for actionable counts (pending orders), not vanity totals.
-- Top navigation (`->topNavigation()`) suits panels with few items and no groups; the sidebar is the default for real back-offices.
+- Numeric nav badges only for actionable counts (pending orders), not vanity totals — implemented as the static `getNavigationBadge()` on the resource (see `references/panels.md`).
+- Top navigation (`->topNavigation()` on the panel) suits panels with few items and no groups; the sidebar is the default for real back-offices.
 
 ### Modals and confirmation
 
@@ -104,7 +104,7 @@ Same order applies to infolists — Sections for scanning, Tabs for large read-o
 - Long-form fields (`Textarea`, `RichEditor`, `Repeater`, `CodeEntry`) get `->columnSpanFull()` — a rich editor squeezed into half a grid is the most common layout bug.
 - Related short fields should sit on the same row (start/end date, min/max) — that's what `Grid::make(2)` inside a Section is for.
 - Remember: `Grid`, `Section`, and `Repeater` don't take full width by default when nested — set `->columnSpan()` deliberately.
-- `->dense()` and `->gap(false)` exist for genuinely compact read-only blocks; don't default to them — official spacing is generous on purpose.
+- `->dense()` / `->gap(false)` on layout components (`Section`, `Fieldset`, `Grid`) exist for genuinely compact read-only blocks; don't default to them — official spacing is generous on purpose.
 
 ## Guidance and feedback inside the page
 

@@ -15,7 +15,7 @@ tags:
   - backend
 metadata:
   author: jotafurtado
-  version: "2.3.0"
+  version: "2.4.0"
   domain: backend
   filament_version: "5.x"
   laravel_version: ">=11.28"
@@ -58,9 +58,11 @@ Generic frontend/visual-design guidance (distinctive typography, custom palettes
 | Icon / boolean | `IconEntry->boolean()` | `Toggle` / `Checkbox` | `IconColumn->boolean()` |
 | Repeatable collection | `RepeatableEntry` | `Repeater` / `Builder` | relation manager |
 | Rich / Markdown text | `TextEntry->markdown()` | `RichEditor` / `MarkdownEditor` | `TextColumn->limit()` |
-| List of strings | `TextEntry->listWithLineBreaks()` | `TagsInput` | `TextColumn->badge()` |
+| List of strings | `TextEntry->listWithLineBreaks()` | `TagsInput` | `TextColumn->badge()`¹ |
 | Static text / notice | `Text` / `Callout` | `Text` / `Callout` | — |
 | "Nothing here yet" | `EmptyState` (schema) | — | `->emptyStateHeading()` |
+
+¹ Renders each element of the array-cast attribute as its own badge — pointless on a plain string column.
 
 Exact signatures and official links live in `references/`. Snippets in this skill are focused fragments unless a full class is shown; add the imports and surrounding class context required by the target project.
 
@@ -78,11 +80,13 @@ Load **only** the reference files the task needs — they are the detailed inven
 | Buttons, modals, bulk/row actions | `references/actions.md` |
 | Dashboards, stats, charts, table widgets | `references/widgets.md` |
 | Related records (HasMany, BelongsToMany…) | `references/relation-managers.md` |
+| Panel identity (colors, logo, font), navigation config, multiple panels | `references/panels.md` |
+| Notifications (flash, database, broadcast) | `references/notifications.md` |
 | Pest/Livewire tests for resource pages (including View pages), relation managers, widgets, and custom pages | `references/testing.md` |
 | Page organization, visual hierarchy, UX flow, page recipes (list/edit/view/dashboard) | `references/ui-composition.md` — read whenever you build or restructure a whole page/resource |
 | Unsure what the official surface should look like | `references/screenshots.md` — URL index of official docs screenshots; download and view before composing |
 
-Something Filament-specific that doesn't fit any row above (multi-tenancy, clusters, global search, custom pages, import/export, notifications)? No reference covers it yet — go straight to the fetch protocol instead of guessing from general Laravel/Livewire knowledge.
+Something Filament-specific that doesn't fit any row above (multi-tenancy, clusters, global search details, custom pages, import/export)? No reference covers it yet — go straight to the fetch protocol instead of guessing from general Laravel/Livewire knowledge.
 
 ## Anti-patterns: don't do X, do Y
 

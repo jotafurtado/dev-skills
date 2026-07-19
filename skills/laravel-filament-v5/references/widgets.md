@@ -80,7 +80,7 @@ class BlogPostsChart extends ChartWidget
 | Order on the page | `protected static ?int $sort = 2;` |
 | Width | `protected int | string | array $columnSpan = 'full';` (1–12, `'full'`, or responsive array `['md' => 2, 'xl' => 3]`) |
 | Visibility | `public static function canView(): bool` |
-| Polling | `protected ?string $pollingInterval = '10s';` — default `5s`, set `null` to disable (do it for expensive queries) |
+| Polling | Stats and chart widgets refresh every `5s` **by default** — set `protected ?string $pollingInterval = '30s';` to slow down expensive queries, or `null` to disable entirely |
 | Lazy loading | on by default; `protected static bool $isLazy = false;` to disable |
 
 ## Dashboard-level configuration

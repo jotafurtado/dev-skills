@@ -14,6 +14,8 @@ https://filamentphp.com/docs/images/5.x/{light|dark}/{name}.jpg
 curl -sL -o /tmp/shot.jpg "https://filamentphp.com/docs/images/5.x/light/tables/example.jpg"
 ```
 
+Reuse a file you already downloaded this session (e.g. keep one file per pattern in `/tmp`) instead of re-fetching the same screenshot for each task.
+
 ## Discovering screenshots not in this index
 
 Every docs `.md` page declares its screenshots as `<AutoScreenshot name="..." ...>` tags. To enumerate what a page illustrates:

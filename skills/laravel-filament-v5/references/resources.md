@@ -255,13 +255,7 @@ TextInput::make('password')->password()->required()->hiddenOn(Operation::Edit);
 TextInput::make('password')->password()->required()->visibleOn(Operation::Create);
 ```
 
-Prefer `hiddenOn()` / `visibleOn()` over a custom callback when those methods express the condition.
-
-Hierarchy:
-
-1. Prefer dedicated `hiddenOn()` / `visibleOn()` / `disabledOn()` methods.
-2. In Resource configuration, use `Operation` enum cases where accepted, as in the official Resource overview.
-3. In utility callbacks, inject `string $operation` and compare against the documented values `'create'`, `'edit'`, or `'view'`.
+Prefer `hiddenOn()` / `visibleOn()` over a custom callback when those methods express the condition. The full operation hierarchy (dedicated methods → `Operation` enum → `string $operation` values) is defined in SKILL.md, "v5 API breaking changes".
 
 ## Authorization
 

@@ -21,7 +21,7 @@ php artisan boost:add-skill jotafurtado/dev-skills --skill laravel-filament-v5
 - Documented escape hatch when no component exists on the correct surface
 - Concrete anti-patterns (e.g. `<pre>` + CSS → `CodeEntry`, `<span>` + Tailwind → `badge()` + `HasColor` enum)
 - v5 API breaking changes vs v3/v4 (`Schema`, namespaces, `recordActions()`, `Filament\Actions\*`, etc.)
-- On-demand reference library: resources, infolists, forms, tables, layout/primes/callouts/empty states, actions, widgets & dashboards, relation managers, panel testing
+- On-demand reference library: resources, infolists, forms, tables (columns, filters, grouping, record layouts), layout/primes/callouts/empty states, actions, widgets & dashboards, relation managers, panels (identity, navigation, multi-panel), notifications (flash, database, broadcast), panel testing
 - UI composition guide: page recipes (list / create-edit / view / dashboard / navigation), the official design language, visual hierarchy, Sections vs Tabs vs Wizard, column widths, scannable tables, empty states, modals, feedback
 - Official screenshot index: URL formula + curated map of docs screenshots so vision-capable agents view the real surface before composing
 - Design-authority rule: generic frontend-design guidance is explicitly overridden inside Filament panels (identity via panel provider, not CSS)
@@ -36,11 +36,13 @@ laravel-filament-v5/
     ├── resources.md                # Resource anatomy: generation, navigation, getUrl(), authorization, extracting classes
     ├── infolists.md                # Read-only display entries
     ├── forms.md                    # Form fields + recurring patterns
-    ├── tables.md                   # Columns, filters, empty states
+    ├── tables.md                   # Columns, filters, empty states, grouping, record layouts (Split/Stack/Panel)
     ├── layout.md                   # Sections, grids, tabs, wizards, primes, callouts, EmptyState
     ├── actions.md                  # Actions, modals, table action placement
     ├── widgets.md                  # Stats, charts, table widgets, dashboards
     ├── relation-managers.md        # Choosing the right relationship tool + relation managers
+    ├── panels.md                   # Panel provider: identity (colors/logo/font), navigation, multiple panels
+    ├── notifications.md            # Flash, database, and broadcast notifications
     ├── testing.md                  # Pest + Livewire panel testing
     ├── ui-composition.md           # Design language, page recipes, visual hierarchy, composition patterns
     └── screenshots.md              # Index of official docs screenshots for on-demand visual reference

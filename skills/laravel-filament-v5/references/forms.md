@@ -27,7 +27,7 @@ Signatures in the tables below are focused fragments; add the component imports 
 
 - **Relationship selects**: use `->relationship('author', 'name')`; add `->searchable()` when search helps. `->preload()` eagerly loads options on page load, so use it for bounded datasets and omit it for large relationships. To create related records inline, add `->createOptionForm([...])`.
 - **Reactive fields**: `->live()` (or `->live(onBlur: true)` for text inputs) plus injected `Get`/`Set` from `Filament\Schemas\Components\Utilities\*` — never `Filament\Forms\Get` (v3/v4).
-- **Conditional per operation**: prefer `hiddenOn()` / `visibleOn()` / `disabledOn()`. Use `Operation::Create` / `Operation::Edit` in Resource configuration where accepted; custom utility callbacks receive `string $operation` and compare with `'create'`, `'edit'`, or `'view'`.
-- **Slug fields**: `->live(onBlur: true)` on the source + `->disabled()->dehydrated()` on the slug when it must persist but not be edited.
+- **Conditional per operation**: prefer `hiddenOn()` / `visibleOn()` / `disabledOn()` — the full hierarchy (`Operation` enum vs `string $operation` values) is in SKILL.md, "v5 API breaking changes".
+- **Slug fields**: `->live(onBlur: true)` on the source + `->disabled()->saved()` on the slug — a disabled field is **not** saved unless `->saved()` is chained (the v5 idiom; v3/v4 used `->dehydrated()`). Note a disabled field can still be manipulated via Livewire JS, so enforce integrity server-side for sensitive values.
 - **Saving fields to a related model**: layout components (`Section`, `Grid`, `Fieldset`) accept `->relationship('metadata')` for `BelongsTo`/`HasOne`/`MorphOne` — the wrapped fields load and save on the related record automatically. Never write manual mutators for this.
 - **Enums**: `->options(OrderStatus::class)` works on `Select`, `ToggleButtons`, `Radio`, `CheckboxList` when the enum implements `HasLabel`.

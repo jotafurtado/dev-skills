@@ -43,6 +43,24 @@ $table
 
 `->emptyState(view('...'))` exists as a full-custom escape hatch — use only when the heading/description/icon/actions API genuinely can't express the design.
 
+## Grouping rows
+
+`->defaultGroup('status')` on the `Table` groups rows under headers — a deliberate alternative to a redundant status column when users scan by state. Group headers show the attribute value by default; customize with a `Group` object (`Filament\Tables\Grouping\Group`): `Group::make('status')->getTitleFromRecordUsing(fn ($record): string => ...)`, `->label('State')`, `->getDescriptionFromRecordUsing(...)`. ([grouping doc](https://filamentphp.com/docs/5.x/tables/grouping.md))
+
+## Record layouts — Split, Stack, Panel, grid
+
+For records where a photo/identity block matters more than comparable facts (people, products, cards), columns compose into layouts from `Filament\Tables\Columns\Layout\*` ([layout doc](https://filamentphp.com/docs/5.x/tables/layout.md)):
+
+| Component | For | Minimal signature |
+|---|---|---|
+| `Split` | Side-by-side blocks that stack below a breakpoint | `Split::make([ImageColumn::make('avatar')->grow(false), Stack::make([...])])->from('md')` — `->grow(false)` on inner columns prevents whitespace |
+| `Stack` | Vertical stack inside a row or Split | `Stack::make([TextColumn::make('name'), TextColumn::make('email')])` |
+| `Panel` | Pre-styled collapsible container for the long tail | `Panel::make([...])->collapsible()` — `->collapsed(false)` expands by default |
+
+- Card grid: `$table->contentGrid(['md' => 2, 'xl' => 3])` renders records as cards instead of rows.
+- `->stackedOnMobile()` on the table stacks columns on small screens without a layout component.
+- Regular columns beat card grids for compare-and-scan work — see `references/ui-composition.md` for when each fits, and `references/screenshots.md` (`tables/layout/*`) for the official look.
+
 ## Table-level conventions
 
 - Actions go in `->recordActions([...])`, `->groupedBulkActions([...])`, `->toolbarActions([...])` — the v3 `->actions()` / `->bulkActions()` no longer exist. Details in `references/actions.md`.

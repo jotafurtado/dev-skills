@@ -5,7 +5,7 @@ license: MIT
 compatibility: "Designed for Cursor, Claude Code, Windsurf, and Copilot; requires Git."
 metadata:
   author: jotafurtado
-  version: "1.1.0"
+  version: "1.2.0"
   domain: workflow
   role: specialist
   scope: implementation
@@ -51,12 +51,15 @@ Use this to identify:
 - Modified, added, removed, and untracked files.
 - Changes already staged before you got involved.
 - Sensitive files that must not enter the commit.
+- Untracked files that look like they belong in `.gitignore` instead of in a commit.
 - The repo's recent message style.
 - The concern, likely type, scope, and exact paths for each possible commit.
 
 If `git status --short` shows nothing at all — no staged, modified, or untracked files — tell the user there's nothing to commit instead of proceeding.
 
 If changes were already staged before you got involved and they don't belong to the current request, ask the user whether to include them or leave them staged as-is. Don't unstage them and don't silently fold them into your commit message without confirming.
+
+If untracked files match common gitignore candidates — env files beyond a checked-in example (`.env`, `.env.local`), IDE/editor metadata (`.idea/`, `.vscode/`), build or dependency output (`dist/`, `build/`, `vendor/`, `node_modules/`), OS artifacts (`.DS_Store`, `Thumbs.db`), or log files — flag them to the user before staging anything and suggest adding a `.gitignore` entry. Do not add or edit `.gitignore` yourself unless asked, and never stage these files to fulfill the request.
 
 ### 2. Define Scope
 

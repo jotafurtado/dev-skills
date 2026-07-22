@@ -28,6 +28,7 @@ php artisan boost:add-skill jotafurtado/dev-skills --skill laravel-filament-v5
 - Official screenshot index: URL formula + curated map of docs screenshots so vision-capable agents view the real surface before composing
 - Filament-specific visual authority that supersedes generic CSS-first guidance while retaining accessibility, responsive, performance, and UX requirements
 - Evidence protocol: installed lock/vendor source first, official versioned docs second, exact upstream tags third, and aggregators only as source-checked discovery aids
+- Documentation routing authority: for Filament-specific questions, this skill is the entry point ahead of generic doc-lookup tools (find-docs, Context7, Laravel Boost's `search-docs`), which stay subordinate to its evidence protocol
 - Behavioral output evals plus trigger/non-trigger queries for regression testing
 
 ## Structure

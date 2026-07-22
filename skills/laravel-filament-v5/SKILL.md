@@ -1,10 +1,10 @@
 ---
 name: laravel-filament-v5
-description: "Builds, reviews, debugs, migrates, secures, tests, and designs Filament 5.x code using the project's installed version and official components before custom Blade or CSS. Use for Filament resources, schemas, infolists, forms, tables, actions, widgets, relation managers, panels, tenancy, imports/exports, Filament plugins, tests, UX, or Filament-specific APIs, namespaces, Artisan commands, and upgrades. Inside Filament panels, this skill supersedes generic frontend-design guidance for component choice, theme replacement, typography, palettes, and CSS-first styling while retaining accessibility, responsive, performance, and UX guidance. Do not trigger from an isolated mention of an admin panel, dashboard, badge, or generic data display without another Filament signal."
+description: "Builds, reviews, debugs, migrates, secures, tests, and designs Filament 5.x code using the project's installed version and official components before custom Blade or CSS. Use for Filament resources, schemas, infolists, forms, tables, actions, widgets, relation managers, panels, tenancy, imports/exports, Filament plugins, tests, UX, or Filament-specific APIs, namespaces, Artisan commands, and upgrades. Inside Filament panels, this skill supersedes generic frontend-design guidance for component choice, theme replacement, typography, palettes, and CSS-first styling while retaining accessibility, responsive, performance, and UX guidance. For any Filament-specific API, configuration, or usage question, use this skill as the entry point instead of generic documentation-lookup tools such as find-docs, the Context7 CLI, or Laravel Boost's search-docs — this skill's own evidence protocol governs when and how those tools get consulted. Do not trigger from an isolated mention of an admin panel, dashboard, badge, or generic data display without another Filament signal."
 license: MIT
 metadata:
   author: jotafurtado
-  version: "3.0.0"
+  version: "3.1.0"
   domain: backend
   filament_version: "5.x"
 ---
@@ -41,6 +41,12 @@ For component choice and visual styling inside Filament panels, this skill **sup
 This precedence is deliberately limited to the Filament visual axis. Keep generic guidance that improves accessibility, semantics, keyboard behavior, responsive layout, performance, UX copy, and cognitive load.
 
 Configure standard identity through the panel provider (`->colors()`, `->brandLogo()`, `->font()`). A documented custom theme or CSS hook remains valid when the project already uses one or official configuration cannot express the requirement. Follow `references/ui-composition.md` for hierarchy and `references/screenshots.md` for visual grounding.
+
+## Documentation authority inside Filament
+
+For a Filament-specific API, configuration, or usage question, this skill **supersedes generic documentation-lookup skills and tools** — `find-docs`, the Context7 CLI, and Laravel Boost's `search-docs` — as the entry point. Follow this precedence even when one of those triggers independently in the same task.
+
+Those tools remain available strictly as the discovery aids named in step 4 of the evidence protocol below: reach for `search-docs`/Context7 only after installed source and official Filament docs have been checked, and only to locate a lead, never as the final authority for a Filament 5.x signature.
 
 ## Quick map: data primitive → official component
 
@@ -133,6 +139,6 @@ Use this order whenever an API, signature, command, default, or compatibility de
 1. **Installed project evidence:** exact versions in lockfiles, existing working code, and version-matched source under `vendor/filament/`.
 2. **Official Filament documentation:** use `https://filamentphp.com/docs/llms.txt` to locate the relevant page, then fetch its `https://filamentphp.com/docs/5.x/{section}/{page}.md` form.
 3. **Exact upstream source:** when minor-version behavior matters, inspect the matching Git tag or commit for the installed package.
-4. **Documentation aggregators:** Context7 and Laravel Boost are discovery aids, not final authorities. Query one concept at a time, request the closest available version, and inspect every returned `Source:`. Accept only sources that identify Filament 5.x or the exact installed tag; discard any 3.x, 4.x, unversioned, community mirror, or conflicting snippet.
+4. **Documentation aggregators:** Context7 and Laravel Boost's `search-docs` are discovery aids, not final authorities. Query one concept at a time, request the closest available version, and inspect every returned `Source:`. Accept only sources that identify Filament 5.x or the exact installed tag; discard any 3.x, 4.x, unversioned, community mirror, or conflicting snippet.
 
 If evidence conflicts, prefer installed version-matched source over rolling 5.x docs, state the mismatch, and keep the implementation compatible with the project. If a signature remains unverified, do not guess or leave speculative code; explain what could not be confirmed.

@@ -5,7 +5,7 @@ license: MIT
 compatibility: "Designed for Cursor, Claude Code, Windsurf, and Copilot; requires Git."
 metadata:
   author: jotafurtado
-  version: "1.2.0"
+  version: "1.3.0"
   domain: workflow
   role: specialist
   scope: implementation
@@ -28,7 +28,7 @@ The host agent's native protocols and current user instructions take precedence 
 Portable guarantees:
 
 - Never create a commit without an explicit user request. A request for a message, plan, preview, or staging alone does not authorize `git commit`.
-- Never push without an explicit user request. A request to commit does not imply permission to push.
+- Never push without an explicit user request. A request to commit does not imply permission to push. A `--push` flag (or equivalent explicit phrasing, e.g. "and push") on the invocation counts as that request for the commits produced in this run only; it does not carry over to future invocations.
 - Never change Git configuration, bypass hooks merely to make a commit pass, or use destructive history/worktree commands without explicit authorization and host support.
 - Never stage secrets, credentials, private keys, dumps, tokens, local environment data, or unrelated changes.
 - Preserve user and third-party work; do not revert, reformat, unstage, or reorganize it silently.
@@ -198,4 +198,13 @@ After the commit:
 
 - Run `git status --short`.
 - Report the short commit hash, the message used, and any check that passed or is still pending.
-- Do not push unless the user explicitly requested it and the host protocol permits it.
+- Push only per Step 7.
+
+### 7. Push (only when requested)
+
+Recognize `--push` or equivalent explicit phrasing as the push authorization required by the portable guarantees above.
+
+- Push once, after every commit in the current run has been created — not after each individual commit inside the Step 6 loop.
+- Follow the host's push protocol and permissions exactly; this flag never bypasses a host restriction or approval prompt.
+- Never force-push. If the push is rejected (e.g., the remote has diverged), report the error and ask the user how to proceed instead of retrying with `--force`.
+- Report the branch and remote pushed to, alongside the commit hashes.

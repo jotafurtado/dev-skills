@@ -2,7 +2,7 @@
 
 AI agent skill for preparing small Git commits. It writes Conventional Commits 1.0.0 messages in the language established by the user or project, keeps an existing `CHANGELOG.md` up to date when a change is notable, and defers to the host agent's native Git and permission protocols.
 
-Current version: **1.2.0**
+Current version: **1.3.0**
 
 ## Install
 
@@ -26,6 +26,7 @@ php artisan boost:add-skill jotafurtado/dev-skills --skill prepare-commit
 - Flags untracked files that look like `.gitignore` candidates (env files, IDE metadata, build output, OS artifacts, logs) before staging anything
 - Project tests, linters, and formatters only when the host permits their discovery and execution
 - Portable safeguards: no commit or push without the corresponding explicit request, no secret staging, and no silent alteration of unrelated work
+- Optional `--push` flag: pushes once after all of the run's commits, still bound by host push permissions, and never force-pushes
 
 ## Invocation Behavior
 

@@ -54,6 +54,11 @@
       "alternatives": ["aside-sections", "horizontal-tabs", "vertical-tabs", "wizard"],
       "responsive_considerations": ["collapse columns before reducing field readability", "use compact or secondary treatment only when hierarchy remains clear"],
       "accessibility_considerations": ["use headings and descriptions that identify each group", "do not collapse essential content by default"],
+      "variant_decisions": [
+        {"id": "contained", "prefer_when": ["a named group needs a visible boundary"], "avoid_when": ["the surrounding composition already provides the boundary"], "visual_evidence": "schemas/layout/section/simple"},
+        {"id": "secondary", "prefer_when": ["a supporting group is intentionally lower in the information hierarchy"], "avoid_when": ["the group carries primary task completion"], "visual_evidence": "schemas/layout/section/secondary"},
+        {"id": "compact", "prefer_when": ["a familiar, low-risk group needs modest density without removing its hierarchy"], "avoid_when": ["help, errors, or touch targets need the default breathing room"], "visual_evidence": "schemas/layout/section/compact"}
+      ],
       "status": "reviewed",
       "visual_evidence": [{"documentation": "https://filamentphp.com/docs/5.x/schemas/sections.md", "screenshot": "schemas/layout/section/simple", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/section/simple.jpg"}, {"documentation": "https://filamentphp.com/docs/5.x/schemas/sections.md", "screenshot": "schemas/layout/section/secondary", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/section/secondary.jpg"}]
     },
@@ -90,6 +95,10 @@
       "alternatives": ["flat-content", "sections", "responsive-columns"],
       "responsive_considerations": ["keep the group readable at one column before adding internal columns"],
       "accessibility_considerations": ["use the fieldset legend as the group name", "ensure the visible boundary reinforces rather than replaces the programmatic group"],
+      "variant_decisions": [
+        {"id": "contained", "prefer_when": ["a visible border helps separate the subgroup from surrounding controls"], "avoid_when": ["the boundary would duplicate a containing section"], "visual_evidence": "schemas/layout/fieldset/simple"},
+        {"id": "uncontained", "prefer_when": ["a parent section already makes the subgroup boundary clear"], "avoid_when": ["the subgroup would otherwise blend with unrelated controls"], "visual_evidence": "schemas/layout/fieldset/not-contained"}
+      ],
       "status": "reviewed",
       "visual_evidence": [{"documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md", "screenshot": "schemas/layout/fieldset/simple", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/fieldset/simple.jpg"}, {"documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md", "screenshot": "schemas/layout/fieldset/not-contained", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/fieldset/not-contained.jpg"}]
     },
@@ -108,6 +117,11 @@
       "alternatives": ["vertical-tabs", "sections", "wizard"],
       "responsive_considerations": ["test label overflow and the overflow menu on narrow screens", "do not hide always-needed content behind a non-default tab"],
       "accessibility_considerations": ["keep keyboard tab navigation and focus management intact", "make the active panel and tab relationship perceivable"],
+      "variant_decisions": [
+        {"id": "contained", "prefer_when": ["the tab set needs a distinct boundary from surrounding content"], "avoid_when": ["a surrounding section already provides that boundary"], "visual_evidence": "schemas/layout/tabs/simple"},
+        {"id": "uncontained", "prefer_when": ["the parent composition supplies the needed hierarchy and container chrome would be redundant"], "avoid_when": ["the active panel would lose a clear visual relationship to its tabs"], "visual_evidence": "schemas/layout/tabs/not-contained"},
+        {"id": "overflow-menu", "prefer_when": ["parallel groups remain valid but labels exceed the available horizontal space"], "avoid_when": ["hidden labels would make essential groups hard to discover"], "visual_evidence": "schemas/layout/tabs/not-scrollable"}
+      ],
       "status": "reviewed",
       "visual_evidence": [{"documentation": "https://filamentphp.com/docs/5.x/schemas/tabs.md", "screenshot": "schemas/layout/tabs/simple", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/tabs/simple.jpg"}, {"documentation": "https://filamentphp.com/docs/5.x/schemas/tabs.md", "screenshot": "schemas/layout/tabs/not-contained", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/tabs/not-contained.jpg"}]
     },
@@ -162,6 +176,11 @@
       "alternatives": ["responsive-columns", "sections", "flat-content"],
       "responsive_considerations": ["restore spacing before labels, errors, or touch targets become crowded on smaller screens"],
       "accessibility_considerations": ["preserve readable error separation and pointer target size", "do not use dense spacing to conceal required instructions"],
+      "variant_decisions": [
+        {"id": "dense", "prefer_when": ["repeated low-risk controls remain individually scannable with reduced spacing"], "avoid_when": ["the task is new, error-prone, or instruction-heavy"], "visual_evidence": "schemas/layout/dense"},
+        {"id": "no-gap", "prefer_when": ["adjacent controls are perceived as one tightly related unit"], "avoid_when": ["reduced spacing would blur labels, errors, instructions, or touch targets"], "visual_evidence": "schemas/layout/no-gap"},
+        {"id": "compact-section", "prefer_when": ["the group needs its own hierarchy but less vertical padding"], "avoid_when": ["secondary density would weaken the group heading or description"], "visual_evidence": "schemas/layout/section/compact"}
+      ],
       "status": "reviewed",
       "visual_evidence": [{"documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md", "screenshot": "schemas/layout/dense", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/dense.jpg"}, {"documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md", "screenshot": "schemas/layout/no-gap", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/no-gap.jpg"}, {"documentation": "https://filamentphp.com/docs/5.x/schemas/sections.md", "screenshot": "schemas/layout/section/compact", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/section/compact.jpg"}]
     }

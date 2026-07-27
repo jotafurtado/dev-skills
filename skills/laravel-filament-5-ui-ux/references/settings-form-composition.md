@@ -28,6 +28,8 @@ Inspect `schemas/layout/section/aside` when explanatory context needs a separate
 
 Use contained and uncontained variants as composition decisions: choose a contained fieldset or tabs when a boundary clarifies the group; remove that container only when the surrounding hierarchy already supplies it.
 
+Choose a secondary section only for supporting information, and a compact section only when its heading and description still establish the group. Choose dense spacing for repeated, low-risk controls; use no-gap only for controls that read as one tightly related unit. Restore normal spacing whenever it would blur labels, errors, instructions, or touch targets.
+
 ## Emit the decision trace
 
 For a material settings-form composition, state:

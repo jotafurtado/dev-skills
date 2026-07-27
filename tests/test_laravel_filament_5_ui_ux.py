@@ -101,6 +101,24 @@ class VisualCatalogQueryTests(unittest.TestCase):
         self.assertEqual("wizard", result["selected_pattern"]["id"])
         self.assertIn("horizontal-tabs", result["selected_pattern"]["alternatives"])
 
+    def test_query_exposes_variant_level_composition_decisions(self):
+        query = load_query_module()
+
+        result = query.query_catalog(
+            surface="form",
+            goal="increase-information-density",
+            workflow="parallel",
+            available_width="wide",
+            information_shape="repetitive-low-risk-fields",
+            relationship="closely-related-fields",
+            responsive_context="desktop-with-mobile-fallback",
+        )
+
+        self.assertEqual("dense-layout", result["selected_pattern"]["id"])
+        variants = {item["id"]: item for item in result["selected_pattern"]["variant_decisions"]}
+        self.assertIn("no-gap", variants)
+        self.assertIn("would blur labels", " ".join(variants["no-gap"]["avoid_when"]))
+
 
 class VisualCatalogSynchronizationTests(unittest.TestCase):
     def test_discovery_does_not_duplicate_markdown_extension(self):

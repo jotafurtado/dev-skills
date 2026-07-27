@@ -58,6 +58,17 @@
         "It compares reviewed dense, compact, or no-gap evidence with a roomier alternative.",
         "It includes responsive and accessibility consequences in the visual decision trace."
       ]
+    },
+    {
+      "id": 6,
+      "prompt": "Design a Filament 5 account area with a wide desktop panel. Security settings need a substantial explanation beside their controls, while a small notification preference group sits inside an already clearly separated account area. On mobile, both groups must remain easy to scan. Describe the composition decisions before implementation.",
+      "expected_output": "An evidence-grounded composition that distinguishes explanatory side context from ordinary grouping and decides whether the smaller group needs an additional visible boundary.",
+      "assertions": [
+        "The response compares an explanatory side treatment with an ordinary top-to-bottom group using reviewed evidence.",
+        "It chooses contained or uncontained treatment for the smaller group from the surrounding hierarchy, not cosmetic preference.",
+        "It explains the narrow-screen treatment for the explanatory content and controls.",
+        "It emits a visible evidence-based decision trace before implementation."
+      ]
     }
   ]
 }

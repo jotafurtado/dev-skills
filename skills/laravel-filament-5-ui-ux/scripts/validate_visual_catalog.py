@@ -31,7 +31,12 @@ def validate(catalog: dict[str, Any], inventory: dict[str, Any]) -> list[str]:
     else:
         actual_manifest: dict[str, list[str]] = {page: [] for page in crawl_pages}
         for screenshot in inventory.get("screenshots", []):
-            actual_manifest.setdefault(screenshot.get("documentation", ""), []).append(screenshot.get("name", ""))
+            documentation_pages = screenshot.get("documentation_pages", [screenshot.get("documentation", "")])
+            if not isinstance(documentation_pages, list) or not documentation_pages:
+                errors.append(f"{screenshot.get('name', '<unnamed>')} is missing documentation_pages")
+                continue
+            for page in documentation_pages:
+                actual_manifest.setdefault(page, []).append(screenshot.get("name", ""))
         actual_manifest = {page: sorted(names) for page, names in actual_manifest.items()}
         expected_manifest = {page: sorted(names) for page, names in manifest.items()}
         if actual_manifest != expected_manifest:

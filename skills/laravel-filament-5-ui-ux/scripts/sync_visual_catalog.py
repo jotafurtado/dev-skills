@@ -104,11 +104,12 @@ def build_inventory(
     if failures:
         raise RuntimeError("Catalog synchronization failed:\n" + "\n".join(sorted(failures)))
 
-    unique_discovered: dict[str, dict[str, str]] = {}
+    discovered_by_name: dict[str, list[dict[str, str]]] = {}
     for item in sorted(discovered, key=lambda value: (value["name"], value["documentation"])):
-        unique_discovered.setdefault(item["name"], item)
+        discovered_by_name.setdefault(item["name"], []).append(item)
     screenshots: list[dict[str, Any]] = []
-    for item in unique_discovered.values():
+    for name, matches in discovered_by_name.items():
+        item = matches[0]
         prior = existing_by_name.get(item["name"])
         unchanged = prior and all(prior.get(key) == item[key] for key in SOURCE_IDENTITY_FIELDS)
         review = {
@@ -116,10 +117,11 @@ def build_inventory(
             for key in ("status", "family", "variant", "decision_relevance", "notes")
             if unchanged and key in prior
         }
-        screenshots.append({**item, **review} if review else {**item, "status": "unreviewed"})
+        documentation_pages = sorted({match["documentation"] for match in matches})
+        screenshots.append({**item, "documentation_pages": documentation_pages, **review} if review else {**item, "documentation_pages": documentation_pages, "status": "unreviewed"})
 
     manifest = {
-        page: sorted(item["name"] for item in unique_discovered.values() if item["documentation"] == page)
+        page: sorted(name for name, matches in discovered_by_name.items() if any(item["documentation"] == page for item in matches))
         for page in pages
     }
     return {

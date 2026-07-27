@@ -7,7 +7,7 @@ Use this reference after querying the catalog for a Filament 5 schema or page-le
 | Pattern | Prefer when | Avoid when | Evidence |
 |---|---|---|---|
 | Flat content | One short, self-explanatory group needs no added hierarchy | A group needs a name, description, semantic boundary, or deliberate spans | [layouts](https://filamentphp.com/docs/5.x/schemas/layouts.md) |
-| Responsive columns | Related short fields share a row; long or high-importance fields get a deliberate wider span | A narrow viewport or equal widths would mislead | [forms overview](https://filamentphp.com/docs/5.x/forms/overview.md), [layouts](https://filamentphp.com/docs/5.x/schemas/layouts.md) |
+| Responsive columns | Ordinary short related fields share a row; long fields get space for their expected value; short high-importance fields get a deliberately prominent span | A narrow viewport or equal widths would mislead | [forms overview](https://filamentphp.com/docs/5.x/forms/overview.md), [layouts](https://filamentphp.com/docs/5.x/schemas/layouts.md) |
 | Sections | Two to four named groups are scanned top to bottom; descriptions explain the grouping | The container adds no hierarchy, or several large groups are usually visited one at a time | [sections](https://filamentphp.com/docs/5.x/schemas/sections.md) |
 | Aside sections | A heading and explanatory description deserve their own scan lane on a wide panel | The description is too short, or narrow space would crowd controls | [aside section](https://filamentphp.com/docs/5.x/schemas/sections.md) |
 | Fieldsets | A small, tightly related semantic subgroup needs an explicit shared label | A border is merely decorative, or the group needs a richer hierarchy | [fieldsets](https://filamentphp.com/docs/5.x/schemas/layouts.md) |

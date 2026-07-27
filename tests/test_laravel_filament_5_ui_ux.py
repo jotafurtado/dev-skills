@@ -231,7 +231,8 @@ class VisualCatalogSynchronizationTests(unittest.TestCase):
 
         self.assertEqual(1, len(inventory["screenshots"]))
         self.assertEqual(["forms/fields/text-input/affix"], inventory["crawl"]["manifest"][first_page])
-        self.assertEqual([], inventory["crawl"]["manifest"][second_page])
+        self.assertEqual(["forms/fields/text-input/affix"], inventory["crawl"]["manifest"][second_page])
+        self.assertEqual([first_page, second_page], inventory["screenshots"][0]["documentation_pages"])
 
 
 class VisualCatalogValidationTests(unittest.TestCase):

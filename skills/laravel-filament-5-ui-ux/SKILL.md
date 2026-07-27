@@ -20,7 +20,7 @@ Own visual pattern selection and composition inside Filament 5. Let `laravel-fil
      --available-width wide
    ```
 
-3. Load the routed reference for the surface. For settings forms, read `references/settings-form-composition.md`.
+3. Load the routed reference for the surface. For page-level forms and schemas, read `references/settings-form-composition.md`.
 4. When building or materially restructuring a surface and image viewing is available, inspect at least one listed official screenshot. For a small local change, use the reviewed catalog entry and exact documentation instead.
 5. Compare the returned official candidates. Select the pattern autonomously; do not ask the user to choose a Filament component.
 6. Emit a proportional visual decision trace before implementation. For a material surface, include the surface, goal, candidates, inspected evidence, selected pattern, responsive treatment, and any escape hatch. For a small change, cite the chosen official pattern in one line.

@@ -31,7 +31,7 @@
       "relationships": ["related-fields"],
       "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
       "selection_weight": 1,
-      "selection_signals": ["related short fields can share a row", "long or high-importance fields need a wider span", "field value lengths differ"],
+      "selection_signals": ["ordinary short related fields can share a row", "long fields need space for their expected value", "short high-importance fields need a deliberately prominent span", "field value lengths differ"],
       "avoid_when": ["a narrow viewport makes multiple columns unreadable", "equal widths obscure information hierarchy"],
       "alternatives": ["flat-content", "sections", "dense-layout"],
       "responsive_considerations": ["define one column before larger breakpoints", "give long, high-importance fields a deliberate full or wider span"],

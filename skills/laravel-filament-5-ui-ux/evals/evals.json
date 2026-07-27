@@ -83,6 +83,20 @@
         "It compares ordinary wrappers, inline labels, fused fields, and a callout before selecting a composition without asking the user to choose components.",
         "It includes a compact visual decision trace with official Filament 5 evidence before implementation."
       ]
+    },
+    {
+      "id": 8,
+      "prompt": "Design a Filament 5 product authoring form. Merchandisers add heterogeneous content blocks, a rich product description, multiple gallery images, and related products. The wide desktop panel must remain usable on mobile. They propose custom Blade cards for each block and a hand-built upload gallery. Describe the composition decision before implementation.",
+      "expected_output": "An evidence-grounded complex-input composition that selects native Filament controls, gives dense controls sufficient space, and records responsive, accessible, and escape-hatch reasoning.",
+      "assertions": [
+        "The response compares native collection items, rich-content editor, media uploads, and relationship controls using reviewed official evidence.",
+        "It selects a native Builder for heterogeneous blocks and does not use custom cards to recreate its hierarchy or actions.",
+        "It gives the editor and gallery upload controls a full or deliberate wide span rather than placing them with short scalar fields.",
+        "It states when a collection or relationship workflow should move from inline placement to a section, tab, or larger surface.",
+        "It preserves labelled items, keyboard-reachable item and upload actions, item-specific errors, and responsive stacking or preview-grid treatment.",
+        "It permits custom markup only after naming the official candidates considered and a concrete unsupported gap.",
+        "It includes a compact visual decision trace with official Filament 5 evidence before implementation."
+      ]
     }
   ]
 }

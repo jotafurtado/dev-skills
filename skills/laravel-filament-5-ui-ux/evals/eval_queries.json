@@ -8,6 +8,10 @@
     "should_trigger": true
   },
   {
+    "query": "Design a Filament 5 content form with repeatable blocks, a rich text editor, gallery uploads, and related authors.",
+    "should_trigger": true
+  },
+  {
     "query": "Build a generic Laravel Blade settings page with Tailwind.",
     "should_trigger": false
   },

@@ -18,6 +18,7 @@ npx skills add jotafurtado/dev-skills --skill laravel-filament-v5
 
 - Page-level schema and form composition
 - Ordinary field wrappers, labels, guidance, states, fused fields, affixes, and contextual callouts
+- Repeaters, builders, rich-content editors, uploads, and relationship-heavy controls
 - Flat content, responsive grids and deliberate field spans
 - Sections, aside sections, fieldsets, horizontal tabs, vertical tabs, and wizards
 - Contained, uncontained, compact, secondary, dense, and no-gap treatments
@@ -39,6 +40,7 @@ laravel-filament-5-ui-ux/
 ├── scripts/validate_visual_catalog.py
 ├── references/settings-form-composition.md
 ├── references/ordinary-field-composition.md
+├── references/complex-input-composition.md
 ├── references/visual-catalog.json
 ├── references/screenshot-inventory.json
 └── evals/

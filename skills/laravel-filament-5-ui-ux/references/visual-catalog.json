@@ -270,6 +270,110 @@
       "visual_evidence": [{"documentation": "https://filamentphp.com/docs/5.x/schemas/wizards.md", "screenshot": "schemas/layout/wizard/simple", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/wizard/simple.jpg"}]
     },
     {
+      "id": "collection-items",
+      "surface": ["form", "schema"],
+      "goals": ["compose-repeatable-items", "manage-structured-collection"],
+      "workflows": ["parallel", "linear"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["repeatable-structured-items", "compact-tabular-items", "block-based-content"],
+      "relationships": ["collection-of-structured-items"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["each item contains related fields that need a native hierarchy", "people need to add, remove, duplicate, or reorder items", "a collection is easier to scan through item labels, numbers, or block names"],
+      "avoid_when": ["the user is entering one scalar value", "a table would hide essential help, errors, or per-item actions", "custom cards are proposed only to simulate native repeater or builder hierarchy"],
+      "alternatives": ["responsive-columns", "sections", "rich-content-editor"],
+      "responsive_considerations": ["stack item-internal fields before labels, errors, or actions crowd", "prefer button-based reordering when drag handles are hard to use or space is constrained", "use the table layout only while every column remains readable and actionable"],
+      "accessibility_considerations": ["give each item a distinguishable visible label, number, or block heading", "keep add, remove, duplicate, collapse, and reorder actions named and keyboard reachable", "keep errors associated with the affected item and field rather than relying on position alone"],
+      "variant_decisions": [
+        {"id": "table-layout", "prefer_when": ["items are short, uniform rows with stable, scannable columns"], "avoid_when": ["an item needs rich guidance, previews, nested fields, or errors that a row would compress"], "visual_evidence": "forms/fields/repeater/table-compact"},
+        {"id": "add-action-placement", "prefer_when": ["the collection needs an explicit add affordance placed near the items it creates"], "avoid_when": ["a distant or generic page action would obscure which collection receives the new item"], "visual_evidence": "forms/fields/repeater/add-action-alignment"},
+        {"id": "reorder-buttons", "prefer_when": ["the order matters and explicit move controls are more discoverable or accessible than dragging"], "avoid_when": ["the collection is not ordered"], "visual_evidence": "forms/fields/repeater/reorderable-with-buttons"},
+        {"id": "collapsible-items", "prefer_when": ["many completed items need compact scanning while their labels still identify them"], "avoid_when": ["the current task requires comparing or correcting several item fields together"], "visual_evidence": "forms/fields/repeater/collapsed"},
+        {"id": "builder-blocks", "prefer_when": ["the collection contains heterogeneous content blocks with meaningful block types"], "avoid_when": ["all items share one stable field structure"], "visual_evidence": "forms/fields/builder/simple"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/repeater.md", "screenshot": "forms/fields/repeater/simple", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/repeater/simple.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/repeater.md", "screenshot": "forms/fields/repeater/table-compact", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/repeater/table-compact.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/builder.md", "screenshot": "forms/fields/builder/simple", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/builder/simple.jpg"}
+      ]
+    },
+    {
+      "id": "rich-content-editor",
+      "surface": ["form", "schema"],
+      "goals": ["edit-long-form-content"],
+      "workflows": ["linear", "parallel"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["long-form-content", "formatted-content"],
+      "relationships": ["single-high-density-control"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["a full-width editor preserves a readable writing area", "the control has a toolbar, structured content, or contextual panels", "editing needs more vertical space than a short scalar field"],
+      "avoid_when": ["the task needs only a short plain-text value", "a narrow column would compress the writing area or toolbar", "custom markup is proposed to recreate an official editor"],
+      "alternatives": ["responsive-columns", "collection-items", "sections"],
+      "responsive_considerations": ["give the editor a full or wide span before reducing toolbar or content readability", "keep formatting controls reachable and avoid forcing horizontal precision tasks into narrow columns"],
+      "accessibility_considerations": ["retain the editor label and expose formatting actions with discernible names", "keep focus order coherent between the toolbar, editor, and any contextual panels", "make validation feedback and upload or block insertion failures perceivable without color alone"],
+      "variant_decisions": [
+        {"id": "custom-toolbar", "prefer_when": ["the workflow needs a constrained, task-specific formatting set"], "avoid_when": ["removing controls would block required authoring actions"], "visual_evidence": "forms/fields/rich-editor/custom-toolbar"},
+        {"id": "contextual-panels", "prefer_when": ["blocks, mentions, or merge tags are part of authoring and the main writing area stays usable"], "avoid_when": ["a panel would obscure the task or appear for irrelevant content"], "visual_evidence": "forms/fields/rich-editor/custom-blocks"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/rich-editor.md", "screenshot": "forms/fields/rich-editor/simple", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/rich-editor/simple.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/markdown-editor.md", "screenshot": "forms/fields/markdown-editor/simple", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/markdown-editor/simple.jpg"}
+      ]
+    },
+    {
+      "id": "media-uploads",
+      "surface": ["form", "schema"],
+      "goals": ["manage-uploaded-media"],
+      "workflows": ["linear", "parallel"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["multiple-files", "image-media"],
+      "relationships": ["collection-of-files"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 1,
+      "selection_signals": ["the user must add, preview, inspect, or manage one or more files", "file previews or image-editing controls need a wide enough surface"],
+      "avoid_when": ["a narrow scalar-field column would compress previews or upload affordances", "custom upload cards recreate the native FileUpload interaction"],
+      "alternatives": ["collection-items", "rich-content-editor"],
+      "responsive_considerations": ["let preview grids reduce columns while preserving preview size, filenames, and remove controls", "give image editing a full workflow surface rather than embedding it in a cramped group"],
+      "accessibility_considerations": ["keep browse, remove, open, download, and editing controls named and keyboard reachable", "provide meaningful file names and text alternatives where media meaning is not otherwise available"],
+      "variant_decisions": [
+        {"id": "preview-grid", "prefer_when": ["several visual files benefit from side-by-side recognition"], "avoid_when": ["preview tiles become too small to identify or operate"], "visual_evidence": "forms/fields/file-upload/multiple-grid"},
+        {"id": "image-editor", "prefer_when": ["the workflow requires a crop or other image adjustment before submission"], "avoid_when": ["the upload is a simple attachment with no editing need"], "visual_evidence": "forms/fields/file-upload/image-editor"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/file-upload.md", "screenshot": "forms/fields/file-upload/simple", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/file-upload/simple.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/file-upload.md", "screenshot": "forms/fields/file-upload/multiple-grid", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/file-upload/multiple-grid.jpg"}
+      ]
+    },
+    {
+      "id": "relationship-controls",
+      "surface": ["form", "schema"],
+      "goals": ["manage-related-records"],
+      "workflows": ["parallel", "linear"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["related-record-selection", "many-related-records"],
+      "relationships": ["record-to-related-records"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 1,
+      "selection_signals": ["a field selects, creates, edits, or manages related records", "relationship labels need search or enough width to remain distinguishable"],
+      "avoid_when": ["a relation needs rich per-item fields that belong in a repeater or relation workflow", "a custom card is used where native select or relationship controls represent the task"],
+      "alternatives": ["collection-items", "sections"],
+      "responsive_considerations": ["preserve readable selected labels and reachable create or edit actions on narrow screens", "move a relationship-heavy workflow to its own section, tab, or larger surface when options, details, and actions cannot remain scannable inline"],
+      "accessibility_considerations": ["name the relationship and any create or edit action clearly", "do not rely on colour or truncation alone to distinguish selected related records", "keep result, selected-value, and validation feedback available to keyboard and assistive-technology users"],
+      "variant_decisions": [
+        {"id": "searchable-selection", "prefer_when": ["the relationship has enough options that scanning a static list is inefficient"], "avoid_when": ["a short stable option set is already easy to scan"], "visual_evidence": "forms/fields/select/searchable"},
+        {"id": "create-or-edit-related", "prefer_when": ["the user must resolve a missing or incorrect related record without abandoning the current task"], "avoid_when": ["the related-record workflow is too large for an inline action"], "visual_evidence": "forms/fields/select/create-option-modal"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/select.md", "screenshot": "forms/fields/select/searchable", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/select/searchable.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/select.md", "screenshot": "forms/fields/select/create-option-modal", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/select/create-option-modal.jpg"}
+      ]
+    },
+    {
       "id": "dense-layout",
       "surface": ["form", "schema"],
       "goals": ["increase-information-density"],

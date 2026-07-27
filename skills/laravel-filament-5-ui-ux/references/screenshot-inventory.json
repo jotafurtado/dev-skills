@@ -2787,14 +2787,16 @@
     {
       "alt": "Builder with add action aligned to the start",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/builder/add-action-alignment.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/builder.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/builder.md"
       ],
+      "family": "collection-items",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/builder/add-action-alignment.jpg",
       "name": "forms/fields/builder/add-action-alignment",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "add-action-placement"
     },
     {
       "alt": "Builder with icons in block headers",
@@ -2852,9 +2854,11 @@
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/builder.md"
       ],
+      "family": "collection-items",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/builder/collapsed.jpg",
       "name": "forms/fields/builder/collapsed",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "collapsible-items"
     },
     {
       "alt": "Collapsible builder",
@@ -2900,21 +2904,25 @@
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/builder.md"
       ],
+      "family": "collection-items",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/builder/reorderable-with-buttons.jpg",
       "name": "forms/fields/builder/reorderable-with-buttons",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "reorder-buttons"
     },
     {
       "alt": "Builder",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/builder/simple.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/builder.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/builder.md"
       ],
+      "family": "collection-items",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/builder/simple.jpg",
       "name": "forms/fields/builder/simple",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "builder-blocks"
     },
     {
       "alt": "Bulk toggleable checkbox list",
@@ -3286,9 +3294,11 @@
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/file-upload.md"
       ],
+      "family": "media-uploads",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/file-upload/image-editor.jpg",
       "name": "forms/fields/file-upload/image-editor",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "image-editor"
     },
     {
       "alt": "File upload with image preview",
@@ -3310,9 +3320,11 @@
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/file-upload.md"
       ],
+      "family": "media-uploads",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/file-upload/multiple-grid.jpg",
       "name": "forms/fields/file-upload/multiple-grid",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "preview-grid"
     },
     {
       "alt": "File upload with openable files",
@@ -3329,14 +3341,16 @@
     {
       "alt": "File upload",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/file-upload/simple.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/file-upload.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/file-upload.md"
       ],
+      "family": "media-uploads",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/file-upload/simple.jpg",
       "name": "forms/fields/file-upload/simple",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "default-upload"
     },
     {
       "alt": "Fused group of form fields",
@@ -3479,14 +3493,16 @@
     {
       "alt": "Markdown editor",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/markdown-editor/simple.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/markdown-editor.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/markdown-editor.md"
       ],
+      "family": "rich-content-editor",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/markdown-editor/simple.jpg",
       "name": "forms/fields/markdown-editor/simple",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "markdown-editor"
     },
     {
       "alt": "Modal table select with table open in a modal",
@@ -3601,14 +3617,16 @@
     {
       "alt": "Repeater with add action aligned to the start",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/repeater/add-action-alignment.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/repeater.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/repeater.md"
       ],
+      "family": "collection-items",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/repeater/add-action-alignment.jpg",
       "name": "forms/fields/repeater/add-action-alignment",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "add-action-placement"
     },
     {
       "alt": "Cloneable repeater",
@@ -3630,9 +3648,11 @@
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/repeater.md"
       ],
+      "family": "collection-items",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/repeater/collapsed.jpg",
       "name": "forms/fields/repeater/collapsed",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "collapsible-items"
     },
     {
       "alt": "Collapsible repeater",
@@ -3690,21 +3710,25 @@
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/repeater.md"
       ],
+      "family": "collection-items",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/repeater/reorderable-with-buttons.jpg",
       "name": "forms/fields/repeater/reorderable-with-buttons",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "reorder-buttons"
     },
     {
       "alt": "Repeater",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/repeater/simple.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/repeater.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/repeater.md"
       ],
+      "family": "collection-items",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/repeater/simple.jpg",
       "name": "forms/fields/repeater/simple",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "contained-items"
     },
     {
       "alt": "Simple repeater design with only one field",
@@ -3738,9 +3762,11 @@
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/repeater.md"
       ],
+      "family": "collection-items",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/repeater/table-compact.jpg",
       "name": "forms/fields/repeater/table-compact",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "table-layout"
     },
     {
       "alt": "Rich editor with custom blocks panel open",
@@ -3750,9 +3776,11 @@
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/rich-editor.md"
       ],
+      "family": "rich-content-editor",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/rich-editor/custom-blocks.jpg",
       "name": "forms/fields/rich-editor/custom-blocks",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "contextual-panels"
     },
     {
       "alt": "Rich editor with customized toolbar buttons",
@@ -3762,9 +3790,11 @@
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/rich-editor.md"
       ],
+      "family": "rich-content-editor",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/rich-editor/custom-toolbar.jpg",
       "name": "forms/fields/rich-editor/custom-toolbar",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "custom-toolbar"
     },
     {
       "alt": "Rich editor with floating toolbar below selected text",
@@ -3817,14 +3847,16 @@
     {
       "alt": "Rich editor",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/rich-editor/simple.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/rich-editor.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/rich-editor.md"
       ],
+      "family": "rich-content-editor",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/rich-editor/simple.jpg",
       "name": "forms/fields/rich-editor/simple",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "default-editor"
     },
     {
       "alt": "Rich editor text color picker modal",
@@ -3901,14 +3933,16 @@
     {
       "alt": "Select with create option modal",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/select/create-option-modal.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/select.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/select.md"
       ],
+      "family": "relationship-controls",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/select/create-option-modal.jpg",
       "name": "forms/fields/select/create-option-modal",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "create-or-edit-related"
     },
     {
       "alt": "Select with disabled options",
@@ -3997,14 +4031,16 @@
     {
       "alt": "Searchable select",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/select/searchable.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/select.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/select.md"
       ],
+      "family": "relationship-controls",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/select/searchable.jpg",
       "name": "forms/fields/select/searchable",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "searchable-selection"
     },
     {
       "alt": "Select",

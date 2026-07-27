@@ -160,6 +160,45 @@ class VisualCatalogQueryTests(unittest.TestCase):
         self.assertIn("placeholder-example", variants)
         self.assertIn("auxiliary-content", variants)
 
+    def test_collection_input_query_selects_repeatable_item_hierarchy(self):
+        query = load_query_module()
+
+        result = query.query_catalog(
+            surface="form",
+            goal="compose-repeatable-items",
+            workflow="parallel",
+            available_width="wide",
+            information_shape="repeatable-structured-items",
+            relationship="collection-of-structured-items",
+            responsive_context="desktop-with-mobile-fallback",
+        )
+
+        self.assertEqual("collection-items", result["selected_pattern"]["id"])
+        self.assertIn(
+            "forms/fields/repeater/simple",
+            [evidence["screenshot"] for evidence in result["selected_pattern"]["visual_evidence"]],
+        )
+        variants = {item["id"]: item for item in result["selected_pattern"]["variant_decisions"]}
+        self.assertIn("add-action-placement", variants)
+        self.assertIn("table-layout", variants)
+        self.assertIn("reorder-buttons", variants)
+
+    def test_rich_content_query_selects_a_full_width_editor(self):
+        query = load_query_module()
+
+        result = query.query_catalog(
+            surface="form",
+            goal="edit-long-form-content",
+            workflow="linear",
+            available_width="wide",
+            information_shape="long-form-content",
+            relationship="single-high-density-control",
+            responsive_context="desktop-with-mobile-fallback",
+        )
+
+        self.assertEqual("rich-content-editor", result["selected_pattern"]["id"])
+        self.assertIn("full-width", " ".join(result["selected_pattern"]["selection_signals"]))
+
 
 class VisualCatalogSynchronizationTests(unittest.TestCase):
     def test_discovery_does_not_duplicate_markdown_extension(self):

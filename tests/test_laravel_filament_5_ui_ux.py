@@ -87,6 +87,19 @@ class VisualCatalogQueryTests(unittest.TestCase):
 
 
 class VisualCatalogSynchronizationTests(unittest.TestCase):
+    def test_discovery_does_not_duplicate_markdown_extension(self):
+        sync = load_sync_module()
+
+        pages = sync.discover_markdown_pages(
+            "https://filamentphp.com/docs/5.x",
+            fetch=lambda _url: '<a href="/docs/5.x/introduction/overview.md">Overview</a>',
+        )
+
+        self.assertEqual(
+            ["https://filamentphp.com/docs/5.x/introduction/overview.md"],
+            pages,
+        )
+
     def test_sync_discovers_screenshots_and_preserves_existing_review(self):
         sync = load_sync_module()
         pages = {

@@ -45,8 +45,10 @@ def discover_markdown_pages(index_url: str, *, fetch: Callable[[str], str] = fet
     """Find versioned documentation pages from the official documentation index."""
     document = fetch(index_url)
     pages = {
-        f"https://filamentphp.com{match.group('href')}.md"
+        "https://filamentphp.com"
+        + (href if href.endswith(".md") else f"{href}.md")
         for match in DOC_LINK_PATTERN.finditer(document)
+        for href in [match.group("href")]
     }
     if not pages:
         raise ValueError(f"No Filament 5 documentation pages found at {index_url}")

@@ -23,6 +23,7 @@ SCREENSHOT_PATTERN = re.compile(
 )
 ATTRIBUTE_PATTERN = re.compile(r"(?P<key>name|alt)=[\"'](?P<value>[^\"']+)[\"']")
 DOC_LINK_PATTERN = re.compile(r"href=[\"'](?P<href>/docs/5\.x/[^\"'#?]+)[\"']")
+SOURCE_IDENTITY_FIELDS = ("name", "alt", "documentation", "light_image", "dark_image")
 
 
 def fetch_text(url: str, *, retries: int = 3, timeout: float = 20.0) -> str:
@@ -104,9 +105,7 @@ def build_inventory(
     screenshots: list[dict[str, Any]] = []
     for item in sorted(discovered, key=lambda value: (value["name"], value["documentation"])):
         prior = existing_by_name.get(item["name"])
-        unchanged = prior and all(
-            key not in prior or prior[key] == item[key] for key in item
-        )
+        unchanged = prior and all(prior.get(key) == item[key] for key in SOURCE_IDENTITY_FIELDS)
         review = {
             key: prior[key]
             for key in ("status", "family", "variant", "decision_relevance", "notes")
@@ -114,7 +113,11 @@ def build_inventory(
         }
         screenshots.append({**item, **review} if review else {**item, "status": "unreviewed"})
 
-    return {"schema_version": 1, "screenshots": screenshots}
+    return {
+        "schema_version": 1,
+        "crawl": {"pages": pages, "status": "complete"},
+        "screenshots": screenshots,
+    }
 
 
 def write_inventory(path: Path, inventory: dict[str, Any]) -> None:

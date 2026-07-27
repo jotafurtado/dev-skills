@@ -105,6 +105,10 @@ class VisualCatalogSynchronizationTests(unittest.TestCase):
             "screenshots": [
                 {
                     "name": "forms/overview",
+                    "alt": "A settings form",
+                    "documentation": "https://filamentphp.com/docs/5.x/forms/overview.md",
+                    "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/overview.jpg",
+                    "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/overview.jpg",
                     "status": "reviewed",
                     "family": "responsive-columns",
                 }
@@ -125,6 +129,30 @@ class VisualCatalogSynchronizationTests(unittest.TestCase):
             "https://filamentphp.com/docs/images/5.x/light/forms/new.jpg",
             inventory["screenshots"][0]["light_image"],
         )
+
+    def test_sync_marks_materially_changed_evidence_unreviewed(self):
+        sync = load_sync_module()
+        page = "https://filamentphp.com/docs/5.x/forms/overview.md"
+        existing = {
+            "screenshots": [{
+                "name": "forms/overview",
+                "alt": "Old description",
+                "documentation": page,
+                "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/overview.jpg",
+                "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/overview.jpg",
+                "status": "reviewed",
+                "family": "responsive-columns",
+            }],
+        }
+
+        inventory = sync.build_inventory(
+            [page],
+            fetch=lambda _url: '<AutoScreenshot name="forms/overview" alt="New description" />',
+            existing=existing,
+        )
+
+        self.assertEqual("unreviewed", inventory["screenshots"][0]["status"])
+        self.assertNotIn("family", inventory["screenshots"][0])
 
     def test_inventory_output_is_stable_json(self):
         sync = load_sync_module()
@@ -168,6 +196,25 @@ class VisualCatalogValidationTests(unittest.TestCase):
         self.assertIn("forms/new is unreviewed", errors)
         self.assertIn("forms/new references unknown family unknown", errors)
         self.assertIn("forms/new needs a variant for a decision-changing screenshot", errors)
+
+    def test_validation_rejects_missing_classification_and_crawl_contract(self):
+        validate = load_validate_module()
+        catalog = {"patterns": [{"id": "sections"}]}
+        inventory = {
+            "screenshots": [{
+                "name": "forms/new",
+                "documentation": "https://filamentphp.com/docs/5.x/forms/overview.md",
+                "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/new.jpg",
+                "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/new.jpg",
+                "status": "reviewed",
+                "family": "sections",
+            }],
+        }
+
+        errors = validate.validate(catalog, inventory)
+
+        self.assertIn("inventory is missing a complete crawl contract", errors)
+        self.assertIn("forms/new is missing decision_relevance", errors)
 
 
 class VisualCatalogReviewSheetTests(unittest.TestCase):

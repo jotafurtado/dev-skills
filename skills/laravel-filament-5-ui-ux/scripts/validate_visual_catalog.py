@@ -19,6 +19,12 @@ IMAGE_PREFIX = "https://filamentphp.com/docs/images/5.x/"
 def validate(catalog: dict[str, Any], inventory: dict[str, Any]) -> list[str]:
     """Return deterministic validation errors for catalog and inventory contracts."""
     errors: list[str] = []
+    crawl = inventory.get("crawl", {})
+    crawl_pages = crawl.get("pages")
+    if crawl.get("status") != "complete" or not isinstance(crawl_pages, list) or not crawl_pages:
+        errors.append("inventory is missing a complete crawl contract")
+    elif crawl_pages != sorted(set(crawl_pages)):
+        errors.append("inventory crawl pages are not stably ordered")
     patterns = {pattern.get("id") for pattern in catalog.get("patterns", [])}
     names: set[str] = set()
     for screenshot in inventory.get("screenshots", []):
@@ -29,6 +35,8 @@ def validate(catalog: dict[str, Any], inventory: dict[str, Any]) -> list[str]:
         for field in ("name", "documentation", "light_image", "dark_image", "status"):
             if not screenshot.get(field):
                 errors.append(f"{name} is missing {field}")
+        if not screenshot.get("decision_relevance"):
+            errors.append(f"{name} is missing decision_relevance")
         if screenshot.get("status") != "reviewed":
             errors.append(f"{name} is unreviewed")
         if not str(screenshot.get("documentation", "")).startswith(DOC_PREFIX):

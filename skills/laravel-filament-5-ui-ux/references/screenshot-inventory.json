@@ -1,4 +1,12 @@
 {
+  "crawl": {
+    "pages": [
+      "https://filamentphp.com/docs/5.x/forms/overview.md",
+      "https://filamentphp.com/docs/5.x/schemas/layouts.md",
+      "https://filamentphp.com/docs/5.x/schemas/tabs.md"
+    ],
+    "status": "complete"
+  },
   "schema_version": 1,
   "screenshots": [
     {

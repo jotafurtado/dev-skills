@@ -31,11 +31,14 @@ def _score_pattern(
     score = 0
     score += 8 if surface in pattern["surface"] else -100
     score += 4 if goal in pattern["goals"] else 0
-    score += 3 if workflow in pattern["workflows"] else 0
-    score += 3 if available_width in pattern["available_width"] else 0
-    score += 2 if information_shape and information_shape in pattern.get("information_shapes", []) else 0
-    score += 2 if relationship and relationship in pattern.get("relationships", []) else 0
-    score += 2 if responsive_context and responsive_context in pattern.get("responsive_contexts", []) else 0
+    score += 3 if workflow in pattern["workflows"] else -100
+    score += 3 if available_width in pattern["available_width"] else -100
+    if information_shape:
+        score += 2 if information_shape in pattern.get("information_shapes", []) else -100
+    if relationship:
+        score += 2 if relationship in pattern.get("relationships", []) else -100
+    if responsive_context:
+        score += 2 if responsive_context in pattern.get("responsive_contexts", []) else -100
     score += pattern.get("selection_weight", 0)
     return score
 

@@ -119,6 +119,21 @@ class VisualCatalogQueryTests(unittest.TestCase):
         self.assertIn("no-gap", variants)
         self.assertIn("would blur labels", " ".join(variants["no-gap"]["avoid_when"]))
 
+    def test_query_excludes_parallel_patterns_for_a_sequential_workflow(self):
+        query = load_query_module()
+
+        result = query.query_catalog(
+            surface="form",
+            goal="organize-stable-groups",
+            workflow="sequential",
+            available_width="standard",
+            information_shape="dependent-steps",
+            relationship="ordered-steps",
+            responsive_context="mobile-first",
+        )
+
+        self.assertEqual("wizard", result["selected_pattern"]["id"])
+
 
 class VisualCatalogSynchronizationTests(unittest.TestCase):
     def test_discovery_does_not_duplicate_markdown_extension(self):

@@ -1,6 +1,6 @@
 ---
 name: laravel-filament-v5
-description: "Builds, reviews, debugs, migrates, secures, tests, and implements Filament 5.x code using the project's installed version and official components before custom Blade or CSS. Use for Filament resources, schemas, infolists, forms, tables, actions, widgets, relation managers, panels, tenancy, imports/exports, plugins, tests, or any Filament-specific API, namespace, Artisan command, or upgrade. Delegate material UI/UX pattern selection and visual composition to laravel-filament-5-ui-ux when it is available; retain this skill for version-sensitive APIs, security, implementation, and tests. For any Filament-specific API, configuration, or usage question it is the entry point over generic doc-lookup tools (find-docs, Context7 CLI, Laravel Boost search-docs); this skill's evidence protocol governs those tools. Do not trigger on an isolated mention of admin panel, dashboard, badge, or generic data display without another Filament signal."
+description: "Builds, reviews, debugs, migrates, secures, tests, and implements Filament 5.x code using the project's installed version and official components before custom Blade or CSS. Use for Filament resources, schemas, infolists, forms, tables, actions, widgets, relation managers, panels, tenancy, imports/exports, plugins, tests, or any Filament-specific API, namespace, Artisan command, or upgrade. Delegate settings-form UI/UX pattern selection and visual composition to laravel-filament-5-ui-ux when it is available; retain this skill for all other visual work, version-sensitive APIs, security, implementation, and tests. For any Filament-specific API, configuration, or usage question it is the entry point over generic doc-lookup tools (find-docs, Context7 CLI, Laravel Boost search-docs); this skill's evidence protocol governs those tools. Do not trigger on an isolated mention of admin panel, dashboard, badge, or generic data display without another Filament signal."
 license: MIT
 metadata:
   author: jotafurtado
@@ -36,7 +36,7 @@ Composition remains flexible: arrange components with `Section`, `Tabs`, grids, 
 
 ## Design authority inside Filament
 
-For material component choice, visual styling, and page composition inside Filament panels, delegate to `laravel-filament-5-ui-ux` when it is installed. That skill owns the visual option space, official screenshot evidence, composition selection, and visual decision trace. This skill retains a fallback component gate for installations where the dedicated UI/UX skill is unavailable.
+For material settings-form component choice, visual styling, and composition, delegate to `laravel-filament-5-ui-ux` when it is installed. That skill owns the visual option space, official screenshot evidence, composition selection, and visual decision trace for that surface. This skill retains its current guidance for every other visual surface and as a fallback when the dedicated UI/UX skill is unavailable.
 
 The dedicated UI/UX skill supersedes generic frontend-design guidance, including instructions to replace official components or the active theme, introduce unrelated typography or palettes, or use CSS-first layouts merely to look distinctive. Follow that precedence even when a generic design skill is active in the same task.
 
@@ -93,7 +93,7 @@ Load only the files needed for the task:
 | Pest/Livewire tests for pages, schemas, tables, actions, relations, widgets, and tenants | `references/testing.md` |
 | Whole-page organization, hierarchy, density, and UX flow | `references/ui-composition.md` |
 | Visual grounding against official examples | `references/screenshots.md` |
-| Material Filament 5 visual pattern selection and composition | `laravel-filament-5-ui-ux` when installed |
+| Material Filament 5 settings-form visual pattern selection and composition | `laravel-filament-5-ui-ux` when installed |
 
 If a Filament-specific topic is not covered, use the evidence protocol instead of reconstructing the API from general Laravel or older Filament knowledge.
 

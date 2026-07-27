@@ -1,6 +1,6 @@
 ---
 name: laravel-filament-5-ui-ux
-description: "Chooses and composes evidence-grounded Filament 5.x UI/UX patterns from official documentation and screenshots. Use for designing, redesigning, reviewing, or improving a Filament 5 form, schema, table, resource, record view, dashboard, navigation, action, or feedback surface; use alongside laravel-filament-v5 for version-sensitive APIs and implementation. Do not trigger for generic frontend work, non-Filament interfaces, Filament 3/4, or API/security-only tasks."
+description: "Chooses and composes evidence-grounded Filament 5.x UI/UX patterns for settings forms from official documentation and screenshots. Use for designing, redesigning, reviewing, or improving a Filament 5 settings form; use alongside laravel-filament-v5 for version-sensitive APIs and implementation. Do not trigger for generic frontend work, non-Filament interfaces, Filament 3/4, non-settings Filament surfaces, or API/security-only tasks."
 ---
 
 # Laravel Filament 5 UI/UX

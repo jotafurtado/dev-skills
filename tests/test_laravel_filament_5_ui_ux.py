@@ -229,6 +229,32 @@ class VisualCatalogValidationTests(unittest.TestCase):
         self.assertIn("inventory is missing a complete crawl contract", errors)
         self.assertIn("forms/new is missing decision_relevance", errors)
 
+    def test_validation_rejects_inventory_missing_a_manifest_screenshot(self):
+        validate = load_validate_module()
+        catalog = {"patterns": [{"id": "sections"}]}
+        inventory = {
+            "crawl": {
+                "status": "complete",
+                "pages": ["https://filamentphp.com/docs/5.x/forms/overview.md"],
+                "manifest": {
+                    "https://filamentphp.com/docs/5.x/forms/overview.md": ["forms/new", "forms/overview"],
+                },
+            },
+            "screenshots": [{
+                "name": "forms/overview",
+                "documentation": "https://filamentphp.com/docs/5.x/forms/overview.md",
+                "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/overview.jpg",
+                "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/overview.jpg",
+                "status": "reviewed",
+                "family": "sections",
+                "decision_relevance": "non-decision-changing",
+            }],
+        }
+
+        errors = validate.validate(catalog, inventory)
+
+        self.assertIn("inventory does not match its crawl manifest", errors)
+
 
 class VisualCatalogReviewSheetTests(unittest.TestCase):
     def test_review_sheet_groups_downloaded_images_in_temporary_output(self):

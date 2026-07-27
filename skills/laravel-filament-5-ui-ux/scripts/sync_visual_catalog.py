@@ -115,9 +115,13 @@ def build_inventory(
         }
         screenshots.append({**item, **review} if review else {**item, "status": "unreviewed"})
 
+    manifest = {
+        page: sorted(item["name"] for item in discovered if item["documentation"] == page)
+        for page in pages
+    }
     return {
         "schema_version": 1,
-        "crawl": {"pages": pages, "status": "complete"},
+        "crawl": {"manifest": manifest, "pages": pages, "status": "complete"},
         "screenshots": screenshots,
     }
 

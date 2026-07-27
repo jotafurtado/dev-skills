@@ -1,5 +1,19 @@
 {
   "crawl": {
+    "manifest": {
+      "https://filamentphp.com/docs/5.x/forms/overview.md": [
+        "forms/overview"
+      ],
+      "https://filamentphp.com/docs/5.x/schemas/layouts.md": [
+        "schemas/layout/grid/column-span",
+        "schemas/layout/section/aside",
+        "schemas/layout/section/simple"
+      ],
+      "https://filamentphp.com/docs/5.x/schemas/tabs.md": [
+        "schemas/layout/tabs/simple",
+        "schemas/layout/tabs/vertical"
+      ]
+    },
     "pages": [
       "https://filamentphp.com/docs/5.x/forms/overview.md",
       "https://filamentphp.com/docs/5.x/schemas/layouts.md",

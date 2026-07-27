@@ -25,6 +25,17 @@ def validate(catalog: dict[str, Any], inventory: dict[str, Any]) -> list[str]:
         errors.append("inventory is missing a complete crawl contract")
     elif crawl_pages != sorted(set(crawl_pages)):
         errors.append("inventory crawl pages are not stably ordered")
+    manifest = crawl.get("manifest")
+    if not isinstance(manifest, dict) or set(manifest) != set(crawl_pages or []):
+        errors.append("inventory is missing a complete crawl manifest")
+    else:
+        actual_manifest: dict[str, list[str]] = {page: [] for page in crawl_pages}
+        for screenshot in inventory.get("screenshots", []):
+            actual_manifest.setdefault(screenshot.get("documentation", ""), []).append(screenshot.get("name", ""))
+        actual_manifest = {page: sorted(names) for page, names in actual_manifest.items()}
+        expected_manifest = {page: sorted(names) for page, names in manifest.items()}
+        if actual_manifest != expected_manifest:
+            errors.append("inventory does not match its crawl manifest")
     patterns = {pattern.get("id") for pattern in catalog.get("patterns", [])}
     names: set[str] = set()
     for screenshot in inventory.get("screenshots", []):

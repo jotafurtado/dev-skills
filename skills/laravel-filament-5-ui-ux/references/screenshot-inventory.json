@@ -2747,14 +2747,16 @@
     {
       "alt": "Form field with text below content",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/below-content/text.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/overview.md"
       ],
+      "family": "ordinary-field-composition",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/below-content/text.jpg",
       "name": "forms/fields/below-content/text",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "field-level-guidance"
     },
     {
       "alt": "Form field with extra content below error message",
@@ -3239,14 +3241,16 @@
     {
       "alt": "Disabled form field",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/disabled.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/overview.md"
       ],
+      "family": "ordinary-field-composition",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/disabled.jpg",
       "name": "forms/fields/disabled",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "disabled-and-validation-states"
     },
     {
       "alt": "File upload with avatar mode",
@@ -3359,26 +3363,30 @@
     {
       "alt": "Fused group of form fields in columns with customized span",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/fused-columns-span.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/overview.md"
       ],
+      "family": "ordinary-field-composition",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/fused-columns-span.jpg",
       "name": "forms/fields/fused-columns-span",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "fused-columns-and-spans"
     },
     {
       "alt": "Fused group of form fields with label",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/fused-label.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/overview.md"
       ],
+      "family": "ordinary-field-composition",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/fused-label.jpg",
       "name": "forms/fields/fused-label",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "fused-fields"
     },
     {
       "alt": "Form field with a hidden label",
@@ -3395,14 +3403,16 @@
     {
       "alt": "Form field with inline label",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/inline-label.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/overview.md"
       ],
+      "family": "ordinary-field-composition",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/inline-label.jpg",
       "name": "forms/fields/inline-label",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "inline-label"
     },
     {
       "alt": "Form fields with inline labels in a section",
@@ -4043,14 +4053,16 @@
     {
       "alt": "Form field",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/simple.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/overview.md"
       ],
+      "family": "ordinary-field-composition",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/simple.jpg",
       "name": "forms/fields/simple",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "ordinary-wrapper"
     },
     {
       "alt": "Slider with fill",
@@ -4415,15 +4427,17 @@
     {
       "alt": "Text input with affixes",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/text-input/affix.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/overview.md",
         "https://filamentphp.com/docs/5.x/forms/text-input.md"
       ],
+      "family": "ordinary-field-composition",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/text-input/affix.jpg",
       "name": "forms/fields/text-input/affix",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "adjoined-affix"
     },
     {
       "alt": "Text input with color type",
@@ -4778,14 +4792,16 @@
     {
       "alt": "A form with validation errors",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/validation.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/validation.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/validation.md"
       ],
+      "family": "ordinary-field-composition",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/validation.jpg",
       "name": "forms/validation",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "disabled-and-validation-states"
     },
     {
       "alt": "Infolist entry with extra content above content",
@@ -7051,14 +7067,16 @@
     {
       "alt": "Callout",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/schemas/layout/callout/simple.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/schemas/callouts.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/schemas/callouts.md"
       ],
+      "family": "ordinary-field-composition",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/callout/simple.jpg",
       "name": "schemas/layout/callout/simple",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "contextual-callout"
     },
     {
       "alt": "Callout statuses",

@@ -69,6 +69,20 @@
         "It explains the narrow-screen treatment for the explanatory content and controls.",
         "It emits a visible evidence-based decision trace before implementation."
       ]
+    },
+    {
+      "id": 7,
+      "prompt": "Improve a Filament 5 vendor application form without being told which layout or field options to use. The current form puts Legal business name, Tax ID, Website, Monthly revenue, and a long business-description textarea in five equal desktop columns. It repeats each label in helper text. City and country are visually separated even though they describe one location. Website users need an example format, revenue needs a currency cue, Tax ID is locked until verification completes, and a failed submission must make correction obvious. A policy warning applies to the entire payout section. Mobile users must still scan and correct every field easily. Describe the visual decision before implementation.",
+      "expected_output": "An evidence-grounded ordinary-field composition that autonomously improves width, labels, guidance, fused location fields, state feedback, and group-level context without treating the options as decoration.",
+      "assertions": [
+        "The response gives the long business description a deliberately wider or full span and allows only short related fields to share a row.",
+        "It keeps labels distinct from field-level guidance and uses the Website example as guidance rather than a replacement label.",
+        "It distinguishes a fused, labelled location group from unrelated fields and gives a use and avoid condition for the fused arrangement.",
+        "It uses a value-adjoined currency affix for revenue and a contextual callout for the payout policy rather than treating either as generic helper text.",
+        "It preserves visible or accessible labels, required state, focus, non-color validation feedback, and an understandable disabled Tax ID state.",
+        "It compares ordinary wrappers, inline labels, fused fields, and a callout before selecting a composition without asking the user to choose components.",
+        "It includes a compact visual decision trace with official Filament 5 evidence before implementation."
+      ]
     }
   ]
 }

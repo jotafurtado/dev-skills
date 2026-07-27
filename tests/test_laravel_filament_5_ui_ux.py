@@ -134,6 +134,30 @@ class VisualCatalogQueryTests(unittest.TestCase):
 
         self.assertEqual("wizard", result["selected_pattern"]["id"])
 
+    def test_ordinary_field_composition_query_selects_field_geometry_and_guidance(self):
+        query = load_query_module()
+
+        result = query.query_catalog(
+            surface="form",
+            goal="compose-ordinary-fields",
+            workflow="parallel",
+            available_width="wide",
+            information_shape="mixed-field-lengths",
+            relationship="field-and-context",
+            responsive_context="desktop-with-mobile-fallback",
+        )
+
+        self.assertEqual("ordinary-field-composition", result["selected_pattern"]["id"])
+        self.assertTrue(
+            any(
+                consideration.startswith("labels identify fields")
+                for consideration in result["selected_pattern"]["accessibility_considerations"]
+            )
+        )
+        variants = {item["id"]: item for item in result["selected_pattern"]["variant_decisions"]}
+        self.assertIn("inline-label", variants)
+        self.assertIn("adjoined-affix", variants)
+
 
 class VisualCatalogSynchronizationTests(unittest.TestCase):
     def test_discovery_does_not_duplicate_markdown_extension(self):

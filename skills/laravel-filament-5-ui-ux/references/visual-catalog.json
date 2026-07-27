@@ -1,8 +1,102 @@
 {
   "schema_version": 2,
   "source": "https://filamentphp.com/docs/5.x/",
-  "scope": "Filament 5.x page-level schema and form composition",
+  "scope": "Filament 5.x page-level schema and form composition plus ordinary field presentation",
   "patterns": [
+    {
+      "id": "ordinary-field-composition",
+      "surface": ["form", "schema"],
+      "goals": ["compose-ordinary-fields", "make-field-guidance-actionable"],
+      "workflows": ["parallel", "linear"],
+      "available_width": ["narrow", "standard", "wide"],
+      "information_shapes": ["mixed-field-lengths", "ordinary-field-with-context"],
+      "relationships": ["field-and-context", "closely-related-fields"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": [
+        "ordinary fields need labels, expected-value guidance, and clear state feedback",
+        "long and short values need different spans without losing a logical reading order",
+        "related controls may share one composed unit when their values are interpreted together"
+      ],
+      "avoid_when": [
+        "the problem is primarily page-level grouping, sequencing, or navigation",
+        "supporting information applies to a whole workflow rather than one field or immediate task context"
+      ],
+      "alternatives": ["responsive-columns", "fieldsets", "sections", "aside-sections"],
+      "responsive_considerations": [
+        "start with a readable one-column field flow, then let related short fields share rows at wider breakpoints",
+        "give long free-form values and error-prone fields a wider or full span rather than equal columns",
+        "return fused groups, inline labels, and field guidance to a readable stacked arrangement before their labels, values, or messages collide"
+      ],
+      "accessibility_considerations": [
+        "labels identify fields and remain visible unless an accessible hidden-label treatment is necessary",
+        "required state, validation feedback, disabled state, and focus must remain perceivable without relying only on color",
+        "place concise field-level guidance close to the control it qualifies and keep it distinct from the field label",
+        "retain a logical keyboard and reading order when fields share a row, fuse, or use inline labels"
+      ],
+      "variant_decisions": [
+        {
+          "id": "ordinary-wrapper",
+          "prefer_when": ["the label, input, and any feedback need the familiar vertical reading order"],
+          "avoid_when": ["the form is a known dense, repetitive set whose short labels and values remain easy to scan inline"],
+          "visual_evidence": "forms/fields/simple"
+        },
+        {
+          "id": "inline-label",
+          "prefer_when": ["a dense, familiar form has short stable labels and vertical space is genuinely constrained"],
+          "avoid_when": ["labels, instructions, validation, or long values need the full line to remain scannable"],
+          "visual_evidence": "forms/fields/inline-label"
+        },
+        {
+          "id": "field-level-guidance",
+          "prefer_when": ["a concise instruction, example, unit, or consequence directly qualifies one field"],
+          "avoid_when": ["the text merely repeats the label or explains a broader workflow, policy, or risk"],
+          "visual_evidence": "forms/fields/below-content/text"
+        },
+        {
+          "id": "disabled-and-validation-states",
+          "prefer_when": ["the field is unavailable or requires immediate correction and its reason or feedback can be made clear"],
+          "avoid_when": ["a disabled control hides the reason, removes needed recovery, or relies on color alone to communicate the state"],
+          "visual_evidence": "forms/validation"
+        },
+        {
+          "id": "fused-fields",
+          "prefer_when": ["two or more values form one compact concept, such as location or a measured value with a unit"],
+          "avoid_when": ["the controls are independently understood, require separate guidance or errors, or would become unreadable on narrow screens"],
+          "visual_evidence": "forms/fields/fused-label"
+        },
+        {
+          "id": "fused-columns-and-spans",
+          "prefer_when": ["a fused concept contains parts with deliberately different expected widths at a wider breakpoint"],
+          "avoid_when": ["custom spans only make the row look balanced instead of reflecting value length or importance"],
+          "visual_evidence": "forms/fields/fused-columns-span"
+        },
+        {
+          "id": "adjoined-affix",
+          "prefer_when": ["a prefix or suffix is part of how the value is read, such as a URL scheme, currency, or unit"],
+          "avoid_when": ["the content is optional guidance, an unrelated action, or broad context rather than part of the value"],
+          "visual_evidence": "forms/fields/text-input/affix"
+        },
+        {
+          "id": "contextual-callout",
+          "prefer_when": ["important context, a warning, or a next step affects a group or workflow rather than one field"],
+          "avoid_when": ["a short field-specific instruction would be clearer as nearby field-level guidance"],
+          "visual_evidence": "schemas/layout/callout/simple"
+        }
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/simple", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/simple.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/inline-label", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/inline-label.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/below-content/text", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/below-content/text.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/disabled", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/disabled.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/validation.md", "screenshot": "forms/validation", "image": "https://filamentphp.com/docs/images/5.x/light/forms/validation.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/fused-label", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/fused-label.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/fused-columns-span", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/fused-columns-span.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/text-input/affix", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/text-input/affix.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/schemas/callouts.md", "screenshot": "schemas/layout/callout/simple", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/callout/simple.jpg"}
+      ]
+    },
     {
       "id": "flat-content",
       "surface": ["form", "schema"],

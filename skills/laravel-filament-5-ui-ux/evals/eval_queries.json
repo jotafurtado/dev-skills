@@ -1,0 +1,26 @@
+[
+  {
+    "query": "Design a Filament 5 settings form with several stable categories and poor use of desktop width.",
+    "should_trigger": true
+  },
+  {
+    "query": "Review the layout and mobile composition of this Filament 5 customer form.",
+    "should_trigger": true
+  },
+  {
+    "query": "Build a generic Laravel Blade settings page with Tailwind.",
+    "should_trigger": false
+  },
+  {
+    "query": "Explain the Filament 5 schema() API signature.",
+    "should_trigger": false
+  },
+  {
+    "query": "Redesign a React account settings page with vertical navigation.",
+    "should_trigger": false
+  },
+  {
+    "query": "Migrate a Filament 4 Resource to Filament 5.",
+    "should_trigger": false
+  }
+]

@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "source": "https://filamentphp.com/docs/5.x/",
+  "scope": "Filament 5.x settings-form composition thin slice",
+  "patterns": [
+    {
+      "id": "vertical-tabs",
+      "surface": ["form", "schema"],
+      "goals": ["organize-stable-groups"],
+      "workflows": ["parallel"],
+      "available_width": ["wide"],
+      "selection_weight": 1,
+      "selection_signals": [
+        "several stable groups",
+        "sufficient horizontal space",
+        "navigation labels benefit from persistent scanning"
+      ],
+      "avoid_when": [
+        "the input is a required sequence",
+        "the available width is too narrow for a useful navigation rail"
+      ],
+      "alternatives": ["horizontal-tabs", "sections", "wizard"],
+      "responsive_considerations": [
+        "verify that navigation labels remain usable at narrow widths",
+        "keep fields within each tab responsive through columns and spans"
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {
+          "documentation": "https://filamentphp.com/docs/5.x/schemas/tabs.md",
+          "screenshot": "schemas/layout/tabs/vertical",
+          "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/tabs/vertical.jpg"
+        }
+      ]
+    },
+    {
+      "id": "horizontal-tabs",
+      "surface": ["form", "schema"],
+      "goals": ["organize-stable-groups"],
+      "workflows": ["parallel"],
+      "available_width": ["narrow", "standard", "wide"],
+      "selection_weight": 0,
+      "selection_signals": [
+        "a small number of short group labels",
+        "frequent switching between parallel groups"
+      ],
+      "avoid_when": [
+        "the user needs to compare content across groups at the same time",
+        "the group labels overflow the available horizontal space"
+      ],
+      "alternatives": ["vertical-tabs", "sections", "wizard"],
+      "responsive_considerations": [
+        "avoid hiding always-needed content behind a non-default tab",
+        "verify label overflow and tab navigation on narrow screens"
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {
+          "documentation": "https://filamentphp.com/docs/5.x/schemas/tabs.md",
+          "screenshot": "schemas/layout/tabs/simple",
+          "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/tabs/simple.jpg"
+        }
+      ]
+    },
+    {
+      "id": "sections",
+      "surface": ["form", "schema"],
+      "goals": ["organize-stable-groups", "scan-top-to-bottom"],
+      "workflows": ["parallel", "linear"],
+      "available_width": ["narrow", "standard", "wide"],
+      "selection_weight": 0,
+      "selection_signals": [
+        "two to four named groups scanned top to bottom",
+        "group descriptions clarify the information hierarchy"
+      ],
+      "avoid_when": [
+        "the grouping adds no hierarchy",
+        "the user usually works in only one of several large groups"
+      ],
+      "alternatives": ["horizontal-tabs", "vertical-tabs", "wizard"],
+      "responsive_considerations": [
+        "collapse columns before reducing field readability",
+        "use aside only when the heading and description deserve a separate scan lane"
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {
+          "documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md",
+          "screenshot": "schemas/layout/section/simple",
+          "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/section/simple.jpg"
+        },
+        {
+          "documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md",
+          "screenshot": "schemas/layout/section/aside",
+          "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/section/aside.jpg"
+        }
+      ]
+    },
+    {
+      "id": "responsive-columns",
+      "surface": ["form", "schema"],
+      "goals": ["use-space-deliberately"],
+      "workflows": ["parallel", "linear"],
+      "available_width": ["standard", "wide"],
+      "selection_weight": 0,
+      "selection_signals": [
+        "related short fields can share a row",
+        "long-form fields need a wider or full span",
+        "field importance or expected value length differs"
+      ],
+      "avoid_when": [
+        "a narrow viewport would make multiple columns unreadable",
+        "equal widths would obscure a clear information hierarchy"
+      ],
+      "alternatives": ["sections"],
+      "responsive_considerations": [
+        "define a single-column default before larger breakpoints",
+        "use spans to express information geometry instead of empty space"
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {
+          "documentation": "https://filamentphp.com/docs/5.x/forms/overview.md",
+          "screenshot": "forms/overview",
+          "image": "https://filamentphp.com/docs/images/5.x/light/forms/overview.jpg"
+        },
+        {
+          "documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md",
+          "screenshot": "schemas/layout/grid/column-span",
+          "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/grid/column-span.jpg"
+        }
+      ]
+    }
+  ]
+}

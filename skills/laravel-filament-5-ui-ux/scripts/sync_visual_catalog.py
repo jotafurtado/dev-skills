@@ -104,8 +104,12 @@ def build_inventory(
     if failures:
         raise RuntimeError("Catalog synchronization failed:\n" + "\n".join(sorted(failures)))
 
+    unique_discovered = {
+        item["name"]: item
+        for item in sorted(discovered, key=lambda value: (value["name"], value["documentation"]))
+    }
     screenshots: list[dict[str, Any]] = []
-    for item in sorted(discovered, key=lambda value: (value["name"], value["documentation"])):
+    for item in unique_discovered.values():
         prior = existing_by_name.get(item["name"])
         unchanged = prior and all(prior.get(key) == item[key] for key in SOURCE_IDENTITY_FIELDS)
         review = {
@@ -116,7 +120,7 @@ def build_inventory(
         screenshots.append({**item, **review} if review else {**item, "status": "unreviewed"})
 
     manifest = {
-        page: sorted(item["name"] for item in discovered if item["documentation"] == page)
+        page: sorted(item["name"] for item in unique_discovered.values() if item["documentation"] == page)
         for page in pages
     }
     return {

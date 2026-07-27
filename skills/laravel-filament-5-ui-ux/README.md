@@ -14,11 +14,12 @@ Install `laravel-filament-v5` as well when the task needs version-sensitive APIs
 npx skills add jotafurtado/dev-skills --skill laravel-filament-v5
 ```
 
-## What the first slice covers
+## What the catalog covers
 
-- Settings-form composition
-- Responsive columns and deliberate field spans
-- Sections, horizontal tabs, vertical tabs, and wizard avoidance
+- Page-level schema and form composition
+- Flat content, responsive grids and deliberate field spans
+- Sections, aside sections, fieldsets, horizontal tabs, vertical tabs, and wizards
+- Contained, uncontained, compact, secondary, dense, and no-gap treatments
 - Official visual evidence and a visible decision trace
 - A deterministic local catalog query
 

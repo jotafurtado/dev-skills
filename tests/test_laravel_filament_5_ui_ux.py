@@ -85,6 +85,22 @@ class VisualCatalogQueryTests(unittest.TestCase):
         self.assertEqual("vertical-tabs", result["selected_pattern"]["id"])
         self.assertEqual("several-stable-groups", result["query"]["information_shape"])
 
+    def test_sequential_workflow_prioritizes_a_wizard(self):
+        query = load_query_module()
+
+        result = query.query_catalog(
+            surface="form",
+            goal="complete-required-sequence",
+            workflow="sequential",
+            available_width="standard",
+            information_shape="dependent-steps",
+            relationship="ordered-steps",
+            responsive_context="mobile-first",
+        )
+
+        self.assertEqual("wizard", result["selected_pattern"]["id"])
+        self.assertIn("horizontal-tabs", result["selected_pattern"]["alternatives"])
+
 
 class VisualCatalogSynchronizationTests(unittest.TestCase):
     def test_discovery_does_not_duplicate_markdown_extension(self):
@@ -183,6 +199,21 @@ class VisualCatalogSynchronizationTests(unittest.TestCase):
             self.assertEqual(first, output.read_text())
             self.assertEqual(inventory, json.loads(first))
 
+    def test_sync_deduplicates_reused_screenshots(self):
+        sync = load_sync_module()
+        page = "https://filamentphp.com/docs/5.x/forms/overview.md"
+
+        inventory = sync.build_inventory(
+            [page],
+            fetch=lambda _url: """
+                <AutoScreenshot name=\"forms/fields/text-input/affix\" alt=\"Affix\" />
+                <AutoScreenshot name=\"forms/fields/text-input/affix\" alt=\"Affix\" />
+            """,
+        )
+
+        self.assertEqual(1, len(inventory["screenshots"]))
+        self.assertEqual(["forms/fields/text-input/affix"], inventory["crawl"]["manifest"][page])
+
 
 class VisualCatalogValidationTests(unittest.TestCase):
     def test_validation_rejects_unreviewed_evidence_and_unknown_family(self):
@@ -254,6 +285,28 @@ class VisualCatalogValidationTests(unittest.TestCase):
         errors = validate.validate(catalog, inventory)
 
         self.assertIn("inventory does not match its crawl manifest", errors)
+
+    def test_validation_accepts_explicit_non_decision_changing_evidence(self):
+        validate = load_validate_module()
+        page = "https://filamentphp.com/docs/5.x/forms/overview.md"
+        catalog = {"patterns": []}
+        inventory = {
+            "crawl": {
+                "status": "complete",
+                "pages": [page],
+                "manifest": {page: ["forms/fields/above-label"]},
+            },
+            "screenshots": [{
+                "name": "forms/fields/above-label",
+                "documentation": page,
+                "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/above-label.jpg",
+                "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/above-label.jpg",
+                "status": "reviewed",
+                "decision_relevance": "non-decision-changing",
+            }],
+        }
+
+        self.assertEqual([], validate.validate(catalog, inventory))
 
 
 class VisualCatalogReviewSheetTests(unittest.TestCase):

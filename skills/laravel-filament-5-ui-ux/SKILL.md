@@ -1,6 +1,6 @@
 ---
 name: laravel-filament-5-ui-ux
-description: "Chooses and composes evidence-grounded Filament 5.x UI/UX patterns for settings forms from official documentation and screenshots. Use for designing, redesigning, reviewing, or improving a Filament 5 settings form; use alongside laravel-filament-v5 for version-sensitive APIs and implementation. Do not trigger for generic frontend work, non-Filament interfaces, Filament 3/4, non-settings Filament surfaces, or API/security-only tasks."
+description: "Chooses and composes evidence-grounded Filament 5.x schema and page-level form patterns from official documentation and screenshots. Use for designing, redesigning, reviewing, or improving Filament 5 forms and schemas; use alongside laravel-filament-v5 for version-sensitive APIs and implementation. Do not trigger for generic frontend work, non-Filament interfaces, Filament 3/4, field API/security-only tasks, or UI surfaces outside the reviewed catalog."
 ---
 
 # Laravel Filament 5 UI/UX
@@ -38,10 +38,10 @@ Preserve an established panel theme. Use custom Blade, Livewire, CSS, or theme w
 
 | Surface or decision | Read |
 |---|---|
-| Settings form grouping, columns, sections, horizontal tabs, vertical tabs, wizard avoidance | `references/settings-form-composition.md` |
+| Page-level schema and form grouping, columns, sections, fieldsets, tabs, wizards, and density | `references/settings-form-composition.md` |
 | Catalog schema, reviewed evidence, query fields | `references/visual-catalog.json` and `references/screenshot-inventory.json` |
 
-This thin slice covers settings-form composition. Do not infer that its small catalog covers other Filament surfaces; route uncovered UI work to official Filament 5 evidence and record the gap for catalog expansion.
+This catalog covers page-level schema and form composition. Do not infer coverage for table, modal, dashboard, navigation, or field-level presentation decisions; route uncovered UI work to official Filament 5 evidence and record the gap for catalog expansion.
 
 ## Verification
 

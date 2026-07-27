@@ -25,6 +25,39 @@
         "It keeps accessibility, keyboard, responsive, performance, and UX guidance that does not conflict with Filament.",
         "Any escape hatch is tied to a concrete official-component gap."
       ]
+    },
+    {
+      "id": 3,
+      "prompt": "Design a Filament 5 vendor onboarding page. Company identity is short, legal information needs a long explanatory field, and payout details form a tightly related subgroup. The page is usually completed in one visit, but all information may be revisited in any order. Describe the composition decision before implementation.",
+      "expected_output": "An evidence-grounded composition that gives short related fields shared space, makes the payout subgroup explicit, preserves a wide span for long information, and visibly compares official alternatives.",
+      "assertions": [
+        "The response identifies a parallel workflow rather than imposing a step-by-step flow.",
+        "It explains field width from expected value length or importance rather than equal columns by default.",
+        "It compares flat content, responsive columns, fieldsets, and sections using reviewed visual evidence.",
+        "It includes a visual decision trace with official evidence before implementation."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Design a Filament 5 application flow where selecting an organization determines the available verification requirements, and verification must succeed before billing information can be submitted. Users need clear progress and a way to correct earlier answers. Describe the layout decision before implementation.",
+      "expected_output": "An evidence-grounded sequential composition that chooses an ordered flow only because later input depends on earlier input, with a visible decision trace and recovery considerations.",
+      "assertions": [
+        "The response distinguishes dependent ordered steps from stable parallel groups.",
+        "It compares the ordered flow against tabs or sections and gives an evidence-based reason for the choice.",
+        "It addresses current-step communication and correction of earlier answers.",
+        "It cites reviewed official wizard evidence in the decision trace."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Review a Filament 5 permissions page with many repeated low-risk toggles. The current version wastes vertical space on desktop, while admins still need to distinguish labels, help text, validation feedback, and touch targets on smaller screens. Recommend the composition before implementation.",
+      "expected_output": "An evidence-grounded density decision that treats reduced spacing as conditional, compares ordinary spacing with compact alternatives, and preserves readability and accessible interaction on narrow screens.",
+      "assertions": [
+        "The response does not treat density as a cosmetic preference.",
+        "It names the conditions that make reduced spacing unsafe.",
+        "It compares reviewed dense, compact, or no-gap evidence with a roomier alternative.",
+        "It includes responsive and accessibility consequences in the visual decision trace."
+      ]
     }
   ]
 }

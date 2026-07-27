@@ -55,11 +55,18 @@ def validate(catalog: dict[str, Any], inventory: dict[str, Any]) -> list[str]:
         for field in ("light_image", "dark_image"):
             if not str(screenshot.get(field, "")).startswith(IMAGE_PREFIX):
                 errors.append(f"{name} has an invalid {field} source")
+        decision_relevance = screenshot.get("decision_relevance")
+        if decision_relevance not in {"decision-changing", "non-decision-changing"}:
+            errors.append(f"{name} has an invalid decision_relevance")
+            continue
         family = screenshot.get("family")
-        if family not in patterns:
+        if decision_relevance == "decision-changing":
+            if family not in patterns:
+                errors.append(f"{name} references unknown family {family}")
+            if not screenshot.get("variant"):
+                errors.append(f"{name} needs a variant for a decision-changing screenshot")
+        elif family is not None and family not in patterns:
             errors.append(f"{name} references unknown family {family}")
-        if screenshot.get("decision_relevance") == "decision-changing" and not screenshot.get("variant"):
-            errors.append(f"{name} needs a variant for a decision-changing screenshot")
     return sorted(errors)
 
 

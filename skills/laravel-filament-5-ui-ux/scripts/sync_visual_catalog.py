@@ -104,10 +104,9 @@ def build_inventory(
     if failures:
         raise RuntimeError("Catalog synchronization failed:\n" + "\n".join(sorted(failures)))
 
-    unique_discovered = {
-        item["name"]: item
-        for item in sorted(discovered, key=lambda value: (value["name"], value["documentation"]))
-    }
+    unique_discovered: dict[str, dict[str, str]] = {}
+    for item in sorted(discovered, key=lambda value: (value["name"], value["documentation"])):
+        unique_discovered.setdefault(item["name"], item)
     screenshots: list[dict[str, Any]] = []
     for item in unique_discovered.values():
         prior = existing_by_name.get(item["name"])

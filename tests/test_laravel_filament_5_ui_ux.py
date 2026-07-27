@@ -201,18 +201,19 @@ class VisualCatalogSynchronizationTests(unittest.TestCase):
 
     def test_sync_deduplicates_reused_screenshots(self):
         sync = load_sync_module()
-        page = "https://filamentphp.com/docs/5.x/forms/overview.md"
+        first_page = "https://filamentphp.com/docs/5.x/forms/overview.md"
+        second_page = "https://filamentphp.com/docs/5.x/forms/text-input.md"
 
         inventory = sync.build_inventory(
-            [page],
+            [second_page, first_page],
             fetch=lambda _url: """
-                <AutoScreenshot name=\"forms/fields/text-input/affix\" alt=\"Affix\" />
                 <AutoScreenshot name=\"forms/fields/text-input/affix\" alt=\"Affix\" />
             """,
         )
 
         self.assertEqual(1, len(inventory["screenshots"]))
-        self.assertEqual(["forms/fields/text-input/affix"], inventory["crawl"]["manifest"][page])
+        self.assertEqual(["forms/fields/text-input/affix"], inventory["crawl"]["manifest"][first_page])
+        self.assertEqual([], inventory["crawl"]["manifest"][second_page])
 
 
 class VisualCatalogValidationTests(unittest.TestCase):

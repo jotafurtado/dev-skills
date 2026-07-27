@@ -7,6 +7,8 @@ Use this reference after querying the catalog with `--goal compose-ordinary-fiel
 | Ordinary wrapper | A label, input, guidance, and feedback need the familiar vertical reading order | A dense, familiar form has short labels and values that remain scannable inline | [form fields](https://filamentphp.com/docs/5.x/forms/overview.md) |
 | Inline label | A dense, familiar form has short stable labels and vertical space is constrained | Long labels, instructions, validation, or values need their own line to remain scannable | [inline labels](https://filamentphp.com/docs/5.x/forms/overview.md) |
 | Field-level guidance | A short instruction, example, unit, or consequence directly qualifies one field | The text repeats the label or explains a group-wide workflow, policy, or risk | [extra field content](https://filamentphp.com/docs/5.x/forms/overview.md) |
+| Placeholder example | An empty input benefits from a short, realistic example of its expected value | The text would replace the label, required state, instructions, or validation feedback | [placeholders](https://filamentphp.com/docs/5.x/forms/overview.md) |
+| Auxiliary field content | An immediate field-specific action or component helps complete, verify, or understand that field | The action or information applies to multiple fields or the workflow and belongs in contextual guidance instead | [extra field content](https://filamentphp.com/docs/5.x/forms/overview.md) |
 | Contextual callout | A warning, policy, next step, or other context affects a group or workflow | A short field-specific instruction would be clearer beside that field | [callouts](https://filamentphp.com/docs/5.x/schemas/callouts.md) |
 | Disabled and validation states | The unavailable state or correction path is explicit and recoverable | The reason is hidden, correction is blocked, or color is the only state cue | [disabled fields](https://filamentphp.com/docs/5.x/forms/overview.md), [validation](https://filamentphp.com/docs/5.x/forms/validation.md) |
 | Fused fields | Several values are interpreted as one compact concept | Controls are independently understood, need separate guidance or errors, or become unreadable on narrow screens | [fused fields](https://filamentphp.com/docs/5.x/forms/overview.md) |
@@ -29,6 +31,8 @@ Use an adjoined affix when it belongs to the value itself. Keep it visually and 
 Retain a label even when it is visually hidden: use the accessible hidden-label treatment rather than an empty label. Required state must be conveyed programmatically and visibly. Validation feedback must identify the affected field and remain perceivable without color alone. Preserve a clear focus indicator and do not use disabled state without explaining the condition or offering an appropriate recovery path where users need one.
 
 Field-level guidance belongs near the field and answers a concrete question about entry, format, consequence, or immediate next action. Keep it concise and do not duplicate the label. Use a contextual callout instead when the information applies to several fields or to the workflow as a whole.
+
+Use a placeholder only as a short example of an empty value. It disappears during entry, so it cannot carry the field's only label, required state, instruction, or validation feedback. Add an auxiliary field action or component only when it serves that field's immediate task; use a contextual callout when it serves the wider workflow.
 
 ## Decision trace
 

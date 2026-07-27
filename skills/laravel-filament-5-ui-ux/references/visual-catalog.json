@@ -54,6 +54,18 @@
           "visual_evidence": "forms/fields/below-content/text"
         },
         {
+          "id": "placeholder-example",
+          "prefer_when": ["an empty input benefits from a short, realistic example of its expected value"],
+          "avoid_when": ["the text would replace the label, required state, instructions, or validation feedback"],
+          "visual_evidence": "forms/fields/placeholder"
+        },
+        {
+          "id": "auxiliary-content",
+          "prefer_when": ["an immediate field-specific action or component helps complete, verify, or understand that field"],
+          "avoid_when": ["the action or information applies to multiple fields or the workflow and belongs in contextual guidance instead"],
+          "visual_evidence": "forms/fields/below-content/action"
+        },
+        {
           "id": "disabled-and-validation-states",
           "prefer_when": ["the field is unavailable or requires immediate correction and its reason or feedback can be made clear"],
           "avoid_when": ["a disabled control hides the reason, removes needed recovery, or relies on color alone to communicate the state"],
@@ -89,6 +101,8 @@
         {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/simple", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/simple.jpg"},
         {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/inline-label", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/inline-label.jpg"},
         {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/below-content/text", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/below-content/text.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/placeholder", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/placeholder.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/below-content/action", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/below-content/action.jpg"},
         {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/disabled", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/disabled.jpg"},
         {"documentation": "https://filamentphp.com/docs/5.x/forms/validation.md", "screenshot": "forms/validation", "image": "https://filamentphp.com/docs/images/5.x/light/forms/validation.jpg"},
         {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/fused-label", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/fused-label.jpg"},

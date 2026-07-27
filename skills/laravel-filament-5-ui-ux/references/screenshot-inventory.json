@@ -2711,14 +2711,16 @@
     {
       "alt": "Form field with action below content",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/below-content/action.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/overview.md"
       ],
+      "family": "ordinary-field-composition",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/below-content/action.jpg",
       "name": "forms/fields/below-content/action",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "auxiliary-content"
     },
     {
       "alt": "Form field with aligned components below content",
@@ -3513,14 +3515,16 @@
     {
       "alt": "Form field with placeholder",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/fields/placeholder.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/forms/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/forms/overview.md"
       ],
+      "family": "ordinary-field-composition",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/placeholder.jpg",
       "name": "forms/fields/placeholder",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "placeholder-example"
     },
     {
       "alt": "Boolean radio",

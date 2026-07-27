@@ -157,6 +157,8 @@ class VisualCatalogQueryTests(unittest.TestCase):
         variants = {item["id"]: item for item in result["selected_pattern"]["variant_decisions"]}
         self.assertIn("inline-label", variants)
         self.assertIn("adjoined-affix", variants)
+        self.assertIn("placeholder-example", variants)
+        self.assertIn("auxiliary-content", variants)
 
 
 class VisualCatalogSynchronizationTests(unittest.TestCase):

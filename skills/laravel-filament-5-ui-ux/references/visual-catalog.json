@@ -9,6 +9,9 @@
       "goals": ["organize-stable-groups"],
       "workflows": ["parallel"],
       "available_width": ["wide"],
+      "information_shapes": ["several-stable-groups"],
+      "relationships": ["peer-groups"],
+      "responsive_contexts": ["desktop-with-mobile-fallback"],
       "selection_weight": 1,
       "selection_signals": [
         "several stable groups",
@@ -39,6 +42,9 @@
       "goals": ["organize-stable-groups"],
       "workflows": ["parallel"],
       "available_width": ["narrow", "standard", "wide"],
+      "information_shapes": ["few-short-groups", "several-stable-groups"],
+      "relationships": ["peer-groups"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
       "selection_weight": 0,
       "selection_signals": [
         "a small number of short group labels",
@@ -68,6 +74,9 @@
       "goals": ["organize-stable-groups", "scan-top-to-bottom"],
       "workflows": ["parallel", "linear"],
       "available_width": ["narrow", "standard", "wide"],
+      "information_shapes": ["few-named-groups", "long-scannable-content"],
+      "relationships": ["top-to-bottom-groups"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
       "selection_weight": 0,
       "selection_signals": [
         "two to four named groups scanned top to bottom",
@@ -102,6 +111,9 @@
       "goals": ["use-space-deliberately"],
       "workflows": ["parallel", "linear"],
       "available_width": ["standard", "wide"],
+      "information_shapes": ["mixed-field-lengths", "long-form-content"],
+      "relationships": ["related-fields"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
       "selection_weight": 0,
       "selection_signals": [
         "related short fields can share a row",

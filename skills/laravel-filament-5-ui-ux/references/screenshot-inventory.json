@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "screenshots": [
+    {
+      "alt": "A settings form",
+      "dark_image": "https://filamentphp.com/docs/images/5.x/dark/forms/overview.jpg",
+      "decision_relevance": "decision-changing",
+      "documentation": "https://filamentphp.com/docs/5.x/forms/overview.md",
+      "family": "responsive-columns",
+      "light_image": "https://filamentphp.com/docs/images/5.x/light/forms/overview.jpg",
+      "name": "forms/overview",
+      "status": "reviewed",
+      "variant": "two-column-form"
+    },
+    {
+      "alt": "Grid fields with column spans",
+      "dark_image": "https://filamentphp.com/docs/images/5.x/dark/schemas/layout/grid/column-span.jpg",
+      "decision_relevance": "decision-changing",
+      "documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md",
+      "family": "responsive-columns",
+      "light_image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/grid/column-span.jpg",
+      "name": "schemas/layout/grid/column-span",
+      "status": "reviewed",
+      "variant": "column-spans"
+    },
+    {
+      "alt": "An aside section",
+      "dark_image": "https://filamentphp.com/docs/images/5.x/dark/schemas/layout/section/aside.jpg",
+      "decision_relevance": "decision-changing",
+      "documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md",
+      "family": "sections",
+      "light_image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/section/aside.jpg",
+      "name": "schemas/layout/section/aside",
+      "status": "reviewed",
+      "variant": "aside"
+    },
+    {
+      "alt": "A section",
+      "dark_image": "https://filamentphp.com/docs/images/5.x/dark/schemas/layout/section/simple.jpg",
+      "decision_relevance": "decision-changing",
+      "documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md",
+      "family": "sections",
+      "light_image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/section/simple.jpg",
+      "name": "schemas/layout/section/simple",
+      "status": "reviewed",
+      "variant": "contained"
+    },
+    {
+      "alt": "Horizontal tabs",
+      "dark_image": "https://filamentphp.com/docs/images/5.x/dark/schemas/layout/tabs/simple.jpg",
+      "decision_relevance": "decision-changing",
+      "documentation": "https://filamentphp.com/docs/5.x/schemas/tabs.md",
+      "family": "horizontal-tabs",
+      "light_image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/tabs/simple.jpg",
+      "name": "schemas/layout/tabs/simple",
+      "status": "reviewed",
+      "variant": "horizontal"
+    },
+    {
+      "alt": "Vertical tabs",
+      "dark_image": "https://filamentphp.com/docs/images/5.x/dark/schemas/layout/tabs/vertical.jpg",
+      "decision_relevance": "decision-changing",
+      "documentation": "https://filamentphp.com/docs/5.x/schemas/tabs.md",
+      "family": "vertical-tabs",
+      "light_image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/tabs/vertical.jpg",
+      "name": "schemas/layout/tabs/vertical",
+      "status": "reviewed",
+      "variant": "vertical"
+    }
+  ]
+}

@@ -39,10 +39,18 @@ Preserve an established panel theme. Use custom Blade, Livewire, CSS, or theme w
 | Surface or decision | Read |
 |---|---|
 | Settings form grouping, columns, sections, horizontal tabs, vertical tabs, wizard avoidance | `references/settings-form-composition.md` |
-| Catalog schema, reviewed evidence, query fields | `references/visual-catalog.json` |
+| Catalog schema, reviewed evidence, query fields | `references/visual-catalog.json` and `references/screenshot-inventory.json` |
 
 This thin slice covers settings-form composition. Do not infer that its small catalog covers other Filament surfaces; route uncovered UI work to official Filament 5 evidence and record the gap for catalog expansion.
 
 ## Verification
+
+For catalog maintenance, synchronize first, review new or changed evidence in a temporary directory outside this repository, classify it, then validate. The synchronizer preserves matching human review fields and marks new or materially changed evidence `unreviewed`.
+
+```bash
+python3 scripts/sync_visual_catalog.py
+python3 scripts/build_review_sheets.py --output "$(mktemp -d)"
+python3 scripts/validate_visual_catalog.py
+```
 
 Run the deterministic query test, validate the skill folder, parse both eval files, and review the final diff. The catalog must remain reviewed, locally queryable, and free of screenshot binaries.

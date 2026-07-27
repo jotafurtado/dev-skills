@@ -24,12 +24,18 @@ def _score_pattern(
     goal: str,
     workflow: str,
     available_width: str,
+    information_shape: str | None,
+    relationship: str | None,
+    responsive_context: str | None,
 ) -> int:
     score = 0
     score += 8 if surface in pattern["surface"] else -100
     score += 4 if goal in pattern["goals"] else 0
     score += 3 if workflow in pattern["workflows"] else 0
     score += 3 if available_width in pattern["available_width"] else 0
+    score += 2 if information_shape and information_shape in pattern.get("information_shapes", []) else 0
+    score += 2 if relationship and relationship in pattern.get("relationships", []) else 0
+    score += 2 if responsive_context and responsive_context in pattern.get("responsive_contexts", []) else 0
     score += pattern.get("selection_weight", 0)
     return score
 
@@ -40,6 +46,9 @@ def query_catalog(
     goal: str,
     workflow: str,
     available_width: str,
+    information_shape: str | None = None,
+    relationship: str | None = None,
+    responsive_context: str | None = None,
 ) -> dict[str, Any]:
     """Return reviewed candidates and a deterministic selected pattern."""
     patterns = load_catalog()["patterns"]
@@ -50,6 +59,9 @@ def query_catalog(
             goal=goal,
             workflow=workflow,
             available_width=available_width,
+            information_shape=information_shape,
+            relationship=relationship,
+            responsive_context=responsive_context,
         ))
         for pattern in patterns
         if surface in pattern["surface"] and pattern["status"] == "reviewed"
@@ -74,6 +86,9 @@ def query_catalog(
             "goal": goal,
             "workflow": workflow,
             "available_width": available_width,
+            "information_shape": information_shape,
+            "relationship": relationship,
+            "responsive_context": responsive_context,
         },
         "candidates": candidates,
         "selected_pattern": selected_pattern,
@@ -96,6 +111,9 @@ def main() -> None:
     parser.add_argument("--goal", required=True)
     parser.add_argument("--workflow", required=True)
     parser.add_argument("--available-width", required=True)
+    parser.add_argument("--information-shape")
+    parser.add_argument("--relationship")
+    parser.add_argument("--responsive-context")
     args = parser.parse_args()
 
     result = query_catalog(
@@ -103,6 +121,9 @@ def main() -> None:
         goal=args.goal,
         workflow=args.workflow,
         available_width=args.available_width,
+        information_shape=args.information_shape,
+        relationship=args.relationship,
+        responsive_context=args.responsive_context,
     )
     print(json.dumps(result, indent=2, sort_keys=True))
 

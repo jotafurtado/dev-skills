@@ -21,6 +21,7 @@ npx skills add jotafurtado/dev-skills --skill laravel-filament-v5
 - Repeaters, builders, rich-content editors, uploads, and relationship-heavy controls
 - Standard compare-and-scan tables: columns, filters, row and bulk actions, grouping, summaries, pagination, and empty results
 - Read-oriented record details and infolists: identity, current status, primary facts, dense metadata, media, copyable identifiers, repeated data, and long-tail detail
+- Panel shells: sidebar or top navigation, domain groups and clusters, actionable badges, supported branding, user menus, and authentication hierarchy
 - Flat content, responsive grids and deliberate field spans
 - Sections, aside sections, fieldsets, horizontal tabs, vertical tabs, and wizards
 - Contained, uncontained, compact, secondary, dense, and no-gap treatments
@@ -45,6 +46,7 @@ laravel-filament-5-ui-ux/
 ├── references/complex-input-composition.md
 ├── references/table-composition.md
 ├── references/record-detail-composition.md
+├── references/panel-shell-composition.md
 ├── references/visual-catalog.json
 ├── references/screenshot-inventory.json
 └── evals/

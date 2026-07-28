@@ -28,6 +28,10 @@
     "should_trigger": true
   },
   {
+    "query": "Choose sidebar or top navigation, groups, badges, and login surfaces for our Filament 5 back-office.",
+    "should_trigger": true
+  },
+  {
     "query": "Build a generic Laravel Blade settings page with Tailwind.",
     "should_trigger": false
   },

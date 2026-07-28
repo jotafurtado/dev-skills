@@ -154,6 +154,20 @@
         "It preserves a readable mobile scan path and includes a compact visual decision trace with official Filament 5 infolist evidence.",
         "It routes version-sensitive entry signatures to the main Filament skill instead of inventing an API."
       ]
+    },
+    {
+      "id": 13,
+      "prompt": "Design the shell for two Filament 5 surfaces. The customer-support panel has Dashboard, Tickets, Customers, and Reports for one small team. The operations back-office has many resources across Fulfilment, Finance, Catalog, Customers, and Settings; Pending refunds is an actionable queue, while total customers is only a vanity count. Both retain the established panel theme. Login, password recovery, registration where permitted, and profile maintenance must remain clear and accessible on phones. Describe the composition decision before implementation.",
+      "expected_output": "An evidence-grounded shell decision that selects top navigation for the small peer-oriented panel and grouped sidebar navigation for the substantial back-office, while preserving native authentication hierarchy and supported branding.",
+      "assertions": [
+        "The response compares top navigation with a sidebar and selects top navigation only for the small, stable peer-oriented panel.",
+        "It selects a sidebar with named domain groups for the substantial back-office and does not use visual grouping to conceal unclear domain organization.",
+        "It reserves the navigation badge for Pending refunds as actionable work and rejects a badge for the total-customer vanity count.",
+        "It distinguishes a navigation group, a cluster with sub-navigation, and a separate panel by domain, route structure, audience, and authentication boundary.",
+        "It preserves the established theme through supported panel configuration or established theme hooks instead of introducing unrelated typography, palette, or a CSS-first shell.",
+        "It preserves visible labels, focus order, keyboard operation, non-colour feedback, recovery links, and concise hierarchy for login, password recovery, registration, and profile surfaces.",
+        "It includes a compact visual decision trace using reviewed Filament 5 navigation and authentication evidence before implementation."
+      ]
     }
   ]
 }

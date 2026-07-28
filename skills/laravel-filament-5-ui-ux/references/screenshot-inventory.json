@@ -5845,7 +5845,10 @@
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/panels/cluster.jpg",
       "name": "panels/cluster",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "back-office-sidebar-navigation",
+      "variant": "domain-cluster",
+      "decision_relevance": "decision-changing"
     },
     {
       "alt": "Cluster with end sub-navigation position",
@@ -5998,7 +6001,10 @@
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/panels/login.jpg",
       "name": "panels/login",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "authentication-surface-hierarchy",
+      "variant": "sign-in-and-registration",
+      "decision_relevance": "decision-changing"
     },
     {
       "alt": "Multi-factor authentication options on the profile page",
@@ -6046,7 +6052,10 @@
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/panels/navigation/badge.jpg",
       "name": "panels/navigation/badge",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "back-office-sidebar-navigation",
+      "variant": "actionable-navigation-badge",
+      "decision_relevance": "decision-changing"
     },
     {
       "alt": "Navigation item with badge color",
@@ -6118,7 +6127,10 @@
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/panels/navigation/group.jpg",
       "name": "panels/navigation/group",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "back-office-sidebar-navigation",
+      "variant": "domain-navigation-groups",
+      "decision_relevance": "decision-changing"
     },
     {
       "alt": "Collapsible navigation groups",
@@ -6202,7 +6214,10 @@
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/panels/navigation/top-navigation.jpg",
       "name": "panels/navigation/top-navigation",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "small-panel-top-navigation",
+      "variant": "top-navigation",
+      "decision_relevance": "decision-changing"
     },
     {
       "alt": "User menu with custom menu item",
@@ -6214,7 +6229,10 @@
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/panels/navigation/user-menu.jpg",
       "name": "panels/navigation/user-menu",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "small-panel-top-navigation",
+      "variant": "user-menu",
+      "decision_relevance": "decision-changing"
     },
     {
       "alt": "User menu items split into separate groups",
@@ -6250,7 +6268,10 @@
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/panels/password-reset.jpg",
       "name": "panels/password-reset",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "authentication-surface-hierarchy",
+      "variant": "password-recovery",
+      "decision_relevance": "decision-changing"
     },
     {
       "alt": "The default profile page",
@@ -6262,7 +6283,10 @@
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/panels/profile.jpg",
       "name": "panels/profile",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "authentication-surface-hierarchy",
+      "variant": "profile-and-account-security",
+      "decision_relevance": "decision-changing"
     },
     {
       "alt": "The default registration page",
@@ -6274,7 +6298,10 @@
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/panels/registration.jpg",
       "name": "panels/registration",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "authentication-surface-hierarchy",
+      "variant": "sign-in-and-registration",
+      "decision_relevance": "decision-changing"
     },
     {
       "alt": "Resource create page",
@@ -6662,7 +6689,10 @@
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/panels/styling/brand-logo.jpg",
       "name": "panels/styling/brand-logo",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "small-panel-top-navigation",
+      "variant": "supported-panel-identity",
+      "decision_relevance": "decision-changing"
     },
     {
       "alt": "Panel with custom brand name",

@@ -548,6 +548,88 @@
         {"documentation": "https://filamentphp.com/docs/5.x/widgets/charts.md", "screenshot": "widgets/chart/line", "image": "https://filamentphp.com/docs/images/5.x/light/widgets/chart/line.jpg"},
         {"documentation": "https://filamentphp.com/docs/5.x/widgets/charts.md", "screenshot": "widgets/chart/filter", "image": "https://filamentphp.com/docs/images/5.x/light/widgets/chart/filter.jpg"}
       ]
+    },
+    {
+      "id": "small-panel-top-navigation",
+      "surface": ["panel-shell"],
+      "goals": ["navigate-a-small-panel"],
+      "workflows": ["parallel"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["few-peer-destinations"],
+      "relationships": ["peer-destinations"],
+      "responsive_contexts": ["desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["a small, stable set of peer destinations fits in a persistent horizontal scan", "people frequently switch among a few areas without needing a deep domain hierarchy"],
+      "avoid_when": ["labels, destinations, or domain groups would crowd the horizontal bar", "the panel is a substantial back-office whose navigation needs persistent grouped scanning"],
+      "alternatives": ["back-office-sidebar-navigation"],
+      "responsive_considerations": ["preserve a readable, keyboard-operable menu when the horizontal space contracts", "move to a responsive menu before labels, user controls, or active-state cues collide"],
+      "accessibility_considerations": ["make the current destination perceptible without colour alone", "keep every navigation and user-menu control named, keyboard reachable, and visibly focused"],
+      "variant_decisions": [
+        {"id": "top-navigation", "prefer_when": ["there are few peer destinations with short, stable labels"], "avoid_when": ["a horizontal bar would hide, wrap, or flatten a meaningful domain hierarchy"], "visual_evidence": "panels/navigation/top-navigation"},
+        {"id": "supported-panel-identity", "prefer_when": ["the panel needs a brand mark or configured identity that remains coherent across shell surfaces"], "avoid_when": ["an unrelated typeface or palette is proposed merely to make the shell feel distinctive"], "visual_evidence": "panels/styling/brand-logo"},
+        {"id": "user-menu", "prefer_when": ["account and session actions are secondary to the primary destinations"], "avoid_when": ["a common operational destination is hidden inside a user menu"], "visual_evidence": "panels/navigation/user-menu"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/navigation/overview.md", "screenshot": "panels/navigation/top-navigation", "image": "https://filamentphp.com/docs/images/5.x/light/panels/navigation/top-navigation.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/navigation/user-menu.md", "screenshot": "panels/navigation/user-menu", "image": "https://filamentphp.com/docs/images/5.x/light/panels/navigation/user-menu.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/styling/overview.md", "screenshot": "panels/styling/brand-logo", "image": "https://filamentphp.com/docs/images/5.x/light/panels/styling/brand-logo.jpg"}
+      ]
+    },
+    {
+      "id": "back-office-sidebar-navigation",
+      "surface": ["panel-shell"],
+      "goals": ["navigate-a-substantial-back-office"],
+      "workflows": ["parallel"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["many-domain-destinations-with-actionable-queues"],
+      "relationships": ["domain-groups-within-one-audience"],
+      "responsive_contexts": ["desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["many destinations need a persistent vertical scan", "a single audience works across several coherent business domains", "a small number of queues need immediate action"],
+      "avoid_when": ["a group is only visual decoration rather than a named domain boundary", "a cluster or separate panel is needed because the work has its own route structure, audience, or authentication boundary"],
+      "alternatives": ["small-panel-top-navigation", "domain-cluster"],
+      "responsive_considerations": ["retain the active destination, group names, and actionable counts when the sidebar becomes a responsive menu", "do not make a collapsed icon-only shell the only way to discover a group or its current state"],
+      "accessibility_considerations": ["keep group labels, expanded state, badges, and the current destination understandable without colour alone", "make collapse, expand, navigation, and user controls keyboard reachable with visible focus"],
+      "variant_decisions": [
+        {"id": "domain-navigation-groups", "prefer_when": ["items belong to a stable, user-recognisable business domain within the same panel"], "avoid_when": ["a group merely compensates for unclear domain ownership or hides unrelated destinations"], "visual_evidence": "panels/navigation/group"},
+        {"id": "actionable-navigation-badge", "prefer_when": ["a count represents work a person can meaningfully act on, such as pending approvals"], "avoid_when": ["the count is a vanity total, stale metric, or the only explanation of the destination"], "visual_evidence": "panels/navigation/badge"},
+        {"id": "domain-cluster", "prefer_when": ["a cohesive domain needs its own sub-navigation and route structure while serving the same panel audience"], "avoid_when": ["a simple group communicates the structure or the domain has a separate audience and authentication boundary"], "visual_evidence": "panels/cluster"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/navigation/overview.md", "screenshot": "panels/navigation/group", "image": "https://filamentphp.com/docs/images/5.x/light/panels/navigation/group.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/navigation/overview.md", "screenshot": "panels/navigation/badge", "image": "https://filamentphp.com/docs/images/5.x/light/panels/navigation/badge.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/navigation/clusters.md", "screenshot": "panels/cluster", "image": "https://filamentphp.com/docs/images/5.x/light/panels/cluster.jpg"}
+      ]
+    },
+    {
+      "id": "authentication-surface-hierarchy",
+      "surface": ["panel-shell", "authentication"],
+      "goals": ["present-panel-authentication-surfaces"],
+      "workflows": ["linear", "recovery"],
+      "available_width": ["narrow", "standard", "wide"],
+      "information_shapes": ["single-account-task-with-feedback"],
+      "relationships": ["identity-credentials-and-recovery"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["a person must sign in, recover access, register, or maintain their own account", "the task needs one clear form hierarchy and immediate feedback"],
+      "avoid_when": ["a custom authentication layout is proposed before checking the supported panel authentication surface and established theme"],
+      "alternatives": ["small-panel-top-navigation", "back-office-sidebar-navigation"],
+      "responsive_considerations": ["keep the focused account task, labels, validation feedback, and recovery links readable before adding decorative shell content", "preserve a single-column form flow and avoid side content that displaces feedback on narrow screens"],
+      "accessibility_considerations": ["retain visible labels, logical focus order, visible focus, announced validation or status feedback, and keyboard access to recovery and account links", "do not use brand colour, a logo, or a placeholder as the only explanation of a field, error, or action"],
+      "variant_decisions": [
+        {"id": "sign-in-and-registration", "prefer_when": ["the panel supports account entry or registration and a clear path between them is appropriate"], "avoid_when": ["registration is not an allowed account lifecycle for this panel"], "visual_evidence": "panels/login"},
+        {"id": "password-recovery", "prefer_when": ["a person who cannot sign in needs a focused recovery action and a route back to login"], "avoid_when": ["recovery is hidden, unlabeled, or competes with unrelated navigation"], "visual_evidence": "panels/password-reset"},
+        {"id": "profile-and-account-security", "prefer_when": ["authenticated people need to maintain their own identity or account security without entering operational navigation"], "avoid_when": ["a broad administrative settings workflow is presented as a personal account form"], "visual_evidence": "panels/profile"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/users/overview.md", "screenshot": "panels/login", "image": "https://filamentphp.com/docs/images/5.x/light/panels/login.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/users/overview.md", "screenshot": "panels/registration", "image": "https://filamentphp.com/docs/images/5.x/light/panels/registration.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/users/overview.md", "screenshot": "panels/password-reset", "image": "https://filamentphp.com/docs/images/5.x/light/panels/password-reset.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/users/overview.md", "screenshot": "panels/profile", "image": "https://filamentphp.com/docs/images/5.x/light/panels/profile.jpg"}
+      ]
     }
   ]
 }

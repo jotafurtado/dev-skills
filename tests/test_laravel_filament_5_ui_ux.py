@@ -301,6 +301,38 @@ class VisualCatalogQueryTests(unittest.TestCase):
             [evidence["screenshot"] for evidence in result["selected_pattern"]["visual_evidence"]],
         )
 
+    def test_panel_shell_queries_select_top_navigation_for_small_panels_and_grouped_sidebar_for_back_offices(self):
+        query = load_query_module()
+
+        small_panel = query.query_catalog(
+            surface="panel-shell",
+            goal="navigate-a-small-panel",
+            workflow="parallel",
+            available_width="wide",
+            information_shape="few-peer-destinations",
+            relationship="peer-destinations",
+            responsive_context="desktop-with-mobile-fallback",
+        )
+        back_office = query.query_catalog(
+            surface="panel-shell",
+            goal="navigate-a-substantial-back-office",
+            workflow="parallel",
+            available_width="wide",
+            information_shape="many-domain-destinations-with-actionable-queues",
+            relationship="domain-groups-within-one-audience",
+            responsive_context="desktop-with-mobile-fallback",
+        )
+
+        self.assertEqual("small-panel-top-navigation", small_panel["selected_pattern"]["id"])
+        self.assertEqual("back-office-sidebar-navigation", back_office["selected_pattern"]["id"])
+        self.assertIn(
+            "panels/navigation/top-navigation",
+            [evidence["screenshot"] for evidence in small_panel["selected_pattern"]["visual_evidence"]],
+        )
+        variants = {item["id"]: item for item in back_office["selected_pattern"]["variant_decisions"]}
+        self.assertIn("actionable-navigation-badge", variants)
+        self.assertEqual("panels/navigation/badge", variants["actionable-navigation-badge"]["visual_evidence"])
+
 
 class VisualCatalogSynchronizationTests(unittest.TestCase):
     def test_discovery_does_not_duplicate_markdown_extension(self):

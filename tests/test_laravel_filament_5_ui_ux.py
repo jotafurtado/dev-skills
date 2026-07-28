@@ -10,6 +10,7 @@ QUERY_SCRIPT = ROOT / "skills" / "laravel-filament-5-ui-ux" / "scripts" / "query
 SYNC_SCRIPT = ROOT / "skills" / "laravel-filament-5-ui-ux" / "scripts" / "sync_visual_catalog.py"
 VALIDATE_SCRIPT = ROOT / "skills" / "laravel-filament-5-ui-ux" / "scripts" / "validate_visual_catalog.py"
 REVIEW_SCRIPT = ROOT / "skills" / "laravel-filament-5-ui-ux" / "scripts" / "build_review_sheets.py"
+INVENTORY_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "references" / "screenshot-inventory.json"
 
 
 def load_query_module():
@@ -357,6 +358,31 @@ class VisualCatalogSynchronizationTests(unittest.TestCase):
 
 
 class VisualCatalogValidationTests(unittest.TestCase):
+    def test_responsive_record_pairs_are_decision_changing_inventory_variants(self):
+        inventory = json.loads(INVENTORY_PATH.read_text())
+        screenshots = {item["name"]: item for item in inventory["screenshots"]}
+
+        expected_variants = {
+            "tables/layout/split-desktop": "split-identity-and-details",
+            "tables/layout/split-desktop/mobile": "split-identity-and-details",
+            "tables/layout/stack": "stack-related-details",
+            "tables/layout/stack/mobile": "stack-related-details",
+            "tables/layout/grid": "grid-grouped-details",
+            "tables/layout/grid/mobile": "grid-grouped-details",
+            "tables/layout/column-grid": "content-grid-records",
+            "tables/layout/grow-disabled": "fixed-width-identity",
+            "tables/layout/collapsible": "collapsible-secondary-details",
+            "tables/layout/collapsible/mobile": "collapsible-secondary-details",
+            "tables/layout/stack-hidden-on-mobile": "mobile-visibility",
+            "tables/layout/stack-hidden-on-mobile/mobile": "mobile-visibility",
+        }
+
+        for screenshot, variant in expected_variants.items():
+            self.assertEqual("reviewed", screenshots[screenshot]["status"])
+            self.assertEqual("decision-changing", screenshots[screenshot]["decision_relevance"])
+            self.assertEqual("responsive-identity-centred-table", screenshots[screenshot]["family"])
+            self.assertEqual(variant, screenshots[screenshot]["variant"])
+
     def test_validation_rejects_unreviewed_evidence_and_unknown_family(self):
         validate = load_validate_module()
         catalog = {

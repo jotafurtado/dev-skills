@@ -7887,38 +7887,44 @@
     {
       "alt": "Table with collapsible content",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/layout/collapsible.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/layout.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/layout.md"
       ],
+      "family": "responsive-identity-centred-table",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/collapsible.jpg",
       "name": "tables/layout/collapsible",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "collapsible-secondary-details"
     },
     {
       "alt": "Table with collapsible content on mobile",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/layout/collapsible/mobile.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/layout.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/layout.md"
       ],
+      "family": "responsive-identity-centred-table",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/collapsible/mobile.jpg",
       "name": "tables/layout/collapsible/mobile",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "collapsible-secondary-details"
     },
     {
       "alt": "Table with a grid column layout",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/layout/column-grid.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/layout.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/layout.md"
       ],
+      "family": "responsive-identity-centred-table",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/column-grid.jpg",
       "name": "tables/layout/column-grid",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "content-grid-records"
     },
     {
       "alt": "Table with responsive layout",
@@ -7947,38 +7953,44 @@
     {
       "alt": "Table with grid layout",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/layout/grid.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/layout.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/layout.md"
       ],
+      "family": "responsive-identity-centred-table",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/grid.jpg",
       "name": "tables/layout/grid",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "grid-grouped-details"
     },
     {
       "alt": "Table with grid layout on mobile",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/layout/grid/mobile.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/layout.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/layout.md"
       ],
+      "family": "responsive-identity-centred-table",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/grid/mobile.jpg",
       "name": "tables/layout/grid/mobile",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "grid-grouped-details"
     },
     {
       "alt": "Table with a column that doesn",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/layout/grow-disabled.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/layout.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/layout.md"
       ],
+      "family": "responsive-identity-centred-table",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/grow-disabled.jpg",
       "name": "tables/layout/grow-disabled",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "fixed-width-identity"
     },
     {
       "alt": "Table with a column that doesn",
@@ -8007,86 +8019,100 @@
     {
       "alt": "Table with a split layout on desktop",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/layout/split-desktop.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/layout.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/layout.md"
       ],
+      "family": "responsive-identity-centred-table",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/split-desktop.jpg",
       "name": "tables/layout/split-desktop",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "split-identity-and-details"
     },
     {
       "alt": "Table with a stacked layout on mobile",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/layout/split-desktop/mobile.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/layout.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/layout.md"
       ],
+      "family": "responsive-identity-centred-table",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/split-desktop/mobile.jpg",
       "name": "tables/layout/split-desktop/mobile",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "split-identity-and-details"
     },
     {
       "alt": "Table with a split layout on mobile",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/layout/split/mobile.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/layout.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/layout.md"
       ],
+      "family": "responsive-identity-centred-table",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/split/mobile.jpg",
       "name": "tables/layout/split/mobile",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "split-identity-and-details"
     },
     {
       "alt": "Table with a stack",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/layout/stack.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/layout.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/layout.md"
       ],
+      "family": "responsive-identity-centred-table",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/stack.jpg",
       "name": "tables/layout/stack",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "stack-related-details"
     },
     {
       "alt": "Table with a stack aligned right",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/layout/stack-aligned-right.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/layout.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/layout.md"
       ],
+      "family": "responsive-identity-centred-table",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/stack-aligned-right.jpg",
       "name": "tables/layout/stack-aligned-right",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "stack-related-details"
     },
     {
       "alt": "Table with a stack",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/layout/stack-hidden-on-mobile.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/layout.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/layout.md"
       ],
+      "family": "responsive-identity-centred-table",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/stack-hidden-on-mobile.jpg",
       "name": "tables/layout/stack-hidden-on-mobile",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "mobile-visibility"
     },
     {
       "alt": "Table with no stack on mobile",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/layout/stack-hidden-on-mobile/mobile.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/layout.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/layout.md"
       ],
+      "family": "responsive-identity-centred-table",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/stack-hidden-on-mobile/mobile.jpg",
       "name": "tables/layout/stack-hidden-on-mobile/mobile",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "mobile-visibility"
     },
     {
       "alt": "Table with spaced stacked content",
@@ -8103,14 +8129,16 @@
     {
       "alt": "Table with a stack on mobile",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/layout/stack/mobile.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/layout.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/layout.md"
       ],
+      "family": "responsive-identity-centred-table",
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/stack/mobile.jpg",
       "name": "tables/layout/stack/mobile",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "stack-related-details"
     },
     {
       "alt": "Table with stacked mobile layout on desktop",

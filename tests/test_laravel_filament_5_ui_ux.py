@@ -241,6 +241,32 @@ class VisualCatalogQueryTests(unittest.TestCase):
         self.assertIn("mobile", variants["split-identity-and-details"]["visual_evidence"])
         self.assertIn("keyboard", " ".join(result["selected_pattern"]["accessibility_considerations"]))
 
+    def test_operational_dashboard_query_selects_decision_ordered_widgets(self):
+        query = load_query_module()
+
+        result = query.query_catalog(
+            surface="dashboard",
+            goal="support-operational-decisions",
+            workflow="monitoring",
+            available_width="wide",
+            information_shape="operational-metrics-with-trends-and-activity",
+            relationship="summary-to-detail",
+            responsive_context="desktop-with-mobile-fallback",
+        )
+
+        self.assertEqual("operational-dashboard", result["selected_pattern"]["id"])
+        self.assertEqual(
+            ["operational-dashboard"],
+            [candidate["id"] for candidate in result["candidates"]],
+        )
+        evidence = [item["screenshot"] for item in result["selected_pattern"]["visual_evidence"]]
+        self.assertIn("panels/dashboard", evidence)
+        self.assertIn("widgets/stats-overview/chart", evidence)
+        variants = {item["id"]: item for item in result["selected_pattern"]["variant_decisions"]}
+        self.assertIn("decision-relevant-stats", variants)
+        self.assertEqual("panels/dashboard", variants["table-widget-queue"]["visual_evidence"])
+        self.assertIn("semantic trend", " ".join(result["selected_pattern"]["accessibility_considerations"]))
+
 
 class VisualCatalogSynchronizationTests(unittest.TestCase):
     def test_discovery_does_not_duplicate_markdown_extension(self):

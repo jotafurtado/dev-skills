@@ -5916,7 +5916,7 @@
     {
       "alt": "The default Filament dashboard with widgets",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/panels/dashboard.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/getting-started.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/getting-started.md",
@@ -5924,19 +5924,23 @@
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/panels/dashboard.jpg",
       "name": "panels/dashboard",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "operational-dashboard",
+      "variant": "table-widget-queue"
     },
     {
       "alt": "Dashboard with customized widget column spans",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/panels/dashboard-column-spans.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/widgets/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/widgets/overview.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/panels/dashboard-column-spans.jpg",
       "name": "panels/dashboard-column-spans",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "operational-dashboard",
+      "variant": "responsive-widget-span"
     },
     {
       "alt": "Dashboard with filter action modal",
@@ -5953,14 +5957,16 @@
     {
       "alt": "Dashboard with filter form",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/panels/dashboard-filters.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/widgets/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/widgets/overview.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/panels/dashboard-filters.jpg",
       "name": "panels/dashboard-filters",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "operational-dashboard",
+      "variant": "dashboard-filters"
     },
     {
       "alt": "The default login page",
@@ -8491,14 +8497,16 @@
     {
       "alt": "Line chart",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/widgets/chart/line.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/widgets/charts.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/widgets/charts.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/widgets/chart/line.jpg",
       "name": "widgets/chart/line",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "operational-dashboard",
+      "variant": "trend-chart"
     },
     {
       "alt": "Chart with maximum height",
@@ -8563,14 +8571,16 @@
     {
       "alt": "Stats overview with charts",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/widgets/stats-overview/chart.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/widgets/stats-overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/widgets/stats-overview.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/widgets/stats-overview/chart.jpg",
       "name": "widgets/stats-overview/chart",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "operational-dashboard",
+      "variant": "decision-relevant-stats"
     },
     {
       "alt": "Stats overview with colors",

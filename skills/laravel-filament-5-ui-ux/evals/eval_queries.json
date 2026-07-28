@@ -20,6 +20,10 @@
     "should_trigger": true
   },
   {
+    "query": "Redesign a Filament 5 operations dashboard with current metrics, trend charts, an intervention queue, and a shared date filter.",
+    "should_trigger": true
+  },
+  {
     "query": "Build a generic Laravel Blade settings page with Tailwind.",
     "should_trigger": false
   },

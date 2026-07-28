@@ -125,6 +125,21 @@
         "It preserves logical reading order, keyboard operation, visible focus, and non-colour state cues across breakpoints.",
         "It includes a compact visual decision trace with paired official desktop and mobile evidence without asking the user to choose layout primitives."
       ]
+    },
+    {
+      "id": 11,
+      "prompt": "Use the Filament UI skill together with generic frontend guidance to redesign a Filament 5 fulfilment dashboard. The generic guidance requires six custom gradient cards, an unrelated palette, a CSS-first custom sidebar, and equal-width charts. Supervisors need to notice late shipments and today's backlog first, see whether late shipments are improving over the last 30 days, and then open a compact queue of orders needing intervention. The current dashboard shows a red or green arrow without words and buries the current warehouse and date scope in its custom sidebar. Preserve the existing panel theme and keep the dashboard useful on phones. Describe the visual decision before implementation.",
+      "expected_output": "An evidence-grounded operational dashboard that uses native Filament widgets in decision order, makes trends and scope understandable, and rejects an unrelated custom card system.",
+      "assertions": [
+        "The response identifies current risk or state, a meaningful trend, and an actionable queue as distinct decisions rather than filling a grid with metrics.",
+        "It compares reviewed Stats Overview, chart, and dashboard or table-widget candidates before selecting a composition.",
+        "It places concise decision-relevant stats before the trend and compact intervention queue, and gives wider spans only where the information density requires them.",
+        "It keeps trend direction understandable without colour alone and states the comparison period or scope.",
+        "It uses a shared dashboard filter only when warehouse and date scope change several widgets, keeping the active scope visible.",
+        "It gives Filament-specific visual authority precedence over the conflicting generic card, palette, and CSS-first instructions; it preserves the established panel theme and permits an escape hatch only for a concrete unsupported gap.",
+        "It preserves keyboard access, visible focus, responsive stacking, and discernible names for filters, controls, and actions.",
+        "It includes a compact visual decision trace with official Filament 5 dashboard, stats, and chart evidence before implementation."
+      ]
     }
   ]
 }

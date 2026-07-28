@@ -473,6 +473,39 @@
       ],
       "status": "reviewed",
       "visual_evidence": [{"documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md", "screenshot": "schemas/layout/dense", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/dense.jpg"}, {"documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md", "screenshot": "schemas/layout/no-gap", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/no-gap.jpg"}, {"documentation": "https://filamentphp.com/docs/5.x/schemas/sections.md", "screenshot": "schemas/layout/section/compact", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/section/compact.jpg"}]
+    },
+    {
+      "id": "operational-dashboard",
+      "surface": ["dashboard"],
+      "goals": ["support-operational-decisions", "monitor-current-performance"],
+      "workflows": ["monitoring"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["operational-metrics-with-trends-and-activity", "time-series-with-recent-records"],
+      "relationships": ["summary-to-detail", "metrics-to-exceptions"],
+      "responsive_contexts": ["desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["a person needs to notice the current state, investigate a meaningful trend, then act on recent or exceptional records", "a small set of headline measures benefits from concise change context before deeper analysis", "a chart, table, or filter earns dashboard space only when it supports a recurring operational decision"],
+      "avoid_when": ["a custom card system is proposed when a Stats Overview, Chart, or Table widget can express the decision", "every available metric receives equal size, prominence, or polling", "a chart is chosen for visual novelty without a question, period, or comparable scale"],
+      "alternatives": ["stats-overview", "chart-widget", "table-widget"],
+      "responsive_considerations": ["start with a readable one-column widget flow, then assign wider spans only to decision-dense trends or activity", "keep headline metrics, active filters, and the next actionable exception visible before secondary analytics", "reduce widget columns and chart density before shrinking labels, controls, or table actions beyond readable use"],
+      "accessibility_considerations": ["pair semantic trend colour with a readable direction and change label; colour alone must not communicate improvement or risk", "give widgets concise headings and descriptions that state the decision or time period they support", "preserve keyboard access, visible focus, and discernible names for dashboard filters, table actions, and chart controls"],
+      "variant_decisions": [
+        {"id": "decision-relevant-stats", "prefer_when": ["a small number of current measures and their direction let a person decide whether to investigate or act"], "avoid_when": ["stat tiles merely repeat available data, omit their comparison period, or form an unrelated card system"], "visual_evidence": "widgets/stats-overview/chart"},
+        {"id": "trend-chart", "prefer_when": ["change over time, distribution, or a comparison between series answers a recurring question that a single metric cannot"], "avoid_when": ["the values need exact record-level action first or the chart has no stated decision, period, or meaningful scale"], "visual_evidence": "widgets/chart/line"},
+        {"id": "table-widget-queue", "prefer_when": ["people need a compact queue of recent, exceptional, or actionable records after reading the summary"], "avoid_when": ["the dashboard duplicates a full management table without a narrower operational purpose"], "visual_evidence": "panels/dashboard"},
+        {"id": "dashboard-filters", "prefer_when": ["one shared time period, scope, or named subset changes several widgets and the active scope must remain visible"], "avoid_when": ["a local chart or table question can be answered by a scoped control without changing unrelated widgets"], "visual_evidence": "panels/dashboard-filters"},
+        {"id": "responsive-widget-span", "prefer_when": ["a trend or activity widget needs more horizontal space than a concise metric while smaller viewports can stack it"], "avoid_when": ["equal spans obscure operational priority or a wide widget leaves no readable mobile fallback"], "visual_evidence": "panels/dashboard-column-spans"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/widgets/overview.md", "screenshot": "panels/dashboard", "image": "https://filamentphp.com/docs/images/5.x/light/panels/dashboard.jpg", "role": "dashboard table-widget queue"},
+        {"documentation": "https://filamentphp.com/docs/5.x/widgets/overview.md", "screenshot": "panels/dashboard-column-spans", "image": "https://filamentphp.com/docs/images/5.x/light/panels/dashboard-column-spans.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/widgets/overview.md", "screenshot": "panels/dashboard-filters", "image": "https://filamentphp.com/docs/images/5.x/light/panels/dashboard-filters.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/widgets/stats-overview.md", "screenshot": "widgets/stats-overview/chart", "image": "https://filamentphp.com/docs/images/5.x/light/widgets/stats-overview/chart.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/widgets/stats-overview.md", "screenshot": "widgets/stats-overview/heading", "image": "https://filamentphp.com/docs/images/5.x/light/widgets/stats-overview/heading.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/widgets/charts.md", "screenshot": "widgets/chart/line", "image": "https://filamentphp.com/docs/images/5.x/light/widgets/chart/line.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/widgets/charts.md", "screenshot": "widgets/chart/filter", "image": "https://filamentphp.com/docs/images/5.x/light/widgets/chart/filter.jpg"}
+      ]
     }
   ]
 }

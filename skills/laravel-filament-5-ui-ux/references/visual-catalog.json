@@ -630,6 +630,43 @@
         {"documentation": "https://filamentphp.com/docs/5.x/users/overview.md", "screenshot": "panels/password-reset", "image": "https://filamentphp.com/docs/images/5.x/light/panels/password-reset.jpg"},
         {"documentation": "https://filamentphp.com/docs/5.x/users/overview.md", "screenshot": "panels/profile", "image": "https://filamentphp.com/docs/images/5.x/light/panels/profile.jpg"}
       ]
+    },
+    {
+      "id": "action-feedback-overlays",
+      "surface": ["action-feedback", "table", "record-detail", "form", "schema"],
+      "goals": ["complete-contextual-action-safely", "communicate-action-result", "guide-next-step-after-absence"],
+      "workflows": ["contextual", "parallel", "linear"],
+      "available_width": ["narrow", "standard", "wide"],
+      "information_shapes": ["risk-confirmation-or-short-form-with-feedback", "contextual-guidance-or-empty-state"],
+      "relationships": ["action-to-affected-record-and-result", "absent-content-to-next-step"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 3,
+      "selection_signals": ["a user needs to act on the current record or page without losing the surrounding task context", "risk, required input, reference material, or a recoverable outcome changes the appropriate interaction weight", "guidance, feedback, and an empty state each have a distinct scope"],
+      "avoid_when": ["a long, multi-step, independently navigable workflow needs a full page", "a notification would repeat feedback already visible beside the affected field or action", "an empty-state action cannot actually resolve the absence for this user"],
+      "alternatives": ["compact-confirmation", "focused-modal-form", "reference-heavy-slide-over", "full-page-workflow"],
+      "responsive_considerations": ["keep the action label, risk, cancel path, validation, and result understandable when overlay content narrows or stacks", "use a slide-over only while its narrow reading column preserves the needed reference and form context", "keep the direct empty-state action reachable without requiring a hover-only or icon-only discovery path"],
+      "accessibility_considerations": ["preserve keyboard trigger, visible focus, predictable focus movement into and back from overlays, and an explicit cancel or close path", "name destructive consequences in text and pair danger colour with an icon or wording; never use colour alone", "give action groups, notifications, callouts, and empty-state actions discernible names", "place one outcome message at the narrowest level that fully explains it so feedback is not duplicated across field, callout, notification, and page"],
+      "variant_decisions": [
+        {"id": "direct-and-grouped-actions", "prefer_when": ["one frequent, low-ambiguity action deserves direct placement while secondary, destructive, or uncommon actions would crowd the surface"], "avoid_when": ["the only likely next step is hidden in an unlabeled or ambiguous overflow menu"], "visual_evidence": "actions/group/simple"},
+        {"id": "compact-confirmation", "prefer_when": ["the user already supplied the necessary information and must only acknowledge a consequential, destructive, or irreversible operation"], "avoid_when": ["the operation needs several inputs, substantial reference material, or a sequence that cannot be understood in a short decision"], "visual_evidence": "actions/modal/confirmation"},
+        {"id": "focused-modal-form", "prefer_when": ["a short, focused set of inputs completes one action without requiring persistent surrounding reference"], "avoid_when": ["the form and supporting information become long enough that the modal conceals the task context or creates a scrolling workflow"], "visual_evidence": "actions/modal/form"},
+        {"id": "reference-heavy-slide-over", "prefer_when": ["the action needs a persistent view of surrounding record or page context, longer supporting content, or a task-oriented side panel"], "avoid_when": ["the narrow panel makes comparison, validation, or a multi-step workflow harder than a page"], "visual_evidence": "actions/modal/slide-over"},
+        {"id": "full-page-workflow", "prefer_when": ["the work has multiple substantial stages, needs durable navigation or recovery, or requires more reference than an overlay can keep understandable"], "avoid_when": ["a short contextual decision would add navigation and make users lose the initiating record"], "visual_evidence": "panels/resources/editing"},
+        {"id": "contextual-callout", "prefer_when": ["a warning, policy, or next-step explanation applies to a nearby group or workflow before the user acts"], "avoid_when": ["the message is only a transient outcome, repeats field guidance, or is broad enough to belong in permanent documentation"], "visual_evidence": "components/callout/simple"},
+        {"id": "action-feedback-notification", "prefer_when": ["a completed action needs concise transient confirmation, failure recovery, or an optional immediate follow-up outside the initiating control"], "avoid_when": ["the result is already fully explained beside the affected field, in the overlay, or in persistent page state"], "visual_evidence": "notifications/actions"},
+        {"id": "actionable-empty-state", "prefer_when": ["the absence can be named concisely and this user can meaningfully create, connect, or otherwise resolve it"], "avoid_when": ["a filtered no-result needs filter explanation and reset, or the user lacks a legitimate next action"], "visual_evidence": "components/empty-state/actions"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/actions/grouping-actions.md", "screenshot": "actions/group/simple", "image": "https://filamentphp.com/docs/images/5.x/light/actions/group/simple.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/actions/modals.md", "screenshot": "actions/modal/confirmation", "image": "https://filamentphp.com/docs/images/5.x/light/actions/modal/confirmation.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/actions/modals.md", "screenshot": "actions/modal/form", "image": "https://filamentphp.com/docs/images/5.x/light/actions/modal/form.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/actions/modals.md", "screenshot": "actions/modal/slide-over", "image": "https://filamentphp.com/docs/images/5.x/light/actions/modal/slide-over.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/resources/editing-records.md", "screenshot": "panels/resources/editing", "image": "https://filamentphp.com/docs/images/5.x/light/panels/resources/editing.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/components/callout.md", "screenshot": "components/callout/simple", "image": "https://filamentphp.com/docs/images/5.x/light/components/callout/simple.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/notifications/overview.md", "screenshot": "notifications/actions", "image": "https://filamentphp.com/docs/images/5.x/light/notifications/actions.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/components/empty-state.md", "screenshot": "components/empty-state/actions", "image": "https://filamentphp.com/docs/images/5.x/light/components/empty-state/actions.jpg"}
+      ]
     }
   ]
 }

@@ -168,6 +168,21 @@
         "It preserves visible labels, focus order, keyboard operation, non-colour feedback, recovery links, and concise hierarchy for login, password recovery, registration, and profile surfaces.",
         "It includes a compact visual decision trace using reviewed Filament 5 navigation and authentication evidence before implementation."
       ]
+    },
+    {
+      "id": 14,
+      "prompt": "Redesign a Filament 5 vendor review list. Staff normally approve or request a short correction directly from a row, while archive is irreversible. Requesting correction needs a reason and a little record context; a compliance review requires several stages, supporting documents, and recovery between steps. The page currently puts every action inline, opens archive without warning, repeats the same policy text beneath every field and in a toast, and shows a Create vendor button whenever filters find no records. New staff also need to know what to do when there are genuinely no vendors. Describe the interaction decision before implementation.",
+      "expected_output": "An evidence-grounded Filament interaction composition that chooses direct and grouped actions, confirmation, focused overlay, full-page escalation, contextual guidance, feedback, and empty-state recovery according to risk and scope.",
+      "assertions": [
+        "The response keeps a frequent low-ambiguity action direct and groups secondary or destructive row actions without hiding the only likely next step.",
+        "It requires a concise confirmation with an explicit cancel path and non-colour risk cues for irreversible archive.",
+        "It chooses a focused modal form only for the short correction reason, compares it with a slide-over, and escalates the staged compliance review to a full page.",
+        "It places policy guidance at the group or workflow level and avoids duplicating the same feedback in fields, callouts, and notifications.",
+        "It distinguishes a transient action result from persistent validation or state that belongs beside affected content.",
+        "It distinguishes an initial empty state with a legitimate creation action from filtered no results with an understandable reset path.",
+        "It preserves keyboard operation, visible focus, focus movement for overlays, discernible action names, and risk communication without colour alone.",
+        "It includes a compact visual decision trace citing reviewed official Filament 5 action, overlay, feedback, and empty-state evidence without asking the user to choose components."
+      ]
     }
   ]
 }

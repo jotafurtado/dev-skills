@@ -24,6 +24,10 @@
     "should_trigger": true
   },
   {
+    "query": "Choose Filament 5 action groups, confirmation modals, slide-overs, notifications, and empty states for a risky record workflow.",
+    "should_trigger": true
+  },
+  {
     "query": "Redesign a Filament 5 operations dashboard with current metrics, trend charts, an intervention queue, and a shared date filter.",
     "should_trigger": true
   },

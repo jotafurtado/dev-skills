@@ -333,6 +333,51 @@ class VisualCatalogQueryTests(unittest.TestCase):
         self.assertIn("actionable-navigation-badge", variants)
         self.assertEqual("panels/navigation/badge", variants["actionable-navigation-badge"]["visual_evidence"])
 
+    def test_action_feedback_query_selects_risk_aware_overlay_composition(self):
+        query = load_query_module()
+
+        result = query.query_catalog(
+            surface="action-feedback",
+            goal="complete-contextual-action-safely",
+            workflow="contextual",
+            available_width="standard",
+            information_shape="risk-confirmation-or-short-form-with-feedback",
+            relationship="action-to-affected-record-and-result",
+            responsive_context="desktop-with-mobile-fallback",
+        )
+
+        self.assertEqual("action-feedback-overlays", result["selected_pattern"]["id"])
+        variants = {item["id"]: item for item in result["selected_pattern"]["variant_decisions"]}
+        self.assertIn("compact-confirmation", variants)
+        self.assertIn("focused-modal-form", variants)
+        self.assertIn("reference-heavy-slide-over", variants)
+        self.assertIn("full-page-workflow", variants)
+        self.assertIn(
+            "actions/modal/confirmation",
+            [evidence["screenshot"] for evidence in result["selected_pattern"]["visual_evidence"]],
+        )
+
+    def test_action_feedback_evidence_is_reviewed_and_assigned_to_variants(self):
+        inventory = json.loads(INVENTORY_PATH.read_text())
+        screenshots = {item["name"]: item for item in inventory["screenshots"]}
+
+        expected_variants = {
+            "actions/group/simple": "direct-and-grouped-actions",
+            "actions/modal/confirmation": "compact-confirmation",
+            "actions/modal/form": "focused-modal-form",
+            "actions/modal/slide-over": "reference-heavy-slide-over",
+            "panels/resources/editing": "full-page-workflow",
+            "components/callout/simple": "contextual-callout",
+            "notifications/actions": "action-feedback-notification",
+            "components/empty-state/actions": "actionable-empty-state",
+        }
+
+        for name, variant in expected_variants.items():
+            self.assertEqual("reviewed", screenshots[name]["status"])
+            self.assertEqual("decision-changing", screenshots[name]["decision_relevance"])
+            self.assertEqual("action-feedback-overlays", screenshots[name]["family"])
+            self.assertEqual(variant, screenshots[name]["variant"])
+
 
 class VisualCatalogSynchronizationTests(unittest.TestCase):
     def test_discovery_does_not_duplicate_markdown_extension(self):

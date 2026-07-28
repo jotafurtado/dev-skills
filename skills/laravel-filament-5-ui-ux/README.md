@@ -19,6 +19,7 @@ npx skills add jotafurtado/dev-skills --skill laravel-filament-v5
 - Page-level schema and form composition
 - Ordinary field wrappers, labels, guidance, states, fused fields, affixes, and contextual callouts
 - Repeaters, builders, rich-content editors, uploads, and relationship-heavy controls
+- Action groups, destructive confirmations, modal forms, slide-overs, contextual callouts, notifications, feedback, and actionable empty states
 - Standard compare-and-scan tables: columns, filters, row and bulk actions, grouping, summaries, pagination, and empty results
 - Read-oriented record details and infolists: identity, current status, primary facts, dense metadata, media, copyable identifiers, repeated data, and long-tail detail
 - Panel shells: sidebar or top navigation, domain groups and clusters, actionable badges, supported branding, user menus, and authentication hierarchy
@@ -44,6 +45,7 @@ laravel-filament-5-ui-ux/
 ├── references/settings-form-composition.md
 ├── references/ordinary-field-composition.md
 ├── references/complex-input-composition.md
+├── references/action-feedback-composition.md
 ├── references/table-composition.md
 ├── references/record-detail-composition.md
 ├── references/panel-shell-composition.md

@@ -1151,13 +1151,15 @@
     {
       "alt": "Action group",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/actions/group/simple.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/actions/grouping-actions.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/actions/grouping-actions.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/actions/group/simple.jpg",
       "name": "actions/group/simple",
+      "family": "action-feedback-overlays",
+      "variant": "direct-and-grouped-actions",
       "status": "reviewed"
     },
     {
@@ -1187,13 +1189,15 @@
     {
       "alt": "Confirmation modal",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/actions/modal/confirmation.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/actions/modals.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/actions/modals.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/actions/modal/confirmation.jpg",
       "name": "actions/modal/confirmation",
+      "family": "action-feedback-overlays",
+      "variant": "compact-confirmation",
       "status": "reviewed"
     },
     {
@@ -1235,13 +1239,15 @@
     {
       "alt": "Modal with form",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/actions/modal/form.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/actions/modals.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/actions/modals.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/actions/modal/form.jpg",
       "name": "actions/modal/form",
+      "family": "action-feedback-overlays",
+      "variant": "focused-modal-form",
       "status": "reviewed"
     },
     {
@@ -1307,13 +1313,15 @@
     {
       "alt": "Slide over with form",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/actions/modal/slide-over.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/actions/modals.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/actions/modals.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/actions/modal/slide-over.jpg",
       "name": "actions/modal/slide-over",
+      "family": "action-feedback-overlays",
+      "variant": "reference-heavy-slide-over",
       "status": "reviewed"
     },
     {
@@ -1847,13 +1855,15 @@
     {
       "alt": "An info callout",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/components/callout/simple.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/components/callout.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/components/callout.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/components/callout/simple.jpg",
       "name": "components/callout/simple",
+      "family": "action-feedback-overlays",
+      "variant": "contextual-callout",
       "status": "reviewed"
     },
     {
@@ -1967,13 +1977,15 @@
     {
       "alt": "An empty state with footer actions",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/components/empty-state/actions.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/components/empty-state.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/components/empty-state.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/components/empty-state/actions.jpg",
       "name": "components/empty-state/actions",
+      "family": "action-feedback-overlays",
+      "variant": "actionable-empty-state",
       "status": "reviewed"
     },
     {
@@ -5742,13 +5754,15 @@
     {
       "alt": "Notification with actions",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/notifications/actions.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/notifications/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/notifications/overview.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/notifications/actions.jpg",
       "name": "notifications/actions",
+      "family": "action-feedback-overlays",
+      "variant": "action-feedback-notification",
       "status": "reviewed"
     },
     {
@@ -6366,14 +6380,16 @@
     {
       "alt": "Resource edit page",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/panels/resources/editing.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/resources/editing-records.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/resources/editing-records.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/panels/resources/editing.jpg",
+      "family": "action-feedback-overlays",
       "name": "panels/resources/editing",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "full-page-workflow"
     },
     {
       "alt": "Resource edit page with combined relation manager tabs",

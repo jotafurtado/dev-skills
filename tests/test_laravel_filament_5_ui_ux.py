@@ -521,6 +521,23 @@ class VisualCatalogValidationTests(unittest.TestCase):
         self.assertIn("Claude Code", verification)
         self.assertIn("2026-07-28", verification)
         self.assertIn("record-detail-infolist", verification)
+        self.assertIn("Full clean Codex behavioral matrix", verification)
+        for coverage_area in (
+            "Forms and schema layouts",
+            "Tables",
+            "Responsive records",
+            "Record details",
+            "Dashboards",
+            "Navigation and authentication",
+            "Actions and feedback",
+            "Offline and no-vision fallback",
+            "Justified custom UI",
+        ):
+            self.assertIn(f"| {coverage_area} | PASS |", verification)
+        self.assertIn("Evidence: local reviewed catalog", verification)
+        self.assertIn("Authority: `laravel-filament-v5`", verification)
+        self.assertIn("Baseline-only contrast", verification)
+        self.assertIn("improved official-pattern discovery", verification)
         self.assertIn("cursor", smoke_script)
         self.assertIn("--copy", smoke_script)
         self.assertIn("Jota Furtado Dev Skills", smoke_script)

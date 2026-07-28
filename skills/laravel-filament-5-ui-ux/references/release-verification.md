@@ -22,6 +22,26 @@ Clean paired installations were exercised before the release commit. Codex queri
 
 Claude Code received the equivalent vendor View prompt from a clean paired installation. Its response put vendor identity and a labelled verification-state badge first, followed by a compact fact grid; it moved history and related detail below the primary scan path, kept a single focused correction action, and assigned Infolist/Schema APIs, action authorization, state guards, and tests to `laravel-filament-v5`. This meets the record-detail comparison pass condition. The Codex and Claude Code prompts were read-only and made no changes to the disposable workspaces.
 
+## Full clean Codex behavioral matrix
+
+On 2026-07-28, Codex CLI 0.145.0 ran a read-only, clean paired installation of both skills. It read only the installed skill files and local reviewed catalog; no project APIs, network access, or screenshots were available. Every row passed: it compared official candidates, selected a pattern, named responsive and accessibility treatment, cited local evidence (or disclosed the unavailable visual inspection), and delegated exact APIs, security, implementation, and tests to `laravel-filament-v5`.
+
+**Baseline-only contrast:** `laravel-filament-v5` supplies version-sensitive APIs, security, implementation, tests, and fallback visual guardrails, but not this skill's reviewed visual-catalog query, pattern-family comparison, screenshot inventory, or required visual decision trace. Across every probe below, the candidate therefore demonstrated improved official-pattern discovery and observable evidence use while the baseline retained its implementation authority.
+
+| Coverage area | Result | Recorded evidence and authority |
+|---|---|---|
+| Forms and schema layouts | PASS | Evidence: local reviewed catalog candidates for responsive columns, sections, ordinary wrappers, and fused fields. Selected short related fields sharing width, long description spanning it, and a labelled location group only where its fields remain related. Authority: `laravel-filament-v5` owns APIs, validation, implementation, and tests. |
+| Tables | PASS | Evidence: local reviewed catalog table, filter, bulk-action, and empty-state patterns. Selected compare-and-scan ordering, purposeful filters, grouped or bulk operations, and a filtered no-results reset. Authority: `laravel-filament-v5` owns table/action APIs, authorization, implementation, and tests. |
+| Responsive records | PASS | Evidence: local reviewed Split and Stack mobile variants. Selected an identity-centred transformation retaining identity, state, selection, and primary action on narrow screens. Authority: `laravel-filament-v5` owns table-layout APIs, policies, implementation, and tests. |
+| Record details | PASS | Evidence: local reviewed `record-detail-infolist` variants. Selected identity and labelled status before primary facts, with documents and audit information secondary. Authority: `laravel-filament-v5` owns infolist/View APIs, document authorization, implementation, and tests. |
+| Dashboards | PASS | Evidence: local reviewed Stats Overview, chart, table-widget, and dashboard-filter patterns. Selected risk stats, then a labelled trend and intervention queue, with visible shared scope and the established panel theme. Authority: `laravel-filament-v5` owns widget/filter APIs, scope security, implementation, and tests. |
+| Navigation and authentication | PASS | Evidence: local reviewed top-navigation, sidebar-navigation, and authentication-surface patterns. Selected top navigation for support, grouped sidebar navigation for the back-office, actionable badges only, and keyboard-operable mobile authentication paths. Authority: `laravel-filament-v5` owns panel/auth APIs, authorization boundaries, implementation, and tests. |
+| Actions and feedback | PASS | Evidence: local reviewed action-group, confirmation, overlay, callout, notification, and empty-state patterns. Selected direct approval, focused correction overlay, archive confirmation, full-page compliance flow, and durable guidance distinct from transient feedback. Authority: `laravel-filament-v5` owns action/modal APIs, policy enforcement, implementation, and tests. |
+| Offline and no-vision fallback | PASS | Evidence: local reviewed `record-detail-infolist` interpretation; screenshot inspection was explicitly unavailable. Selected identity/status, then primary facts, then secondary documents/audit. Authority: `laravel-filament-v5` owns installed API verification, authorization, implementation, and tests. |
+| Justified custom UI | PASS | Evidence: local reviewed Builder or Repeater and upload patterns. Selected native collection and upload patterns; custom Blade, CSS, or Livewire require documented candidates and a concrete unsupported gap. Authority: `laravel-filament-v5` owns upload APIs/security, implementation, and tests. |
+
+The matrix therefore exercises the visual coverage in `evals/evals.json` as grouped behavior probes. The earlier Claude Code record independently confirms the paired-skill authority split on the vendor View path. Cursor has no compatible headless behavioral evaluator in this environment, so its clean install is verified by the smoke test rather than a model-output run.
+
 ## Clean-install smoke test
 
 Run the following from the repository root:

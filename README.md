@@ -1,4 +1,4 @@
-# Dev Skills
+# Jota Furtado Dev Skills
 
 A collection of [Agent Skills](https://skills.sh) for AI coding assistants — Claude Code, Cursor, Windsurf, Copilot, and any tool that speaks the `SKILL.md` format.
 

@@ -1,6 +1,12 @@
 ---
 name: laravel-filament-5-ui-ux
 description: "Chooses and composes evidence-grounded Filament 5.x schema, page-level form, record-detail/infolist, table, dashboard, panel navigation/authentication, and action/feedback patterns from official documentation and screenshots. Use for designing, redesigning, reviewing, or improving Filament 5 forms, schemas, record details, infolists, record tables, dashboards, panel shells, navigation, authentication, action groups, overlays, notifications, feedback, or empty states; use alongside laravel-filament-v5 for version-sensitive APIs and implementation. Do not trigger for generic frontend work, non-Filament interfaces, Filament 3/4, field API/security-only tasks, or UI surfaces outside the reviewed catalog."
+license: MIT
+metadata:
+  author: jotafurtado
+  version: "1.0.0"
+  domain: frontend
+  filament_version: "5.x"
 ---
 
 # Laravel Filament 5 UI/UX

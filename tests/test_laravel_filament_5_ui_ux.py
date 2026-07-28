@@ -14,6 +14,8 @@ INVENTORY_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "references" / "
 MAIN_FILAMENT_SKILL_PATH = ROOT / "skills" / "laravel-filament-v5" / "SKILL.md"
 MAIN_FILAMENT_QUERY_EVALS_PATH = ROOT / "skills" / "laravel-filament-v5" / "evals" / "eval_queries.json"
 UI_UX_QUERY_EVALS_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "evals" / "eval_queries.json"
+UI_UX_SKILL_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "SKILL.md"
+UI_UX_RELEASE_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "RELEASE.md"
 
 
 def load_query_module():
@@ -498,6 +500,17 @@ class VisualCatalogSynchronizationTests(unittest.TestCase):
 
 
 class VisualCatalogValidationTests(unittest.TestCase):
+    def test_release_metadata_and_notes_state_scope_authority_and_fallbacks(self):
+        skill = UI_UX_SKILL_PATH.read_text()
+        release = UI_UX_RELEASE_PATH.read_text()
+
+        self.assertIn('version: "1.0.0"', skill)
+        self.assertIn("filament_version: \"5.x\"", skill)
+        self.assertIn("Filament 5.x only", release)
+        self.assertIn("laravel-filament-v5", release)
+        self.assertIn("offline", release.lower())
+        self.assertIn("image inspection", release.lower())
+
     def test_cross_skill_contract_routes_visual_selection_to_ui_ux_skill(self):
         main_skill = MAIN_FILAMENT_SKILL_PATH.read_text()
         ui_ux_skill = (ROOT / "skills" / "laravel-filament-5-ui-ux" / "SKILL.md").read_text()

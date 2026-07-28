@@ -2,6 +2,8 @@
 
 Agent skill for selecting and composing official Filament 5 visual patterns from reviewed documentation evidence. It makes the visual decision observable before implementation and keeps custom UI as a documented escape hatch.
 
+Release scope and verification gates: [`RELEASE.md`](./RELEASE.md).
+
 ## Install
 
 ```bash
@@ -43,6 +45,7 @@ The skill supports Filament 5.x only. It does not replace the project's establis
 laravel-filament-5-ui-ux/
 ├── SKILL.md
 ├── README.md
+├── RELEASE.md
 ├── agents/openai.yaml
 ├── scripts/query_visual_catalog.py
 ├── scripts/sync_visual_catalog.py

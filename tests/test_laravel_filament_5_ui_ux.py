@@ -267,6 +267,40 @@ class VisualCatalogQueryTests(unittest.TestCase):
         self.assertEqual("panels/dashboard", variants["table-widget-queue"]["visual_evidence"])
         self.assertIn("semantic trend", " ".join(result["selected_pattern"]["accessibility_considerations"]))
 
+    def test_record_detail_query_selects_identity_first_infolist_composition(self):
+        query = load_query_module()
+
+        result = query.query_catalog(
+            surface="record-detail",
+            goal="present-scannable-record-details",
+            workflow="parallel",
+            available_width="wide",
+            information_shape="identity-status-primary-facts-with-secondary-metadata",
+            relationship="identity-to-facts-and-secondary-history",
+            responsive_context="desktop-with-mobile-fallback",
+        )
+
+        self.assertEqual("record-detail-infolist", result["selected_pattern"]["id"])
+        self.assertEqual(
+            ["record-detail-infolist"],
+            [candidate["id"] for candidate in result["candidates"]],
+        )
+        variants = {item["id"]: item for item in result["selected_pattern"]["variant_decisions"]}
+        self.assertIn("inline-label-facts", variants)
+        self.assertIn("tabbed-secondary-detail", variants)
+        self.assertEqual(
+            "schemas/layout/tabs/simple",
+            variants["tabbed-secondary-detail"]["visual_evidence"],
+        )
+        self.assertIn(
+            "infolists/entries/inline-label/section",
+            [evidence["screenshot"] for evidence in result["selected_pattern"]["visual_evidence"]],
+        )
+        self.assertIn(
+            "panels/resources/viewing",
+            [evidence["screenshot"] for evidence in result["selected_pattern"]["visual_evidence"]],
+        )
+
 
 class VisualCatalogSynchronizationTests(unittest.TestCase):
     def test_discovery_does_not_duplicate_markdown_extension(self):
@@ -384,6 +418,29 @@ class VisualCatalogSynchronizationTests(unittest.TestCase):
 
 
 class VisualCatalogValidationTests(unittest.TestCase):
+    def test_record_detail_evidence_is_assigned_to_reviewed_variants(self):
+        inventory = json.loads(INVENTORY_PATH.read_text())
+        screenshots = {item["name"]: item for item in inventory["screenshots"]}
+
+        expected_variants = {
+            "panels/resources/viewing": "two-zone-identity-and-facts",
+            "infolists/overview": "simple-detail-page",
+            "infolists/entries/simple": "two-zone-identity-and-facts",
+            "infolists/entries/inline-label/section": "inline-label-facts",
+            "infolists/entries/text/badge": "status-badge-and-icon",
+            "infolists/entries/icon/boolean": "status-badge-and-icon",
+            "infolists/entries/text/copyable": "media-and-copyable-identity",
+            "infolists/entries/placeholder": "placeholder-for-absent-fact",
+            "infolists/entries/repeatable/table": "repeatable-secondary-detail",
+            "infolists/entries/text/expandable-limited-list": "collapsed-long-tail-detail",
+        }
+
+        for screenshot, variant in expected_variants.items():
+            self.assertEqual("reviewed", screenshots[screenshot]["status"])
+            self.assertEqual("decision-changing", screenshots[screenshot]["decision_relevance"])
+            self.assertEqual("record-detail-infolist", screenshots[screenshot]["family"])
+            self.assertEqual(variant, screenshots[screenshot]["variant"])
+
     def test_responsive_record_pairs_are_decision_changing_inventory_variants(self):
         inventory = json.loads(INVENTORY_PATH.read_text())
         screenshots = {item["name"]: item for item in inventory["screenshots"]}

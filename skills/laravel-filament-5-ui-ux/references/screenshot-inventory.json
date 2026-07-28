@@ -5098,14 +5098,16 @@
     {
       "alt": "Icon entry to display a boolean",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/infolists/entries/icon/boolean.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/infolists/icon-entry.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/infolists/icon-entry.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/icon/boolean.jpg",
+      "family": "record-detail-infolist",
       "name": "infolists/entries/icon/boolean",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "status-badge-and-icon"
     },
     {
       "alt": "Icon entry to display a boolean with custom colors",
@@ -5182,14 +5184,16 @@
     {
       "alt": "Limited image entry",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/infolists/entries/image/limited.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/infolists/image-entry.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/infolists/image-entry.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/image/limited.jpg",
+      "family": "record-detail-infolist",
       "name": "infolists/entries/image/limited",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "media-and-copyable-identity"
     },
     {
       "alt": "Limited image entry with remaining text",
@@ -5290,14 +5294,16 @@
     {
       "alt": "Infolist entries with inline labels in a section",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/infolists/entries/inline-label/section.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/infolists/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/infolists/overview.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/inline-label/section.jpg",
+      "family": "record-detail-infolist",
       "name": "infolists/entries/inline-label/section",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "inline-label-facts"
     },
     {
       "alt": "Key-value entry with custom column labels",
@@ -5326,14 +5332,16 @@
     {
       "alt": "Entry with a placeholder for empty state",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/infolists/entries/placeholder.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/infolists/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/infolists/overview.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/placeholder.jpg",
+      "family": "record-detail-infolist",
       "name": "infolists/entries/placeholder",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "placeholder-for-absent-fact"
     },
     {
       "alt": "Repeatable entry without styled container",
@@ -5374,38 +5382,44 @@
     {
       "alt": "Repeatable entry with table layout",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/infolists/entries/repeatable/table.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/infolists/repeatable-entry.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/infolists/repeatable-entry.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/repeatable/table.jpg",
+      "family": "record-detail-infolist",
       "name": "infolists/entries/repeatable/table",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "repeatable-secondary-detail"
     },
     {
       "alt": "Entries in an infolist",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/infolists/entries/simple.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/infolists/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/infolists/overview.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/simple.jpg",
+      "family": "record-detail-infolist",
       "name": "infolists/entries/simple",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "two-zone-identity-and-facts"
     },
     {
       "alt": "Text entry as badge",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/infolists/entries/text/badge.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/infolists/text-entry.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/infolists/text-entry.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/text/badge.jpg",
+      "family": "record-detail-infolist",
       "name": "infolists/entries/text/badge",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "status-badge-and-icon"
     },
     {
       "alt": "Text entry in a bold font",
@@ -5446,14 +5460,16 @@
     {
       "alt": "Text entry with a button to copy it",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/infolists/entries/text/copyable.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/infolists/text-entry.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/infolists/text-entry.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/text/copyable.jpg",
+      "family": "record-detail-infolist",
       "name": "infolists/entries/text/copyable",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "media-and-copyable-identity"
     },
     {
       "alt": "Text entry with date formatting",
@@ -5482,14 +5498,16 @@
     {
       "alt": "Text entry with an expandable limited list",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/infolists/entries/text/expandable-limited-list.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/infolists/text-entry.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/infolists/text-entry.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/text/expandable-limited-list.jpg",
+      "family": "record-detail-infolist",
       "name": "infolists/entries/text/expandable-limited-list",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "collapsed-long-tail-detail"
     },
     {
       "alt": "Text entry with HTML rendering",
@@ -5710,14 +5728,16 @@
     {
       "alt": "Product infolist example",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/infolists/overview.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/infolists/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/infolists/overview.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/infolists/overview.jpg",
+      "family": "record-detail-infolist",
       "name": "infolists/overview",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "simple-detail-page"
     },
     {
       "alt": "Notification with actions",
@@ -6609,14 +6629,16 @@
     {
       "alt": "Resource view page",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/panels/resources/viewing.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/resources/viewing-records.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/resources/viewing-records.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/panels/resources/viewing.jpg",
+      "family": "record-detail-infolist",
       "name": "panels/resources/viewing",
-      "status": "reviewed"
+      "status": "reviewed",
+      "variant": "two-zone-identity-and-facts"
     },
     {
       "alt": "A resource page with header widgets",

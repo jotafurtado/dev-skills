@@ -140,6 +140,20 @@
         "It preserves keyboard access, visible focus, responsive stacking, and discernible names for filters, controls, and actions.",
         "It includes a compact visual decision trace with official Filament 5 dashboard, stats, and chart evidence before implementation."
       ]
+    },
+    {
+      "id": 12,
+      "prompt": "Design a read-only Filament 5 vendor record page. Operations staff must identify the company and its current verification state immediately, scan legal name, tax identifier, reviewer, and latest decision, inspect a logo when it helps recognition, copy the application ID when escalating, and understand when a missing tax number is genuinely absent. Previous reviews, uploaded documents, and a long audit trail are useful but must not bury the current record state. The wide panel has room, but the page must remain readable on phones. Describe the composition decision before implementation.",
+      "expected_output": "An evidence-grounded record-detail composition that keeps identity and current state before primary facts and moves secondary detail into an appropriate infolist treatment.",
+      "assertions": [
+        "The response distinguishes a single-record detail task from a compare-and-scan table.",
+        "It compares a simple detail flow, an identity-and-facts composition, and a larger secondary surface before choosing a pattern.",
+        "It keeps identity, verification state, and primary facts visible before history, documents, or audit detail.",
+        "It uses labels with badges or icons as reinforcement rather than colour alone, and explains the accessible treatment of copy and disclosure controls.",
+        "It gives clear conditions for inline labels, media, copyable identifiers, placeholders, repeatable detail, and collapsed long-tail information.",
+        "It preserves a readable mobile scan path and includes a compact visual decision trace with official Filament 5 infolist evidence.",
+        "It routes version-sensitive entry signatures to the main Filament skill instead of inventing an API."
+      ]
     }
   ]
 }

@@ -475,6 +475,48 @@
       "visual_evidence": [{"documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md", "screenshot": "schemas/layout/dense", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/dense.jpg"}, {"documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md", "screenshot": "schemas/layout/no-gap", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/no-gap.jpg"}, {"documentation": "https://filamentphp.com/docs/5.x/schemas/sections.md", "screenshot": "schemas/layout/section/compact", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/section/compact.jpg"}]
     },
     {
+      "id": "record-detail-infolist",
+      "surface": ["record-detail", "infolist", "schema"],
+      "goals": ["present-scannable-record-details", "organize-secondary-record-information"],
+      "workflows": ["parallel", "reference"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["identity-status-primary-facts-with-secondary-metadata", "dense-facts-with-long-tail-history"],
+      "relationships": ["identity-to-facts-and-secondary-history", "record-to-repeatable-details"],
+      "responsive_contexts": ["desktop-with-mobile-fallback", "mobile-first"],
+      "selection_weight": 2,
+      "selection_signals": ["a person needs to recognise one record and its current state before scanning its supporting facts", "primary facts are compact while history, repeated data, or supporting media need a secondary location", "the page must remain readable when labels, values, and metadata stack on a narrow screen"],
+      "avoid_when": ["staff must compare the same facts across many peer records, which requires a table", "the surface is an edit workflow rather than a read-oriented record detail"],
+      "alternatives": ["simple-detail-page", "two-zone-detail-page", "tabbed-secondary-detail"],
+      "responsive_considerations": ["keep identity, current status, and the primary facts before secondary metadata when the layout stacks", "use inline labels only while their label-value pairs remain readable; restore a vertical treatment for long values, help, or errors", "keep media alternatives, copy controls, repeatable rows, and collapsed secondary content reachable and understandable at every breakpoint"],
+      "accessibility_considerations": ["pair status badges and icons with readable text so state is not communicated by colour alone", "retain visible labels or an equivalent accessible name for every fact, including placeholders for absent values", "give copy, disclosure, and any entry action a discernible label, visible focus, and keyboard operation", "do not hide a current state, primary identifier, or common next action inside a collapsed secondary area"],
+      "variant_decisions": [
+        {"id": "simple-detail-page", "prefer_when": ["a record has a short, self-explanatory set of facts that can be read in one flow"], "avoid_when": ["identity, current state, and a larger set of supporting metadata need separate visual priority"], "visual_evidence": "infolists/overview"},
+        {"id": "two-zone-identity-and-facts", "prefer_when": ["identity and current state need to stay prominent while compact facts form a scannable adjacent or following block"], "avoid_when": ["the record is too small to justify a second zone or its facts require a larger navigable secondary surface"], "visual_evidence": "infolists/entries/simple"},
+        {"id": "inline-label-facts", "prefer_when": ["many short, stable fact labels and values need to conserve vertical space without losing their association"], "avoid_when": ["values are long, labels are ambiguous, or the stacked narrow layout is more readable"], "visual_evidence": "infolists/entries/inline-label/section"},
+        {"id": "status-badge-and-icon", "prefer_when": ["a current status or conventional boolean changes the next decision and needs a compact semantic cue"], "avoid_when": ["colour or an unlabelled icon would be the only explanation of state"], "visual_evidence": "infolists/entries/text/badge"},
+        {"id": "media-and-copyable-identity", "prefer_when": ["recognition media or a high-value identifier helps users verify, share, or act on the record"], "avoid_when": ["decorative media competes with identity or copying is not a meaningful user task"], "visual_evidence": "infolists/entries/text/copyable"},
+        {"id": "placeholder-for-absent-fact", "prefer_when": ["an absent expected value must remain distinguishable from an omitted or loading fact"], "avoid_when": ["a placeholder would add noise to optional information with no user consequence"], "visual_evidence": "infolists/entries/placeholder"},
+        {"id": "repeatable-secondary-detail", "prefer_when": ["a record contains structured repeated facts, media, or history that users need to inspect as units"], "avoid_when": ["a compact summary is enough or a large history needs a dedicated related-record surface"], "visual_evidence": "infolists/entries/repeatable/table"},
+        {"id": "tabbed-secondary-detail", "prefer_when": ["several sizeable secondary groups such as history, related records, or media would obscure primary identity and facts in one long page"], "avoid_when": ["only a few short groups remain easy to scan in a single detail flow"], "visual_evidence": "schemas/layout/tabs/simple"},
+        {"id": "collapsed-long-tail-detail", "prefer_when": ["long-tail information has a meaningful summary and is not needed for the recurring decision"], "avoid_when": ["the hidden information contains current status, primary identity, error recovery, or a common action"], "visual_evidence": "infolists/entries/text/expandable-limited-list"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/overview.md", "screenshot": "infolists/overview", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/overview.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/resources/viewing-records.md", "screenshot": "panels/resources/viewing", "image": "https://filamentphp.com/docs/images/5.x/light/panels/resources/viewing.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/overview.md", "screenshot": "infolists/entries/simple", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/simple.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/overview.md", "screenshot": "infolists/entries/inline-label/section", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/inline-label/section.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/text-entry.md", "screenshot": "infolists/entries/text/badge", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/text/badge.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/icon-entry.md", "screenshot": "infolists/entries/icon/boolean", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/icon/boolean.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/image-entry.md", "screenshot": "infolists/entries/image/limited", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/image/limited.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/text-entry.md", "screenshot": "infolists/entries/text/copyable", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/text/copyable.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/overview.md", "screenshot": "infolists/entries/placeholder", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/placeholder.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/repeatable-entry.md", "screenshot": "infolists/entries/repeatable/table", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/repeatable/table.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/schemas/tabs.md", "screenshot": "schemas/layout/tabs/simple", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/tabs/simple.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/text-entry.md", "screenshot": "infolists/entries/text/expandable-limited-list", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/text/expandable-limited-list.jpg"}
+      ]
+    },
+    {
       "id": "operational-dashboard",
       "surface": ["dashboard"],
       "goals": ["support-operational-decisions", "monitor-current-performance"],

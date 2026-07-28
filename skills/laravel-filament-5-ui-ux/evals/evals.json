@@ -183,6 +183,16 @@
         "It preserves keyboard operation, visible focus, focus movement for overlays, discernible action names, and risk communication without colour alone.",
         "It includes a compact visual decision trace citing reviewed official Filament 5 action, overlay, feedback, and empty-state evidence without asking the user to choose components."
       ]
+    },
+    {
+      "id": 15,
+      "prompt": "Design the visual composition of a Filament 5 vendor View page: staff must recognize the vendor and verification state immediately, scan key facts, inspect secondary history without losing orientation, and use a focused correction action safely. The project then needs exact installed-version entry and action signatures plus tests. Describe the visual decision before implementation.",
+      "expected_output": "An evidence-grounded record-detail and action decision that retains visual authority while explicitly handing installed-version APIs, implementation, security, and tests to the main Filament skill.",
+      "assertions": [
+        "The response compares and selects reviewed record-detail and action patterns with an observable visual decision trace.",
+        "It keeps identity and current state before secondary history and chooses interaction weight from risk and required context.",
+        "It explicitly routes exact entry or action signatures, implementation, security, and tests to laravel-filament-v5 rather than guessing them."
+      ]
     }
   ]
 }

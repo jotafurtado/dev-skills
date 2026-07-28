@@ -33,7 +33,7 @@
   },
   {
     "query": "Polish this Filament settings page while retaining our panel theme.",
-    "should_trigger": true
+    "should_trigger": false
   },
   {
     "query": "Configure a second Filament panel with clusters and global search.",
@@ -74,6 +74,10 @@
   {
     "query": "Our dashboard has too many widgets; suggest a better information architecture.",
     "should_trigger": false
+  },
+  {
+    "query": "Choose the Filament 5 record-detail composition and give the exact installed-version TextEntry API signature.",
+    "should_trigger": true
   },
   {
     "query": "Make this HTML form accessible and improve its error messages.",

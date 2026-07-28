@@ -24,10 +24,10 @@ php artisan boost:add-skill jotafurtado/dev-skills --skill laravel-filament-v5
 - v5 API breaking changes vs v3/v4 (`Schema`, namespaces, `recordActions()`, `Filament\Actions\*`, etc.)
 - On-demand reference library for resources, infolists, forms, tables, layouts, actions, widgets, relation managers, panels, notifications, enums, advanced features, security, and testing
 - Security guardrails for custom actions, inline editing, relationship selection, uploads, HTML/URLs, imports/exports, sensitive Livewire state, tenancy, and cross-tenant tests
-- UI composition guide: adaptable page recipes, Filament-aligned defaults, visual hierarchy, Sections vs Tabs vs Wizard, column widths, scannable tables, empty states, modals, and feedback
-- Official screenshot index: URL formula + curated map of docs screenshots so vision-capable agents view the real surface before composing
+- Minimal visual fallback for installations without the dedicated UI/UX skill: official-component choice, established-theme preservation, and accessibility guardrails
+- Compatibility screenshot index for that fallback; it does not replace the dedicated visual catalog
 - Filament-specific visual authority that supersedes generic CSS-first guidance while retaining accessibility, responsive, performance, and UX requirements
-- Delegation to `laravel-filament-5-ui-ux` for evidence-grounded settings-form pattern selection and composition when that dedicated skill is installed
+- Delegation to `laravel-filament-5-ui-ux` for every material Filament visual selection and composition decision when that dedicated skill is installed
 - Evidence protocol: installed lock/vendor source first, official versioned docs second, exact upstream tags third, and aggregators only as source-checked discovery aids
 - Documentation routing authority: for Filament-specific questions, this skill is the entry point ahead of generic doc-lookup tools (find-docs, Context7, Laravel Boost's `search-docs`), which stay subordinate to its evidence protocol
 - Behavioral output evals plus trigger/non-trigger queries for regression testing

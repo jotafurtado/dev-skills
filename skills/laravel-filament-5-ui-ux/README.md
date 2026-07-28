@@ -14,6 +14,12 @@ Install `laravel-filament-v5` as well when the task needs version-sensitive APIs
 npx skills add jotafurtado/dev-skills --skill laravel-filament-v5
 ```
 
+## Authority and fallback
+
+This skill exclusively selects and composes Filament 5 visual patterns. `laravel-filament-v5` owns installed-version APIs, security, implementation, and tests; install both for implementation work that changes a material UI surface.
+
+The reviewed catalog works offline after installation. When image inspection or network access is unavailable, use its local interpretation and disclose the limitation in the visual decision trace. Use custom Blade, Livewire, CSS, or theme work only after recording the official candidates checked and the concrete gap they cannot cover.
+
 ## What the catalog covers
 
 - Page-level schema and form composition

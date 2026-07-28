@@ -1,88 +1,13 @@
-# Official screenshot index — see the real thing before composing
+# Compatibility screenshot lookup
 
-The Filament docs ship high-resolution screenshots of every component and page pattern. When building or restructuring a UI surface — especially a whole page — and you can view images, **download the relevant official screenshot and look at it** instead of imagining what "a Filament table" looks like. This grounds spacing, hierarchy, action placement, and color usage in the real design language.
+Use this reference only when `laravel-filament-5-ui-ux` is unavailable. The dedicated skill's reviewed local catalog is the authority for visual discovery and composition when installed.
 
-## URL formula
+Official Filament 5 screenshot URLs follow:
 
-```
+```text
 https://filamentphp.com/docs/images/5.x/{light|dark}/{name}.jpg
 ```
 
-`{name}` comes from the index below. Images are high-resolution JPEGs; `light` is usually enough for composition analysis. Use the agent/runtime's temporary-file mechanism, give each pattern a unique filename, and view the result. For example on a POSIX system:
+Find screenshot names in the versioned documentation page's `<AutoScreenshot>` declarations. Inspect a screenshot only to ground a fallback in an official component's presentation. Do not infer a page recipe, responsive behavior, or a visual alternative set from this compatibility lookup; state that the dedicated catalog was unavailable.
 
-```bash
-shot_dir="$(mktemp -d)"
-curl -fsSL -o "$shot_dir/filament-table-example.jpg" "https://filamentphp.com/docs/images/5.x/light/tables/example.jpg"
-```
-
-Reuse a file already downloaded in the current task instead of re-fetching the same screenshot. Do not assume `/tmp` semantics on every platform, and remove temporary artifacts through the runtime's normal cleanup path when they are no longer needed.
-
-## Discovering screenshots not in this index
-
-Every docs `.md` page declares its screenshots as `<AutoScreenshot name="..." ...>` tags. To enumerate what a page illustrates:
-
-```bash
-curl -fsSL "https://filamentphp.com/docs/5.x/{section}/{page}.md" | grep -oE '<AutoScreenshot name="[^"]+"'
-```
-
-Page list: `https://filamentphp.com/docs/llms.txt`.
-
-## Curated index — pattern → screenshot name
-
-Whole-page and composition-level references (the most valuable ones):
-
-| You are building | View |
-|---|---|
-| A complete list page / table | `tables/example` |
-| A dashboard (stats + charts + nav) | `panels/dashboard` |
-| Sidebar navigation with groups | `panels/navigation/group` |
-| Top navigation variant | `panels/navigation/top-navigation` |
-| Nav item with count badge | `panels/navigation/badge` |
-| A View page with two-zone layout + tabs | `infolists/overview` |
-| Login page | `panels/login` |
-
-Tables:
-
-| Pattern | View |
-|---|---|
-| Filters dropdown (icon + badge count) | `tables/overview/filters` |
-| Row actions placement | `tables/overview/actions` |
-| Grouped rows with group headers | `tables/grouping` |
-| Column summaries footer | `tables/summaries` |
-| Split/stack record layout (people, cards) | `tables/layout/demo`, `tables/layout/split` |
-| Card grid layout | `tables/layout/grid` |
-| Collapsible row panel for the long tail | `tables/layout/collapsible` |
-| Text column as badge | `tables/columns/text/badge` |
-
-Schemas, forms, and infolists:
-
-| Pattern | View |
-|---|---|
-| Section with heading + description | `schemas/layout/section/simple` |
-| Aside section (settings-page look) | `schemas/layout/section/aside` |
-| Section with internal columns | `schemas/layout/section/columns` |
-| Collapsed / compact / secondary sections | `schemas/layout/section/collapsed`, `.../compact`, `.../secondary` |
-| Tabs on a form | `schemas/layout/tabs/simple` |
-| Wizard steps | `schemas/layout/wizard/simple` |
-| Dense read-only block | `schemas/layout/dense` |
-| Standard field wrapper (label/required/helper) | `forms/fields/simple` |
-| Repeater item cards | `forms/fields/repeater/simple` |
-| Inline-label "Details card" | `infolists/entries/inline-label/section` |
-| Text/icon/image primes on a page | `primes/overview/example` |
-
-Widgets, feedback, and overlays:
-
-| Pattern | View |
-|---|---|
-| Stat tiles with trend + sparkline | `widgets/stats-overview/chart` |
-| Line / bar chart widgets | `widgets/chart/line`, `widgets/chart/bar` |
-| Empty state with action | `components/empty-state/actions` |
-| Callout (notice) variants | `components/callout/simple` |
-| Confirmation modal (delete) | `actions/modal/confirmation` |
-| Modal with a form | `actions/modal/form` |
-| Slide-over form | `actions/modal/slide-over` |
-| Grouped actions dropdown | `actions/group/simple` |
-
-## How to use what you see
-
-Extract composition facts, not pixels: where the primary action sits, how many visual levels exist, what is bold vs muted, where actions align, and how whitespace separates groups. Then express the structure with official components and documented theme hooks; do not copy pixel values from the screenshot.
+Keep images temporary and outside the repository. Use the current installed Filament version and official documentation or source for every API signature.

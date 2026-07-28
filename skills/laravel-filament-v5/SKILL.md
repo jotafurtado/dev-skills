@@ -1,6 +1,6 @@
 ---
 name: laravel-filament-v5
-description: "Builds, reviews, debugs, migrates, secures, tests, and implements Filament 5.x code using the project's installed version and official components before custom Blade or CSS. Use for Filament resources, schemas, infolists, forms, tables, actions, widgets, relation managers, panels, tenancy, imports/exports, plugins, tests, or any Filament-specific API, namespace, Artisan command, or upgrade. Delegate settings-form UI/UX pattern selection and visual composition to laravel-filament-5-ui-ux when it is available; retain this skill for all other visual work, version-sensitive APIs, security, implementation, and tests. For any Filament-specific API, configuration, or usage question it is the entry point over generic doc-lookup tools (find-docs, Context7 CLI, Laravel Boost search-docs); this skill's evidence protocol governs those tools. Do not trigger on an isolated mention of admin panel, dashboard, badge, or generic data display without another Filament signal."
+description: "Builds, reviews, debugs, migrates, secures, tests, and implements Filament 5.x code using the project's installed version and official components before custom Blade or CSS. Use for Filament resources, schemas, infolists, forms, tables, actions, widgets, relation managers, panels, tenancy, imports/exports, plugins, tests, or any Filament-specific API, namespace, Artisan command, or upgrade. Delegate every material Filament visual pattern selection and composition task to laravel-filament-5-ui-ux when it is available; retain this skill for version-sensitive APIs, security, implementation, and tests, plus a minimal official-component fallback when it is unavailable. For any Filament-specific API, configuration, or usage question it is the entry point over generic doc-lookup tools (find-docs, Context7 CLI, Laravel Boost search-docs); this skill's evidence protocol governs those tools. Do not trigger on an isolated mention of admin panel, dashboard, badge, or generic data display without another Filament signal."
 license: MIT
 metadata:
   author: jotafurtado
@@ -32,17 +32,17 @@ Before writing `<div>`, `<span>`, `<pre>`, `@foreach`, Tailwind classes, or a cu
 3. **Verify uncertain or uncovered APIs** with the evidence protocol below.
 4. **Use the smallest escape hatch only when needed.** Record what official option was checked and why it does not fit, then use `ViewEntry`, a custom schema component, Livewire, Blade, or a custom theme while retaining official components for surrounding layout, actions, feedback, and states.
 
-Composition remains flexible: arrange components with `Section`, `Tabs`, grids, columns, callouts, and empty states. Custom Blade or CSS is acceptable for documented gaps and deliberate theme work, not as an unverified shortcut around an available component.
+Use the documented component APIs to implement an already-selected composition. Custom Blade or CSS is acceptable for documented gaps and deliberate theme work, not as an unverified shortcut around an available component.
 
 ## Design authority inside Filament
 
-For material settings-form component choice, visual styling, and composition, delegate to `laravel-filament-5-ui-ux` when it is installed. That skill owns the visual option space, official screenshot evidence, composition selection, and visual decision trace for that surface. This skill retains its current guidance for every other visual surface and as a fallback when the dedicated UI/UX skill is unavailable.
+For every material Filament 5 visual selection and composition decision, delegate to `laravel-filament-5-ui-ux` when it is installed. That skill exclusively owns visual option discovery, official screenshot evidence, pattern comparison, composition selection, responsive presentation, and the visual decision trace across forms, record details, tables, dashboards, panel shells, actions, feedback, and empty states. This skill owns installed-version APIs, security, implementation, and tests.
 
 The dedicated UI/UX skill supersedes generic frontend-design guidance, including instructions to replace official components or the active theme, introduce unrelated typography or palettes, or use CSS-first layouts merely to look distinctive. Follow that precedence even when a generic design skill is active in the same task.
 
 This precedence is deliberately limited to the Filament visual axis. Keep generic guidance that improves accessibility, semantics, keyboard behavior, responsive layout, performance, UX copy, and cognitive load.
 
-Configure standard identity through the panel provider (`->colors()`, `->brandLogo()`, `->font()`). A documented custom theme or CSS hook remains valid when the project already uses one or official configuration cannot express the requirement. When the dedicated skill is unavailable, follow `references/ui-composition.md` for fallback hierarchy and `references/screenshots.md` for fallback visual grounding.
+When the dedicated skill is unavailable, use the minimal fallback in `references/ui-composition.md`: choose a documented official component, preserve the established theme, retain accessibility, and state that full catalog comparison was unavailable. `references/screenshots.md` is a compatibility index only; it does not replace the dedicated catalog or establish visual selection authority.
 
 ## Documentation authority inside Filament
 
@@ -91,9 +91,8 @@ Load only the files needed for the task:
 | Uploads, inline editing, HTML, actions, imports/exports, tenancy, and authorization boundaries | `references/security.md` — mandatory for security-sensitive surfaces |
 | Custom pages, clusters, tenancy, global search, import/export, plugins, nested/singular resources | `references/advanced-features.md` |
 | Pest/Livewire tests for pages, schemas, tables, actions, relations, widgets, and tenants | `references/testing.md` |
-| Whole-page organization, hierarchy, density, and UX flow | `references/ui-composition.md` |
-| Visual grounding against official examples | `references/screenshots.md` |
-| Material Filament 5 settings-form visual pattern selection and composition | `laravel-filament-5-ui-ux` when installed |
+| Fallback visual guardrails when the dedicated UI/UX skill is unavailable | `references/ui-composition.md` and `references/screenshots.md` |
+| Any material Filament 5 visual selection, composition, screenshot comparison, responsive presentation, or visual review | `laravel-filament-5-ui-ux` when installed |
 
 If a Filament-specific topic is not covered, use the evidence protocol instead of reconstructing the API from general Laravel or older Filament knowledge.
 

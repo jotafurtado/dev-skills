@@ -11,6 +11,9 @@ SYNC_SCRIPT = ROOT / "skills" / "laravel-filament-5-ui-ux" / "scripts" / "sync_v
 VALIDATE_SCRIPT = ROOT / "skills" / "laravel-filament-5-ui-ux" / "scripts" / "validate_visual_catalog.py"
 REVIEW_SCRIPT = ROOT / "skills" / "laravel-filament-5-ui-ux" / "scripts" / "build_review_sheets.py"
 INVENTORY_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "references" / "screenshot-inventory.json"
+MAIN_FILAMENT_SKILL_PATH = ROOT / "skills" / "laravel-filament-v5" / "SKILL.md"
+MAIN_FILAMENT_QUERY_EVALS_PATH = ROOT / "skills" / "laravel-filament-v5" / "evals" / "eval_queries.json"
+UI_UX_QUERY_EVALS_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "evals" / "eval_queries.json"
 
 
 def load_query_module():
@@ -495,6 +498,36 @@ class VisualCatalogSynchronizationTests(unittest.TestCase):
 
 
 class VisualCatalogValidationTests(unittest.TestCase):
+    def test_cross_skill_contract_routes_visual_selection_to_ui_ux_skill(self):
+        main_skill = MAIN_FILAMENT_SKILL_PATH.read_text()
+        ui_ux_skill = (ROOT / "skills" / "laravel-filament-5-ui-ux" / "SKILL.md").read_text()
+
+        self.assertIn(
+            "For every material Filament 5 visual selection and composition decision, delegate to `laravel-filament-5-ui-ux` when it is installed.",
+            main_skill,
+        )
+        self.assertIn(
+            "Let `laravel-filament-v5` own installed-version APIs, security, implementation, and tests.",
+            ui_ux_skill,
+        )
+        self.assertNotIn("retains its current guidance for every other visual surface", main_skill)
+
+    def test_cross_skill_trigger_evals_keep_visual_work_out_of_main_skill(self):
+        main_queries = json.loads(MAIN_FILAMENT_QUERY_EVALS_PATH.read_text())
+        ui_ux_queries = json.loads(UI_UX_QUERY_EVALS_PATH.read_text())
+
+        main_visual_query = next(
+            query for query in main_queries
+            if query["query"] == "Polish this Filament settings page while retaining our panel theme."
+        )
+        ui_ux_visual_query = next(
+            query for query in ui_ux_queries
+            if query["query"] == "Design a Filament 5 settings form with several stable categories and poor use of desktop width."
+        )
+
+        self.assertFalse(main_visual_query["should_trigger"])
+        self.assertTrue(ui_ux_visual_query["should_trigger"])
+
     def test_record_detail_evidence_is_assigned_to_reviewed_variants(self):
         inventory = json.loads(INVENTORY_PATH.read_text())
         screenshots = {item["name"]: item for item in inventory["screenshots"]}

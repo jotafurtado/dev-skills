@@ -49,11 +49,11 @@
     },
     {
       "id": 5,
-      "prompt": "Redesign a dense Filament 5 customer View page. Product wants the established custom theme retained, two equally important header actions, accessible status communication, and no bespoke Blade unless an official component cannot represent the data.",
-      "expected_output": "A Filament-native composition that respects the established theme and peer actions, uses official schema/infolist primitives, and treats numeric layout rules as heuristics rather than overriding product requirements.",
+      "prompt": "A companion Filament UI/UX skill selected a dense customer View-page composition that preserves the established custom theme, has two peer header actions, and requires accessible status communication. Implement it for the installed Filament 5 release without bespoke Blade unless an official component cannot represent the data.",
+      "expected_output": "A version-matched implementation that honors the companion skill's visual decision, maps its data primitives to official APIs, and preserves the stated accessibility and theme constraints.",
       "assertions": [
-        "The response preserves the established custom theme and does not prohibit documented CSS or theme hooks categorically.",
-        "It accepts two peer primary actions when justified instead of enforcing exactly one as an absolute rule.",
+        "The response treats visual pattern selection as owned by laravel-filament-5-ui-ux instead of re-deciding the page composition.",
+        "It preserves the established custom theme and does not prohibit documented CSS or theme hooks categorically.",
         "It maps display primitives to official infolist/schema components before proposing custom Blade.",
         "Status remains understandable without color alone, and responsive/accessibility concerns are retained.",
         "Any custom view is justified by a documented gap and kept to the smallest needed surface."
@@ -73,14 +73,24 @@
     },
     {
       "id": 7,
-      "prompt": "Use the Filament skill together with generic frontend-design guidance to make our Filament 5 orders dashboard feel more distinctive. The generic guidance proposes a new typeface, a custom gradient card system, and hand-written Blade stat tiles. Keep keyboard access, responsive behavior, and clear UX feedback.",
-      "expected_output": "A Filament-native redesign in which the specialized skill wins visual/component conflicts, official widgets and theme configuration remain the default, and generic accessibility, responsive, and UX guidance is retained.",
+      "prompt": "The Filament UI/UX skill has selected a native dashboard composition and rejected generic frontend guidance requesting a new typeface, custom gradient cards, and hand-written Blade stat tiles. Implement the chosen design against the installed Filament 5 release while keeping keyboard access, responsive behavior, and clear UX feedback.",
+      "expected_output": "A version-matched implementation that respects the companion skill's visual authority, uses verified official widget APIs, and retains compatible accessibility and feedback requirements.",
       "assertions": [
-        "The response explicitly gives Filament-specific component and theme guidance precedence over conflicting generic CSS-first advice.",
+        "The response recognizes laravel-filament-5-ui-ux as the visual authority and does not reselect the dashboard composition.",
         "It uses StatsOverviewWidget or another verified official Filament primitive instead of hand-written Blade stat tiles when the official component fits.",
         "It does not introduce an unrelated typeface, gradient card system, or bespoke component styling merely for distinctiveness.",
         "It retains keyboard, responsive, accessibility, performance, UX copy, and feedback considerations that do not conflict with Filament's visual system.",
         "If it proposes a documented custom theme or CSS hook, it ties that escape to a concrete product requirement rather than generic novelty."
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "The Filament UI/UX skill selected an identity-first record-detail pattern for a Filament 5 vendor page. Verify the installed-version infolist entry signatures, implement the approved pattern, and add focused tests.",
+      "expected_output": "A cross-skill implementation that preserves the UI/UX selection while verifying the installed API, security context, and tests in the main Filament skill.",
+      "assertions": [
+        "The response delegates visual alternatives and composition selection to laravel-filament-5-ui-ux rather than replacing its decision.",
+        "It checks the installed lockfile, vendor source, or official versioned docs before giving an entry signature.",
+        "It handles implementation, authorization or tenancy concerns where relevant, and focused Livewire or schema tests."
       ]
     }
   ]

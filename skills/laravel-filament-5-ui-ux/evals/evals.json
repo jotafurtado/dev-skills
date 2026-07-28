@@ -112,6 +112,19 @@
         "It distinguishes an initial empty list from a filtered no-results state and gives the latter a reset path rather than duplicate creation.",
         "It preserves identity and decision-driving information on narrow screens and includes a compact visual decision trace using official Filament 5 table evidence."
       ]
+    },
+    {
+      "id": 10,
+      "prompt": "Redesign a Filament 5 member directory. On desktop, staff use it to recognise a person, see a photo, role, phone, email, and a quick action. On phones, the current version merely squeezes the six desktop columns until names, actions, and selection controls are difficult to use. Staff usually inspect one member and their contact context rather than compare every contact field across the whole directory, but the role and current availability still affect the next action. Some older contact details can be revealed on demand. Describe the visual decision before implementation.",
+      "expected_output": "An evidence-grounded responsive identity-centred record layout that transforms hierarchy between desktop and mobile without losing action or selection discoverability.",
+      "assertions": [
+        "The response distinguishes an identity-centred record task from a compare-and-scan table and explains why the layout may change.",
+        "It compares official responsive record candidates before selecting a desktop-to-mobile transformation.",
+        "It keeps identity, decision-driving state, selection controls, and a primary action discoverable on narrow screens.",
+        "It treats related details, secondary visibility, growth, grid use, and collapsible content as conditional decisions rather than decoration.",
+        "It preserves logical reading order, keyboard operation, visible focus, and non-colour state cues across breakpoints.",
+        "It includes a compact visual decision trace with paired official desktop and mobile evidence without asking the user to choose layout primitives."
+      ]
     }
   ]
 }

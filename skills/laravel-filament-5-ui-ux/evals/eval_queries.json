@@ -16,6 +16,10 @@
     "should_trigger": true
   },
   {
+    "query": "Redesign a Filament 5 people list for phones while preserving identity, contact context, selection, and available row actions.",
+    "should_trigger": true
+  },
+  {
     "query": "Build a generic Laravel Blade settings page with Tailwind.",
     "should_trigger": false
   },

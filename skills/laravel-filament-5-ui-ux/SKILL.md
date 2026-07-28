@@ -20,7 +20,7 @@ Own visual pattern selection and composition inside Filament 5. Let `laravel-fil
      --available-width wide
    ```
 
-3. Load the routed reference for the surface. For page-level forms and schemas, read `references/settings-form-composition.md`. For ordinary field wrappers, guidance, states, or width decisions, also read `references/ordinary-field-composition.md`. For repeaters, builders, editors, uploads, or relationship-heavy controls, also read `references/complex-input-composition.md`. For compare-and-scan record lists, columns, filters, actions, grouping, summaries, pagination, or empty results, read `references/table-composition.md`.
+3. Load the routed reference for the surface. For page-level forms and schemas, read `references/settings-form-composition.md`. For ordinary field wrappers, guidance, states, or width decisions, also read `references/ordinary-field-composition.md`. For repeaters, builders, editors, uploads, or relationship-heavy controls, also read `references/complex-input-composition.md`. For compare-and-scan record lists, columns, filters, actions, grouping, summaries, pagination, or empty results, read `references/table-composition.md`. For an identity-centred responsive record layout, also read `references/responsive-record-layouts.md`.
 4. When building or materially restructuring a surface and image viewing is available, inspect at least one listed official screenshot for the selected pattern and every decision-changing variant in the proposed composition. For a small local change, use the reviewed catalog entry and exact documentation instead.
 5. Compare the returned official candidates. Select the pattern autonomously; do not ask the user to choose a Filament component.
 6. Emit a proportional visual decision trace before implementation. For a material surface, include the surface, goal, candidates, inspected evidence, selected pattern, responsive treatment, and any escape hatch. For a small change, cite the chosen official pattern in one line.
@@ -42,9 +42,10 @@ Preserve an established panel theme. Use custom Blade, Livewire, CSS, or theme w
 | Ordinary form-field geometry, labels, guidance, states, fused fields, affixes, and contextual callouts | `references/ordinary-field-composition.md` |
 | Repeaters, builders, editors, uploads, relationship-heavy controls, and their responsive and accessible composition | `references/complex-input-composition.md` |
 | Compare-and-scan tables, columns, filters, actions, grouping, summaries, pagination, and empty results | `references/table-composition.md` |
+| Responsive identity-centred table records, Split, Stack, Grid, content grids, visibility, and collapsible details | `references/responsive-record-layouts.md` |
 | Catalog schema, reviewed evidence, query fields | `references/visual-catalog.json` and `references/screenshot-inventory.json` |
 
-This catalog covers page-level schema and form composition, ordinary field-level presentation decisions, complex collection-oriented input composition, and standard compare-and-scan tables. Do not infer coverage for modal, dashboard, or navigation decisions; route uncovered UI work to official Filament 5 evidence and record the gap for catalog expansion.
+This catalog covers page-level schema and form composition, ordinary field-level presentation decisions, complex collection-oriented input composition, standard compare-and-scan tables, and responsive identity-centred table records. Do not infer coverage for modal, dashboard, or navigation decisions; route uncovered UI work to official Filament 5 evidence and record the gap for catalog expansion.
 
 ## Verification
 

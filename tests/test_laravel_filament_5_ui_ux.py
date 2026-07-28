@@ -221,6 +221,25 @@ class VisualCatalogQueryTests(unittest.TestCase):
         self.assertIn("status-and-boolean-meaning", variants)
         self.assertIn("color alone", " ".join(variants["status-and-boolean-meaning"]["avoid_when"]))
 
+    def test_identity_centred_record_query_selects_responsive_table_layout(self):
+        query = load_query_module()
+
+        result = query.query_catalog(
+            surface="table",
+            goal="present-identity-centred-records",
+            workflow="parallel",
+            available_width="standard",
+            information_shape="identity-with-grouped-details",
+            relationship="record-with-supporting-details",
+            responsive_context="desktop-with-mobile-fallback",
+        )
+
+        self.assertEqual("responsive-identity-centred-table", result["selected_pattern"]["id"])
+        variants = {item["id"]: item for item in result["selected_pattern"]["variant_decisions"]}
+        self.assertIn("split-identity-and-details", variants)
+        self.assertIn("mobile", variants["split-identity-and-details"]["visual_evidence"])
+        self.assertIn("keyboard", " ".join(result["selected_pattern"]["accessibility_considerations"]))
+
 
 class VisualCatalogSynchronizationTests(unittest.TestCase):
     def test_discovery_does_not_duplicate_markdown_extension(self):

@@ -412,6 +412,46 @@
       ]
     },
     {
+      "id": "responsive-identity-centred-table",
+      "surface": ["table"],
+      "goals": ["present-identity-centred-records", "transform-record-hierarchy-responsively"],
+      "workflows": ["parallel"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["identity-with-grouped-details", "record-with-secondary-metadata"],
+      "relationships": ["record-with-supporting-details"],
+      "responsive_contexts": ["desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["one record's identity and grouped details matter more than simultaneous column comparison", "a desktop row can express an identity-first hierarchy before becoming a mobile stack", "secondary detail can move without hiding the state or action that drives the next decision"],
+      "avoid_when": ["people must compare the same facts across many peer records", "a card-like layout is proposed only for visual novelty rather than a record-centred task"],
+      "alternatives": ["standard-compare-and-scan-table", "responsive-table-layout"],
+      "responsive_considerations": ["reorganize identity, decision-driving state, supporting details, and actions at the breakpoint instead of shrinking desktop columns", "reduce content-grid columns before controls or labels become too small", "keep the primary action discoverable and secondary details readable when they stack or collapse"],
+      "accessibility_considerations": ["keep keyboard access and visible focus for selection, expand/collapse, and row actions across breakpoints", "preserve a logical reading order when Split, Stack, or Grid transforms", "give visibility and action controls discernible labels and do not rely on colour or layout alone for state"],
+      "variant_decisions": [
+        {"id": "split-identity-and-details", "prefer_when": ["identity, a few primary facts, and a row action form a useful desktop scan line before stacking at a readable breakpoint"], "avoid_when": ["long variable content crowds the line or several facts still require cross-record column comparison"], "visual_evidence": "tables/layout/split-desktop/mobile"},
+        {"id": "stack-related-details", "prefer_when": ["related contact, status, or metadata details need one readable vertical unit within a record"], "avoid_when": ["independent facts need peer comparison or dense prose hides a common action"], "visual_evidence": "tables/layout/stack/mobile"},
+        {"id": "grid-grouped-details", "prefer_when": ["grouped peer details benefit from equal tracks while the record remains identity-centred"], "avoid_when": ["equal tracks obscure hierarchy or the task needs a standard aligned table"], "visual_evidence": "tables/layout/grid/mobile"},
+        {"id": "content-grid-records", "prefer_when": ["independent identity units remain scannable as responsive record cards at wider breakpoints"], "avoid_when": ["cross-record comparison needs persistent column alignment"], "visual_evidence": "tables/layout/column-grid"},
+        {"id": "fixed-width-identity", "prefer_when": ["a short identity or fixed-width fact should preserve its natural width while remaining content uses the available line"], "avoid_when": ["growth behaviour truncates decision-critical content or displaces actions"], "visual_evidence": "tables/layout/grow-disabled"},
+        {"id": "collapsible-secondary-details", "prefer_when": ["secondary details have a meaningful summary and identity, state, and the recurring action remain visible"], "avoid_when": ["collapsed content is needed for the recurring task, selection, error recovery, or a common action"], "visual_evidence": "tables/layout/collapsible/mobile"},
+        {"id": "mobile-visibility", "prefer_when": ["a secondary detail can disappear at a narrow breakpoint while an equivalent identity, state, or action cue remains available"], "avoid_when": ["visibility changes remove the only way to understand state or discover an action"], "visual_evidence": "tables/layout/stack-hidden-on-mobile/mobile"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/split-desktop", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/split-desktop.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/split-desktop/mobile", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/split-desktop/mobile.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/stack", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/stack.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/stack/mobile", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/stack/mobile.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/grid", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/grid.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/grid/mobile", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/grid/mobile.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/collapsible", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/collapsible.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/collapsible/mobile", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/collapsible/mobile.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/column-grid", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/column-grid.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/grow-disabled", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/grow-disabled.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/stack-hidden-on-mobile", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/stack-hidden-on-mobile.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/stack-hidden-on-mobile/mobile", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/stack-hidden-on-mobile/mobile.jpg"}
+      ]
+    },
+    {
       "id": "dense-layout",
       "surface": ["form", "schema"],
       "goals": ["increase-information-density"],

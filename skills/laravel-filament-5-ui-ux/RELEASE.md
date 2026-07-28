@@ -22,8 +22,8 @@ npx skills add jotafurtado/dev-skills --skill laravel-filament-5-ui-ux --skill l
 
 The reviewed catalog works offline after installation. When image inspection or network access is unavailable, use the local reviewed interpretation and disclose that limitation in the visual decision trace. Custom Blade, Livewire, CSS, or theme work is an escape hatch only after naming the official candidates checked and the concrete gap they cannot cover.
 
-Synchronize the catalog, review new or changed evidence outside the repository, classify it, and run the verification commands in `README.md` before a maintenance release. The repository stores URLs and original analysis, not official screenshot binaries.
+Synchronize the catalog, review new or changed evidence outside the repository, classify it, and run the release evidence in [`references/release-verification.md`](./references/release-verification.md) before a maintenance release. The repository stores URLs and original analysis, not official screenshot binaries.
 
 ## Release gates
 
-Run catalog validation, deterministic tests, skill-structure validation, eval JSON parsing, whitespace checks, installation smoke tests, and a final authority-boundary review. Keep the skill presented under the Jota Furtado Dev Skills repository origin.
+Run catalog validation, deterministic tests, eval JSON parsing, whitespace checks, the clean-install smoke test (`scripts/release_install_smoke.py`), and a final authority-boundary review. The verification reference compares the candidate with the main Filament baseline and defines forward-run evidence. Keep the skill presented under the Jota Furtado Dev Skills repository origin.

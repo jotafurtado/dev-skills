@@ -16,6 +16,8 @@ MAIN_FILAMENT_QUERY_EVALS_PATH = ROOT / "skills" / "laravel-filament-v5" / "eval
 UI_UX_QUERY_EVALS_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "evals" / "eval_queries.json"
 UI_UX_SKILL_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "SKILL.md"
 UI_UX_RELEASE_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "RELEASE.md"
+UI_UX_RELEASE_VERIFICATION_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "references" / "release-verification.md"
+UI_UX_INSTALL_SMOKE_SCRIPT = ROOT / "skills" / "laravel-filament-5-ui-ux" / "scripts" / "release_install_smoke.py"
 
 
 def load_query_module():
@@ -503,6 +505,8 @@ class VisualCatalogValidationTests(unittest.TestCase):
     def test_release_metadata_and_notes_state_scope_authority_and_fallbacks(self):
         skill = UI_UX_SKILL_PATH.read_text()
         release = UI_UX_RELEASE_PATH.read_text()
+        verification = UI_UX_RELEASE_VERIFICATION_PATH.read_text()
+        smoke_script = UI_UX_INSTALL_SMOKE_SCRIPT.read_text()
 
         self.assertIn('version: "1.0.0"', skill)
         self.assertIn("filament_version: \"5.x\"", skill)
@@ -510,6 +514,17 @@ class VisualCatalogValidationTests(unittest.TestCase):
         self.assertIn("laravel-filament-v5", release)
         self.assertIn("offline", release.lower())
         self.assertIn("image inspection", release.lower())
+        self.assertIn("release_install_smoke.py", release)
+        self.assertIn("candidate", verification.lower())
+        self.assertIn("baseline", verification.lower())
+        self.assertIn("Codex", verification)
+        self.assertIn("Claude Code", verification)
+        self.assertIn("2026-07-28", verification)
+        self.assertIn("record-detail-infolist", verification)
+        self.assertIn("cursor", smoke_script)
+        self.assertIn("--copy", smoke_script)
+        self.assertIn("Jota Furtado Dev Skills", smoke_script)
+        self.assertIn("README.md", smoke_script)
 
     def test_cross_skill_contract_routes_visual_selection_to_ui_ux_skill(self):
         main_skill = MAIN_FILAMENT_SKILL_PATH.read_text()

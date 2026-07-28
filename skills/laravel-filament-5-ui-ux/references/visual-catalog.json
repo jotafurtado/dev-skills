@@ -374,6 +374,44 @@
       ]
     },
     {
+      "id": "standard-compare-and-scan-table",
+      "surface": ["table"],
+      "goals": ["compare-and-scan-records", "manage-standard-table-operations"],
+      "workflows": ["parallel"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["repeated-records-with-comparable-facts"],
+      "relationships": ["peer-records"],
+      "responsive_contexts": ["desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["people need to compare the same decision-relevant facts across many records", "identity, state, facts, dates, and actions have a stable scanning order", "filters and operations act on a repeatable record list"],
+      "avoid_when": ["each record needs materially different rich content that cannot remain comparable in a row", "a card or detail-first layout is required by the primary task rather than visual preference"],
+      "alternatives": ["responsive-table-layout", "identity-centred-record-layout"],
+      "responsive_considerations": ["retain identity and the state or fact that drives the decision before collapsing secondary information", "use an official responsive table layout only while the remaining row still supports peer comparison", "do not turn every row into a card merely because the viewport narrows"],
+      "accessibility_considerations": ["associate headers with their values and name icon-only controls", "keep sorting, filtering, pagination, selected state, grouping, status, and empty-state meaning perceivable without colour alone", "preserve keyboard access and visible focus for row and bulk actions"],
+      "variant_decisions": [
+        {"id": "comparison-column-order", "prefer_when": ["identity, decision-driving state, comparable facts, dates, and actions form the recurring scan path"], "avoid_when": ["every available attribute is given equal priority or actions interrupt the data scan"], "visual_evidence": "tables/overview/columns"},
+        {"id": "purposeful-filters", "prefer_when": ["users repeatedly need a named subset such as a status, owner, date range, category, or exception"], "avoid_when": ["a filter substitutes for an obvious column, a simple search, or an unexplained hidden result set"], "visual_evidence": "tables/overview/filters"},
+        {"id": "status-and-boolean-meaning", "prefer_when": ["state changes the user's decision and needs a concise, scannable label or conventional icon"], "avoid_when": ["color alone, including red versus green, is the only way to understand the value"], "visual_evidence": "tables/overview/columns"},
+        {"id": "record-action-grouping", "prefer_when": ["one frequent row action stays direct while secondary, destructive, or uncommon actions would crowd the row"], "avoid_when": ["the only common next step is hidden in an ambiguous action menu"], "visual_evidence": "tables/actions/group"},
+        {"id": "bulk-selection", "prefer_when": ["users operate on several records at once and the selection scope, consequences, confirmation, and recovery are clear"], "avoid_when": ["mixed records make the operation unsafe or the interface implies selection spans pages without explicit support"], "visual_evidence": "tables/actions/bulk"},
+        {"id": "meaningful-grouping", "prefer_when": ["a shared attribute such as workflow state or date bucket is a useful scan boundary"], "avoid_when": ["cross-group comparison matters more than the boundary or collapsed groups would hide discoverable records"], "visual_evidence": "tables/grouping"},
+        {"id": "decision-summary", "prefer_when": ["an aggregate such as an exception count, total, or average changes a table-level decision"], "avoid_when": ["a decorative aggregate competes with row data or its filter, group, or pagination scope is unclear"], "visual_evidence": "tables/summaries"},
+        {"id": "pagination-context", "prefer_when": ["a large result set needs a visible range, total, and page navigation that preserves comparison context"], "avoid_when": ["simpler pagination prevents users from reaching distant pages or understanding their position"], "visual_evidence": "tables/pagination/default"},
+        {"id": "empty-result-recovery", "prefer_when": ["the table must distinguish an initial absence from a filter that finds no matches"], "avoid_when": ["a filtered empty result invites duplicate creation instead of making active filters and reset available"], "visual_evidence": "tables/empty-state"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/overview.md", "screenshot": "tables/overview/columns", "image": "https://filamentphp.com/docs/images/5.x/light/tables/overview/columns.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/overview.md", "screenshot": "tables/overview/filters", "image": "https://filamentphp.com/docs/images/5.x/light/tables/overview/filters.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/actions.md", "screenshot": "tables/actions/group", "image": "https://filamentphp.com/docs/images/5.x/light/tables/actions/group.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/actions.md", "screenshot": "tables/actions/bulk", "image": "https://filamentphp.com/docs/images/5.x/light/tables/actions/bulk.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/grouping.md", "screenshot": "tables/grouping", "image": "https://filamentphp.com/docs/images/5.x/light/tables/grouping.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/summaries.md", "screenshot": "tables/summaries", "image": "https://filamentphp.com/docs/images/5.x/light/tables/summaries.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/overview.md", "screenshot": "tables/pagination/default", "image": "https://filamentphp.com/docs/images/5.x/light/tables/pagination/default.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/empty-state.md", "screenshot": "tables/empty-state", "image": "https://filamentphp.com/docs/images/5.x/light/tables/empty-state.jpg"}
+      ]
+    },
+    {
       "id": "dense-layout",
       "surface": ["form", "schema"],
       "goals": ["increase-information-density"],

@@ -12,6 +12,10 @@
     "should_trigger": true
   },
   {
+    "query": "Improve a Filament 5 operations list where staff compare vendors, identify exceptions, filter work, and act on several records.",
+    "should_trigger": true
+  },
+  {
     "query": "Build a generic Laravel Blade settings page with Tailwind.",
     "should_trigger": false
   },

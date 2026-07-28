@@ -199,6 +199,28 @@ class VisualCatalogQueryTests(unittest.TestCase):
         self.assertEqual("rich-content-editor", result["selected_pattern"]["id"])
         self.assertIn("full-width", " ".join(result["selected_pattern"]["selection_signals"]))
 
+    def test_compare_and_scan_query_selects_standard_table_operations(self):
+        query = load_query_module()
+
+        result = query.query_catalog(
+            surface="table",
+            goal="compare-and-scan-records",
+            workflow="parallel",
+            available_width="wide",
+            information_shape="repeated-records-with-comparable-facts",
+            relationship="peer-records",
+            responsive_context="desktop-with-mobile-fallback",
+        )
+
+        self.assertEqual("standard-compare-and-scan-table", result["selected_pattern"]["id"])
+        self.assertIn(
+            "tables/overview/columns",
+            [evidence["screenshot"] for evidence in result["selected_pattern"]["visual_evidence"]],
+        )
+        variants = {item["id"]: item for item in result["selected_pattern"]["variant_decisions"]}
+        self.assertIn("status-and-boolean-meaning", variants)
+        self.assertIn("color alone", " ".join(variants["status-and-boolean-meaning"]["avoid_when"]))
+
 
 class VisualCatalogSynchronizationTests(unittest.TestCase):
     def test_discovery_does_not_duplicate_markdown_extension(self):

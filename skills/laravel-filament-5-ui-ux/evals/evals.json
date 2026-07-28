@@ -97,6 +97,21 @@
         "It permits custom markup only after naming the official candidates considered and a concrete unsupported gap.",
         "It includes a compact visual decision trace with official Filament 5 evidence before implementation."
       ]
+    },
+    {
+      "id": 9,
+      "prompt": "Improve a Filament 5 operations list for vendor applications. Staff need to find a company, compare its verification outcome, revenue band, assigned reviewer, and last-updated date across many applications; isolate applications needing attention; correct an individual record; and resolve several selected applications together. The current screen uses large cards with equal emphasis on every field, three unlabeled coloured dots for state, a destructive action beside every row, a total that does not explain what it covers, and an empty result message that offers only Create vendor even when active filters find no matches. The desktop table has room, while mobile must still make the important comparison and operations usable. Describe the visual decision before implementation.",
+      "expected_output": "An evidence-grounded standard-table composition that preserves compare-and-scan behaviour, establishes a decision-oriented column order, and makes table operations and states understandable.",
+      "assertions": [
+        "The response identifies peer-record comparison as the task and keeps a table rather than replacing it with cards for visual preference.",
+        "It orders identity, decision-driving state, comparable facts, supporting dates, and row actions according to the staff scan path.",
+        "It proposes purposeful filtering for the attention subset and makes active filtering or reset understandable.",
+        "It makes status and boolean meaning understandable without colour alone.",
+        "It distinguishes a direct frequent record action from grouped secondary or destructive actions and explains when bulk selection is safe.",
+        "It decides whether grouping and summaries serve a comparison or table-level decision, including the aggregate scope.",
+        "It distinguishes an initial empty list from a filtered no-results state and gives the latter a reset path rather than duplicate creation.",
+        "It preserves identity and decision-driving information on narrow screens and includes a compact visual decision trace using official Filament 5 table evidence."
+      ]
     }
   ]
 }

@@ -51,6 +51,7 @@ laravel-filament-5-ui-ux/
 ├── scripts/sync_visual_catalog.py
 ├── scripts/build_review_sheets.py
 ├── scripts/validate_visual_catalog.py
+├── scripts/validate_skill.mjs
 ├── references/settings-form-composition.md
 ├── references/ordinary-field-composition.md
 ├── references/complex-input-composition.md
@@ -68,7 +69,7 @@ laravel-filament-5-ui-ux/
 ```bash
 python3 -m unittest discover -s tests -p 'test_laravel_filament_5_ui_ux.py'
 python3 skills/laravel-filament-5-ui-ux/scripts/validate_visual_catalog.py
-python3 /Users/jotafurtado/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/laravel-filament-5-ui-ux
+node skills/laravel-filament-5-ui-ux/scripts/validate_skill.mjs skills/laravel-filament-5-ui-ux
 ```
 
 The catalog stores source URLs and original analysis, not official screenshot binaries.

@@ -18,6 +18,7 @@ UI_UX_SKILL_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "SKILL.md"
 UI_UX_RELEASE_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "RELEASE.md"
 UI_UX_RELEASE_VERIFICATION_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "references" / "release-verification.md"
 UI_UX_INSTALL_SMOKE_SCRIPT = ROOT / "skills" / "laravel-filament-5-ui-ux" / "scripts" / "release_install_smoke.py"
+UI_UX_FORWARD_EVAL_SCRIPT = ROOT / "skills" / "laravel-filament-5-ui-ux" / "scripts" / "run_forward_evals.py"
 
 
 def load_query_module():
@@ -502,6 +503,16 @@ class VisualCatalogSynchronizationTests(unittest.TestCase):
 
 
 class VisualCatalogValidationTests(unittest.TestCase):
+    def test_forward_evaluation_runner_retains_prompt_outputs_for_review(self):
+        runner = UI_UX_FORWARD_EVAL_SCRIPT.read_text()
+
+        self.assertIn("evals.json", runner)
+        self.assertIn("TemporaryDirectory", runner)
+        self.assertIn("--output", runner)
+        self.assertIn("transcript", runner)
+        self.assertIn("codex", runner)
+        self.assertIn("claude-code", runner)
+
     def test_release_metadata_and_notes_state_scope_authority_and_fallbacks(self):
         skill = UI_UX_SKILL_PATH.read_text()
         release = UI_UX_RELEASE_PATH.read_text()

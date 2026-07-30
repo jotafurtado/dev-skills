@@ -26,4 +26,4 @@ Synchronize the catalog, review new or changed evidence outside the repository, 
 
 ## Release gates
 
-Run catalog validation, deterministic tests, eval JSON parsing, whitespace checks, the clean-install smoke test (`scripts/release_install_smoke.py`), and a final authority-boundary review. The verification reference compares the candidate with the main Filament baseline and defines forward-run evidence. Keep the skill presented under the Jota Furtado Dev Skills repository origin.
+Run catalog validation, deterministic tests, eval JSON parsing, whitespace checks, the clean-install smoke test (`scripts/release_install_smoke.py`), and a final authority-boundary review. Record raw clean-agent forward-evaluation transcripts with `scripts/run_forward_evals.py`; review each listed assertion before recording a pass. The verification reference compares the candidate with the main Filament baseline and defines forward-run evidence. Keep the skill presented under the Jota Furtado Dev Skills repository origin.

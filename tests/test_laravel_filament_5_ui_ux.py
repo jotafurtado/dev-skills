@@ -512,6 +512,15 @@ class VisualCatalogValidationTests(unittest.TestCase):
         self.assertIn("transcript", runner)
         self.assertIn("codex", runner)
         self.assertIn("claude-code", runner)
+        self.assertIn("cursor", runner)
+        self.assertIn("--output-format", runner)
+        self.assertIn('"claude-code": ["claude", "--print", "--permission-mode", "plan"]', runner)
+        self.assertIn('"cursor": ["cursor", "agent", "--print", "--output-format", "json", "--mode", "ask", "--trust"]', runner)
+        self.assertIn("completed.stdout.strip()", runner)
+        self.assertIn("AGENT_TIMEOUT_SECONDS", runner)
+        self.assertIn("TimeoutExpired", runner)
+        self.assertIn("workspace_snapshot", runner)
+        self.assertIn("workspace_changed", runner)
 
     def test_release_metadata_and_notes_state_scope_authority_and_fallbacks(self):
         skill = UI_UX_SKILL_PATH.read_text()
@@ -531,8 +540,10 @@ class VisualCatalogValidationTests(unittest.TestCase):
         self.assertIn("Codex", verification)
         self.assertIn("Claude Code", verification)
         self.assertIn("2026-07-28", verification)
+        self.assertIn("2026-08-03", verification)
         self.assertIn("record-detail-infolist", verification)
         self.assertIn("Full clean Codex behavioral matrix", verification)
+        self.assertIn("Cursor CLI 3.14.7", verification)
         for coverage_area in (
             "Forms and schema layouts",
             "Tables",

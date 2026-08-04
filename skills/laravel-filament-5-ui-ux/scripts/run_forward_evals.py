@@ -8,6 +8,7 @@ marking a release as passed. It deliberately does not let a model self-certify a
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import shutil
 import subprocess
@@ -17,14 +18,30 @@ from pathlib import Path
 
 
 SKILLS = ("laravel-filament-5-ui-ux", "laravel-filament-v5")
+AGENT_TIMEOUT_SECONDS = 180
 AGENT_COMMANDS = {
     "codex": ["codex", "exec", "--ephemeral", "--skip-git-repo-check", "--sandbox", "read-only"],
-    "claude-code": ["claude", "--print", "--permission-mode", "dontAsk", "--tools", ""],
+    "claude-code": ["claude", "--print", "--permission-mode", "plan"],
+    "cursor": ["cursor", "agent", "--print", "--output-format", "json", "--mode", "ask", "--trust"],
 }
 
 
 def run(command: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(command, cwd=cwd, text=True, capture_output=True)
+    try:
+        return subprocess.run(
+            command,
+            cwd=cwd,
+            text=True,
+            capture_output=True,
+            timeout=AGENT_TIMEOUT_SECONDS,
+        )
+    except subprocess.TimeoutExpired as exc:
+        return subprocess.CompletedProcess(
+            command,
+            124,
+            stdout=exc.stdout or "",
+            stderr=f"Agent timed out after {AGENT_TIMEOUT_SECONDS} seconds.",
+        )
 
 
 def prompt_for_eval(prompt: str) -> str:
@@ -35,6 +52,16 @@ def prompt_for_eval(prompt: str) -> str:
         "installed-version APIs, security, implementation, and tests to laravel-filament-v5.\n\n"
         + prompt
     )
+
+
+def workspace_snapshot(workspace: Path) -> dict[str, str]:
+    snapshot: dict[str, str] = {}
+    for path in workspace.rglob("*"):
+        if not path.is_file() or ".git" in path.parts:
+            continue
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        snapshot[str(path.relative_to(workspace))] = digest
+    return snapshot
 
 
 def write_report(path: Path, agent: str, source: Path, records: list[dict[str, object]]) -> None:
@@ -86,14 +113,18 @@ def main() -> int:
             raise RuntimeError(installed.stderr or installed.stdout)
 
         for item in evals:
+            before_snapshot = workspace_snapshot(workspace)
             completed = run(AGENT_COMMANDS[args.agent] + [prompt_for_eval(item["prompt"])], workspace)
+            has_transcript = bool(completed.stdout.strip())
+            workspace_changed = before_snapshot != workspace_snapshot(workspace)
             records.append(
                 {
                     "id": item["id"],
-                    "status": "recorded" if completed.returncode == 0 else "failed",
+                    "status": "recorded" if completed.returncode == 0 and has_transcript and not workspace_changed else "failed",
                     "assertions": item["assertions"],
                     "transcript": completed.stdout,
-                    "stderr": completed.stderr,
+                    "stderr": completed.stderr or ("Workspace changed during evaluation." if workspace_changed else ("No transcript was produced." if not has_transcript else "")),
+                    "workspace_changed": workspace_changed,
                 }
             )
             write_report(args.output, args.agent, source, records)

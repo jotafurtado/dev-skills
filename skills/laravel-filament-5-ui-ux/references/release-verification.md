@@ -40,7 +40,13 @@ On 2026-07-28, Codex CLI 0.145.0 ran a read-only, clean paired installation of b
 | Offline and no-vision fallback | PASS | Evidence: local reviewed `record-detail-infolist` interpretation; screenshot inspection was explicitly unavailable. Selected identity/status, then primary facts, then secondary documents/audit. Authority: `laravel-filament-v5` owns installed API verification, authorization, implementation, and tests. |
 | Justified custom UI | PASS | Evidence: local reviewed Builder or Repeater and upload patterns. Selected native collection and upload patterns; custom Blade, CSS, or Livewire require documented candidates and a concrete unsupported gap. Authority: `laravel-filament-v5` owns upload APIs/security, implementation, and tests. |
 
-The matrix therefore exercises the visual coverage in `evals/evals.json` as grouped behavior probes. The earlier Claude Code record independently confirms the paired-skill authority split on the vendor View path. Cursor has no compatible headless behavioral evaluator in this environment, so its clean install is verified by the smoke test rather than a model-output run.
+The matrix therefore exercises the visual coverage in `evals/evals.json` as grouped behavior probes. The earlier Claude Code record independently confirms the paired-skill authority split on the vendor View path.
+
+## 2026-08-03 clean forward matrix
+
+The full 15-prompt matrix was rerun from clean paired installations with Codex CLI 0.145.0, Claude Code 2.1.220, and Cursor CLI 3.14.7. Each agent produced 15 non-empty, reviewable transcripts (`recorded: 15`, `failed: 0`); the raw outputs are retained in `evals/forward-runs/{codex,claude-code,cursor}.json`. Codex ran with a read-only sandbox, Claude Code ran in plan mode, and Cursor ran with `--mode ask --trust` inside a disposable workspace because its plan-mode output stopped at progress updates rather than returning the behavioral trace. Ask mode is Cursor's read-only Q&A mode; the prompt also prohibits file changes, the runner snapshots the workspace before and after every prompt and marks any mutation as failed, and the disposable workspace is removed after each run.
+
+The maintainer reviewed the recorded traces for catalog discovery, an explicit composition choice, responsive and accessibility treatment, and routing of version-sensitive APIs, security, implementation, and tests to `laravel-filament-v5`. Cursor's ask mode was selected specifically because it emits the complete decision trace needed for this review; the runner also applies a 180-second per-agent timeout and records timeout failures instead of hanging indefinitely.
 
 ## Clean-install smoke test
 
@@ -57,7 +63,7 @@ It creates disposable workspaces and uses `npx skills add --copy --yes` to test 
 1. Run the deterministic unit suite and catalog validator.
 2. Parse both eval JSON files and run whitespace checks.
 3. Run the clean-install smoke test above.
-4. Run the forward prompts in `evals/evals.json` with available clean Codex and Claude Code environments, scoring them against the comparison table.
+4. Run the forward prompts in `evals/evals.json` with available clean Codex, Claude Code, and Cursor environments, scoring them against the comparison table.
 5. Review the authority boundary: candidate owns visual selection; baseline owns APIs, implementation, security, and tests.
 
 When a model runtime is unavailable, record that limitation rather than claiming a forward-run result. The catalog remains usable offline after installation.

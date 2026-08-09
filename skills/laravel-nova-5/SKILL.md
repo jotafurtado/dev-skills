@@ -2,17 +2,9 @@
 name: laravel-nova-5
 description: "Builds and reviews Laravel Nova 5 resources, fields, relationships, actions, filters, lenses, metrics, dashboards, policies, file fields, tools, cards, and menus. Use when the user explicitly mentions Laravel Nova or Nova APIs, or when the project is confirmed to require laravel/nova 5.x. Do not trigger from 'admin panel' or 'back-office' alone; Filament requests belong to a Filament-specific skill."
 license: MIT
-compatible_agents:
-  - Claude Code
-  - Cursor
-  - Windsurf
-  - Copilot
-tags:
-  - laravel
-  - php
-  - nova
-  - backend
 metadata:
+  compatibility: "Designed for Claude Code, Cursor, Windsurf, and Copilot."
+  tags: "laravel, php, nova, backend"
   author: jotafurtado
   version: "2.0.0"
   domain: backend

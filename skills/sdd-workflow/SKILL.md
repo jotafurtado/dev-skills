@@ -2,21 +2,9 @@
 name: sdd-workflow
 description: "Runs a Kiro-inspired Spec-Driven Development workflow with Requirements-First, Design-First, Quick Plan, and Bugfix modes before implementation. Creates numbered, versioned artifacts under sdd-specs/ and executes approved tasks with traceability and verification. Use only when the user explicitly asks for SDD, a Kiro-style spec, spec-driven development, avoiding vibe coding, writing a spec, or planning before implementation. Do not auto-apply to ordinary feature, refactor, or bug requests that do not ask for a spec workflow."
 license: MIT
-compatible_agents:
-  - Claude Code
-  - Cursor
-  - Windsurf
-  - Copilot
-tags:
-  - spec-driven-development
-  - sdd
-  - kiro
-  - planning
-  - requirements
-  - design
-  - bugfix
-  - workflow
 metadata:
+  compatibility: "Designed for Claude Code, Cursor, Windsurf, and Copilot."
+  tags: "spec-driven-development, sdd, kiro, planning, requirements, design, bugfix, workflow"
   author: jotafurtado
   version: "2.0.0"
   domain: workflow

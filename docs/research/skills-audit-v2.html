@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Architecture review — dev-skills (v2)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+      mermaid.initialize({ startOnLoad: true, theme: "neutral", securityLevel: "loose", flowchart: { curve: "basis" } });
+    </script>
+    <style>
+      .seam { stroke-dasharray: 5 4; }
+      .deep { background: linear-gradient(135deg, #0f172a, #1e293b); }
+      .mod  { font-size: .625rem; letter-spacing: .12em; text-transform: uppercase; }
+      .mermaid { display: flex; justify-content: center; }
+      .mermaid svg { max-width: 100%; height: auto; }
+      .hatch {
+        background-image: repeating-linear-gradient(45deg, #fecaca 0 4px, transparent 4px 9px);
+      }
+      .grid-paper {
+        background-image: linear-gradient(#e7e5e4 1px, transparent 1px), linear-gradient(90deg, #e7e5e4 1px, transparent 1px);
+        background-size: 22px 22px;
+      }
+      article:target { box-shadow: 0 0 0 3px #6366f1; }
+    </style>
+  </head>
+  <body class="bg-stone-50 text-slate-900 font-sans antialiased">
+    <main class="max-w-5xl mx-auto px-6 py-14 space-y-14">
+
+      <!-- ══════════════════════════ HEADER ══════════════════════════ -->
+      <header class="border-b border-slate-300 pb-8">
+        <p class="mod text-slate-500 mb-3">Architecture review · v2</p>
+        <h1 class="font-serif text-5xl leading-tight tracking-tight">dev-skills</h1>
+        <p class="mt-3 text-slate-600 text-sm max-w-2xl">
+          Deepening opportunities in <code class="font-mono text-xs bg-stone-200 px-1.5 py-0.5 rounded">laravel-filament-v5</code>,
+          <code class="font-mono text-xs bg-stone-200 px-1.5 py-0.5 rounded">laravel-filament-v5-ui-ux</code> and
+          <code class="font-mono text-xs bg-stone-200 px-1.5 py-0.5 rounded">prepare-commit</code>.
+          Supersedes <span class="font-mono text-xs">docs/research/skills-audit.md</span> (v1, Jul 2026); findings already closed there are excluded.
+        </p>
+
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+          <div class="rounded border border-slate-200 bg-white p-3">
+            <div class="mod text-slate-500">Modules read</div>
+            <div class="font-serif text-2xl mt-1">44</div>
+            <div class="text-slate-500 mt-0.5">15,325 lines</div>
+          </div>
+          <div class="rounded border border-slate-200 bg-white p-3">
+            <div class="mod text-slate-500">Candidates</div>
+            <div class="font-serif text-2xl mt-1">10</div>
+            <div class="text-slate-500 mt-0.5">6 strong</div>
+          </div>
+          <div class="rounded border border-slate-200 bg-white p-3">
+            <div class="mod text-slate-500">Gates re-run</div>
+            <div class="font-serif text-2xl mt-1">2</div>
+            <div class="text-emerald-700 mt-0.5">both green</div>
+          </div>
+          <div class="rounded border border-slate-200 bg-white p-3">
+            <div class="mod text-slate-500">Hot spot</div>
+            <div class="font-serif text-2xl mt-1">ui-ux</div>
+            <div class="text-slate-500 mt-0.5">rewritten today</div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-slate-600">
+          <span class="mod text-slate-400">Legend</span>
+          <span class="flex items-center gap-2"><span class="inline-block w-6 h-4 border-2 border-slate-700 bg-white"></span> module</span>
+          <span class="flex items-center gap-2"><svg width="26" height="6"><line class="seam" x1="0" y1="3" x2="26" y2="3" stroke="#475569" stroke-width="2"/></svg> seam</span>
+          <span class="flex items-center gap-2"><svg width="26" height="8"><line x1="0" y1="4" x2="20" y2="4" stroke="#dc2626" stroke-width="2"/><path d="M20 1 L26 4 L20 7 Z" fill="#dc2626"/></svg> leakage</span>
+          <span class="flex items-center gap-2"><span class="inline-block w-6 h-4 deep"></span> deep module</span>
+        </div>
+
+        <div class="mt-6 rounded border border-slate-200 bg-white p-4 text-xs text-slate-600">
+          <span class="mod text-slate-500">Verified locally, not inherited</span>
+          <div class="mt-2 font-mono text-[11px] leading-relaxed">
+            <div><span class="text-emerald-700">✓</span> <span class="text-slate-500">$</span> python3 skills/laravel-filament-v5-ui-ux/scripts/validate_compositions.py<br/>
+            <span class="pl-4">Composition validation passed: 22 patterns, 76 variants.  — EXIT 0</span></div>
+            <div class="mt-1.5"><span class="text-emerald-700">✓</span> <span class="text-slate-500">$</span> python3 tests/test_laravel_filament_v5_ui_ux.py<br/>
+            <span class="pl-4">Ran 38 tests in 9.931s — OK</span></div>
+          </div>
+          <p class="mt-2">A sub-agent reported both of these failing on a <span class="font-mono">tempfile</span> error. Re-run on this workstation: both pass. That was a sandbox artifact and is <strong>not</strong> reported as a candidate.</p>
+        </div>
+      </header>
+
+      <!-- ══════════════════════════ MAP ══════════════════════════ -->
+      <section>
+        <h2 class="font-serif text-2xl mb-1">The seam under review</h2>
+        <p class="text-sm text-slate-600 mb-5">ADR-0002 placed the seam at <em>surface composition</em> vs <em>field API, security, tests</em>. Red edges are where it leaks today.</p>
+        <div class="rounded-lg border border-slate-200 bg-white p-5">
+          <pre class="mermaid">
+flowchart TB
+  subgraph V5["laravel-filament-v5 · 1,539 lines"]
+    direction TB
+    V5S["SKILL.md<br/>routing · invariants · gates"]
+    V5T["references/tables.md"]
+    V5W["references/widgets.md"]
+    V5P["references/panels.md"]
+    V5A["references/actions.md"]
+    V5F1["references/ui-composition.md<br/>9 lines"]
+    V5F2["references/screenshots.md<br/>13 lines"]
+  end
+  subgraph UX["laravel-filament-v5-ui-ux · 3,531 lines"]
+    direction TB
+    UXS["SKILL.md<br/>8-row routing"]
+    UXT["references/table.md"]
+    UXD["references/dashboard.md"]
+    UXP["references/panel-shell.md"]
+    UXA["references/action-feedback.md"]
+    UXI["screenshot-inventory.json<br/>622 records · 404 KB"]
+  end
+  V5S -. "delegate when installed" .-> UXS
+  UXS -. "delegate signatures back" .-> V5S
+  V5T ==>|"cedes responsive layouts<br/>then supplies them"| UXT
+  V5W ==>|"ordering + columnSpan"| UXD
+  V5P ==>|"navigation arrangement"| UXP
+  V5A ==>|"placement + confirmation"| UXA
+  V5S --> V5F1
+  V5S --> V5F2
+  UXI -.->|"release-time only"| UXS
+  classDef leak stroke:#dc2626,stroke-width:2.5px,color:#7f1d1d;
+  classDef thin stroke:#94a3b8,stroke-dasharray:4 3,color:#64748b;
+  classDef dead fill:#fef3c7,stroke:#d97706;
+  class V5T,V5W,V5P,V5A,UXT,UXD,UXP,UXA leak
+  class V5F1,V5F2 thin
+  class UXI dead
+          </pre>
+          <p class="text-xs text-slate-500 mt-3 text-center">Four surfaces cross the seam in both directions. Two fallback modules are thin. One 404 KB asset ships to every install for a release-time consumer.</p>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════ CANDIDATES ══════════════════════════ -->
+      <section id="candidates" class="space-y-12">
+        <div class="flex items-baseline justify-between border-b border-slate-300 pb-2">
+          <h2 class="font-serif text-2xl">Candidates</h2>
+          <span class="mod text-slate-400">10 · ranked</span>
+        </div>
+
+        <!-- ─────────── C1 ─────────── -->
+        <article id="c1" class="scroll-mt-6">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="mod px-2 py-1 rounded bg-emerald-100 text-emerald-800 font-semibold">Strong</span>
+            <span class="mod px-2 py-1 rounded bg-slate-200 text-slate-700">cross-seam</span>
+            <span class="mod px-2 py-1 rounded bg-indigo-100 text-indigo-800">Filament 5 visual authority</span>
+          </div>
+          <h3 class="font-serif text-3xl tracking-tight">1 · Close the table seam leak</h3>
+          <p class="font-mono text-xs text-slate-500 mt-2">
+            skills/laravel-filament-v5/references/tables.md:7,58-69 ·
+            skills/laravel-filament-v5-ui-ux/references/table.md:26-37,55-57
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-4 mt-5">
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <div class="mod text-slate-500 mb-3">Before — the file contradicts itself</div>
+              <div class="relative border border-slate-300 rounded p-3 bg-stone-50">
+                <div class="mod text-slate-600 mb-2">references/tables.md</div>
+                <div class="rounded border-2 border-slate-700 bg-white p-2 text-[11px] font-mono leading-snug">
+                  <span class="text-slate-400">:7</span> “For <em>which</em> table composition —<br/>
+                  <span class="pl-6">… <strong>responsive record layouts</strong> —</span><br/>
+                  <span class="pl-6">use <span class="text-indigo-700">ui-ux</span>. This file is the API inventory.”
+                </div>
+                <div class="flex justify-center my-2">
+                  <svg width="30" height="34"><line x1="15" y1="0" x2="15" y2="26" class="leak" stroke="#dc2626" stroke-width="2"/><path d="M11 26 L15 33 L19 26 Z" fill="#dc2626"/></svg>
+                </div>
+                <div class="rounded border-2 border-red-500 hatch p-2 text-[11px] font-mono leading-snug">
+                  <span class="text-slate-400">:58-69</span> <strong>Record layout components</strong><br/>
+                  <span class="pl-2">Split · Stack · Grid · Panel</span><br/>
+                  <span class="pl-2">-&gt;contentGrid() · -&gt;stackedOnMobile()</span>
+                </div>
+                <p class="text-[11px] text-red-700 mt-2 leading-snug">The eleven lines it ceded are supplied fifty lines later.</p>
+              </div>
+              <div class="relative border border-slate-300 rounded p-3 bg-stone-50 mt-3">
+                <div class="mod text-slate-600 mb-2">ui-ux references/table.md</div>
+                <div class="rounded border-2 border-red-500 hatch p-2 text-[11px] font-mono leading-snug">
+                  <span class="text-slate-400">:26-37</span> use Filament\Tables\Table;<br/>
+                  <span class="pl-2">public static function table(Table $table): Table</span><br/>
+                  <span class="text-slate-400">:55</span> -&gt;recordActions([ ActionGroup::make([
+                </div>
+                <p class="text-[11px] text-red-700 mt-2 leading-snug">Version-sensitive signatures inside the composition module.</p>
+              </div>
+            </div>
+
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <div class="mod text-slate-500 mb-3">After — one crossing, declared</div>
+              <div class="relative border border-slate-300 rounded p-3 bg-stone-50 h-[calc(100%-1.75rem)]">
+                <div class="rounded border-2 border-slate-700 bg-white p-3">
+                  <div class="mod text-slate-600 mb-1">v5 · references/tables.md</div>
+                  <div class="text-[11px] font-mono text-slate-700 leading-snug">signatures only<br/>Split · Stack · Grid · Panel<br/>+ security &amp; test invariants</div>
+                </div>
+                <div class="flex items-center gap-2 my-3">
+                  <svg width="100%" height="10" class="flex-1"><line class="seam" x1="0" y1="5" x2="100%" y2="5" stroke="#475569" stroke-width="2"/></svg>
+                  <span class="mod text-slate-500 shrink-0">seam</span>
+                </div>
+                <div class="rounded deep p-3 text-stone-100">
+                  <div class="mod text-stone-400 mb-1">ui-ux · references/table.md</div>
+                  <div class="text-[11px] font-mono leading-snug">arrangement only<br/>which layout, which order, which breakpoint<br/><span class="text-stone-400">signatures ↑ resolved at the seam</span></div>
+                </div>
+                <p class="text-[11px] text-slate-600 mt-3 leading-snug">
+                  Each fact has one home. An API drift lands once, in the inventory; an arrangement change lands once, in the composition.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-5 mt-5">
+            <div><div class="mod text-slate-500 mb-1">Problem</div><p class="text-sm">The v5 table module cedes responsive arrangement to ui-ux and then implements it, while the ui-ux composition asserts version-sensitive signatures — the seam leaks in both directions.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Solution</div><p class="text-sm">Strip arrangement from <span class="font-mono text-xs">tables.md</span>, leave a signature inventory; route the composition's API assumptions back across the seam instead of restating them.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Wins</div>
+              <ul class="text-sm space-y-1 list-disc list-inside marker:text-emerald-600">
+                <li>Locality: arrangement in one module</li>
+                <li>Leverage: one signature, N compositions</li>
+                <li>Seam stops leaking both ways</li>
+                <li>Interface shrinks; drift points halve</li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500 mt-4"><span class="mod">Deletion test</span> — deleting the duplicated arrangement concentrates composition in ui-ux and verification in v5. Complexity moves home; it does not reappear across callers.</p>
+        </article>
+
+        <!-- ─────────── C2 ─────────── -->
+        <article id="c2" class="scroll-mt-6 border-t border-slate-200 pt-12">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="mod px-2 py-1 rounded bg-emerald-100 text-emerald-800 font-semibold">Strong</span>
+            <span class="mod px-2 py-1 rounded bg-slate-200 text-slate-700">hypothetical seam</span>
+          </div>
+          <h3 class="font-serif text-3xl tracking-tight">2 · Replace the unresolvable “when installed” adapter</h3>
+          <p class="font-mono text-xs text-slate-500 mt-2">
+            skills/laravel-filament-v5/SKILL.md:39,45,94-95 ·
+            references/ui-composition.md · references/screenshots.md · evals/evals.json
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-4 mt-5">
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <div class="mod text-slate-500 mb-3">Before — a branch nobody can evaluate</div>
+              <div class="grid-paper rounded border border-slate-300 p-4">
+                <div class="rounded border-2 border-slate-700 bg-white p-2 text-center text-[11px] font-mono">laravel-filament-v5</div>
+                <div class="flex justify-center my-2"><svg width="20" height="22"><line x1="10" y1="0" x2="10" y2="14" stroke="#475569" stroke-width="2"/><path d="M6 14 L10 21 L14 14 Z" fill="#475569"/></svg></div>
+                <div class="rounded border-2 border-amber-500 bg-amber-50 p-2 text-center text-[11px] font-mono">is ui-ux installed?<br/><span class="text-amber-700">no detection mechanism</span></div>
+                <div class="flex gap-3 mt-3">
+                  <div class="flex-1 text-center">
+                    <svg width="100%" height="20"><line x1="50%" y1="0" x2="20%" y2="14" stroke="#475569" stroke-width="2"/></svg>
+                    <div class="rounded border-2 border-slate-700 bg-white p-2 text-[11px] font-mono">ui-ux<br/><span class="text-emerald-700">exercised</span></div>
+                  </div>
+                  <div class="flex-1 text-center">
+                    <svg width="100%" height="20"><line x1="50%" y1="0" x2="80%" y2="14" stroke="#94a3b8" stroke-width="2" class="seam"/></svg>
+                    <div class="rounded border-2 border-dashed border-slate-400 bg-stone-100 p-2 text-[11px] font-mono text-slate-500">fallback<br/>9 + 13 lines<br/><span class="text-red-700">0 evals</span></div>
+                  </div>
+                </div>
+                <p class="text-[11px] text-slate-600 mt-3 leading-snug">One adapter is real. The other is a hypothesis with two thin modules and no test behind it.</p>
+              </div>
+            </div>
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <div class="mod text-slate-500 mb-3">After — pick one, and mean it</div>
+              <div class="grid-paper rounded border border-slate-300 p-4 space-y-3">
+                <div class="rounded border border-slate-300 bg-white p-3">
+                  <div class="mod text-slate-600">Option A — make the second adapter real</div>
+                  <p class="text-[11px] text-slate-600 mt-1 leading-snug">Define a check the agent can actually run, and add an eval that drives the fallback path. Two adapters, both exercised.</p>
+                </div>
+                <div class="rounded deep p-3 text-stone-100">
+                  <div class="mod text-stone-400">Option B — collapse the seam</div>
+                  <p class="text-[11px] mt-1 leading-snug">Fold the two unique fallback directives into SKILL.md, delete both reference modules, and state the pairing as a documented install contract rather than a runtime branch.</p>
+                </div>
+                <p class="text-[11px] text-slate-600 leading-snug">Either way the interface stops asking the consuming agent a question it has no way to answer.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-5 mt-5">
+            <div><div class="mod text-slate-500 mb-1">Problem</div><p class="text-sm">Five clauses branch on whether the sibling is “installed”/“unavailable”, but no module and no README documents a way to detect that — so the seam has one real adapter and one hypothetical one.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Solution</div><p class="text-sm">Either give the fallback adapter a runnable check plus an eval, or delete it and state the pairing as an install contract.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Wins</div>
+              <ul class="text-sm space-y-1 list-disc list-inside marker:text-emerald-600">
+                <li>Seam earns its second adapter</li>
+                <li>Locality: one fallback rule</li>
+                <li>Removes two shallow modules</li>
+                <li>Untestable branch becomes testable</li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500 mt-4"><span class="mod">Deletion test</span> — deleting the fallback does not remove complexity; it moves an unresolved availability decision into every consuming agent. That is the tell: resolve it at the seam, not at the call site.</p>
+        </article>
+
+        <!-- ─────────── C3 ─────────── -->
+        <article id="c3" class="scroll-mt-6 border-t border-slate-200 pt-12">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="mod px-2 py-1 rounded bg-emerald-100 text-emerald-800 font-semibold">Strong</span>
+            <span class="mod px-2 py-1 rounded bg-slate-200 text-slate-700">in-process</span>
+          </div>
+          <h3 class="font-serif text-3xl tracking-tight">3 · Centralize the duplicated v5 invariants</h3>
+          <p class="font-mono text-xs text-slate-500 mt-2">
+            skills/laravel-filament-v5/SKILL.md:53-74,99-112,114-125 · references/{tables,actions,resources,forms,enums,security,infolists}.md
+          </p>
+
+          <div class="rounded-lg border border-slate-200 bg-white p-4 mt-5">
+            <div class="mod text-slate-500 mb-3">Before — every invariant has two homes</div>
+            <table class="w-full text-[11px] font-mono">
+              <thead><tr class="text-left mod text-slate-500 border-b border-slate-200"><th class="py-1">Fact</th><th>Stated in SKILL.md</th><th>Restated in</th></tr></thead>
+              <tbody class="align-top">
+                <tr class="border-b border-slate-100"><td class="py-1.5 pr-2"><code>recordActions()</code> not v3 <code>actions()</code></td><td class="pr-2">:120</td><td class="text-red-700">actions.md:25 · tables.md:77 · resources.md:179</td></tr>
+                <tr class="border-b border-slate-100"><td class="py-1.5 pr-2"><code>hiddenOn()/visibleOn()</code> over callback</td><td class="pr-2">:124</td><td class="text-red-700">resources.md:261,265 · forms.md:30</td></tr>
+                <tr class="border-b border-slate-100"><td class="py-1.5 pr-2">uploads default private unless disk is <code>public</code></td><td class="pr-2">:125</td><td class="text-red-700">security.md:86-87 · forms.md:16</td></tr>
+                <tr class="border-b border-slate-100"><td class="py-1.5 pr-2"><code>CodeEntry</code> needs <code>phiki/phiki</code></td><td class="pr-2">:59,103,112</td><td class="text-red-700">infolists.md:40,47</td></tr>
+                <tr><td class="py-1.5 pr-2"><code>HasLabel/HasColor/HasIcon</code> enums</td><td class="pr-2">:123</td><td class="text-red-700">enums.md:19,87 · tables.md:81</td></tr>
+              </tbody>
+            </table>
+            <p class="text-[11px] text-red-700 mt-3">Five invariants, thirteen restatements. When Filament drifts, thirteen edits — and until all thirteen land, the agent reads two answers and cannot tell which is current.</p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-4 mt-4">
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <div class="mod text-slate-500 mb-3">Before — mass diagram</div>
+              <div class="flex items-end justify-center gap-6 h-52">
+                <div class="text-center">
+                  <div class="w-24 bg-slate-700 rounded-t" style="height:110px"></div>
+                  <div class="w-24 bg-red-300 hatch rounded-b" style="height:70px"></div>
+                  <div class="mod text-slate-600 mt-2">SKILL.md</div>
+                </div>
+                <div class="text-center">
+                  <div class="w-24 bg-slate-400 rounded-t" style="height:60px"></div>
+                  <div class="w-24 bg-red-300 hatch rounded-b" style="height:70px"></div>
+                  <div class="mod text-slate-600 mt-2">references</div>
+                </div>
+              </div>
+              <p class="text-[11px] text-slate-600 text-center mt-2">Hatched mass = the same facts, held twice.</p>
+            </div>
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <div class="mod text-slate-500 mb-3">After — one authority per fact</div>
+              <div class="flex items-end justify-center gap-6 h-52">
+                <div class="text-center">
+                  <div class="w-24 deep rounded" style="height:180px"></div>
+                  <div class="mod text-slate-600 mt-2">SKILL.md · invariants</div>
+                </div>
+                <div class="text-center">
+                  <div class="w-24 bg-slate-400 rounded" style="height:60px"></div>
+                  <div class="mod text-slate-600 mt-2">references · depth</div>
+                </div>
+              </div>
+              <p class="text-[11px] text-slate-600 text-center mt-2">References carry examples and detail; the invariant lives once.</p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-5 mt-5">
+            <div><div class="mod text-slate-500 mb-1">Problem</div><p class="text-sm">Version invariants live in SKILL.md and are restated across seven references, so an API drift has thirteen landing sites and no single authority.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Solution</div><p class="text-sm">Keep each invariant in SKILL.md only; references show the worked example and point back rather than re-asserting the rule.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Wins</div>
+              <ul class="text-sm space-y-1 list-disc list-inside marker:text-emerald-600">
+                <li>Locality: fix once, fixed everywhere</li>
+                <li>Thirteen drift points become five</li>
+                <li>References get deeper, not wider</li>
+                <li>No two-answer ambiguity</li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500 mt-4"><span class="mod">Deletion test</span> — deleting the restatements concentrates each invariant at one interface. Nothing reappears across callers; only the duplicate disappears.</p>
+        </article>
+
+        <!-- ─────────── C4 ─────────── -->
+        <article id="c4" class="scroll-mt-6 border-t border-slate-200 pt-12">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="mod px-2 py-1 rounded bg-emerald-100 text-emerald-800 font-semibold">Strong</span>
+            <span class="mod px-2 py-1 rounded bg-slate-200 text-slate-700">prepare-commit</span>
+          </div>
+          <h3 class="font-serif text-3xl tracking-tight">4 · Extract the conditional changelog machinery</h3>
+          <p class="font-mono text-xs text-slate-500 mt-2">skills/prepare-commit/SKILL.md:127-162 — 36 of 210 lines</p>
+
+          <div class="grid md:grid-cols-2 gap-4 mt-5">
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <div class="mod text-slate-500 mb-3">Before — cross-section of one commit</div>
+              <div class="space-y-1">
+                <div class="h-10 border-l-4 border-slate-700 bg-white pl-3 flex items-center text-[11px] font-mono">Goal + language · 1-22</div>
+                <div class="h-10 border-l-4 border-slate-700 bg-white pl-3 flex items-center text-[11px] font-mono">Host precedence · 24-36</div>
+                <div class="h-10 border-l-4 border-slate-700 bg-white pl-3 flex items-center text-[11px] font-mono">Inspect · Scope · Message · 40-125</div>
+                <div class="h-20 border-l-4 border-red-500 hatch pl-3 flex flex-col justify-center text-[11px] font-mono">
+                  <span class="font-semibold text-red-800">CHANGELOG machinery · 127-162</span>
+                  <span class="text-red-700">10-row classification table + Keep a Changelog</span>
+                  <span class="text-red-700">gated at :129 — “If it doesn't, skip this step”</span>
+                </div>
+                <div class="h-10 border-l-4 border-slate-700 bg-white pl-3 flex items-center text-[11px] font-mono">Validate · Stage · Push · 164-210</div>
+              </div>
+              <p class="text-[11px] text-red-700 mt-3">36/210 lines (17%) load on every commit; in a repo without <span class="font-mono">CHANGELOG.md</span> they are read and discarded.</p>
+            </div>
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <div class="mod text-slate-500 mb-3">After — loaded on demand</div>
+              <div class="space-y-1">
+                <div class="h-10 border-l-4 border-slate-700 bg-white pl-3 flex items-center text-[11px] font-mono">Goal + language · Host precedence</div>
+                <div class="h-10 border-l-4 border-slate-700 bg-white pl-3 flex items-center text-[11px] font-mono">Inspect · Scope · Message</div>
+                <div class="h-12 border-l-4 border-indigo-500 bg-indigo-50 pl-3 flex flex-col justify-center text-[11px] font-mono">
+                  <span class="font-semibold">Step 4 · one routing rule</span>
+                  <span class="text-indigo-700">CHANGELOG.md exists? → references/changelog.md</span>
+                </div>
+                <div class="h-10 border-l-4 border-slate-700 bg-white pl-3 flex items-center text-[11px] font-mono">Validate · Stage · Push</div>
+                <div class="mt-3 rounded deep p-3 text-stone-100">
+                  <div class="mod text-stone-400">references/changelog.md</div>
+                  <div class="text-[11px] font-mono mt-1">classification table · Keep a Changelog<br/>language rule · worked entries</div>
+                </div>
+              </div>
+              <p class="text-[11px] text-slate-600 mt-3">Every other non-trivial skill in this repo already routes to references. This one does not.</p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-5 mt-5">
+            <div><div class="mod text-slate-500 mb-1">Problem</div><p class="text-sm">The module unconditionally carries 36 lines of changelog implementation behind a condition it only evaluates at line 129.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Solution</div><p class="text-sm">Leave a one-line routing rule in Step 4; move the classification machinery into <span class="font-mono text-xs">references/changelog.md</span>.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Wins</div>
+              <ul class="text-sm space-y-1 list-disc list-inside marker:text-emerald-600">
+                <li>Interface shrinks 17%</li>
+                <li>Implementation absorbs the tables</li>
+                <li>Matches repo's reference convention</li>
+                <li>Changelog seam becomes explicit</li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500 mt-4"><span class="mod">Deletion test</span> — deleting the extracted reference makes classification reappear in every consuming agent, so it earns its keep. Deleting it from the always-loaded module costs nothing.</p>
+        </article>
+
+        <!-- ─────────── C5 ─────────── -->
+        <article id="c5" class="scroll-mt-6 border-t border-slate-200 pt-12">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="mod px-2 py-1 rounded bg-emerald-100 text-emerald-800 font-semibold">Strong</span>
+            <span class="mod px-2 py-1 rounded bg-slate-200 text-slate-700">ports &amp; adapters</span>
+          </div>
+          <h3 class="font-serif text-3xl tracking-tight">5 · Centralize host precedence at one seam</h3>
+          <p class="font-mono text-xs text-slate-500 mt-2">skills/prepare-commit/SKILL.md:26 → restated at :129, :168, :169, :170, :177, :180, :181, :208</p>
+
+          <div class="rounded-lg border border-slate-200 bg-white p-5 mt-5">
+            <pre class="mermaid">
+flowchart LR
+  subgraph B["Before — precedence restated at 8 call sites"]
+    direction TB
+    R1["SKILL.md:26<br/>host takes precedence"]
+    S4["Step 4 :129"]
+    S5["Step 5 :168-170"]
+    S6["Step 6 :177,180,181"]
+    S7["Step 7 :208"]
+    R1 --> S4
+    R1 --> S5
+    R1 --> S6
+    R1 --> S7
+    S4 -.->|"restates"| R1
+    S5 -.->|"restates"| R1
+    S6 -.->|"restates"| R1
+    S7 -.->|"restates"| R1
+  end
+  classDef leak stroke:#dc2626,stroke-width:2px,color:#7f1d1d;
+  class S4,S5,S6,S7 leak
+            </pre>
+            <div class="grid md:grid-cols-2 gap-4 mt-4">
+              <div class="rounded border border-slate-200 p-3">
+                <div class="mod text-slate-500 mb-2">Before</div>
+                <p class="text-[11px] font-mono text-slate-700 leading-relaxed">
+                  :168 “only when the host protocol permits”<br/>
+                  :169 “When permitted”<br/>
+                  :170 “If the host restricts this workflow”<br/>
+                  :177 “according to the host protocol”<br/>
+                  :180 “operations allowed by the host”<br/>
+                  :181 “Run permitted checks”<br/>
+                  :208 “Follow the host's push protocol … exactly”
+                </p>
+              </div>
+              <div class="rounded deep p-3 text-stone-100">
+                <div class="mod text-stone-400 mb-2">After</div>
+                <p class="text-[11px] font-mono leading-relaxed">
+                  :26 host precedence — stated once, at the seam.<br/><br/>
+                  Steps 1-7 describe <em>portable operations</em>.<br/>
+                  Host permission is an input resolved at the seam,<br/>
+                  not a conditional re-derived at each step.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-5 mt-5">
+            <div><div class="mod text-slate-500 mb-1">Problem</div><p class="text-sm">The precedence rule sits at a clean seam and is then re-derived at eight call sites, so changing it means eight edits and eight chances to disagree.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Solution</div><p class="text-sm">State precedence once; express the flow as portable operations whose host permission is resolved at that seam.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Wins</div>
+              <ul class="text-sm space-y-1 list-disc list-inside marker:text-emerald-600">
+                <li>Locality: one precedence rule</li>
+                <li>Flow reads as behaviour, not caveats</li>
+                <li>Eight drift points become one</li>
+                <li>Portable guarantees stay portable</li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500 mt-4"><span class="mod">Deletion test</span> — deleting the repeated clauses concentrates host adaptation at the seam. That concentration is the seam's whole purpose.</p>
+        </article>
+
+        <!-- ─────────── C6 ─────────── -->
+        <article id="c6" class="scroll-mt-6 border-t border-slate-200 pt-12">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="mod px-2 py-1 rounded bg-emerald-100 text-emerald-800 font-semibold">Strong</span>
+            <span class="mod px-2 py-1 rounded bg-slate-200 text-slate-700">contradiction</span>
+          </div>
+          <h3 class="font-serif text-3xl tracking-tight">6 · Unify commit and changelog language precedence</h3>
+          <p class="font-mono text-xs text-slate-500 mt-2">skills/prepare-commit/SKILL.md:22 vs :158</p>
+
+          <div class="grid md:grid-cols-2 gap-4 mt-5">
+            <div class="rounded-lg border border-red-300 bg-red-50 p-4">
+              <div class="mod text-red-800 mb-3">Before — two ladders, one run</div>
+              <div class="rounded border-2 border-slate-700 bg-white p-3 text-[11px] font-mono leading-relaxed">
+                <div class="mod text-slate-500 mb-1">:22 commit message</div>
+                1. explicit user instruction<br/>2. documented project convention<br/>3. recent commit history<br/>4. pt-BR fallback
+              </div>
+              <div class="flex justify-center my-2 text-red-600 font-mono text-lg">≠</div>
+              <div class="rounded border-2 border-slate-700 bg-white p-3 text-[11px] font-mono leading-relaxed">
+                <div class="mod text-slate-500 mb-1">:158 changelog entry</div>
+                1. explicit user request for <em>this commit</em><br/>2. the language of the rest of the file
+              </div>
+              <p class="text-[11px] text-red-800 mt-3 leading-snug">
+                A repo with an English <span class="font-mono">CHANGELOG.md</span> and no other convention: :22 sends the commit to pt-BR, :158 sends the entry to English. Both rules are satisfied and the output is bilingual — with no clause telling the agent that is expected.
+              </p>
+            </div>
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <div class="mod text-slate-500 mb-3">After — one ladder, two sinks</div>
+              <div class="rounded deep p-4 text-stone-100">
+                <div class="mod text-stone-400 mb-2">language resolution · stated once</div>
+                <div class="text-[11px] font-mono leading-relaxed">
+                  1. explicit user instruction (scope: run | project)<br/>
+                  2. documented project convention<br/>
+                  3. existing artefact — commit history <em>for the message</em>,<br/>
+                  <span class="pl-4">changelog file <em>for the entry</em></span><br/>
+                  4. pt-BR fallback
+                </div>
+              </div>
+              <p class="text-[11px] text-slate-600 mt-3 leading-snug">
+                Same ladder; step 3 reads the artefact each sink is written into. The divergence becomes a deliberate, stated outcome instead of an accident of two rules.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-5 mt-5">
+            <div><div class="mod text-slate-500 mb-1">Problem</div><p class="text-sm">Two independent language rules can resolve differently on the same run, and the interface never says which wins or that split output is intended.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Solution</div><p class="text-sm">Collapse to one precedence ladder whose "existing artefact" step is parameterised by the sink being written.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Wins</div>
+              <ul class="text-sm space-y-1 list-disc list-inside marker:text-emerald-600">
+                <li>Locality: one language rule</li>
+                <li>Removes silent contradiction</li>
+                <li>Interface states the split outcome</li>
+                <li>Survives the changelog extraction</li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500 mt-4"><span class="mod">Deletion test</span> — deleting the second rule concentrates language resolution in one place. Deleting either alone leaves a sink unspecified, so the ladder must be shared, not duplicated.</p>
+          <div class="mt-3 rounded border-l-4 border-indigo-400 bg-indigo-50 p-3 text-xs text-indigo-900">
+            Pairs with candidate 4 — the changelog extraction moves :158 into a reference. Resolve the ladder first, or the contradiction ships across a seam and gets harder to see.
+          </div>
+        </article>
+
+        <!-- ─────────── C7 ─────────── -->
+        <article id="c7" class="scroll-mt-6 border-t border-slate-200 pt-12">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="mod px-2 py-1 rounded bg-emerald-100 text-emerald-800 font-semibold">Strong</span>
+            <span class="mod px-2 py-1 rounded bg-indigo-100 text-indigo-800">Reference composition</span>
+          </div>
+          <h3 class="font-serif text-3xl tracking-tight">7 · Name the seam in the form triad</h3>
+          <p class="font-mono text-xs text-slate-500 mt-2">
+            skills/laravel-filament-v5-ui-ux/SKILL.md:29-31 · references/form-layout.md (813) · form-fields.md:21 (271) · form-inputs.md:24,249,316,404 (477)
+          </p>
+
+          <div class="rounded-lg border border-slate-200 bg-white p-5 mt-5">
+            <pre class="mermaid">
+flowchart LR
+  A["Build one Filament form"] --> L["form-layout.md<br/>813 lines · 9 patterns"]
+  A --> F["form-fields.md<br/>271 lines · 1 pattern"]
+  A --> I["form-inputs.md<br/>477 lines · 4 patterns"]
+  F -.->|"Alternatives: responsive-columns,<br/>fieldsets, sections, aside-sections"| L
+  I -.->|"Alternatives: responsive-columns,<br/>sections"| L
+  L -.->|"examples use plain<br/>TextInput / Select"| F
+  classDef leak stroke:#dc2626,stroke-width:2px,color:#7f1d1d;
+  class F,I,L leak
+            </pre>
+            <p class="text-xs text-slate-600 text-center mt-3">
+              Three routing rows, one artefact. The <span class="font-mono">Alternatives</span> lines name compositions that live in a different file, and the layout examples silently assume the field treatment from a third.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-4 mt-4">
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <div class="mod text-slate-500 mb-3">Before — the caller does the joining</div>
+              <div class="grid-paper rounded border border-slate-300 p-4 space-y-2">
+                <div class="rounded border-2 border-slate-700 bg-white p-2 text-[11px] font-mono">form-layout · page structure</div>
+                <div class="flex justify-center"><svg width="20" height="16"><line x1="10" y1="0" x2="10" y2="9" class="leak" stroke="#dc2626" stroke-width="2"/><path d="M6 9 L10 15 L14 9 Z" fill="#dc2626"/></svg></div>
+                <div class="rounded border-2 border-slate-700 bg-white p-2 text-[11px] font-mono">form-fields · field treatment</div>
+                <div class="flex justify-center"><svg width="20" height="16"><line x1="10" y1="0" x2="10" y2="9" class="leak" stroke="#dc2626" stroke-width="2"/><path d="M6 9 L10 15 L14 9 Z" fill="#dc2626"/></svg></div>
+                <div class="rounded border-2 border-slate-700 bg-white p-2 text-[11px] font-mono">form-inputs · complex controls</div>
+                <p class="text-[11px] text-red-700 pt-1">Three loads, three interfaces, no stated order.</p>
+              </div>
+            </div>
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <div class="mod text-slate-500 mb-3">After — one composition contract</div>
+              <div class="grid-paper rounded border border-slate-300 p-4">
+                <div class="rounded deep p-3 text-stone-100">
+                  <div class="mod text-stone-400 mb-1">SKILL.md · form routing</div>
+                  <div class="text-[11px] font-mono leading-snug">
+                    Building a form? Load <span class="text-amber-300">form-layout</span> first —<br/>
+                    it owns page structure and names the field<br/>
+                    treatment and control modules it composes with.
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 my-3">
+                  <svg width="100%" height="10" class="flex-1"><line class="seam" x1="0" y1="5" x2="100%" y2="5" stroke="#475569" stroke-width="2"/></svg>
+                  <span class="mod text-slate-500 shrink-0">seam</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="rounded border-2 border-slate-700 bg-white p-2 text-[11px] font-mono text-center">form-fields</div>
+                  <div class="rounded border-2 border-slate-700 bg-white p-2 text-[11px] font-mono text-center">form-inputs</div>
+                </div>
+                <p class="text-[11px] text-slate-600 mt-3 leading-snug">The split survives — it is load-bearing — but the entry point and the composition order are declared, not inferred.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-5 mt-5">
+            <div><div class="mod text-slate-500 mb-1">Problem</div><p class="text-sm">Three modules split the form surface with no named seam, so one form requires bouncing across all three and reconstructing the order from <span class="font-mono text-xs">Alternatives</span> lines.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Solution</div><p class="text-sm">Declare <span class="font-mono text-xs">form-layout.md</span> the entry point and make the cross-file handoff explicit in the routing table and in each <span class="font-mono text-xs">Alternatives</span> line.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Wins</div>
+              <ul class="text-sm space-y-1 list-disc list-inside marker:text-emerald-600">
+                <li>Seam becomes stated, not implied</li>
+                <li>Leverage: one entry, three modules</li>
+                <li>Locality: composition order in one place</li>
+                <li>No merge into an 1,100-line module</li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500 mt-4"><span class="mod">Deletion test</span> — deleting any one module pushes its implementation into the others and produces a monolith. The split earns its keep; the missing seam does not. Fix the seam, keep the split.</p>
+        </article>
+
+        <!-- ─────────── C8 ─────────── -->
+        <article id="c8" class="scroll-mt-6 border-t border-slate-200 pt-12">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="mod px-2 py-1 rounded bg-amber-100 text-amber-800 font-semibold">Worth exploring</span>
+            <span class="mod px-2 py-1 rounded bg-indigo-100 text-indigo-800">Uncovered pattern</span>
+          </div>
+          <h3 class="font-serif text-3xl tracking-tight">8 · Move the screenshot inventory off the install payload</h3>
+          <p class="font-mono text-xs text-slate-500 mt-2">
+            skills/laravel-filament-v5-ui-ux/references/screenshot-inventory.json — 8,702 lines · 622 records · 404 KB of 648 KB
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-4 mt-5">
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <div class="mod text-slate-500 mb-3">Before — what ships vs what is read</div>
+              <div class="flex items-end gap-8 h-56 justify-center">
+                <div class="text-center">
+                  <div class="w-28 bg-amber-300 rounded-t flex items-center justify-center text-[10px] font-mono text-amber-900" style="height:150px">inventory<br/>404 KB</div>
+                  <div class="w-28 bg-slate-700 rounded-b flex items-center justify-center text-[10px] font-mono text-stone-100" style="height:60px">everything else<br/>244 KB</div>
+                  <div class="mod text-slate-600 mt-2">installed</div>
+                </div>
+                <div class="text-center">
+                  <div class="w-28 bg-slate-700 rounded flex items-center justify-center text-[10px] font-mono text-stone-100" style="height:60px">compositions</div>
+                  <div class="mod text-slate-600 mt-2">read at use time</div>
+                </div>
+              </div>
+              <p class="text-[11px] text-red-700 mt-2">62% of the payload has no use-time consumer. Its only readers are <span class="font-mono">validate_compositions.py</span>, <span class="font-mono">sync_visual_catalog.py</span> and the test — all release-time.</p>
+            </div>
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <div class="mod text-slate-500 mb-3">After — release asset, not install asset</div>
+              <div class="grid-paper rounded border border-slate-300 p-4">
+                <div class="rounded deep p-3 text-stone-100">
+                  <div class="mod text-stone-400 mb-1">installed skill</div>
+                  <div class="text-[11px] font-mono">SKILL.md + 8 composition modules<br/>each carrying its own provenance</div>
+                </div>
+                <div class="flex items-center gap-2 my-3">
+                  <svg width="100%" height="10" class="flex-1"><line class="seam" x1="0" y1="5" x2="100%" y2="5" stroke="#475569" stroke-width="2"/></svg>
+                  <span class="mod text-slate-500 shrink-0">release seam</span>
+                </div>
+                <div class="rounded border-2 border-slate-400 border-dashed bg-stone-100 p-3">
+                  <div class="mod text-slate-600 mb-1">repo-only · not installed</div>
+                  <div class="text-[11px] font-mono text-slate-600">screenshot-inventory.json<br/>coverage gate · uncovered-pattern discovery</div>
+                </div>
+                <p class="text-[11px] text-slate-600 mt-3 leading-snug">ADR-0002 kept it as the discovery asset — that role is real, and it is a <em>maintainer's</em> role. Nothing about it needs to reach the consuming agent's disk.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-5 mt-5">
+            <div><div class="mod text-slate-500 mb-1">Problem</div><p class="text-sm">The inventory is 62% of the installed skill but is consumed only at release time; the seam between maintainer assets and installed modules is not drawn.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Solution</div><p class="text-sm">Move it out of <span class="font-mono text-xs">references/</span> to a repo-level maintenance path and repoint the three scripts; provenance already lives inside each composition.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Wins</div>
+              <ul class="text-sm space-y-1 list-disc list-inside marker:text-emerald-600">
+                <li>Install payload drops 62%</li>
+                <li>Seam: maintainer vs consumer assets</li>
+                <li>Coverage gate keeps working</li>
+                <li>references/ becomes all-compositions</li>
+              </ul>
+            </div>
+          </div>
+          <div class="mt-3 rounded border-l-4 border-amber-400 bg-amber-50 p-3 text-xs text-amber-900">
+            <strong>Contradicts ADR-0002</strong> — it retains the inventory under <span class="font-mono">references/</span> as "the discovery asset". Worth reopening: the ADR settled <em>whether to keep it</em>, not <em>where it lives</em>, and the 404 KB cost was not weighed. A narrow amendment, not a reversal.
+          </div>
+          <p class="text-xs text-slate-500 mt-3"><span class="mod">Deletion test</span> — deleting it entirely would move uncovered-pattern discovery into manual release work, so it earns its keep. Deleting it from the <em>installed</em> tree costs the consuming agent nothing.</p>
+        </article>
+
+        <!-- ─────────── C9 ─────────── -->
+        <article id="c9" class="scroll-mt-6 border-t border-slate-200 pt-12">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="mod px-2 py-1 rounded bg-amber-100 text-amber-800 font-semibold">Worth exploring</span>
+            <span class="mod px-2 py-1 rounded bg-slate-200 text-slate-700">trigger interface</span>
+          </div>
+          <h3 class="font-serif text-3xl tracking-tight">9 · Shorten the v5 trigger interface</h3>
+          <p class="font-mono text-xs text-slate-500 mt-2">skills/laravel-filament-v5/SKILL.md:3 — 1,024 chars vs ui-ux 680, prepare-commit 284</p>
+
+          <div class="rounded-lg border border-slate-200 bg-white p-4 mt-5">
+            <div class="mod text-slate-500 mb-3">Trigger surface, to scale</div>
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-[11px] font-mono mb-1"><span>laravel-filament-v5</span><span class="text-red-700">1,024</span></div>
+                <div class="h-6 bg-red-400 rounded" style="width:100%"></div>
+                <p class="text-[10px] text-slate-500 mt-1">Carries routing, delegation, doc-tool precedence and the negative trigger — four jobs in the one field that decides whether the skill loads at all.</p>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] font-mono mb-1"><span>laravel-filament-v5-ui-ux</span><span class="text-amber-700">680</span></div>
+                <div class="h-6 bg-amber-400 rounded" style="width:66%"></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] font-mono mb-1"><span>prepare-commit</span><span class="text-emerald-700">284</span></div>
+                <div class="h-6 bg-emerald-500 rounded" style="width:28%"></div>
+              </div>
+            </div>
+            <p class="text-[11px] text-slate-600 mt-4">
+              The description is the only interface a host reads before deciding to load the module. Delegation rules and doc-tool precedence are <em>body</em> concerns — they cannot influence selection, so their bytes buy nothing and dilute the terms that do.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-5 mt-5">
+            <div><div class="mod text-slate-500 mb-1">Problem</div><p class="text-sm">The trigger interface carries delegation and precedence prose that only matters after the module is loaded, diluting the signals that decide loading.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Solution</div><p class="text-sm">Cut to positive triggers, negative triggers, and the version gate; the delegation and doc-precedence rules already exist in the body at :39-51.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Wins</div>
+              <ul class="text-sm space-y-1 list-disc list-inside marker:text-emerald-600">
+                <li>Interface shrinks; body absorbs it</li>
+                <li>Selection signal stops diluting</li>
+                <li>Locality: precedence stated once</li>
+                <li>Negative trigger gains weight</li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500 mt-4"><span class="mod">Deletion test</span> — deleting the delegation prose from the description concentrates it at :39-51 where it already lives. Nothing reappears; a duplicate disappears.</p>
+        </article>
+
+        <!-- ─────────── C10 ─────────── -->
+        <article id="c10" class="scroll-mt-6 border-t border-slate-200 pt-12">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="mod px-2 py-1 rounded bg-amber-100 text-amber-800 font-semibold">Worth exploring</span>
+            <span class="mod px-2 py-1 rounded bg-slate-200 text-slate-700">stale module</span>
+          </div>
+          <h3 class="font-serif text-3xl tracking-tight">10 · Retire the pre-ADR catalog analysis</h3>
+          <p class="font-mono text-xs text-slate-500 mt-2">docs/research/filament-ui-ux-analysis.md:1,6,16-26,64-74,147-163 · skills/laravel-filament-v5-ui-ux/scripts/sync_visual_catalog.py</p>
+
+          <div class="grid md:grid-cols-2 gap-4 mt-5">
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <div class="mod text-slate-500 mb-3">Before — two artefacts describing a retired design</div>
+              <div class="space-y-2">
+                <div class="rounded border-2 border-red-400 hatch p-3 text-[11px] font-mono leading-snug">
+                  <span class="font-semibold">docs/research/filament-ui-ux-analysis.md</span><br/>
+                  :1,6 — names the skill <span class="text-red-800">laravel-filament-5-ui-ux</span> (renamed)<br/>
+                  :16-26, :64-74 — asserts <span class="text-red-800">visual-catalog.json</span> + query tooling (retired)<br/>
+                  :147-163 — mandatory screenshot workflow (removed by ADR-0002)
+                </div>
+                <div class="rounded border-2 border-amber-400 bg-amber-50 p-3 text-[11px] font-mono leading-snug">
+                  <span class="font-semibold">scripts/sync_visual_catalog.py</span><br/>
+                  named for the retired <span class="text-amber-800">visual-catalog.json</span><br/>
+                  :20 DEFAULT_OUTPUT → screenshot-inventory.json
+                </div>
+                <p class="text-[11px] text-red-700 pt-1">The behaviour moved. The name and the analysis did not.</p>
+              </div>
+            </div>
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <div class="mod text-slate-500 mb-3">After — the record matches what ships</div>
+              <div class="space-y-2">
+                <div class="rounded border-2 border-slate-700 bg-white p-3 text-[11px] font-mono leading-snug">
+                  <span class="font-semibold">docs/research/filament-ui-ux-analysis.md</span><br/>
+                  header note: superseded by ADR-0002,<br/>retained as the evidence that motivated it
+                </div>
+                <div class="rounded deep p-3 text-[11px] font-mono leading-snug text-stone-100">
+                  <span class="font-semibold text-amber-300">scripts/sync_screenshot_inventory.py</span><br/>
+                  name states what it writes
+                </div>
+                <p class="text-[11px] text-slate-600 pt-1 leading-snug">
+                  The analysis is a primary source for <em>why</em> ADR-0002 exists — keep it, but stop letting it read as current guidance. The script is live; only its name lies.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-5 mt-5">
+            <div><div class="mod text-slate-500 mb-1">Problem</div><p class="text-sm">A research module still describes the retired catalog design as current, and a live script is named after a retired artefact it no longer writes.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Solution</div><p class="text-sm">Mark the analysis superseded by ADR-0002 and rename the script to what it produces.</p></div>
+            <div><div class="mod text-slate-500 mb-1">Wins</div>
+              <ul class="text-sm space-y-1 list-disc list-inside marker:text-emerald-600">
+                <li>Interface name matches behaviour</li>
+                <li>Removes a false current answer</li>
+                <li>Preserves ADR-0002's evidence</li>
+                <li>Cheapest candidate here</li>
+              </ul>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500 mt-4"><span class="mod">Deletion test</span> — deleting the analysis loses the evidence ADR-0002 rests on, so it stays; deleting its claim to currency costs nothing. The script's implementation earns its keep, its name does not.</p>
+        </article>
+      </section>
+
+      <!-- ══════════════════════════ ALSO NOTED ══════════════════════════ -->
+      <section>
+        <h2 class="font-serif text-2xl mb-4 border-b border-slate-300 pb-2">Also noted, not promoted</h2>
+        <div class="grid md:grid-cols-2 gap-3 text-sm">
+          <div class="rounded border border-slate-200 bg-white p-3">
+            <div class="font-semibold">Step 5 <em>Validate</em> overlaps Step 6.5</div>
+            <p class="text-slate-600 text-xs mt-1"><span class="font-mono">prepare-commit/SKILL.md:166-182</span> — Step 5 runs checks, then the atomic loop runs them again per concern. Not a pure pass-through: Step 5 uniquely owns check <em>discovery</em>. Reword the ordering rather than collapse the step.</p>
+          </div>
+          <div class="rounded border border-slate-200 bg-white p-3">
+            <div class="font-semibold">Overlapping <span class="font-mono">When</span> / <span class="font-mono">Not when</span> pairs</div>
+            <p class="text-slate-600 text-xs mt-1"><span class="font-mono">form-layout.md:25-29</span> vs <span class="font-mono">form-fields.md:17-21</span>; <span class="font-mono">panel-shell.md:19-25</span> vs <span class="font-mono">:45-49</span>. Real, but narrow — fold into candidate 7 rather than land separately.</p>
+          </div>
+          <div class="rounded border border-slate-200 bg-white p-3">
+            <div class="font-semibold"><span class="font-mono">verify_filament_apis.py</span> preconditions undocumented</div>
+            <p class="text-slate-600 text-xs mt-1">Needs PHP, Composer, network on first run, and a gitignored <span class="font-mono">.filament-fixture/</span>. <span class="font-mono">release-verification.md:19-22</span> mentions none. Fix inline when next touching RELEASE.md.</p>
+          </div>
+          <div class="rounded border border-slate-200 bg-white p-3">
+            <div class="font-semibold"><span class="font-mono">ActionGroup</span> skeleton repeated</div>
+            <p class="text-slate-600 text-xs mt-1"><span class="font-mono">action-feedback.md:40-53</span>, <span class="font-mono">table.md:57-64</span>, <span class="font-mono">table.md:293-299</span>. Duplication is real but a reference composition is meant to be pasteable whole — extracting it would trade locality for depth. Left as a deliberate call.</p>
+          </div>
+          <div class="rounded border border-slate-200 bg-white p-3">
+            <div class="font-semibold">Trigger overlap between the two Filament modules</div>
+            <p class="text-slate-600 text-xs mt-1">Both descriptions match "build a Filament 5 table". ADR-0002 rejected merging on narrow-trigger grounds. Reopening needs activation data, not a reading — measure before proposing.</p>
+          </div>
+          <div class="rounded border border-slate-200 bg-white p-3">
+            <div class="font-semibold">The test module tests internals, not the record shape</div>
+            <p class="text-slate-600 text-xs mt-1"><span class="font-mono">tests/test_laravel_filament_v5_ui_ux.py</span> — 38 green tests over <span class="font-mono">wrap_fragment</span>, linting and schema. The composition record a consuming agent actually reads is covered by <span class="font-mono">validate_compositions.py</span> instead. Acceptable split; worth stating in RELEASE.md.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════ TOP REC ══════════════════════════ -->
+      <section id="top-recommendation">
+        <div class="rounded-xl deep text-stone-100 p-8">
+          <p class="mod text-stone-400 mb-3">Top recommendation</p>
+          <h2 class="font-serif text-4xl tracking-tight">
+            <a href="#c1" class="hover:text-amber-300 transition-colors">1 · Close the table seam leak</a>
+          </h2>
+          <p class="mt-4 text-stone-300 max-w-3xl leading-relaxed">
+            It is the only candidate where a module contradicts itself inside one file — <span class="font-mono text-sm text-amber-300">tables.md:7</span> cedes responsive record layouts to the sibling and <span class="font-mono text-sm text-amber-300">tables.md:58-69</span> supplies them fifty lines later. ADR-0002 moved this seam in today&rsquo;s rewrite; the table surface is where it did not follow. Fixing it is also the cheapest way to learn the general shape, because the same leak repeats on dashboards, panel shell and actions — candidate 3 becomes mechanical once the table is done.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-2 text-xs">
+            <a href="#c2" class="rounded border border-stone-600 px-3 py-1.5 hover:bg-stone-800 transition-colors">then 2 · the “when installed” adapter</a>
+            <a href="#c6" class="rounded border border-stone-600 px-3 py-1.5 hover:bg-stone-800 transition-colors">and 6 · language ladder, before 4 moves it</a>
+          </div>
+        </div>
+      </section>
+
+      <footer class="border-t border-slate-300 pt-6 text-xs text-slate-500">
+        <p>Generated 2026-08-09 · 5 parallel scouts · every count re-verified on this workstation · no files in the repo were modified.</p>
+      </footer>
+    </main>
+  </body>
+</html>

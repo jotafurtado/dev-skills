@@ -1,5 +1,7 @@
 # Análise da skill laravel-filament-5-ui-ux — nota de preparação para spec
 
+> **Nota:** documento superado por [ADR-0002](../adr/0002-reference-compositions-over-evidence-lookup.md). Retido como evidência do momento que motivou aquela decisão; o corpo não é atualizado depois — nomes, caminhos e conclusões refletem o estado do repositório na data abaixo. Para o estado atual, consulte `docs/adr/`.
+
 Data da análise: 3 de agosto de 2026.
 
 Este documento registra a análise de valor e entrega da skill

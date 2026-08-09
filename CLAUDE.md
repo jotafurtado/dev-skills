@@ -4,11 +4,7 @@
 
 ### Issue tracker
 
-Issues and PRDs are tracked in this repository's GitHub Issues. See `docs/agents/issue-tracker.md`.
-
-### Triage labels
-
-Use the five canonical triage labels without aliases. See `docs/agents/triage-labels.md`.
+Issues and specs are tracked as Markdown files under `.scratch/`. See `docs/agents/issue-tracker.md`.
 
 ### Domain docs
 

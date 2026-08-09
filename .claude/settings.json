@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -m unittest *)",
+      "Bash(python3 skills/laravel-filament-v5-ui-ux/scripts/validate_compositions.py *)",
+      "Bash(python3 skills/laravel-filament-v5-ui-ux/scripts/verify_filament_apis.py *)",
+      "Bash(python3 skills/laravel-filament-v5-ui-ux/scripts/sync_visual_catalog.py *)",
+      "Bash(python3 skills/laravel-filament-v5-ui-ux/scripts/release_install_smoke.py *)",
+      "Bash(node skills/laravel-filament-v5-ui-ux/scripts/validate_skill.mjs *)",
+      "Bash(php -l *)",
+      "Bash(php --version)",
+      "Bash(composer show *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git add *)",
+      "Bash(git mv *)",
+      "Bash(git check-ignore *)",
+      "Bash(npx --yes skills *)",
+      "WebFetch(domain:filamentphp.com)",
+      "WebFetch(domain:skills.sh)"
+    ]
+  }
+}

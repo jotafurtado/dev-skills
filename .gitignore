@@ -1,4 +1,6 @@
-.claude/
+# Claude Code: settings.json é política compartilhada; o resto é local
+.claude/*
+!.claude/settings.json
 
 # Local skill install artifacts (npx skills) — machine-specific; never version these
 .agents/

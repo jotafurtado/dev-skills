@@ -8,6 +8,10 @@ This repository publishes reusable agent skills whose behavior is defined by con
 The responsibility of `laravel-filament-v5-ui-ux` to compose Filament 5 surfaces. `laravel-filament-v5` retains authority over version-matched API signatures, security, implementation, and tests.
 _Avoid_: Shared visual authority, generic frontend authority
 
+**API inventory**:
+A `laravel-filament-v5` reference file that states which official Filament 5 components exist for a surface and what their signatures are. It may name a composition decision so the decision is not skipped in silence, but it never resolves one: which option to choose is a reference composition's job.
+_Avoid_: Component guide, recipe, composition, selection guide
+
 **Reference composition**:
 Ready-to-adapt Filament 5 code for a whole surface, anchored to an official visual pattern and carrying its provenance. This is the unit the skill hands to a consuming agent.
 _Avoid_: Snippet, example, template

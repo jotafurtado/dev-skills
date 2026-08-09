@@ -4,7 +4,7 @@ Used inside `public static function table(Table $table): Table`.
 
 Signatures below are focused fragments. Add imports for the shown columns, filters, actions, icons, and `Filament\Tables\Table` in the target class.
 
-For *which* table composition to build — column order, filter choice, grouping, summaries, responsive record layouts — use `laravel-filament-v5-ui-ux`, `references/table.md`. This file is the API inventory.
+This file is an **API inventory**: it states which official table components exist and what their signatures are. It names a composition decision where one exists, so the decision is not skipped in silence, and leaves every one of them — column order, filter choice, grouping, summaries, responsive record layout — to `laravel-filament-v5-ui-ux`, `references/table.md`, which publishes the reference compositions that resolve them.
 
 ## Columns (`Filament\Tables\Columns\*`)
 
@@ -27,7 +27,7 @@ Inline-editable columns do not automatically enforce the model's `update` policy
 | `TrashedFilter` | Soft deletes | `TrashedFilter::make()` | [filters](https://filamentphp.com/docs/5.x/tables/filters/overview.md) |
 | `Filter` | Custom query | `Filter::make('published')->query(fn ($query) => $query->whereNotNull('published_at'))` | [filters](https://filamentphp.com/docs/5.x/tables/filters/overview.md) |
 
-## Empty state — use the table API first
+## Empty state (`Table` API)
 
 The table renders an empty state automatically; customize it on the `Table` object ([doc](https://filamentphp.com/docs/5.x/tables/empty-state.md)):
 
@@ -45,7 +45,7 @@ $table
     ])
 ```
 
-`->emptyState(view('...'))` exists as a full-custom escape hatch — use only when the heading/description/icon/actions API genuinely can't express the design.
+`->emptyState(view('...'))` is a full-custom escape hatch. The mandatory component gate in `SKILL.md` governs when reaching for it is legitimate.
 
 ## Grouping rows
 
@@ -68,14 +68,16 @@ Columns can be composed into layout components ([layout doc](https://filamentphp
 
 Table-level: `->contentGrid(['md' => 2, 'xl' => 3])` renders records as cards; `->stackedOnMobile()` stacks cells on small screens without a layout component.
 
+Which of these a record should use, and at which breakpoint, is a composition decision.
+
 ## Pagination
 
 `->paginated([10, 25, 50, 100, 'all'])`, `->defaultPaginationPageOption(25)`, `->extremePaginationLinks()`, `->paginated(false)` to disable. ([overview doc](https://filamentphp.com/docs/5.x/tables/overview.md))
 
 ## Table-level conventions
 
-- Actions go in `->recordActions([...])`, `->toolbarActions([...])` — the v3 `->actions()` / `->bulkActions()` no longer exist. Bulk actions wrap in `BulkActionGroup::make([...])`. Details in `references/actions.md`.
-- Use `->defaultSort('created_at', direction: 'desc')` when the domain has a meaningful default order; otherwise make the intentionally unordered behavior clear in review.
-- `->searchable()` on key text columns; `->sortable()` where ordering is meaningful.
-- `->toggleable(isToggledHiddenByDefault: true)` hides a column by default while keeping it available.
-- For a reusable domain status, prefer a model-cast enum implementing `HasColor` / `HasLabel` / `HasIcon`, so tables, infolists, and forms share semantics. A documented `->color(fn (string $state) => ...)` callback remains valid for local or non-enum state; avoid duplicating the same mapping across surfaces.
+- Actions go in `->recordActions([...])`, `->toolbarActions([...])`, and `->groupedBulkActions([...])` (see SKILL.md, "Filament v5 invariants"). Bulk actions wrap in `BulkActionGroup::make([...])`. Details in `references/actions.md`.
+- `->defaultSort('created_at', direction: 'desc')` sets the table's default order. Whether the domain has a meaningful default order, and which column carries it, is a composition decision.
+- `->searchable()` and `->sortable()` opt a column into search and ordering. Which columns receive them is a composition decision.
+- `->toggleable(isToggledHiddenByDefault: true)` hides a column by default while keeping it reachable from the column toggle.
+- For a reusable domain status shared across surfaces, see SKILL.md's enum invariant and `references/enums.md`. A documented `->color(fn (string $state) => ...)` callback remains valid for local or non-enum state; avoid duplicating the same mapping across surfaces.

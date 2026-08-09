@@ -37,7 +37,7 @@ Compositions work offline after installation — provenance travels inside each 
 | Panel shell — top navigation, grouped sidebar, branding, user menu, authentication surfaces | `references/panel-shell.md` |
 | Actions and feedback, cross-surface — confirmations, modal forms, slide-overs, notifications, callouts, empty states | `references/action-feedback.md` |
 
-An official pattern listed in `references/screenshot-inventory.json` without a composition is tracked as expansion work, not a defect.
+An official pattern listed in `maintenance/filament-ui-ux/screenshot-inventory.json` without a composition is tracked as expansion work, not a defect.
 
 The skill supports Filament 5.x only. It does not replace the project's established theme.
 
@@ -51,7 +51,7 @@ laravel-filament-v5-ui-ux/
 ├── agents/openai.yaml
 ├── scripts/validate_compositions.py
 ├── scripts/verify_filament_apis.py
-├── scripts/sync_visual_catalog.py
+├── scripts/sync_screenshot_inventory.py
 ├── scripts/release_install_smoke.py
 ├── scripts/validate_skill.mjs
 ├── references/table.md
@@ -62,10 +62,11 @@ laravel-filament-v5-ui-ux/
 ├── references/dashboard.md
 ├── references/panel-shell.md
 ├── references/action-feedback.md
-├── references/screenshot-inventory.json
 ├── references/release-verification.md
 └── evals/eval_queries.json
 ```
+
+The maintainer screenshot inventory lives outside the skill install payload at `maintenance/filament-ui-ux/screenshot-inventory.json`.
 
 ## Verification
 
@@ -85,7 +86,7 @@ The library stores source URLs and original analysis, not official screenshot bi
 Synchronize official evidence, review new or changed records, then convert any newly covered pattern into a reference composition and validate:
 
 ```bash
-python3 skills/laravel-filament-v5-ui-ux/scripts/sync_visual_catalog.py
+python3 skills/laravel-filament-v5-ui-ux/scripts/sync_screenshot_inventory.py
 python3 skills/laravel-filament-v5-ui-ux/scripts/validate_compositions.py
 ```
 

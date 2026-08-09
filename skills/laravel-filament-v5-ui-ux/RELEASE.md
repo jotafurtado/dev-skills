@@ -10,7 +10,7 @@ This is a breaking change to what the skill delivers. Previous versions returned
 - **No required workflow.** The mandatory decision flow, the runtime screenshot inspection, and the visual decision trace are removed. The skill presents the compositions that fit and helps choose.
 - **Authority boundary moved.** From "selection versus implementation" to surface composition versus field API, security, and tests. Where both skills describe a component, `laravel-filament-v5` states that it exists and what its signature is; this skill states how it is arranged.
 - **Removed:** the catalog query engine, the controlled vocabulary, the derived compact index, `visual-catalog.json`, and the narrative forward evaluations. Passing them measured dialect fluency, not correctness.
-- **Retained:** `references/screenshot-inventory.json` as the discovery asset that identifies official patterns without a reference composition yet.
+- **Retained:** `maintenance/filament-ui-ux/screenshot-inventory.json` as the discovery asset that identifies official patterns without a reference composition yet. It lives outside the skill directory so the installer does not ship it; see [`docs/adr/0003-maintainer-assets-outside-install-payload.md`](../../docs/adr/0003-maintainer-assets-outside-install-payload.md).
 
 ## Coverage
 

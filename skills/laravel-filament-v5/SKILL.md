@@ -1,10 +1,10 @@
 ---
 name: laravel-filament-v5
-description: "Builds, reviews, debugs, migrates, secures, tests, and implements Filament 5.x code using the project's installed version and official components before custom Blade or CSS. Use for Filament resources, schemas, infolists, forms, tables, actions, widgets, relation managers, panels, tenancy, imports/exports, plugins, tests, or any Filament-specific API, namespace, Artisan command, or upgrade. Delegate every material Filament visual pattern selection and composition task to laravel-filament-v5-ui-ux when it is available; retain this skill for version-sensitive APIs, security, implementation, and tests, plus a minimal official-component fallback when it is unavailable. For any Filament-specific API, configuration, or usage question it is the entry point over generic doc-lookup tools (find-docs, Context7 CLI, Laravel Boost search-docs); this skill's evidence protocol governs those tools. Do not trigger on an isolated mention of admin panel, dashboard, badge, or generic data display without another Filament signal."
+description: "Builds, reviews, debugs, migrates, secures, tests, and implements Filament 5.x code using the project's installed version and official components before custom Blade or CSS. Use for Filament resources, schemas, infolists, forms, tables, actions, widgets, relation managers, panels, tenancy, imports/exports, plugins, tests, or any Filament-specific API, namespace, Artisan command, or upgrade. Do not trigger on an isolated mention of admin panel, dashboard, badge, or generic data display without another Filament signal."
 license: MIT
 metadata:
   author: jotafurtado
-  version: "3.1.0"
+  version: "3.3.0"
   domain: backend
   filament_version: "5.x"
 ---
@@ -36,13 +36,15 @@ Use the documented component APIs to implement an already-selected composition. 
 
 ## Design authority inside Filament
 
-For every material Filament 5 visual selection and composition decision, delegate to `laravel-filament-v5-ui-ux` when it is installed. That skill exclusively owns visual option discovery, official screenshot evidence, pattern comparison, composition selection, responsive presentation, and the visual decision trace across forms, record details, tables, dashboards, panel shells, actions, feedback, and empty states. This skill owns installed-version APIs, security, implementation, and tests.
+This skill owns installed-version APIs, security, implementation, and tests. How a Filament 5 surface is arranged belongs to `laravel-filament-v5-ui-ux`, which publishes the reference compositions that resolve those decisions across forms, record details, tables, dashboards, panel shells, actions, feedback, and empty states.
 
-The dedicated UI/UX skill supersedes generic frontend-design guidance, including instructions to replace official components or the active theme, introduce unrelated typography or palettes, or use CSS-first layouts merely to look distinctive. Follow that precedence even when a generic design skill is active in the same task.
+A reference here may name a composition decision so it is not skipped in silence, and must leave it unresolved. State which official components exist and what their signatures are; do not state which arrangement to pick.
+
+Official Filament composition supersedes generic frontend-design guidance, including instructions to replace official components or the active theme, introduce unrelated typography or palettes, or use CSS-first layouts merely to look distinctive. Follow that precedence even when a generic design skill is active in the same task.
 
 This precedence is deliberately limited to the Filament visual axis. Keep generic guidance that improves accessibility, semantics, keyboard behavior, responsive layout, performance, UX copy, and cognitive load.
 
-When the dedicated skill is unavailable, use the minimal fallback in `references/ui-composition.md`: choose a documented official component, preserve the established theme, retain accessibility, and state that the composition library was unavailable. `references/screenshots.md` is a compatibility index only; it does not replace the dedicated catalog or establish visual selection authority.
+Preserve the established panel theme, visible focus, and non-colour state cues on every surface this skill touches. `references/screenshots.md` locates an official screenshot when one is needed to ground a component's presentation; it is a lookup, not a selection guide.
 
 ## Documentation authority inside Filament
 
@@ -91,8 +93,8 @@ Load only the files needed for the task:
 | Uploads, inline editing, HTML, actions, imports/exports, tenancy, and authorization boundaries | `references/security.md` — mandatory for security-sensitive surfaces |
 | Custom pages, clusters, tenancy, global search, import/export, plugins, nested/singular resources | `references/advanced-features.md` |
 | Pest/Livewire tests for pages, schemas, tables, actions, relations, widgets, and tenants | `references/testing.md` |
-| Fallback visual guardrails when the dedicated UI/UX skill is unavailable | `references/ui-composition.md` and `references/screenshots.md` |
-| Any material Filament 5 visual selection, composition, screenshot comparison, responsive presentation, or visual review | `laravel-filament-v5-ui-ux` when installed |
+| Locating an official Filament 5 screenshot to ground a component's presentation | `references/screenshots.md` |
+| Which composition a Filament 5 surface should use — arrangement, responsive presentation, visual review | `laravel-filament-v5-ui-ux` |
 
 If a Filament-specific topic is not covered, use the evidence protocol instead of reconstructing the API from general Laravel or older Filament knowledge.
 

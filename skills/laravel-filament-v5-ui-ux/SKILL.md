@@ -4,7 +4,7 @@ description: "Provides ready-to-adapt Filament 5.x compositions for record table
 license: MIT
 metadata:
   author: jotafurtado
-  version: "2.0.0"
+  version: "2.1.0"
   domain: frontend
   filament_version: "5.x"
 ---
@@ -26,9 +26,9 @@ If more than one composition fits, prefer the one whose `Not when` does not desc
 | Building or restructuring | Read |
 |---|---|
 | A record table | `references/table.md` |
-| Page structure of a form or schema — grouping, columns, sections, tabs, wizards, density | `references/form-layout.md` |
-| An everyday form field — geometry, labels, guidance, states | `references/form-fields.md` |
-| A collection, upload, relationship, or rich-content control | `references/form-inputs.md` |
+| Page structure of a form or schema — entry point; grouping, columns, sections, tabs, wizards, density | `references/form-layout.md` |
+| An everyday form field composed inside that structure — geometry, labels, guidance, states | `references/form-fields.md` |
+| A collection, upload, relationship, or rich-content control composed inside that structure | `references/form-inputs.md` |
 | Record details and infolists | `references/record-detail.md` |
 | Operational dashboards and widgets | `references/dashboard.md` |
 | Panel shell, navigation, branding, authentication surfaces | `references/panel-shell.md` |

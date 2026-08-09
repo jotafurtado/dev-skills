@@ -262,7 +262,7 @@ TextInput::make('password')->password()->required()->hiddenOn(Operation::Edit);
 TextInput::make('password')->password()->required()->visibleOn(Operation::Create);
 ```
 
-Prefer `hiddenOn()` / `visibleOn()` over a custom callback when those methods express the condition. The full operation hierarchy (dedicated methods → `Operation` enum → `string $operation` values) is defined in SKILL.md, "v5 API breaking changes".
+See SKILL.md, "Filament v5 invariants", for when to prefer `hiddenOn()` / `visibleOn()` / `disabledOn()` over a custom callback and for the operation hierarchy (dedicated methods → `Operation` enum → `string $operation` values).
 
 ## Authorization
 

@@ -16,8 +16,9 @@ from urllib.request import Request, urlopen
 
 
 SKILL_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = SKILL_ROOT.parents[1]
 DEFAULT_INDEX_URL = "https://filamentphp.com/docs/5.x"
-DEFAULT_OUTPUT = SKILL_ROOT / "references" / "screenshot-inventory.json"
+DEFAULT_OUTPUT = REPO_ROOT / "maintenance" / "filament-ui-ux" / "screenshot-inventory.json"
 SCREENSHOT_PATTERN = re.compile(
     r"<AutoScreenshot\b(?P<attributes>[^>]*)/?>", re.IGNORECASE | re.DOTALL
 )

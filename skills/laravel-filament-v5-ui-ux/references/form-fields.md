@@ -4,7 +4,7 @@ Ready-to-adapt presentation for everyday Filament 5 form fields. Reach for this 
 
 Examples use a `Customer` / `Order` domain consistently across this library.
 
-`laravel-filament-v5` owns field API signatures, validation rules, authorization, and tests. This file owns how the components are arranged.
+`laravel-filament-v5` owns field API signatures, validation rules, authorization, and tests. Page structure is owned by `form-layout.md`.
 
 | Pattern | Use it for |
 |---|---|
@@ -18,7 +18,7 @@ Examples use a `Customer` / `Order` domain consistently across this library.
 
 **Not when**: the problem is primarily page-level grouping, sequencing, or navigation.
 
-**Alternatives**: responsive-columns, fieldsets, sections, aside-sections.
+**Alternatives**: responsive-columns (`form-layout.md`), fieldsets (`form-layout.md`), sections (`form-layout.md`), aside-sections (`form-layout.md`).
 
 **Source**: [forms/overview](https://filamentphp.com/docs/5.x/forms/overview.md) · [forms/fields/simple](https://filamentphp.com/docs/images/5.x/light/forms/fields/simple.jpg)
 

@@ -4,7 +4,7 @@ Ready-to-adapt compositions for collection-oriented and content-heavy Filament 5
 
 Examples use a `Customer` / `Order` domain consistently across this library.
 
-`laravel-filament-v5` owns field API signatures, validation rules, authorization, and tests. This file owns how the components are arranged.
+`laravel-filament-v5` owns field API signatures, validation rules, authorization, and tests. Page structure is owned by `form-layout.md`.
 
 | Pattern | Use it for |
 |---|---|
@@ -21,7 +21,7 @@ Examples use a `Customer` / `Order` domain consistently across this library.
 
 **Not when**: the user is entering one scalar value, a table would hide essential help or per-item errors, or custom cards are proposed only to simulate native repeater or builder hierarchy.
 
-**Alternatives**: responsive-columns, sections, rich-content-editor.
+**Alternatives**: responsive-columns (`form-layout.md`), sections (`form-layout.md`), rich-content-editor.
 
 **Source**: [forms/repeater](https://filamentphp.com/docs/5.x/forms/repeater.md) · [forms/fields/repeater/simple](https://filamentphp.com/docs/images/5.x/light/forms/fields/repeater/simple.jpg)
 
@@ -313,7 +313,7 @@ FileUpload::make('image')
 
 **Not when**: a relation needs rich per-item fields that belong in a repeater or relation workflow, or a custom card is used where native select or relationship controls represent the task.
 
-**Alternatives**: collection-items, sections.
+**Alternatives**: collection-items, sections (`form-layout.md`).
 
 **Source**: [forms/select](https://filamentphp.com/docs/5.x/forms/select.md) · [forms/fields/select/searchable](https://filamentphp.com/docs/images/5.x/light/forms/fields/select/searchable.jpg)
 
@@ -401,7 +401,7 @@ Select::make('customer_id')
 
 **Not when**: the task needs only a short plain-text value, a narrow column would compress the writing area or toolbar, or custom markup is proposed to recreate an official editor.
 
-**Alternatives**: responsive-columns, collection-items, sections.
+**Alternatives**: responsive-columns (`form-layout.md`), collection-items, sections (`form-layout.md`).
 
 **Source**: [forms/rich-editor](https://filamentphp.com/docs/5.x/forms/rich-editor.md) · [forms/fields/rich-editor/simple](https://filamentphp.com/docs/images/5.x/light/forms/fields/rich-editor/simple.jpg)
 

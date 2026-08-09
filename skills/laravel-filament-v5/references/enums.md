@@ -1,6 +1,6 @@
 # Shared domain enums in Filament 5
 
-Use a backed enum when the same finite state or option set appears across forms, tables, infolists, filters, actions, or navigation. Keep a local closure for truly one-off presentation; do not duplicate a shared label/color/icon mapping across surfaces.
+When SKILL.md's enum invariant applies, implement the contracts and reuse pattern below. Keep a local closure for truly one-off presentation; do not duplicate a shared label/color/icon mapping across surfaces.
 
 Resolve the installed Filament version first. The contracts below match Filament 5.1.1 and should be checked against installed source when a later patch changes them.
 

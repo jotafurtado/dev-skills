@@ -8,11 +8,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 UI_UX_ROOT = ROOT / "skills" / "laravel-filament-v5-ui-ux"
-SYNC_SCRIPT = UI_UX_ROOT / "scripts" / "sync_visual_catalog.py"
+SYNC_SCRIPT = UI_UX_ROOT / "scripts" / "sync_screenshot_inventory.py"
 VALIDATE_SCRIPT = UI_UX_ROOT / "scripts" / "validate_compositions.py"
 VERIFY_APIS_SCRIPT = UI_UX_ROOT / "scripts" / "verify_filament_apis.py"
 REFERENCES = UI_UX_ROOT / "references"
-INVENTORY_PATH = REFERENCES / "screenshot-inventory.json"
+INVENTORY_PATH = ROOT / "maintenance" / "filament-ui-ux" / "screenshot-inventory.json"
 MAIN_FILAMENT_SKILL_PATH = ROOT / "skills" / "laravel-filament-v5" / "SKILL.md"
 MAIN_FILAMENT_QUERY_EVALS_PATH = ROOT / "skills" / "laravel-filament-v5" / "evals" / "eval_queries.json"
 UI_UX_QUERY_EVALS_PATH = UI_UX_ROOT / "evals" / "eval_queries.json"
@@ -33,7 +33,7 @@ def _load(name: str, path: Path):
 
 
 def load_sync_module():
-    return _load("sync_visual_catalog", SYNC_SCRIPT)
+    return _load("sync_screenshot_inventory", SYNC_SCRIPT)
 
 
 def load_validate_module():
@@ -462,7 +462,7 @@ class CrossSkillContractTests(unittest.TestCase):
         verification = UI_UX_RELEASE_VERIFICATION_PATH.read_text()
         smoke_script = UI_UX_INSTALL_SMOKE_SCRIPT.read_text()
 
-        self.assertIn('version: "2.0.0"', skill)
+        self.assertIn('version: "2.1.0"', skill)
         self.assertIn('filament_version: "5.x"', skill)
         self.assertIn("Filament 5.x only", release)
         self.assertIn("laravel-filament-v5", release)
@@ -532,13 +532,35 @@ class CrossSkillContractTests(unittest.TestCase):
         ui_ux_skill = UI_UX_SKILL_PATH.read_text()
 
         self.assertIn(
-            "For every material Filament 5 visual selection and composition decision, delegate to `laravel-filament-v5-ui-ux` when it is installed.",
+            "How a Filament 5 surface is arranged belongs to `laravel-filament-v5-ui-ux`",
             main_skill,
         )
         self.assertIn(
             "Let `laravel-filament-v5` own installed-version APIs, security, implementation, and tests.",
             ui_ux_skill,
         )
+
+    def test_main_skill_names_composition_decisions_without_resolving_them(self):
+        main_skill = MAIN_FILAMENT_SKILL_PATH.read_text()
+
+        self.assertIn("may name a composition decision", main_skill)
+        self.assertIn("must leave it unresolved", main_skill)
+
+    def test_main_skill_does_not_branch_on_sibling_installation(self):
+        """The skill format has no dependency or runtime-detection mechanism, so a
+        branch on whether the sibling is installed cannot be evaluated. The seam is
+        stated unconditionally instead."""
+        main_skill = MAIN_FILAMENT_SKILL_PATH.read_text()
+        screenshots = (
+            ROOT / "skills" / "laravel-filament-v5" / "references" / "screenshots.md"
+        ).read_text()
+
+        for source, label in (
+            (main_skill, "SKILL.md"),
+            (screenshots, "references/screenshots.md"),
+        ):
+            for branch in ("when it is installed", "when installed", "is unavailable", "were unavailable", "was unavailable"):
+                self.assertNotIn(branch, source, f"{label} branches on sibling availability: {branch!r}")
 
     def test_sibling_skill_defers_arrangement_to_the_composition_library(self):
         tables = (ROOT / "skills" / "laravel-filament-v5" / "references" / "tables.md").read_text()

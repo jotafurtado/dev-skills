@@ -24,10 +24,9 @@ php artisan boost:add-skill jotafurtado/dev-skills --skill laravel-filament-v5
 - v5 API breaking changes vs v3/v4 (`Schema`, namespaces, `recordActions()`, `Filament\Actions\*`, etc.)
 - On-demand reference library for resources, infolists, forms, tables, layouts, actions, widgets, relation managers, panels, notifications, enums, advanced features, security, and testing
 - Security guardrails for custom actions, inline editing, relationship selection, uploads, HTML/URLs, imports/exports, sensitive Livewire state, tenancy, and cross-tenant tests
-- Minimal visual fallback for installations without the dedicated UI/UX skill: official-component choice, established-theme preservation, and accessibility guardrails
-- Compatibility screenshot index for that fallback; it does not replace the dedicated visual catalog
-- Filament-specific visual authority that supersedes generic CSS-first guidance while retaining accessibility, responsive, performance, and UX requirements
-- Delegation to `laravel-filament-v5-ui-ux` for every material Filament visual selection and composition decision when that dedicated skill is installed
+- Official screenshot lookup to ground a component's presentation; it does not decide composition
+- Filament-specific visual authority that supersedes generic CSS-first guidance while retaining accessibility, responsive, performance, and UX requirements; preserves the established panel theme, visible focus, and non-colour state cues
+- Surface arrangement delegated to `laravel-filament-v5-ui-ux`, which publishes the reference compositions; this skill owns version-matched APIs, security, implementation, and tests
 - Evidence protocol: installed lock/vendor source first, official versioned docs second, exact upstream tags third, and aggregators only as source-checked discovery aids
 - Documentation routing authority: for Filament-specific questions, this skill is the entry point ahead of generic doc-lookup tools (find-docs, Context7, Laravel Boost's `search-docs`), which stay subordinate to its evidence protocol
 - Behavioral output evals plus trigger/non-trigger queries for regression testing
@@ -57,7 +56,6 @@ laravel-filament-v5/
     ├── security.md                 # Authorization, tenancy, uploads, HTML, import/export, sensitive state
     ├── advanced-features.md        # Pages, clusters, search, tenancy, import/export, nesting, plugins
     ├── testing.md                  # Pest + Livewire behavior, authorization, and tenant testing
-    ├── ui-composition.md           # Minimal visual fallback when laravel-filament-v5-ui-ux is unavailable
     └── screenshots.md              # Index of official docs screenshots for on-demand visual reference
 ```
 

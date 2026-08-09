@@ -24,8 +24,9 @@ from typing import Any
 
 
 SKILL_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = SKILL_ROOT.parents[1]
 REFERENCES = SKILL_ROOT / "references"
-INVENTORY_PATH = REFERENCES / "screenshot-inventory.json"
+INVENTORY_PATH = REPO_ROOT / "maintenance" / "filament-ui-ux" / "screenshot-inventory.json"
 DOC_PREFIX = "https://filamentphp.com/docs/5.x/"
 IMAGE_PREFIX = "https://filamentphp.com/docs/images/5.x/"
 

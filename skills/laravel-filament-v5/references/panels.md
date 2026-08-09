@@ -1,6 +1,6 @@
 # Panels — provider & panel-level configuration (`Filament\Panel`)
 
-The panel provider is a Laravel service provider at `app/Providers/Filament/AdminPanelProvider.php`, extending `Filament\PanelProvider`. Its `panel(Panel $panel): Panel` method chains configuration on `Filament\Panel` — this is the "configuration" the 5.x docs refer to. Start visual identity here with colors, logo, and font. Use a documented custom theme or CSS hook when the provider cannot express the requirement or the project already has an established theme (see `references/ui-composition.md`). ([panel configuration](https://filamentphp.com/docs/5.x/panel-configuration.md))
+The panel provider is a Laravel service provider at `app/Providers/Filament/AdminPanelProvider.php`, extending `Filament\PanelProvider`. Its `panel(Panel $panel): Panel` method chains configuration on `Filament\Panel` — this is the "configuration" the 5.x docs refer to. Start visual identity here with colors, logo, and font. Use a documented custom theme or CSS hook when the provider cannot express the requirement or the project already has an established theme. ([panel configuration](https://filamentphp.com/docs/5.x/panel-configuration.md))
 
 Snippets are focused fragments; retain the generated provider class and add the displayed imports.
 

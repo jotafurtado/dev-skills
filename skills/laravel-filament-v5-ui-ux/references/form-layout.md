@@ -4,7 +4,7 @@ Ready-to-adapt page structure for Filament 5 forms and schemas. Reach for this w
 
 Examples use a `Customer` / `Order` domain consistently across this library.
 
-`laravel-filament-v5` owns field API signatures, validation rules, authorization, and tests. This file owns how the components are arranged.
+`laravel-filament-v5` owns field API signatures, validation rules, authorization, and tests. This file owns page structure for the form surface. Field treatment — geometry, labels, guidance, states — comes from `form-fields.md`. Collection, upload, relationship, and rich-content controls come from `form-inputs.md`; compose them inside the page structure chosen here.
 
 | Pattern | Use it for |
 |---|---|

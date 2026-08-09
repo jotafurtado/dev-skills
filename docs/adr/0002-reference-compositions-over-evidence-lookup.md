@@ -1,6 +1,6 @@
 # Reference compositions over evidence lookup
 
-Status: Accepted, supersedes ADR-0001
+Status: Accepted, supersedes ADR-0001, amended by ADR-0003
 
 ## Context
 

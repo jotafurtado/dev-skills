@@ -10,7 +10,10 @@ QUERY_SCRIPT = ROOT / "skills" / "laravel-filament-5-ui-ux" / "scripts" / "query
 SYNC_SCRIPT = ROOT / "skills" / "laravel-filament-5-ui-ux" / "scripts" / "sync_visual_catalog.py"
 VALIDATE_SCRIPT = ROOT / "skills" / "laravel-filament-5-ui-ux" / "scripts" / "validate_visual_catalog.py"
 REVIEW_SCRIPT = ROOT / "skills" / "laravel-filament-5-ui-ux" / "scripts" / "build_review_sheets.py"
+BUILD_INDEX_SCRIPT = ROOT / "skills" / "laravel-filament-5-ui-ux" / "scripts" / "build_catalog_index.py"
 INVENTORY_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "references" / "screenshot-inventory.json"
+CATALOG_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "references" / "visual-catalog.json"
+INDEX_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "references" / "visual-catalog-index.md"
 MAIN_FILAMENT_SKILL_PATH = ROOT / "skills" / "laravel-filament-v5" / "SKILL.md"
 MAIN_FILAMENT_QUERY_EVALS_PATH = ROOT / "skills" / "laravel-filament-v5" / "evals" / "eval_queries.json"
 UI_UX_QUERY_EVALS_PATH = ROOT / "skills" / "laravel-filament-5-ui-ux" / "evals" / "eval_queries.json"
@@ -53,6 +56,14 @@ def load_review_module():
     return module
 
 
+def load_build_index_module():
+    spec = importlib.util.spec_from_file_location("build_catalog_index", BUILD_INDEX_SCRIPT)
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
 class VisualCatalogQueryTests(unittest.TestCase):
     def test_wide_parallel_settings_groups_prioritize_vertical_tabs(self):
         query = load_query_module()
@@ -61,7 +72,6 @@ class VisualCatalogQueryTests(unittest.TestCase):
             surface="form",
             goal="organize-stable-groups",
             workflow="parallel",
-            available_width="wide",
         )
 
         self.assertEqual("vertical-tabs", result["selected_pattern"]["id"])
@@ -85,7 +95,6 @@ class VisualCatalogQueryTests(unittest.TestCase):
             surface="form",
             goal="organize-stable-groups",
             workflow="parallel",
-            available_width="wide",
             information_shape="several-stable-groups",
             relationship="peer-groups",
             responsive_context="desktop-with-mobile-fallback",
@@ -101,7 +110,6 @@ class VisualCatalogQueryTests(unittest.TestCase):
             surface="form",
             goal="complete-required-sequence",
             workflow="sequential",
-            available_width="standard",
             information_shape="dependent-steps",
             relationship="ordered-steps",
             responsive_context="mobile-first",
@@ -117,7 +125,6 @@ class VisualCatalogQueryTests(unittest.TestCase):
             surface="form",
             goal="increase-information-density",
             workflow="parallel",
-            available_width="wide",
             information_shape="repetitive-low-risk-fields",
             relationship="closely-related-fields",
             responsive_context="desktop-with-mobile-fallback",
@@ -135,13 +142,18 @@ class VisualCatalogQueryTests(unittest.TestCase):
             surface="form",
             goal="organize-stable-groups",
             workflow="sequential",
-            available_width="standard",
             information_shape="dependent-steps",
             relationship="ordered-steps",
             responsive_context="mobile-first",
         )
 
-        self.assertEqual("wizard", result["selected_pattern"]["id"])
+        # Soft weights keep goal-matching candidates; sequential alone does not
+        # eliminate them or force the wizard when the goal does not match.
+        self.assertEqual("horizontal-tabs", result["selected_pattern"]["id"])
+        self.assertEqual(
+            ["horizontal-tabs", "sections", "vertical-tabs"],
+            [candidate["id"] for candidate in result["candidates"]],
+        )
 
     def test_ordinary_field_composition_query_selects_field_geometry_and_guidance(self):
         query = load_query_module()
@@ -150,7 +162,6 @@ class VisualCatalogQueryTests(unittest.TestCase):
             surface="form",
             goal="compose-ordinary-fields",
             workflow="parallel",
-            available_width="wide",
             information_shape="mixed-field-lengths",
             relationship="field-and-context",
             responsive_context="desktop-with-mobile-fallback",
@@ -176,7 +187,6 @@ class VisualCatalogQueryTests(unittest.TestCase):
             surface="form",
             goal="compose-repeatable-items",
             workflow="parallel",
-            available_width="wide",
             information_shape="repeatable-structured-items",
             relationship="collection-of-structured-items",
             responsive_context="desktop-with-mobile-fallback",
@@ -199,7 +209,6 @@ class VisualCatalogQueryTests(unittest.TestCase):
             surface="form",
             goal="edit-long-form-content",
             workflow="linear",
-            available_width="wide",
             information_shape="long-form-content",
             relationship="single-high-density-control",
             responsive_context="desktop-with-mobile-fallback",
@@ -215,7 +224,6 @@ class VisualCatalogQueryTests(unittest.TestCase):
             surface="table",
             goal="compare-and-scan-records",
             workflow="parallel",
-            available_width="wide",
             information_shape="repeated-records-with-comparable-facts",
             relationship="peer-records",
             responsive_context="desktop-with-mobile-fallback",
@@ -237,7 +245,6 @@ class VisualCatalogQueryTests(unittest.TestCase):
             surface="table",
             goal="present-identity-centred-records",
             workflow="parallel",
-            available_width="standard",
             information_shape="identity-with-grouped-details",
             relationship="record-with-supporting-details",
             responsive_context="desktop-with-mobile-fallback",
@@ -256,7 +263,6 @@ class VisualCatalogQueryTests(unittest.TestCase):
             surface="dashboard",
             goal="support-operational-decisions",
             workflow="monitoring",
-            available_width="wide",
             information_shape="operational-metrics-with-trends-and-activity",
             relationship="summary-to-detail",
             responsive_context="desktop-with-mobile-fallback",
@@ -282,7 +288,6 @@ class VisualCatalogQueryTests(unittest.TestCase):
             surface="record-detail",
             goal="present-scannable-record-details",
             workflow="parallel",
-            available_width="wide",
             information_shape="identity-status-primary-facts-with-secondary-metadata",
             relationship="identity-to-facts-and-secondary-history",
             responsive_context="desktop-with-mobile-fallback",
@@ -316,7 +321,6 @@ class VisualCatalogQueryTests(unittest.TestCase):
             surface="panel-shell",
             goal="navigate-a-small-panel",
             workflow="parallel",
-            available_width="wide",
             information_shape="few-peer-destinations",
             relationship="peer-destinations",
             responsive_context="desktop-with-mobile-fallback",
@@ -325,7 +329,6 @@ class VisualCatalogQueryTests(unittest.TestCase):
             surface="panel-shell",
             goal="navigate-a-substantial-back-office",
             workflow="parallel",
-            available_width="wide",
             information_shape="many-domain-destinations-with-actionable-queues",
             relationship="domain-groups-within-one-audience",
             responsive_context="desktop-with-mobile-fallback",
@@ -348,7 +351,6 @@ class VisualCatalogQueryTests(unittest.TestCase):
             surface="action-feedback",
             goal="complete-contextual-action-safely",
             workflow="contextual",
-            available_width="standard",
             information_shape="risk-confirmation-or-short-form-with-feedback",
             relationship="action-to-affected-record-and-result",
             responsive_context="desktop-with-mobile-fallback",
@@ -521,6 +523,8 @@ class VisualCatalogValidationTests(unittest.TestCase):
         self.assertIn("TimeoutExpired", runner)
         self.assertIn("workspace_snapshot", runner)
         self.assertIn("workspace_changed", runner)
+        self.assertIn('"verdict": "unscored"', runner)
+        self.assertIn("review_required", runner)
 
     def test_release_metadata_and_notes_state_scope_authority_and_fallbacks(self):
         skill = UI_UX_SKILL_PATH.read_text()
@@ -528,38 +532,24 @@ class VisualCatalogValidationTests(unittest.TestCase):
         verification = UI_UX_RELEASE_VERIFICATION_PATH.read_text()
         smoke_script = UI_UX_INSTALL_SMOKE_SCRIPT.read_text()
 
-        self.assertIn('version: "1.0.0"', skill)
+        self.assertIn('version: "1.1.0"', skill)
         self.assertIn("filament_version: \"5.x\"", skill)
         self.assertIn("Filament 5.x only", release)
         self.assertIn("laravel-filament-v5", release)
         self.assertIn("offline", release.lower())
         self.assertIn("image inspection", release.lower())
         self.assertIn("release_install_smoke.py", release)
+        self.assertIn("visual-catalog-index.md", release)
+        self.assertIn("verdict", release.lower())
         self.assertIn("candidate", verification.lower())
         self.assertIn("baseline", verification.lower())
-        self.assertIn("Codex", verification)
         self.assertIn("Claude Code", verification)
-        self.assertIn("2026-07-28", verification)
-        self.assertIn("2026-08-03", verification)
+        self.assertIn("claude-code.json", verification)
+        self.assertNotIn("codex.json", verification)
+        self.assertNotIn("cursor.json", verification)
         self.assertIn("record-detail-infolist", verification)
-        self.assertIn("Full clean Codex behavioral matrix", verification)
-        self.assertIn("Cursor CLI 3.14.7", verification)
-        for coverage_area in (
-            "Forms and schema layouts",
-            "Tables",
-            "Responsive records",
-            "Record details",
-            "Dashboards",
-            "Navigation and authentication",
-            "Actions and feedback",
-            "Offline and no-vision fallback",
-            "Justified custom UI",
-        ):
-            self.assertIn(f"| {coverage_area} | PASS |", verification)
         self.assertIn("Evidence: local reviewed catalog", verification)
         self.assertIn("Authority: `laravel-filament-v5`", verification)
-        self.assertIn("Baseline-only contrast", verification)
-        self.assertIn("improved official-pattern discovery", verification)
         self.assertIn("cursor", smoke_script)
         self.assertIn("--copy", smoke_script)
         self.assertIn("Jota Furtado Dev Skills", smoke_script)
@@ -760,6 +750,114 @@ class VisualCatalogReviewSheetTests(unittest.TestCase):
             self.assertEqual(output / "index.html", sheet)
             self.assertIn("vertical-tabs", sheet.read_text())
             self.assertEqual(b"image-bytes", (output / "images" / "schemas-layout-tabs-vertical.jpg").read_bytes())
+
+
+class CatalogIndexDriftTests(unittest.TestCase):
+    def test_versioned_index_matches_regeneration_byte_for_byte(self):
+        build_index = load_build_index_module()
+        catalog = json.loads(CATALOG_PATH.read_text())
+
+        self.assertEqual(INDEX_PATH.read_text(), build_index.render_index(catalog))
+        self.assertNotIn("available_width", INDEX_PATH.read_text())
+        self.assertLess(INDEX_PATH.stat().st_size, 7805)
+
+    def test_validation_detects_deliberate_index_drift(self):
+        validate = load_validate_module()
+        catalog = json.loads(CATALOG_PATH.read_text())
+        original = INDEX_PATH.read_text()
+
+        try:
+            INDEX_PATH.write_text(original.replace("| 8 |", "| 99 |", 1))
+            errors = validate.validate_index(catalog, index_path=INDEX_PATH)
+            self.assertTrue(any("drifts from the catalog" in error for error in errors))
+            self.assertTrue(any("regenerate" in error for error in errors))
+        finally:
+            INDEX_PATH.write_text(original)
+
+
+class VocabularyRejectionTests(unittest.TestCase):
+    def test_invalid_term_in_each_dimension_raises_with_suggestion(self):
+        query = load_query_module()
+        cases = [
+            ("surface", {"surface": "fromm", "goal": "organize-stable-groups"}),
+            ("goal", {"surface": "form", "goal": "organise-stable-groups"}),
+            ("workflow", {"surface": "form", "goal": "organize-stable-groups", "workflow": "paralel"}),
+            (
+                "responsive_context",
+                {
+                    "surface": "form",
+                    "goal": "organize-stable-groups",
+                    "responsive_context": "mobilee-first",
+                },
+            ),
+            (
+                "information_shape",
+                {
+                    "surface": "form",
+                    "goal": "organize-stable-groups",
+                    "information_shape": "several-stable-group",
+                },
+            ),
+            (
+                "relationship",
+                {
+                    "surface": "form",
+                    "goal": "organize-stable-groups",
+                    "relationship": "peer-group",
+                },
+            ),
+        ]
+        for dimension, kwargs in cases:
+            with self.subTest(dimension=dimension):
+                with self.assertRaises(ValueError) as raised:
+                    query.query_catalog(**kwargs)
+                message = str(raised.exception)
+                self.assertIn(f"Invalid {dimension}", message)
+                self.assertNotIn("selected_pattern", message)
+
+    def test_list_vocabulary_matches_catalog(self):
+        query = load_query_module()
+        catalog = json.loads(CATALOG_PATH.read_text())
+        vocabulary = query.vocabulary_from_catalog(catalog)
+
+        self.assertEqual(
+            sorted({surface for pattern in catalog["patterns"] for surface in pattern["surface"]}),
+            vocabulary["surface"],
+        )
+        self.assertEqual(
+            sorted({goal for pattern in catalog["patterns"] for goal in pattern["goals"]}),
+            vocabulary["goal"],
+        )
+        self.assertEqual(6, len(vocabulary))
+
+
+class ResponsiveSelectionTests(unittest.TestCase):
+    def test_mobile_first_table_selects_responsive_identity_centred_table(self):
+        query = load_query_module()
+
+        result = query.query_catalog(
+            surface="table",
+            goal="transform-record-hierarchy-responsively",
+            responsive_context="mobile-first",
+        )
+
+        self.assertEqual("responsive-identity-centred-table", result["selected_pattern"]["id"])
+        self.assertNotIn("available_width", result["query"])
+
+    def test_valid_vocabulary_queries_never_return_empty_candidates(self):
+        import itertools
+
+        query = load_query_module()
+        catalog = json.loads(CATALOG_PATH.read_text())["patterns"]
+        surfaces = sorted({surface for pattern in catalog for surface in pattern["surface"]})
+        goals = sorted({goal for pattern in catalog for goal in pattern["goals"]})
+        workflows = sorted({workflow for pattern in catalog for workflow in pattern["workflows"]})
+        empty = [
+            (surface, goal, workflow)
+            for surface, goal, workflow in itertools.product(surfaces, goals, workflows)
+            if not query.query_catalog(surface=surface, goal=goal, workflow=workflow)["candidates"]
+        ]
+        self.assertEqual([], empty)
 
 
 if __name__ == "__main__":

@@ -40,6 +40,10 @@ _Avoid_: Optional screenshot lookup, image inspection for every trivial edit
 A compact, externally observable record of the surface, user goal, official candidates, inspected visual evidence, selected pattern, and any justified escape hatch. Its detail scales from a one-line citation for a small change to a pre-implementation comparison for material composition work.
 _Avoid_: Design rationale dump, screenshot summary
 
+**Compact index** / **índice compacto**:
+A generated Markdown projection of the reviewed Filament 5 visual catalog that lists pattern identifiers, surfaces, goals, responsive contexts, routed references, and evidence counts plus the controlled vocabulary per dimension. It is the primary offline selection path and must stay byte-identical to a fresh regeneration from `visual-catalog.json`.
+_Avoid_: Hand-edited catalog summary, second source of truth
+
 **Autonomous visual selection**:
 The UI/UX skill compares the official visual option space and selects a supported pattern without asking the user to choose components. It asks only when an unresolved product decision would materially change the outcome.
 _Avoid_: Component-selection interview, silent product assumption

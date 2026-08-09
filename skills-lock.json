@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "skills": {
+    "laravel-filament-5-ui-ux": {
+      "source": "/Users/jotafurtado/Projetos/dev-skills",
+      "sourceType": "local",
+      "computedHash": "27f7c9356f07e551275b1b31e4d9e637aa515119aaace4ef8e718292e8dd8f96"
+    },
+    "laravel-filament-v5": {
+      "source": "/Users/jotafurtado/Projetos/dev-skills",
+      "sourceType": "local",
+      "computedHash": "16638b442340eda25c224878f3f4032958bfbe1099e970c3bf41d96f6a8f3f2c"
+    }
+  }
+}

@@ -1,0 +1,672 @@
+{
+  "schema_version": 2,
+  "source": "https://filamentphp.com/docs/5.x/",
+  "scope": "Filament 5.x page-level schema and form composition plus ordinary field presentation",
+  "patterns": [
+    {
+      "id": "ordinary-field-composition",
+      "surface": ["form", "schema"],
+      "goals": ["compose-ordinary-fields", "make-field-guidance-actionable"],
+      "workflows": ["parallel", "linear"],
+      "available_width": ["narrow", "standard", "wide"],
+      "information_shapes": ["mixed-field-lengths", "ordinary-field-with-context"],
+      "relationships": ["field-and-context", "closely-related-fields"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": [
+        "ordinary fields need labels, expected-value guidance, and clear state feedback",
+        "long and short values need different spans without losing a logical reading order",
+        "related controls may share one composed unit when their values are interpreted together"
+      ],
+      "avoid_when": [
+        "the problem is primarily page-level grouping, sequencing, or navigation",
+        "supporting information applies to a whole workflow rather than one field or immediate task context"
+      ],
+      "alternatives": ["responsive-columns", "fieldsets", "sections", "aside-sections"],
+      "responsive_considerations": [
+        "start with a readable one-column field flow, then let related short fields share rows at wider breakpoints",
+        "give long free-form values and error-prone fields a wider or full span rather than equal columns",
+        "return fused groups, inline labels, and field guidance to a readable stacked arrangement before their labels, values, or messages collide"
+      ],
+      "accessibility_considerations": [
+        "labels identify fields and remain visible unless an accessible hidden-label treatment is necessary",
+        "required state, validation feedback, disabled state, and focus must remain perceivable without relying only on color",
+        "place concise field-level guidance close to the control it qualifies and keep it distinct from the field label",
+        "retain a logical keyboard and reading order when fields share a row, fuse, or use inline labels"
+      ],
+      "variant_decisions": [
+        {
+          "id": "ordinary-wrapper",
+          "prefer_when": ["the label, input, and any feedback need the familiar vertical reading order"],
+          "avoid_when": ["the form is a known dense, repetitive set whose short labels and values remain easy to scan inline"],
+          "visual_evidence": "forms/fields/simple"
+        },
+        {
+          "id": "inline-label",
+          "prefer_when": ["a dense, familiar form has short stable labels and vertical space is genuinely constrained"],
+          "avoid_when": ["labels, instructions, validation, or long values need the full line to remain scannable"],
+          "visual_evidence": "forms/fields/inline-label"
+        },
+        {
+          "id": "field-level-guidance",
+          "prefer_when": ["a concise instruction, example, unit, or consequence directly qualifies one field"],
+          "avoid_when": ["the text merely repeats the label or explains a broader workflow, policy, or risk"],
+          "visual_evidence": "forms/fields/below-content/text"
+        },
+        {
+          "id": "placeholder-example",
+          "prefer_when": ["an empty input benefits from a short, realistic example of its expected value"],
+          "avoid_when": ["the text would replace the label, required state, instructions, or validation feedback"],
+          "visual_evidence": "forms/fields/placeholder"
+        },
+        {
+          "id": "auxiliary-content",
+          "prefer_when": ["an immediate field-specific action or component helps complete, verify, or understand that field"],
+          "avoid_when": ["the action or information applies to multiple fields or the workflow and belongs in contextual guidance instead"],
+          "visual_evidence": "forms/fields/below-content/action"
+        },
+        {
+          "id": "disabled-and-validation-states",
+          "prefer_when": ["the field is unavailable or requires immediate correction and its reason or feedback can be made clear"],
+          "avoid_when": ["a disabled control hides the reason, removes needed recovery, or relies on color alone to communicate the state"],
+          "visual_evidence": "forms/validation"
+        },
+        {
+          "id": "fused-fields",
+          "prefer_when": ["two or more values form one compact concept, such as location or a measured value with a unit"],
+          "avoid_when": ["the controls are independently understood, require separate guidance or errors, or would become unreadable on narrow screens"],
+          "visual_evidence": "forms/fields/fused-label"
+        },
+        {
+          "id": "fused-columns-and-spans",
+          "prefer_when": ["a fused concept contains parts with deliberately different expected widths at a wider breakpoint"],
+          "avoid_when": ["custom spans only make the row look balanced instead of reflecting value length or importance"],
+          "visual_evidence": "forms/fields/fused-columns-span"
+        },
+        {
+          "id": "adjoined-affix",
+          "prefer_when": ["a prefix or suffix is part of how the value is read, such as a URL scheme, currency, or unit"],
+          "avoid_when": ["the content is optional guidance, an unrelated action, or broad context rather than part of the value"],
+          "visual_evidence": "forms/fields/text-input/affix"
+        },
+        {
+          "id": "contextual-callout",
+          "prefer_when": ["important context, a warning, or a next step affects a group or workflow rather than one field"],
+          "avoid_when": ["a short field-specific instruction would be clearer as nearby field-level guidance"],
+          "visual_evidence": "schemas/layout/callout/simple"
+        }
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/simple", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/simple.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/inline-label", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/inline-label.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/below-content/text", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/below-content/text.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/placeholder", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/placeholder.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/below-content/action", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/below-content/action.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/disabled", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/disabled.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/validation.md", "screenshot": "forms/validation", "image": "https://filamentphp.com/docs/images/5.x/light/forms/validation.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/fused-label", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/fused-label.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/fused-columns-span", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/fused-columns-span.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/fields/text-input/affix", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/text-input/affix.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/schemas/callouts.md", "screenshot": "schemas/layout/callout/simple", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/callout/simple.jpg"}
+      ]
+    },
+    {
+      "id": "flat-content",
+      "surface": ["form", "schema"],
+      "goals": ["present-small-related-set"],
+      "workflows": ["parallel", "linear"],
+      "available_width": ["narrow", "standard", "wide"],
+      "information_shapes": ["small-related-set"],
+      "relationships": ["single-group"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 0,
+      "selection_signals": ["one short, self-explanatory group", "a container would add visual weight without clarifying hierarchy"],
+      "avoid_when": ["groups need names, descriptions, or separate actions", "field order or width needs stronger structure"],
+      "alternatives": ["responsive-columns", "sections", "fieldsets"],
+      "responsive_considerations": ["keep a readable single-column default", "add structure before controls become visually ambiguous"],
+      "accessibility_considerations": ["retain visible labels and programmatic grouping when controls form one concept", "do not use visual proximity as the only relationship cue"],
+      "status": "reviewed",
+      "visual_evidence": [{"documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md", "screenshot": "schemas/layout/flex/simple", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/flex/simple.jpg"}]
+    },
+    {
+      "id": "responsive-columns",
+      "surface": ["form", "schema"],
+      "goals": ["use-space-deliberately", "present-related-fields"],
+      "workflows": ["parallel", "linear"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["mixed-field-lengths", "long-form-content", "related-short-fields"],
+      "relationships": ["related-fields"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 1,
+      "selection_signals": ["ordinary short related fields can share a row", "long fields need space for their expected value", "short high-importance fields need a deliberately prominent span", "field value lengths differ"],
+      "avoid_when": ["a narrow viewport makes multiple columns unreadable", "equal widths obscure information hierarchy"],
+      "alternatives": ["flat-content", "sections", "dense-layout"],
+      "responsive_considerations": ["define one column before larger breakpoints", "give long, high-importance fields a deliberate full or wider span"],
+      "accessibility_considerations": ["preserve a logical DOM and keyboard order when changing visual spans", "never rely on column position to communicate requiredness or sequence"],
+      "status": "reviewed",
+      "visual_evidence": [{"documentation": "https://filamentphp.com/docs/5.x/forms/overview.md", "screenshot": "forms/overview", "image": "https://filamentphp.com/docs/images/5.x/light/forms/overview.jpg"}, {"documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md", "screenshot": "schemas/layout/grid/column-span", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/grid/column-span.jpg"}]
+    },
+    {
+      "id": "sections",
+      "surface": ["form", "schema"],
+      "goals": ["organize-stable-groups", "scan-top-to-bottom"],
+      "workflows": ["parallel", "linear"],
+      "available_width": ["narrow", "standard", "wide"],
+      "information_shapes": ["few-named-groups", "long-scannable-content"],
+      "relationships": ["top-to-bottom-groups"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 0,
+      "selection_signals": ["two to four named groups scan top to bottom", "descriptions clarify hierarchy"],
+      "avoid_when": ["grouping adds no hierarchy", "users usually work in one of several large groups"],
+      "alternatives": ["aside-sections", "horizontal-tabs", "vertical-tabs", "wizard"],
+      "responsive_considerations": ["collapse columns before reducing field readability", "use compact or secondary treatment only when hierarchy remains clear"],
+      "accessibility_considerations": ["use headings and descriptions that identify each group", "do not collapse essential content by default"],
+      "variant_decisions": [
+        {"id": "contained", "prefer_when": ["a named group needs a visible boundary"], "avoid_when": ["the surrounding composition already provides the boundary"], "visual_evidence": "schemas/layout/section/simple"},
+        {"id": "secondary", "prefer_when": ["a supporting group is intentionally lower in the information hierarchy"], "avoid_when": ["the group carries primary task completion"], "visual_evidence": "schemas/layout/section/secondary"},
+        {"id": "compact", "prefer_when": ["a familiar, low-risk group needs modest density without removing its hierarchy"], "avoid_when": ["help, errors, or touch targets need the default breathing room"], "visual_evidence": "schemas/layout/section/compact"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [{"documentation": "https://filamentphp.com/docs/5.x/schemas/sections.md", "screenshot": "schemas/layout/section/simple", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/section/simple.jpg"}, {"documentation": "https://filamentphp.com/docs/5.x/schemas/sections.md", "screenshot": "schemas/layout/section/secondary", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/section/secondary.jpg"}]
+    },
+    {
+      "id": "aside-sections",
+      "surface": ["form", "schema"],
+      "goals": ["separate-explanatory-context"],
+      "workflows": ["parallel", "linear"],
+      "available_width": ["wide"],
+      "information_shapes": ["explanatory-groups"],
+      "relationships": ["heading-and-detail"],
+      "responsive_contexts": ["desktop-with-mobile-fallback"],
+      "selection_weight": 1,
+      "selection_signals": ["a group heading and description deserve a separate scan lane", "the panel has enough width for context beside controls"],
+      "avoid_when": ["the description is too short to earn a separate lane", "narrow layouts would crowd labels and inputs"],
+      "alternatives": ["sections", "vertical-tabs"],
+      "responsive_considerations": ["return heading and controls to a readable vertical flow on narrow screens"],
+      "accessibility_considerations": ["associate descriptions with their group rather than encoding meaning only in side-by-side placement", "keep heading order logical when the layout stacks"],
+      "status": "reviewed",
+      "visual_evidence": [{"documentation": "https://filamentphp.com/docs/5.x/schemas/sections.md", "screenshot": "schemas/layout/section/aside", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/section/aside.jpg"}]
+    },
+    {
+      "id": "fieldsets",
+      "surface": ["form", "schema"],
+      "goals": ["make-semantic-subgroup-explicit"],
+      "workflows": ["parallel", "linear"],
+      "available_width": ["narrow", "standard", "wide"],
+      "information_shapes": ["semantic-subgroup"],
+      "relationships": ["tightly-related-fields"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 1,
+      "selection_signals": ["a small subgroup has a shared label", "a visible boundary clarifies a semantic relationship"],
+      "avoid_when": ["the border is purely decorative", "larger groups need descriptions, actions, or stronger hierarchy"],
+      "alternatives": ["flat-content", "sections", "responsive-columns"],
+      "responsive_considerations": ["keep the group readable at one column before adding internal columns"],
+      "accessibility_considerations": ["use the fieldset legend as the group name", "ensure the visible boundary reinforces rather than replaces the programmatic group"],
+      "variant_decisions": [
+        {"id": "contained", "prefer_when": ["a visible border helps separate the subgroup from surrounding controls"], "avoid_when": ["the boundary would duplicate a containing section"], "visual_evidence": "schemas/layout/fieldset/simple"},
+        {"id": "uncontained", "prefer_when": ["a parent section already makes the subgroup boundary clear"], "avoid_when": ["the subgroup would otherwise blend with unrelated controls"], "visual_evidence": "schemas/layout/fieldset/not-contained"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [{"documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md", "screenshot": "schemas/layout/fieldset/simple", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/fieldset/simple.jpg"}, {"documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md", "screenshot": "schemas/layout/fieldset/not-contained", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/fieldset/not-contained.jpg"}]
+    },
+    {
+      "id": "horizontal-tabs",
+      "surface": ["form", "schema"],
+      "goals": ["organize-stable-groups"],
+      "workflows": ["parallel"],
+      "available_width": ["narrow", "standard", "wide"],
+      "information_shapes": ["few-short-groups", "several-stable-groups"],
+      "relationships": ["peer-groups"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 0,
+      "selection_signals": ["a small number of short group labels", "frequent switching between parallel groups"],
+      "avoid_when": ["content must be compared together", "labels overflow available width", "input is sequential"],
+      "alternatives": ["vertical-tabs", "sections", "wizard"],
+      "responsive_considerations": ["test label overflow and the overflow menu on narrow screens", "do not hide always-needed content behind a non-default tab"],
+      "accessibility_considerations": ["keep keyboard tab navigation and focus management intact", "make the active panel and tab relationship perceivable"],
+      "variant_decisions": [
+        {"id": "contained", "prefer_when": ["the tab set needs a distinct boundary from surrounding content"], "avoid_when": ["a surrounding section already provides that boundary"], "visual_evidence": "schemas/layout/tabs/simple"},
+        {"id": "uncontained", "prefer_when": ["the parent composition supplies the needed hierarchy and container chrome would be redundant"], "avoid_when": ["the active panel would lose a clear visual relationship to its tabs"], "visual_evidence": "schemas/layout/tabs/not-contained"},
+        {"id": "overflow-menu", "prefer_when": ["parallel groups remain valid but labels exceed the available horizontal space"], "avoid_when": ["hidden labels would make essential groups hard to discover"], "visual_evidence": "schemas/layout/tabs/not-scrollable"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [{"documentation": "https://filamentphp.com/docs/5.x/schemas/tabs.md", "screenshot": "schemas/layout/tabs/simple", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/tabs/simple.jpg"}, {"documentation": "https://filamentphp.com/docs/5.x/schemas/tabs.md", "screenshot": "schemas/layout/tabs/not-contained", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/tabs/not-contained.jpg"}]
+    },
+    {
+      "id": "vertical-tabs",
+      "surface": ["form", "schema"],
+      "goals": ["organize-stable-groups"],
+      "workflows": ["parallel"],
+      "available_width": ["wide"],
+      "information_shapes": ["several-stable-groups"],
+      "relationships": ["peer-groups"],
+      "responsive_contexts": ["desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["several stable groups", "sufficient horizontal space", "navigation labels benefit from persistent scanning"],
+      "avoid_when": ["input is a required sequence", "available width is too narrow for a useful navigation rail"],
+      "alternatives": ["horizontal-tabs", "sections", "wizard"],
+      "responsive_considerations": ["verify navigation labels remain usable at narrow widths", "keep fields within each tab responsive through columns and spans"],
+      "accessibility_considerations": ["preserve keyboard navigation between the tab list and panels", "do not make the navigation rail the only cue for the active group"],
+      "status": "reviewed",
+      "visual_evidence": [{"documentation": "https://filamentphp.com/docs/5.x/schemas/tabs.md", "screenshot": "schemas/layout/tabs/vertical", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/tabs/vertical.jpg"}]
+    },
+    {
+      "id": "wizard",
+      "surface": ["form", "schema"],
+      "goals": ["complete-required-sequence"],
+      "workflows": ["sequential"],
+      "available_width": ["narrow", "standard", "wide"],
+      "information_shapes": ["dependent-steps"],
+      "relationships": ["ordered-steps"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["later input depends on earlier choices", "completion benefits from an explicit ordered path"],
+      "avoid_when": ["users need to complete groups in any order", "the steps only partition parallel content"],
+      "alternatives": ["sections", "horizontal-tabs", "vertical-tabs"],
+      "responsive_considerations": ["keep step labels concise and ensure navigation controls remain reachable on narrow screens"],
+      "accessibility_considerations": ["communicate current step and completion state programmatically", "do not prevent correction of earlier steps without a clear recovery path"],
+      "status": "reviewed",
+      "visual_evidence": [{"documentation": "https://filamentphp.com/docs/5.x/schemas/wizards.md", "screenshot": "schemas/layout/wizard/simple", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/wizard/simple.jpg"}]
+    },
+    {
+      "id": "collection-items",
+      "surface": ["form", "schema"],
+      "goals": ["compose-repeatable-items", "manage-structured-collection"],
+      "workflows": ["parallel", "linear"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["repeatable-structured-items", "compact-tabular-items", "block-based-content"],
+      "relationships": ["collection-of-structured-items"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["each item contains related fields that need a native hierarchy", "people need to add, remove, duplicate, or reorder items", "a collection is easier to scan through item labels, numbers, or block names"],
+      "avoid_when": ["the user is entering one scalar value", "a table would hide essential help, errors, or per-item actions", "custom cards are proposed only to simulate native repeater or builder hierarchy"],
+      "alternatives": ["responsive-columns", "sections", "rich-content-editor"],
+      "responsive_considerations": ["stack item-internal fields before labels, errors, or actions crowd", "prefer button-based reordering when drag handles are hard to use or space is constrained", "use the table layout only while every column remains readable and actionable"],
+      "accessibility_considerations": ["give each item a distinguishable visible label, number, or block heading", "keep add, remove, duplicate, collapse, and reorder actions named and keyboard reachable", "keep errors associated with the affected item and field rather than relying on position alone"],
+      "variant_decisions": [
+        {"id": "table-layout", "prefer_when": ["items are short, uniform rows with stable, scannable columns"], "avoid_when": ["an item needs rich guidance, previews, nested fields, or errors that a row would compress"], "visual_evidence": "forms/fields/repeater/table-compact"},
+        {"id": "add-action-placement", "prefer_when": ["the collection needs an explicit add affordance placed near the items it creates"], "avoid_when": ["a distant or generic page action would obscure which collection receives the new item"], "visual_evidence": "forms/fields/repeater/add-action-alignment"},
+        {"id": "reorder-buttons", "prefer_when": ["the order matters and explicit move controls are more discoverable or accessible than dragging"], "avoid_when": ["the collection is not ordered"], "visual_evidence": "forms/fields/repeater/reorderable-with-buttons"},
+        {"id": "collapsible-items", "prefer_when": ["many completed items need compact scanning while their labels still identify them"], "avoid_when": ["the current task requires comparing or correcting several item fields together"], "visual_evidence": "forms/fields/repeater/collapsed"},
+        {"id": "builder-blocks", "prefer_when": ["the collection contains heterogeneous content blocks with meaningful block types"], "avoid_when": ["all items share one stable field structure"], "visual_evidence": "forms/fields/builder/simple"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/repeater.md", "screenshot": "forms/fields/repeater/simple", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/repeater/simple.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/repeater.md", "screenshot": "forms/fields/repeater/table-compact", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/repeater/table-compact.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/builder.md", "screenshot": "forms/fields/builder/simple", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/builder/simple.jpg"}
+      ]
+    },
+    {
+      "id": "rich-content-editor",
+      "surface": ["form", "schema"],
+      "goals": ["edit-long-form-content"],
+      "workflows": ["linear", "parallel"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["long-form-content", "formatted-content"],
+      "relationships": ["single-high-density-control"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["a full-width editor preserves a readable writing area", "the control has a toolbar, structured content, or contextual panels", "editing needs more vertical space than a short scalar field"],
+      "avoid_when": ["the task needs only a short plain-text value", "a narrow column would compress the writing area or toolbar", "custom markup is proposed to recreate an official editor"],
+      "alternatives": ["responsive-columns", "collection-items", "sections"],
+      "responsive_considerations": ["give the editor a full or wide span before reducing toolbar or content readability", "keep formatting controls reachable and avoid forcing horizontal precision tasks into narrow columns"],
+      "accessibility_considerations": ["retain the editor label and expose formatting actions with discernible names", "keep focus order coherent between the toolbar, editor, and any contextual panels", "make validation feedback and upload or block insertion failures perceivable without color alone"],
+      "variant_decisions": [
+        {"id": "custom-toolbar", "prefer_when": ["the workflow needs a constrained, task-specific formatting set"], "avoid_when": ["removing controls would block required authoring actions"], "visual_evidence": "forms/fields/rich-editor/custom-toolbar"},
+        {"id": "contextual-panels", "prefer_when": ["blocks, mentions, or merge tags are part of authoring and the main writing area stays usable"], "avoid_when": ["a panel would obscure the task or appear for irrelevant content"], "visual_evidence": "forms/fields/rich-editor/custom-blocks"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/rich-editor.md", "screenshot": "forms/fields/rich-editor/simple", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/rich-editor/simple.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/markdown-editor.md", "screenshot": "forms/fields/markdown-editor/simple", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/markdown-editor/simple.jpg"}
+      ]
+    },
+    {
+      "id": "media-uploads",
+      "surface": ["form", "schema"],
+      "goals": ["manage-uploaded-media"],
+      "workflows": ["linear", "parallel"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["multiple-files", "image-media"],
+      "relationships": ["collection-of-files"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 1,
+      "selection_signals": ["the user must add, preview, inspect, or manage one or more files", "file previews or image-editing controls need a wide enough surface"],
+      "avoid_when": ["a narrow scalar-field column would compress previews or upload affordances", "custom upload cards recreate the native FileUpload interaction"],
+      "alternatives": ["collection-items", "rich-content-editor"],
+      "responsive_considerations": ["let preview grids reduce columns while preserving preview size, filenames, and remove controls", "give image editing a full workflow surface rather than embedding it in a cramped group"],
+      "accessibility_considerations": ["keep browse, remove, open, download, and editing controls named and keyboard reachable", "provide meaningful file names and text alternatives where media meaning is not otherwise available"],
+      "variant_decisions": [
+        {"id": "preview-grid", "prefer_when": ["several visual files benefit from side-by-side recognition"], "avoid_when": ["preview tiles become too small to identify or operate"], "visual_evidence": "forms/fields/file-upload/multiple-grid"},
+        {"id": "image-editor", "prefer_when": ["the workflow requires a crop or other image adjustment before submission"], "avoid_when": ["the upload is a simple attachment with no editing need"], "visual_evidence": "forms/fields/file-upload/image-editor"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/file-upload.md", "screenshot": "forms/fields/file-upload/simple", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/file-upload/simple.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/file-upload.md", "screenshot": "forms/fields/file-upload/multiple-grid", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/file-upload/multiple-grid.jpg"}
+      ]
+    },
+    {
+      "id": "relationship-controls",
+      "surface": ["form", "schema"],
+      "goals": ["manage-related-records"],
+      "workflows": ["parallel", "linear"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["related-record-selection", "many-related-records"],
+      "relationships": ["record-to-related-records"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 1,
+      "selection_signals": ["a field selects, creates, edits, or manages related records", "relationship labels need search or enough width to remain distinguishable"],
+      "avoid_when": ["a relation needs rich per-item fields that belong in a repeater or relation workflow", "a custom card is used where native select or relationship controls represent the task"],
+      "alternatives": ["collection-items", "sections"],
+      "responsive_considerations": ["preserve readable selected labels and reachable create or edit actions on narrow screens", "move a relationship-heavy workflow to its own section, tab, or larger surface when options, details, and actions cannot remain scannable inline"],
+      "accessibility_considerations": ["name the relationship and any create or edit action clearly", "do not rely on colour or truncation alone to distinguish selected related records", "keep result, selected-value, and validation feedback available to keyboard and assistive-technology users"],
+      "variant_decisions": [
+        {"id": "searchable-selection", "prefer_when": ["the relationship has enough options that scanning a static list is inefficient"], "avoid_when": ["a short stable option set is already easy to scan"], "visual_evidence": "forms/fields/select/searchable"},
+        {"id": "create-or-edit-related", "prefer_when": ["the user must resolve a missing or incorrect related record without abandoning the current task"], "avoid_when": ["the related-record workflow is too large for an inline action"], "visual_evidence": "forms/fields/select/create-option-modal"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/select.md", "screenshot": "forms/fields/select/searchable", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/select/searchable.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/forms/select.md", "screenshot": "forms/fields/select/create-option-modal", "image": "https://filamentphp.com/docs/images/5.x/light/forms/fields/select/create-option-modal.jpg"}
+      ]
+    },
+    {
+      "id": "standard-compare-and-scan-table",
+      "surface": ["table"],
+      "goals": ["compare-and-scan-records", "manage-standard-table-operations"],
+      "workflows": ["parallel"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["repeated-records-with-comparable-facts"],
+      "relationships": ["peer-records"],
+      "responsive_contexts": ["desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["people need to compare the same decision-relevant facts across many records", "identity, state, facts, dates, and actions have a stable scanning order", "filters and operations act on a repeatable record list"],
+      "avoid_when": ["each record needs materially different rich content that cannot remain comparable in a row", "a card or detail-first layout is required by the primary task rather than visual preference"],
+      "alternatives": ["responsive-table-layout", "identity-centred-record-layout"],
+      "responsive_considerations": ["retain identity and the state or fact that drives the decision before collapsing secondary information", "use an official responsive table layout only while the remaining row still supports peer comparison", "do not turn every row into a card merely because the viewport narrows"],
+      "accessibility_considerations": ["associate headers with their values and name icon-only controls", "keep sorting, filtering, pagination, selected state, grouping, status, and empty-state meaning perceivable without colour alone", "preserve keyboard access and visible focus for row and bulk actions"],
+      "variant_decisions": [
+        {"id": "comparison-column-order", "prefer_when": ["identity, decision-driving state, comparable facts, dates, and actions form the recurring scan path"], "avoid_when": ["every available attribute is given equal priority or actions interrupt the data scan"], "visual_evidence": "tables/overview/columns"},
+        {"id": "purposeful-filters", "prefer_when": ["users repeatedly need a named subset such as a status, owner, date range, category, or exception"], "avoid_when": ["a filter substitutes for an obvious column, a simple search, or an unexplained hidden result set"], "visual_evidence": "tables/overview/filters"},
+        {"id": "status-and-boolean-meaning", "prefer_when": ["state changes the user's decision and needs a concise, scannable label or conventional icon"], "avoid_when": ["color alone, including red versus green, is the only way to understand the value"], "visual_evidence": "tables/overview/columns"},
+        {"id": "record-action-grouping", "prefer_when": ["one frequent row action stays direct while secondary, destructive, or uncommon actions would crowd the row"], "avoid_when": ["the only common next step is hidden in an ambiguous action menu"], "visual_evidence": "tables/actions/group"},
+        {"id": "bulk-selection", "prefer_when": ["users operate on several records at once and the selection scope, consequences, confirmation, and recovery are clear"], "avoid_when": ["mixed records make the operation unsafe or the interface implies selection spans pages without explicit support"], "visual_evidence": "tables/actions/bulk"},
+        {"id": "meaningful-grouping", "prefer_when": ["a shared attribute such as workflow state or date bucket is a useful scan boundary"], "avoid_when": ["cross-group comparison matters more than the boundary or collapsed groups would hide discoverable records"], "visual_evidence": "tables/grouping"},
+        {"id": "decision-summary", "prefer_when": ["an aggregate such as an exception count, total, or average changes a table-level decision"], "avoid_when": ["a decorative aggregate competes with row data or its filter, group, or pagination scope is unclear"], "visual_evidence": "tables/summaries"},
+        {"id": "pagination-context", "prefer_when": ["a large result set needs a visible range, total, and page navigation that preserves comparison context"], "avoid_when": ["simpler pagination prevents users from reaching distant pages or understanding their position"], "visual_evidence": "tables/pagination/default"},
+        {"id": "empty-result-recovery", "prefer_when": ["the table must distinguish an initial absence from a filter that finds no matches"], "avoid_when": ["a filtered empty result invites duplicate creation instead of making active filters and reset available"], "visual_evidence": "tables/empty-state"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/overview.md", "screenshot": "tables/overview/columns", "image": "https://filamentphp.com/docs/images/5.x/light/tables/overview/columns.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/overview.md", "screenshot": "tables/overview/filters", "image": "https://filamentphp.com/docs/images/5.x/light/tables/overview/filters.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/actions.md", "screenshot": "tables/actions/group", "image": "https://filamentphp.com/docs/images/5.x/light/tables/actions/group.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/actions.md", "screenshot": "tables/actions/bulk", "image": "https://filamentphp.com/docs/images/5.x/light/tables/actions/bulk.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/grouping.md", "screenshot": "tables/grouping", "image": "https://filamentphp.com/docs/images/5.x/light/tables/grouping.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/summaries.md", "screenshot": "tables/summaries", "image": "https://filamentphp.com/docs/images/5.x/light/tables/summaries.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/overview.md", "screenshot": "tables/pagination/default", "image": "https://filamentphp.com/docs/images/5.x/light/tables/pagination/default.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/empty-state.md", "screenshot": "tables/empty-state", "image": "https://filamentphp.com/docs/images/5.x/light/tables/empty-state.jpg"}
+      ]
+    },
+    {
+      "id": "responsive-identity-centred-table",
+      "surface": ["table"],
+      "goals": ["present-identity-centred-records", "transform-record-hierarchy-responsively"],
+      "workflows": ["parallel"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["identity-with-grouped-details", "record-with-secondary-metadata"],
+      "relationships": ["record-with-supporting-details"],
+      "responsive_contexts": ["desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["one record's identity and grouped details matter more than simultaneous column comparison", "a desktop row can express an identity-first hierarchy before becoming a mobile stack", "secondary detail can move without hiding the state or action that drives the next decision"],
+      "avoid_when": ["people must compare the same facts across many peer records", "a card-like layout is proposed only for visual novelty rather than a record-centred task"],
+      "alternatives": ["standard-compare-and-scan-table", "responsive-table-layout"],
+      "responsive_considerations": ["reorganize identity, decision-driving state, supporting details, and actions at the breakpoint instead of shrinking desktop columns", "reduce content-grid columns before controls or labels become too small", "keep the primary action discoverable and secondary details readable when they stack or collapse"],
+      "accessibility_considerations": ["keep keyboard access and visible focus for selection, expand/collapse, and row actions across breakpoints", "preserve a logical reading order when Split, Stack, or Grid transforms", "give visibility and action controls discernible labels and do not rely on colour or layout alone for state"],
+      "variant_decisions": [
+        {"id": "split-identity-and-details", "prefer_when": ["identity, a few primary facts, and a row action form a useful desktop scan line before stacking at a readable breakpoint"], "avoid_when": ["long variable content crowds the line or several facts still require cross-record column comparison"], "visual_evidence": "tables/layout/split-desktop/mobile"},
+        {"id": "stack-related-details", "prefer_when": ["related contact, status, or metadata details need one readable vertical unit within a record"], "avoid_when": ["independent facts need peer comparison or dense prose hides a common action"], "visual_evidence": "tables/layout/stack/mobile"},
+        {"id": "grid-grouped-details", "prefer_when": ["grouped peer details benefit from equal tracks while the record remains identity-centred"], "avoid_when": ["equal tracks obscure hierarchy or the task needs a standard aligned table"], "visual_evidence": "tables/layout/grid/mobile"},
+        {"id": "content-grid-records", "prefer_when": ["independent identity units remain scannable as responsive record cards at wider breakpoints"], "avoid_when": ["cross-record comparison needs persistent column alignment"], "visual_evidence": "tables/layout/column-grid"},
+        {"id": "fixed-width-identity", "prefer_when": ["a short identity or fixed-width fact should preserve its natural width while remaining content uses the available line"], "avoid_when": ["growth behaviour truncates decision-critical content or displaces actions"], "visual_evidence": "tables/layout/grow-disabled"},
+        {"id": "collapsible-secondary-details", "prefer_when": ["secondary details have a meaningful summary and identity, state, and the recurring action remain visible"], "avoid_when": ["collapsed content is needed for the recurring task, selection, error recovery, or a common action"], "visual_evidence": "tables/layout/collapsible/mobile"},
+        {"id": "mobile-visibility", "prefer_when": ["a secondary detail can disappear at a narrow breakpoint while an equivalent identity, state, or action cue remains available"], "avoid_when": ["visibility changes remove the only way to understand state or discover an action"], "visual_evidence": "tables/layout/stack-hidden-on-mobile/mobile"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/split-desktop", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/split-desktop.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/split-desktop/mobile", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/split-desktop/mobile.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/stack", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/stack.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/stack/mobile", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/stack/mobile.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/grid", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/grid.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/grid/mobile", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/grid/mobile.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/collapsible", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/collapsible.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/collapsible/mobile", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/collapsible/mobile.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/column-grid", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/column-grid.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/grow-disabled", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/grow-disabled.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/stack-hidden-on-mobile", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/stack-hidden-on-mobile.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/tables/layout.md", "screenshot": "tables/layout/stack-hidden-on-mobile/mobile", "image": "https://filamentphp.com/docs/images/5.x/light/tables/layout/stack-hidden-on-mobile/mobile.jpg"}
+      ]
+    },
+    {
+      "id": "dense-layout",
+      "surface": ["form", "schema"],
+      "goals": ["increase-information-density"],
+      "workflows": ["parallel", "linear"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["repetitive-low-risk-fields", "dense-reference-content"],
+      "relationships": ["closely-related-fields"],
+      "responsive_contexts": ["desktop-with-mobile-fallback"],
+      "selection_weight": 0,
+      "selection_signals": ["repetition makes default spacing unnecessarily slow to scan", "adjacent controls remain clearly distinguishable"],
+      "avoid_when": ["new or error-prone input needs breathing room", "reduced gaps would blur labels, errors, or touch targets"],
+      "alternatives": ["responsive-columns", "sections", "flat-content"],
+      "responsive_considerations": ["restore spacing before labels, errors, or touch targets become crowded on smaller screens"],
+      "accessibility_considerations": ["preserve readable error separation and pointer target size", "do not use dense spacing to conceal required instructions"],
+      "variant_decisions": [
+        {"id": "dense", "prefer_when": ["repeated low-risk controls remain individually scannable with reduced spacing"], "avoid_when": ["the task is new, error-prone, or instruction-heavy"], "visual_evidence": "schemas/layout/dense"},
+        {"id": "no-gap", "prefer_when": ["adjacent controls are perceived as one tightly related unit"], "avoid_when": ["reduced spacing would blur labels, errors, instructions, or touch targets"], "visual_evidence": "schemas/layout/no-gap"},
+        {"id": "compact-section", "prefer_when": ["the group needs its own hierarchy but less vertical padding"], "avoid_when": ["secondary density would weaken the group heading or description"], "visual_evidence": "schemas/layout/section/compact"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [{"documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md", "screenshot": "schemas/layout/dense", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/dense.jpg"}, {"documentation": "https://filamentphp.com/docs/5.x/schemas/layouts.md", "screenshot": "schemas/layout/no-gap", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/no-gap.jpg"}, {"documentation": "https://filamentphp.com/docs/5.x/schemas/sections.md", "screenshot": "schemas/layout/section/compact", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/section/compact.jpg"}]
+    },
+    {
+      "id": "record-detail-infolist",
+      "surface": ["record-detail", "infolist", "schema"],
+      "goals": ["present-scannable-record-details", "organize-secondary-record-information"],
+      "workflows": ["parallel", "reference"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["identity-status-primary-facts-with-secondary-metadata", "dense-facts-with-long-tail-history"],
+      "relationships": ["identity-to-facts-and-secondary-history", "record-to-repeatable-details"],
+      "responsive_contexts": ["desktop-with-mobile-fallback", "mobile-first"],
+      "selection_weight": 2,
+      "selection_signals": ["a person needs to recognise one record and its current state before scanning its supporting facts", "primary facts are compact while history, repeated data, or supporting media need a secondary location", "the page must remain readable when labels, values, and metadata stack on a narrow screen"],
+      "avoid_when": ["staff must compare the same facts across many peer records, which requires a table", "the surface is an edit workflow rather than a read-oriented record detail"],
+      "alternatives": ["simple-detail-page", "two-zone-detail-page", "tabbed-secondary-detail"],
+      "responsive_considerations": ["keep identity, current status, and the primary facts before secondary metadata when the layout stacks", "use inline labels only while their label-value pairs remain readable; restore a vertical treatment for long values, help, or errors", "keep media alternatives, copy controls, repeatable rows, and collapsed secondary content reachable and understandable at every breakpoint"],
+      "accessibility_considerations": ["pair status badges and icons with readable text so state is not communicated by colour alone", "retain visible labels or an equivalent accessible name for every fact, including placeholders for absent values", "give copy, disclosure, and any entry action a discernible label, visible focus, and keyboard operation", "do not hide a current state, primary identifier, or common next action inside a collapsed secondary area"],
+      "variant_decisions": [
+        {"id": "simple-detail-page", "prefer_when": ["a record has a short, self-explanatory set of facts that can be read in one flow"], "avoid_when": ["identity, current state, and a larger set of supporting metadata need separate visual priority"], "visual_evidence": "infolists/overview"},
+        {"id": "two-zone-identity-and-facts", "prefer_when": ["identity and current state need to stay prominent while compact facts form a scannable adjacent or following block"], "avoid_when": ["the record is too small to justify a second zone or its facts require a larger navigable secondary surface"], "visual_evidence": "infolists/entries/simple"},
+        {"id": "inline-label-facts", "prefer_when": ["many short, stable fact labels and values need to conserve vertical space without losing their association"], "avoid_when": ["values are long, labels are ambiguous, or the stacked narrow layout is more readable"], "visual_evidence": "infolists/entries/inline-label/section"},
+        {"id": "status-badge-and-icon", "prefer_when": ["a current status or conventional boolean changes the next decision and needs a compact semantic cue"], "avoid_when": ["colour or an unlabelled icon would be the only explanation of state"], "visual_evidence": "infolists/entries/text/badge"},
+        {"id": "media-and-copyable-identity", "prefer_when": ["recognition media or a high-value identifier helps users verify, share, or act on the record"], "avoid_when": ["decorative media competes with identity or copying is not a meaningful user task"], "visual_evidence": "infolists/entries/text/copyable"},
+        {"id": "placeholder-for-absent-fact", "prefer_when": ["an absent expected value must remain distinguishable from an omitted or loading fact"], "avoid_when": ["a placeholder would add noise to optional information with no user consequence"], "visual_evidence": "infolists/entries/placeholder"},
+        {"id": "repeatable-secondary-detail", "prefer_when": ["a record contains structured repeated facts, media, or history that users need to inspect as units"], "avoid_when": ["a compact summary is enough or a large history needs a dedicated related-record surface"], "visual_evidence": "infolists/entries/repeatable/table"},
+        {"id": "tabbed-secondary-detail", "prefer_when": ["several sizeable secondary groups such as history, related records, or media would obscure primary identity and facts in one long page"], "avoid_when": ["only a few short groups remain easy to scan in a single detail flow"], "visual_evidence": "schemas/layout/tabs/simple"},
+        {"id": "collapsed-long-tail-detail", "prefer_when": ["long-tail information has a meaningful summary and is not needed for the recurring decision"], "avoid_when": ["the hidden information contains current status, primary identity, error recovery, or a common action"], "visual_evidence": "infolists/entries/text/expandable-limited-list"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/overview.md", "screenshot": "infolists/overview", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/overview.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/resources/viewing-records.md", "screenshot": "panels/resources/viewing", "image": "https://filamentphp.com/docs/images/5.x/light/panels/resources/viewing.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/overview.md", "screenshot": "infolists/entries/simple", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/simple.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/overview.md", "screenshot": "infolists/entries/inline-label/section", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/inline-label/section.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/text-entry.md", "screenshot": "infolists/entries/text/badge", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/text/badge.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/icon-entry.md", "screenshot": "infolists/entries/icon/boolean", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/icon/boolean.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/image-entry.md", "screenshot": "infolists/entries/image/limited", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/image/limited.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/text-entry.md", "screenshot": "infolists/entries/text/copyable", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/text/copyable.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/overview.md", "screenshot": "infolists/entries/placeholder", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/placeholder.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/repeatable-entry.md", "screenshot": "infolists/entries/repeatable/table", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/repeatable/table.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/schemas/tabs.md", "screenshot": "schemas/layout/tabs/simple", "image": "https://filamentphp.com/docs/images/5.x/light/schemas/layout/tabs/simple.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/infolists/text-entry.md", "screenshot": "infolists/entries/text/expandable-limited-list", "image": "https://filamentphp.com/docs/images/5.x/light/infolists/entries/text/expandable-limited-list.jpg"}
+      ]
+    },
+    {
+      "id": "operational-dashboard",
+      "surface": ["dashboard"],
+      "goals": ["support-operational-decisions", "monitor-current-performance"],
+      "workflows": ["monitoring"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["operational-metrics-with-trends-and-activity", "time-series-with-recent-records"],
+      "relationships": ["summary-to-detail", "metrics-to-exceptions"],
+      "responsive_contexts": ["desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["a person needs to notice the current state, investigate a meaningful trend, then act on recent or exceptional records", "a small set of headline measures benefits from concise change context before deeper analysis", "a chart, table, or filter earns dashboard space only when it supports a recurring operational decision"],
+      "avoid_when": ["a custom card system is proposed when a Stats Overview, Chart, or Table widget can express the decision", "every available metric receives equal size, prominence, or polling", "a chart is chosen for visual novelty without a question, period, or comparable scale"],
+      "alternatives": ["stats-overview", "chart-widget", "table-widget"],
+      "responsive_considerations": ["start with a readable one-column widget flow, then assign wider spans only to decision-dense trends or activity", "keep headline metrics, active filters, and the next actionable exception visible before secondary analytics", "reduce widget columns and chart density before shrinking labels, controls, or table actions beyond readable use"],
+      "accessibility_considerations": ["pair semantic trend colour with a readable direction and change label; colour alone must not communicate improvement or risk", "give widgets concise headings and descriptions that state the decision or time period they support", "preserve keyboard access, visible focus, and discernible names for dashboard filters, table actions, and chart controls"],
+      "variant_decisions": [
+        {"id": "decision-relevant-stats", "prefer_when": ["a small number of current measures and their direction let a person decide whether to investigate or act"], "avoid_when": ["stat tiles merely repeat available data, omit their comparison period, or form an unrelated card system"], "visual_evidence": "widgets/stats-overview/chart"},
+        {"id": "trend-chart", "prefer_when": ["change over time, distribution, or a comparison between series answers a recurring question that a single metric cannot"], "avoid_when": ["the values need exact record-level action first or the chart has no stated decision, period, or meaningful scale"], "visual_evidence": "widgets/chart/line"},
+        {"id": "table-widget-queue", "prefer_when": ["people need a compact queue of recent, exceptional, or actionable records after reading the summary"], "avoid_when": ["the dashboard duplicates a full management table without a narrower operational purpose"], "visual_evidence": "panels/dashboard"},
+        {"id": "dashboard-filters", "prefer_when": ["one shared time period, scope, or named subset changes several widgets and the active scope must remain visible"], "avoid_when": ["a local chart or table question can be answered by a scoped control without changing unrelated widgets"], "visual_evidence": "panels/dashboard-filters"},
+        {"id": "responsive-widget-span", "prefer_when": ["a trend or activity widget needs more horizontal space than a concise metric while smaller viewports can stack it"], "avoid_when": ["equal spans obscure operational priority or a wide widget leaves no readable mobile fallback"], "visual_evidence": "panels/dashboard-column-spans"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/widgets/overview.md", "screenshot": "panels/dashboard", "image": "https://filamentphp.com/docs/images/5.x/light/panels/dashboard.jpg", "role": "dashboard table-widget queue"},
+        {"documentation": "https://filamentphp.com/docs/5.x/widgets/overview.md", "screenshot": "panels/dashboard-column-spans", "image": "https://filamentphp.com/docs/images/5.x/light/panels/dashboard-column-spans.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/widgets/overview.md", "screenshot": "panels/dashboard-filters", "image": "https://filamentphp.com/docs/images/5.x/light/panels/dashboard-filters.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/widgets/stats-overview.md", "screenshot": "widgets/stats-overview/chart", "image": "https://filamentphp.com/docs/images/5.x/light/widgets/stats-overview/chart.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/widgets/stats-overview.md", "screenshot": "widgets/stats-overview/heading", "image": "https://filamentphp.com/docs/images/5.x/light/widgets/stats-overview/heading.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/widgets/charts.md", "screenshot": "widgets/chart/line", "image": "https://filamentphp.com/docs/images/5.x/light/widgets/chart/line.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/widgets/charts.md", "screenshot": "widgets/chart/filter", "image": "https://filamentphp.com/docs/images/5.x/light/widgets/chart/filter.jpg"}
+      ]
+    },
+    {
+      "id": "small-panel-top-navigation",
+      "surface": ["panel-shell"],
+      "goals": ["navigate-a-small-panel"],
+      "workflows": ["parallel"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["few-peer-destinations"],
+      "relationships": ["peer-destinations"],
+      "responsive_contexts": ["desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["a small, stable set of peer destinations fits in a persistent horizontal scan", "people frequently switch among a few areas without needing a deep domain hierarchy"],
+      "avoid_when": ["labels, destinations, or domain groups would crowd the horizontal bar", "the panel is a substantial back-office whose navigation needs persistent grouped scanning"],
+      "alternatives": ["back-office-sidebar-navigation"],
+      "responsive_considerations": ["preserve a readable, keyboard-operable menu when the horizontal space contracts", "move to a responsive menu before labels, user controls, or active-state cues collide"],
+      "accessibility_considerations": ["make the current destination perceptible without colour alone", "keep every navigation and user-menu control named, keyboard reachable, and visibly focused"],
+      "variant_decisions": [
+        {"id": "top-navigation", "prefer_when": ["there are few peer destinations with short, stable labels"], "avoid_when": ["a horizontal bar would hide, wrap, or flatten a meaningful domain hierarchy"], "visual_evidence": "panels/navigation/top-navigation"},
+        {"id": "supported-panel-identity", "prefer_when": ["the panel needs a brand mark or configured identity that remains coherent across shell surfaces"], "avoid_when": ["an unrelated typeface or palette is proposed merely to make the shell feel distinctive"], "visual_evidence": "panels/styling/brand-logo"},
+        {"id": "user-menu", "prefer_when": ["account and session actions are secondary to the primary destinations"], "avoid_when": ["a common operational destination is hidden inside a user menu"], "visual_evidence": "panels/navigation/user-menu"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/navigation/overview.md", "screenshot": "panels/navigation/top-navigation", "image": "https://filamentphp.com/docs/images/5.x/light/panels/navigation/top-navigation.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/navigation/user-menu.md", "screenshot": "panels/navigation/user-menu", "image": "https://filamentphp.com/docs/images/5.x/light/panels/navigation/user-menu.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/styling/overview.md", "screenshot": "panels/styling/brand-logo", "image": "https://filamentphp.com/docs/images/5.x/light/panels/styling/brand-logo.jpg"}
+      ]
+    },
+    {
+      "id": "back-office-sidebar-navigation",
+      "surface": ["panel-shell"],
+      "goals": ["navigate-a-substantial-back-office"],
+      "workflows": ["parallel"],
+      "available_width": ["standard", "wide"],
+      "information_shapes": ["many-domain-destinations-with-actionable-queues"],
+      "relationships": ["domain-groups-within-one-audience"],
+      "responsive_contexts": ["desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["many destinations need a persistent vertical scan", "a single audience works across several coherent business domains", "a small number of queues need immediate action"],
+      "avoid_when": ["a group is only visual decoration rather than a named domain boundary", "a cluster or separate panel is needed because the work has its own route structure, audience, or authentication boundary"],
+      "alternatives": ["small-panel-top-navigation", "domain-cluster"],
+      "responsive_considerations": ["retain the active destination, group names, and actionable counts when the sidebar becomes a responsive menu", "do not make a collapsed icon-only shell the only way to discover a group or its current state"],
+      "accessibility_considerations": ["keep group labels, expanded state, badges, and the current destination understandable without colour alone", "make collapse, expand, navigation, and user controls keyboard reachable with visible focus"],
+      "variant_decisions": [
+        {"id": "domain-navigation-groups", "prefer_when": ["items belong to a stable, user-recognisable business domain within the same panel"], "avoid_when": ["a group merely compensates for unclear domain ownership or hides unrelated destinations"], "visual_evidence": "panels/navigation/group"},
+        {"id": "actionable-navigation-badge", "prefer_when": ["a count represents work a person can meaningfully act on, such as pending approvals"], "avoid_when": ["the count is a vanity total, stale metric, or the only explanation of the destination"], "visual_evidence": "panels/navigation/badge"},
+        {"id": "domain-cluster", "prefer_when": ["a cohesive domain needs its own sub-navigation and route structure while serving the same panel audience"], "avoid_when": ["a simple group communicates the structure or the domain has a separate audience and authentication boundary"], "visual_evidence": "panels/cluster"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/navigation/overview.md", "screenshot": "panels/navigation/group", "image": "https://filamentphp.com/docs/images/5.x/light/panels/navigation/group.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/navigation/overview.md", "screenshot": "panels/navigation/badge", "image": "https://filamentphp.com/docs/images/5.x/light/panels/navigation/badge.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/navigation/clusters.md", "screenshot": "panels/cluster", "image": "https://filamentphp.com/docs/images/5.x/light/panels/cluster.jpg"}
+      ]
+    },
+    {
+      "id": "authentication-surface-hierarchy",
+      "surface": ["panel-shell", "authentication"],
+      "goals": ["present-panel-authentication-surfaces"],
+      "workflows": ["linear", "recovery"],
+      "available_width": ["narrow", "standard", "wide"],
+      "information_shapes": ["single-account-task-with-feedback"],
+      "relationships": ["identity-credentials-and-recovery"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 2,
+      "selection_signals": ["a person must sign in, recover access, register, or maintain their own account", "the task needs one clear form hierarchy and immediate feedback"],
+      "avoid_when": ["a custom authentication layout is proposed before checking the supported panel authentication surface and established theme"],
+      "alternatives": ["small-panel-top-navigation", "back-office-sidebar-navigation"],
+      "responsive_considerations": ["keep the focused account task, labels, validation feedback, and recovery links readable before adding decorative shell content", "preserve a single-column form flow and avoid side content that displaces feedback on narrow screens"],
+      "accessibility_considerations": ["retain visible labels, logical focus order, visible focus, announced validation or status feedback, and keyboard access to recovery and account links", "do not use brand colour, a logo, or a placeholder as the only explanation of a field, error, or action"],
+      "variant_decisions": [
+        {"id": "sign-in-and-registration", "prefer_when": ["the panel supports account entry or registration and a clear path between them is appropriate"], "avoid_when": ["registration is not an allowed account lifecycle for this panel"], "visual_evidence": "panels/login"},
+        {"id": "password-recovery", "prefer_when": ["a person who cannot sign in needs a focused recovery action and a route back to login"], "avoid_when": ["recovery is hidden, unlabeled, or competes with unrelated navigation"], "visual_evidence": "panels/password-reset"},
+        {"id": "profile-and-account-security", "prefer_when": ["authenticated people need to maintain their own identity or account security without entering operational navigation"], "avoid_when": ["a broad administrative settings workflow is presented as a personal account form"], "visual_evidence": "panels/profile"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/users/overview.md", "screenshot": "panels/login", "image": "https://filamentphp.com/docs/images/5.x/light/panels/login.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/users/overview.md", "screenshot": "panels/registration", "image": "https://filamentphp.com/docs/images/5.x/light/panels/registration.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/users/overview.md", "screenshot": "panels/password-reset", "image": "https://filamentphp.com/docs/images/5.x/light/panels/password-reset.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/users/overview.md", "screenshot": "panels/profile", "image": "https://filamentphp.com/docs/images/5.x/light/panels/profile.jpg"}
+      ]
+    },
+    {
+      "id": "action-feedback-overlays",
+      "surface": ["action-feedback", "table", "record-detail", "form", "schema"],
+      "goals": ["complete-contextual-action-safely", "communicate-action-result", "guide-next-step-after-absence"],
+      "workflows": ["contextual", "parallel", "linear"],
+      "available_width": ["narrow", "standard", "wide"],
+      "information_shapes": ["risk-confirmation-or-short-form-with-feedback", "contextual-guidance-or-empty-state"],
+      "relationships": ["action-to-affected-record-and-result", "absent-content-to-next-step"],
+      "responsive_contexts": ["mobile-first", "desktop-with-mobile-fallback"],
+      "selection_weight": 3,
+      "selection_signals": ["a user needs to act on the current record or page without losing the surrounding task context", "risk, required input, reference material, or a recoverable outcome changes the appropriate interaction weight", "guidance, feedback, and an empty state each have a distinct scope"],
+      "avoid_when": ["a long, multi-step, independently navigable workflow needs a full page", "a notification would repeat feedback already visible beside the affected field or action", "an empty-state action cannot actually resolve the absence for this user"],
+      "alternatives": ["compact-confirmation", "focused-modal-form", "reference-heavy-slide-over", "full-page-workflow"],
+      "responsive_considerations": ["keep the action label, risk, cancel path, validation, and result understandable when overlay content narrows or stacks", "use a slide-over only while its narrow reading column preserves the needed reference and form context", "keep the direct empty-state action reachable without requiring a hover-only or icon-only discovery path"],
+      "accessibility_considerations": ["preserve keyboard trigger, visible focus, predictable focus movement into and back from overlays, and an explicit cancel or close path", "name destructive consequences in text and pair danger colour with an icon or wording; never use colour alone", "give action groups, notifications, callouts, and empty-state actions discernible names", "place one outcome message at the narrowest level that fully explains it so feedback is not duplicated across field, callout, notification, and page"],
+      "variant_decisions": [
+        {"id": "direct-and-grouped-actions", "prefer_when": ["one frequent, low-ambiguity action deserves direct placement while secondary, destructive, or uncommon actions would crowd the surface"], "avoid_when": ["the only likely next step is hidden in an unlabeled or ambiguous overflow menu"], "visual_evidence": "actions/group/simple"},
+        {"id": "compact-confirmation", "prefer_when": ["the user already supplied the necessary information and must only acknowledge a consequential, destructive, or irreversible operation"], "avoid_when": ["the operation needs several inputs, substantial reference material, or a sequence that cannot be understood in a short decision"], "visual_evidence": "actions/modal/confirmation"},
+        {"id": "focused-modal-form", "prefer_when": ["a short, focused set of inputs completes one action without requiring persistent surrounding reference"], "avoid_when": ["the form and supporting information become long enough that the modal conceals the task context or creates a scrolling workflow"], "visual_evidence": "actions/modal/form"},
+        {"id": "reference-heavy-slide-over", "prefer_when": ["the action needs a persistent view of surrounding record or page context, longer supporting content, or a task-oriented side panel"], "avoid_when": ["the narrow panel makes comparison, validation, or a multi-step workflow harder than a page"], "visual_evidence": "actions/modal/slide-over"},
+        {"id": "full-page-workflow", "prefer_when": ["the work has multiple substantial stages, needs durable navigation or recovery, or requires more reference than an overlay can keep understandable"], "avoid_when": ["a short contextual decision would add navigation and make users lose the initiating record"], "visual_evidence": "panels/resources/editing"},
+        {"id": "contextual-callout", "prefer_when": ["a warning, policy, or next-step explanation applies to a nearby group or workflow before the user acts"], "avoid_when": ["the message is only a transient outcome, repeats field guidance, or is broad enough to belong in permanent documentation"], "visual_evidence": "components/callout/simple"},
+        {"id": "action-feedback-notification", "prefer_when": ["a completed action needs concise transient confirmation, failure recovery, or an optional immediate follow-up outside the initiating control"], "avoid_when": ["the result is already fully explained beside the affected field, in the overlay, or in persistent page state"], "visual_evidence": "notifications/actions"},
+        {"id": "actionable-empty-state", "prefer_when": ["the absence can be named concisely and this user can meaningfully create, connect, or otherwise resolve it"], "avoid_when": ["a filtered no-result needs filter explanation and reset, or the user lacks a legitimate next action"], "visual_evidence": "components/empty-state/actions"}
+      ],
+      "status": "reviewed",
+      "visual_evidence": [
+        {"documentation": "https://filamentphp.com/docs/5.x/actions/grouping-actions.md", "screenshot": "actions/group/simple", "image": "https://filamentphp.com/docs/images/5.x/light/actions/group/simple.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/actions/modals.md", "screenshot": "actions/modal/confirmation", "image": "https://filamentphp.com/docs/images/5.x/light/actions/modal/confirmation.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/actions/modals.md", "screenshot": "actions/modal/form", "image": "https://filamentphp.com/docs/images/5.x/light/actions/modal/form.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/actions/modals.md", "screenshot": "actions/modal/slide-over", "image": "https://filamentphp.com/docs/images/5.x/light/actions/modal/slide-over.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/resources/editing-records.md", "screenshot": "panels/resources/editing", "image": "https://filamentphp.com/docs/images/5.x/light/panels/resources/editing.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/components/callout.md", "screenshot": "components/callout/simple", "image": "https://filamentphp.com/docs/images/5.x/light/components/callout/simple.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/notifications/overview.md", "screenshot": "notifications/actions", "image": "https://filamentphp.com/docs/images/5.x/light/notifications/actions.jpg"},
+        {"documentation": "https://filamentphp.com/docs/5.x/components/empty-state.md", "screenshot": "components/empty-state/actions", "image": "https://filamentphp.com/docs/images/5.x/light/components/empty-state/actions.jpg"}
+      ]
+    }
+  ]
+}

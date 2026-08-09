@@ -1,0 +1,54 @@
+[
+  {
+    "query": "Design a Filament 5 settings form with several stable categories and poor use of desktop width.",
+    "should_trigger": true
+  },
+  {
+    "query": "Review the layout and mobile composition of this Filament 5 account settings form.",
+    "should_trigger": true
+  },
+  {
+    "query": "Design a Filament 5 content form with repeatable blocks, a rich text editor, gallery uploads, and related authors.",
+    "should_trigger": true
+  },
+  {
+    "query": "Improve a Filament 5 operations list where staff compare vendors, identify exceptions, filter work, and act on several records.",
+    "should_trigger": true
+  },
+  {
+    "query": "Redesign a Filament 5 people list for phones while preserving identity, contact context, selection, and available row actions.",
+    "should_trigger": true
+  },
+  {
+    "query": "Design a Filament 5 record detail page that keeps identity, current state, facts, documents, and audit history scannable.",
+    "should_trigger": true
+  },
+  {
+    "query": "Choose Filament 5 action groups, confirmation modals, slide-overs, notifications, and empty states for a risky record workflow.",
+    "should_trigger": true
+  },
+  {
+    "query": "Redesign a Filament 5 operations dashboard with current metrics, trend charts, an intervention queue, and a shared date filter.",
+    "should_trigger": true
+  },
+  {
+    "query": "Choose sidebar or top navigation, groups, badges, and login surfaces for our Filament 5 back-office.",
+    "should_trigger": true
+  },
+  {
+    "query": "Build a generic Laravel Blade settings page with Tailwind.",
+    "should_trigger": false
+  },
+  {
+    "query": "Explain the Filament 5 schema() API signature.",
+    "should_trigger": false
+  },
+  {
+    "query": "Redesign a React account settings page with vertical navigation.",
+    "should_trigger": false
+  },
+  {
+    "query": "Migrate a Filament 4 Resource to Filament 5.",
+    "should_trigger": false
+  }
+]

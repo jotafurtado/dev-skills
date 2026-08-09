@@ -1,0 +1,9 @@
+# Repository metadata and local agent state
+.git/
+.claude/
+.docs/
+
+# Generated analysis and Python cache artifacts
+graphify-out/
+__pycache__/
+*.py[cod]

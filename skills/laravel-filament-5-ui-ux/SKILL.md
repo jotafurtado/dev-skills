@@ -4,7 +4,7 @@ description: "Chooses and composes evidence-grounded Filament 5.x schema, page-l
 license: MIT
 metadata:
   author: jotafurtado
-  version: "1.0.0"
+  version: "1.1.0"
   domain: frontend
   filament_version: "5.x"
 ---
@@ -15,18 +15,19 @@ Own visual pattern selection and composition inside Filament 5. Let `laravel-fil
 
 ## Mandatory visual decision flow
 
-1. Identify the surface, user goal, information shape, workflow relationship, available width, responsive context, and established panel theme.
-2. Query the local catalog before selecting a composition:
+1. Identify the surface, user goal, information shape, workflow relationship, responsive context, and established panel theme.
+2. Select a reviewed pattern from the compact index first. Resolve the skill install directory from this skill's own location (never from the project working directory), then read `references/visual-catalog-index.md` there. Use the index vocabulary and pattern rows to choose a candidate, then open the matching entry in `references/visual-catalog.json` for selection signals, variants, alternatives, avoid-when guidance, and evidence. Follow that entry's `routed_reference` for composition prose.
+
+   When a local Python runtime is available, the catalog query is an optional alternative to reading the index:
 
    ```bash
-   python3 scripts/query_visual_catalog.py \
+   python3 <skill-install-dir>/scripts/query_visual_catalog.py \
      --surface form \
      --goal organize-stable-groups \
-     --workflow parallel \
-     --available-width wide
+     --workflow parallel
    ```
 
-3. Load the routed reference for the surface. For page-level forms and schemas, read `references/settings-form-composition.md`. For ordinary field wrappers, guidance, states, or width decisions, also read `references/ordinary-field-composition.md`. For repeaters, builders, editors, uploads, or relationship-heavy controls, also read `references/complex-input-composition.md`. For actions, action groups, confirmations, modal forms, slide-overs, callouts, notifications, feedback, or empty states, read `references/action-feedback-composition.md`. For compare-and-scan record lists, columns, filters, actions, grouping, summaries, pagination, or empty results, read `references/table-composition.md`. For an identity-centred responsive record layout, also read `references/responsive-record-layouts.md`. For read-oriented record details, infolists, entries, primary facts, media, history, or long-tail information, read `references/record-detail-composition.md`. For dashboards, stats, charts, table widgets, filters, and widget spans, read `references/dashboard-composition.md`. For panel shell, sidebar or top navigation, domain groups or clusters, actionable badges, branding, user menus, or authentication surfaces, read `references/panel-shell-composition.md`.
+3. Load the routed reference named by the selected pattern (see the coverage table below when browsing by surface).
 4. When building or materially restructuring a surface and image viewing is available, inspect at least one listed official screenshot for the selected pattern and every decision-changing variant in the proposed composition. For a small local change, use the reviewed catalog entry and exact documentation instead.
 5. Compare the returned official candidates. Select the pattern autonomously; do not ask the user to choose a Filament component.
 6. Emit a proportional visual decision trace before implementation. For a material surface, include the surface, goal, candidates, inspected evidence, selected pattern, responsive treatment, and any escape hatch. For a small change, cite the chosen official pattern in one line.
@@ -53,18 +54,7 @@ Preserve an established panel theme. Use custom Blade, Livewire, CSS, or theme w
 | Read-oriented record details, infolists, identity and status hierarchy, facts, media, repeated data, history, and long-tail information | `references/record-detail-composition.md` |
 | Operational dashboards, stats, charts, table widgets, filters, ordering, density, and responsive spans | `references/dashboard-composition.md` |
 | Panel shell, sidebar or top navigation, groups, clusters, actionable badges, branding, user menus, login, recovery, registration, and profile surfaces | `references/panel-shell-composition.md` |
+| Compact pattern index and controlled vocabulary | `references/visual-catalog-index.md` |
 | Catalog schema, reviewed evidence, query fields | `references/visual-catalog.json` and `references/screenshot-inventory.json` |
 
 This catalog covers page-level schema and form composition, ordinary field-level presentation decisions, complex collection-oriented input composition, contextual actions and feedback, standard compare-and-scan tables, responsive identity-centred table records, read-oriented record details and infolists, operational dashboard widgets, and panel shells with navigation and authentication surfaces. Route uncovered UI work to official Filament 5 evidence and record the gap for catalog expansion.
-
-## Verification
-
-For catalog maintenance, synchronize first, review new or changed evidence in a temporary directory outside this repository, classify it, then validate. The synchronizer preserves matching human review fields and marks new or materially changed evidence `unreviewed`.
-
-```bash
-python3 scripts/sync_visual_catalog.py
-python3 scripts/build_review_sheets.py --output "$(mktemp -d)"
-python3 scripts/validate_visual_catalog.py
-```
-
-Run the deterministic query test, validate the skill folder, parse both eval files, and review the final diff. The catalog must remain reviewed, locally queryable, and free of screenshot binaries.

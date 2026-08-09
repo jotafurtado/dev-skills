@@ -64,16 +64,35 @@ def workspace_snapshot(workspace: Path) -> dict[str, str]:
     return snapshot
 
 
+def scoreable_assertions(assertions: list[str]) -> list[dict[str, str]]:
+    """Wrap eval assertion strings as unscored review records."""
+    return [
+        {"assertion": assertion, "verdict": "unscored", "evidence": ""}
+        for assertion in assertions
+    ]
+
+
+def review_required(records: list[dict[str, object]]) -> bool:
+    """Derive whether any assertion still needs a human verdict."""
+    for record in records:
+        for assertion in record.get("assertions", []):
+            if isinstance(assertion, dict) and assertion.get("verdict") == "unscored":
+                return True
+            if isinstance(assertion, str):
+                return True
+    return False
+
+
 def write_report(path: Path, agent: str, source: Path, records: list[dict[str, object]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
         json.dumps(
             {
-                "schema_version": 1,
+                "schema_version": 2,
                 "agent": agent,
                 "recorded_at": datetime.now(UTC).isoformat(),
                 "source": str(source),
-                "review_required": True,
+                "review_required": review_required(records),
                 "results": records,
             },
             indent=2,
@@ -121,7 +140,7 @@ def main() -> int:
                 {
                     "id": item["id"],
                     "status": "recorded" if completed.returncode == 0 and has_transcript and not workspace_changed else "failed",
-                    "assertions": item["assertions"],
+                    "assertions": scoreable_assertions(item["assertions"]),
                     "transcript": completed.stdout,
                     "stderr": completed.stderr or ("Workspace changed during evaluation." if workspace_changed else ("No transcript was produced." if not has_transcript else "")),
                     "workspace_changed": workspace_changed,

@@ -1,0 +1,198 @@
+{
+  "skill_name": "laravel-filament-5-ui-ux",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design a Filament 5 account settings form. It has six stable categories: Profile, Security, Notifications, Billing, Integrations, and Audit. Each category has a few short controls, while Audit includes a long notes field. The desktop panel has generous width, but mobile must remain usable. Choose the composition and explain the decision before implementation.",
+      "expected_output": "An evidence-grounded settings-form composition that compares official alternatives, selects vertical tabs with responsive field layout when justified, and emits an observable visual decision trace.",
+      "assertions": [
+        "The response identifies the form as stable parallel groups rather than a required sequence.",
+        "It compares sections, horizontal tabs, and vertical tabs before choosing a pattern.",
+        "It cites official Filament 5 visual evidence, including the vertical-tabs or equivalent reviewed reference.",
+        "It uses responsive columns and a deliberate wider span for the long notes field.",
+        "It does not ask the user to choose a component.",
+        "It includes a compact visual decision trace before implementation."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Use the Filament UI skill together with generic frontend guidance to redesign a Filament 5 settings page. The generic guidance asks for gradient navigation cards, a new typeface, and a hand-written Blade sidebar. Preserve accessibility, responsive behavior, and the existing panel theme.",
+      "expected_output": "A Filament-native settings composition that rejects conflicting custom visual systems, compares official layout options, and preserves compatible generic quality guidance.",
+      "assertions": [
+        "The response gives Filament-specific visual authority precedence over the generic card and Blade proposal.",
+        "It preserves the established panel theme and does not introduce an unrelated typeface or palette.",
+        "It uses reviewed official candidates before proposing custom UI.",
+        "It keeps accessibility, keyboard, responsive, performance, and UX guidance that does not conflict with Filament.",
+        "Any escape hatch is tied to a concrete official-component gap."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Design a Filament 5 vendor onboarding page. Company identity is short, legal information needs a long explanatory field, and payout details form a tightly related subgroup. The page is usually completed in one visit, but all information may be revisited in any order. Describe the composition decision before implementation.",
+      "expected_output": "An evidence-grounded composition that gives short related fields shared space, makes the payout subgroup explicit, preserves a wide span for long information, and visibly compares official alternatives.",
+      "assertions": [
+        "The response identifies a parallel workflow rather than imposing a step-by-step flow.",
+        "It explains field width from expected value length or importance rather than equal columns by default.",
+        "It compares flat content, responsive columns, fieldsets, and sections using reviewed visual evidence.",
+        "It includes a visual decision trace with official evidence before implementation."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Design a Filament 5 application flow where selecting an organization determines the available verification requirements, and verification must succeed before billing information can be submitted. Users need clear progress and a way to correct earlier answers. Describe the layout decision before implementation.",
+      "expected_output": "An evidence-grounded sequential composition that chooses an ordered flow only because later input depends on earlier input, with a visible decision trace and recovery considerations.",
+      "assertions": [
+        "The response distinguishes dependent ordered steps from stable parallel groups.",
+        "It compares the ordered flow against tabs or sections and gives an evidence-based reason for the choice.",
+        "It addresses current-step communication and correction of earlier answers.",
+        "It cites reviewed official wizard evidence in the decision trace."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Review a Filament 5 permissions page with many repeated low-risk toggles. The current version wastes vertical space on desktop, while admins still need to distinguish labels, help text, validation feedback, and touch targets on smaller screens. Recommend the composition before implementation.",
+      "expected_output": "An evidence-grounded density decision that treats reduced spacing as conditional, compares ordinary spacing with compact alternatives, and preserves readability and accessible interaction on narrow screens.",
+      "assertions": [
+        "The response does not treat density as a cosmetic preference.",
+        "It names the conditions that make reduced spacing unsafe.",
+        "It compares reviewed dense, compact, or no-gap evidence with a roomier alternative.",
+        "It includes responsive and accessibility consequences in the visual decision trace."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Design a Filament 5 account area with a wide desktop panel. Security settings need a substantial explanation beside their controls, while a small notification preference group sits inside an already clearly separated account area. On mobile, both groups must remain easy to scan. Describe the composition decisions before implementation.",
+      "expected_output": "An evidence-grounded composition that distinguishes explanatory side context from ordinary grouping and decides whether the smaller group needs an additional visible boundary.",
+      "assertions": [
+        "The response compares an explanatory side treatment with an ordinary top-to-bottom group using reviewed evidence.",
+        "It chooses contained or uncontained treatment for the smaller group from the surrounding hierarchy, not cosmetic preference.",
+        "It explains the narrow-screen treatment for the explanatory content and controls.",
+        "It emits a visible evidence-based decision trace before implementation."
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Improve a Filament 5 vendor application form without being told which layout or field options to use. The current form puts Legal business name, Tax ID, Website, Monthly revenue, and a long business-description textarea in five equal desktop columns. It repeats each label in helper text. City and country are visually separated even though they describe one location. Website users need an example format, revenue needs a currency cue, Tax ID is locked until verification completes, and a failed submission must make correction obvious. A policy warning applies to the entire payout section. Mobile users must still scan and correct every field easily. Describe the visual decision before implementation.",
+      "expected_output": "An evidence-grounded ordinary-field composition that autonomously improves width, labels, guidance, fused location fields, state feedback, and group-level context without treating the options as decoration.",
+      "assertions": [
+        "The response gives the long business description a deliberately wider or full span and allows only short related fields to share a row.",
+        "It keeps labels distinct from field-level guidance and uses the Website example as guidance rather than a replacement label.",
+        "It distinguishes a fused, labelled location group from unrelated fields and gives a use and avoid condition for the fused arrangement.",
+        "It uses a value-adjoined currency affix for revenue and a contextual callout for the payout policy rather than treating either as generic helper text.",
+        "It preserves visible or accessible labels, required state, focus, non-color validation feedback, and an understandable disabled Tax ID state.",
+        "It compares ordinary wrappers, inline labels, fused fields, and a callout before selecting a composition without asking the user to choose components.",
+        "It includes a compact visual decision trace with official Filament 5 evidence before implementation."
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Design a Filament 5 product authoring form. Merchandisers add heterogeneous content blocks, a rich product description, multiple gallery images, and related products. The wide desktop panel must remain usable on mobile. They propose custom Blade cards for each block and a hand-built upload gallery. Describe the composition decision before implementation.",
+      "expected_output": "An evidence-grounded complex-input composition that selects native Filament controls, gives dense controls sufficient space, and records responsive, accessible, and escape-hatch reasoning.",
+      "assertions": [
+        "The response compares native collection items, rich-content editor, media uploads, and relationship controls using reviewed official evidence.",
+        "It selects a native Builder for heterogeneous blocks and does not use custom cards to recreate its hierarchy or actions.",
+        "It gives the editor and gallery upload controls a full or deliberate wide span rather than placing them with short scalar fields.",
+        "It states when a collection or relationship workflow should move from inline placement to a section, tab, or larger surface.",
+        "It preserves labelled items, keyboard-reachable item and upload actions, item-specific errors, and responsive stacking or preview-grid treatment.",
+        "It permits custom markup only after naming the official candidates considered and a concrete unsupported gap.",
+        "It includes a compact visual decision trace with official Filament 5 evidence before implementation."
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Improve a Filament 5 operations list for vendor applications. Staff need to find a company, compare its verification outcome, revenue band, assigned reviewer, and last-updated date across many applications; isolate applications needing attention; correct an individual record; and resolve several selected applications together. The current screen uses large cards with equal emphasis on every field, three unlabeled coloured dots for state, a destructive action beside every row, a total that does not explain what it covers, and an empty result message that offers only Create vendor even when active filters find no matches. The desktop table has room, while mobile must still make the important comparison and operations usable. Describe the visual decision before implementation.",
+      "expected_output": "An evidence-grounded standard-table composition that preserves compare-and-scan behaviour, establishes a decision-oriented column order, and makes table operations and states understandable.",
+      "assertions": [
+        "The response identifies peer-record comparison as the task and keeps a table rather than replacing it with cards for visual preference.",
+        "It orders identity, decision-driving state, comparable facts, supporting dates, and row actions according to the staff scan path.",
+        "It proposes purposeful filtering for the attention subset and makes active filtering or reset understandable.",
+        "It makes status and boolean meaning understandable without colour alone.",
+        "It distinguishes a direct frequent record action from grouped secondary or destructive actions and explains when bulk selection is safe.",
+        "It decides whether grouping and summaries serve a comparison or table-level decision, including the aggregate scope.",
+        "It distinguishes an initial empty list from a filtered no-results state and gives the latter a reset path rather than duplicate creation.",
+        "It preserves identity and decision-driving information on narrow screens and includes a compact visual decision trace using official Filament 5 table evidence."
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Redesign a Filament 5 member directory. On desktop, staff use it to recognise a person, see a photo, role, phone, email, and a quick action. On phones, the current version merely squeezes the six desktop columns until names, actions, and selection controls are difficult to use. Staff usually inspect one member and their contact context rather than compare every contact field across the whole directory, but the role and current availability still affect the next action. Some older contact details can be revealed on demand. Describe the visual decision before implementation.",
+      "expected_output": "An evidence-grounded responsive identity-centred record layout that transforms hierarchy between desktop and mobile without losing action or selection discoverability.",
+      "assertions": [
+        "The response distinguishes an identity-centred record task from a compare-and-scan table and explains why the layout may change.",
+        "It compares official responsive record candidates before selecting a desktop-to-mobile transformation.",
+        "It keeps identity, decision-driving state, selection controls, and a primary action discoverable on narrow screens.",
+        "It treats related details, secondary visibility, growth, grid use, and collapsible content as conditional decisions rather than decoration.",
+        "It preserves logical reading order, keyboard operation, visible focus, and non-colour state cues across breakpoints.",
+        "It includes a compact visual decision trace with paired official desktop and mobile evidence without asking the user to choose layout primitives."
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "Use the Filament UI skill together with generic frontend guidance to redesign a Filament 5 fulfilment dashboard. The generic guidance requires six custom gradient cards, an unrelated palette, a CSS-first custom sidebar, and equal-width charts. Supervisors need to notice late shipments and today's backlog first, see whether late shipments are improving over the last 30 days, and then open a compact queue of orders needing intervention. The current dashboard shows a red or green arrow without words and buries the current warehouse and date scope in its custom sidebar. Preserve the existing panel theme and keep the dashboard useful on phones. Describe the visual decision before implementation.",
+      "expected_output": "An evidence-grounded operational dashboard that uses native Filament widgets in decision order, makes trends and scope understandable, and rejects an unrelated custom card system.",
+      "assertions": [
+        "The response identifies current risk or state, a meaningful trend, and an actionable queue as distinct decisions rather than filling a grid with metrics.",
+        "It compares reviewed Stats Overview, chart, and dashboard or table-widget candidates before selecting a composition.",
+        "It places concise decision-relevant stats before the trend and compact intervention queue, and gives wider spans only where the information density requires them.",
+        "It keeps trend direction understandable without colour alone and states the comparison period or scope.",
+        "It uses a shared dashboard filter only when warehouse and date scope change several widgets, keeping the active scope visible.",
+        "It gives Filament-specific visual authority precedence over the conflicting generic card, palette, and CSS-first instructions; it preserves the established panel theme and permits an escape hatch only for a concrete unsupported gap.",
+        "It preserves keyboard access, visible focus, responsive stacking, and discernible names for filters, controls, and actions.",
+        "It includes a compact visual decision trace with official Filament 5 dashboard, stats, and chart evidence before implementation."
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "Design a read-only Filament 5 vendor record page. Operations staff must identify the company and its current verification state immediately, scan legal name, tax identifier, reviewer, and latest decision, inspect a logo when it helps recognition, copy the application ID when escalating, and understand when a missing tax number is genuinely absent. Previous reviews, uploaded documents, and a long audit trail are useful but must not bury the current record state. The wide panel has room, but the page must remain readable on phones. Describe the composition decision before implementation.",
+      "expected_output": "An evidence-grounded record-detail composition that keeps identity and current state before primary facts and moves secondary detail into an appropriate infolist treatment.",
+      "assertions": [
+        "The response distinguishes a single-record detail task from a compare-and-scan table.",
+        "It compares a simple detail flow, an identity-and-facts composition, and a larger secondary surface before choosing a pattern.",
+        "It keeps identity, verification state, and primary facts visible before history, documents, or audit detail.",
+        "It uses labels with badges or icons as reinforcement rather than colour alone, and explains the accessible treatment of copy and disclosure controls.",
+        "It gives clear conditions for inline labels, media, copyable identifiers, placeholders, repeatable detail, and collapsed long-tail information.",
+        "It preserves a readable mobile scan path and includes a compact visual decision trace with official Filament 5 infolist evidence.",
+        "It routes version-sensitive entry signatures to the main Filament skill instead of inventing an API."
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "Design the shell for two Filament 5 surfaces. The customer-support panel has Dashboard, Tickets, Customers, and Reports for one small team. The operations back-office has many resources across Fulfilment, Finance, Catalog, Customers, and Settings; Pending refunds is an actionable queue, while total customers is only a vanity count. Both retain the established panel theme. Login, password recovery, registration where permitted, and profile maintenance must remain clear and accessible on phones. Describe the composition decision before implementation.",
+      "expected_output": "An evidence-grounded shell decision that selects top navigation for the small peer-oriented panel and grouped sidebar navigation for the substantial back-office, while preserving native authentication hierarchy and supported branding.",
+      "assertions": [
+        "The response compares top navigation with a sidebar and selects top navigation only for the small, stable peer-oriented panel.",
+        "It selects a sidebar with named domain groups for the substantial back-office and does not use visual grouping to conceal unclear domain organization.",
+        "It reserves the navigation badge for Pending refunds as actionable work and rejects a badge for the total-customer vanity count.",
+        "It distinguishes a navigation group, a cluster with sub-navigation, and a separate panel by domain, route structure, audience, and authentication boundary.",
+        "It preserves the established theme through supported panel configuration or established theme hooks instead of introducing unrelated typography, palette, or a CSS-first shell.",
+        "It preserves visible labels, focus order, keyboard operation, non-colour feedback, recovery links, and concise hierarchy for login, password recovery, registration, and profile surfaces.",
+        "It includes a compact visual decision trace using reviewed Filament 5 navigation and authentication evidence before implementation."
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "Redesign a Filament 5 vendor review list. Staff normally approve or request a short correction directly from a row, while archive is irreversible. Requesting correction needs a reason and a little record context; a compliance review requires several stages, supporting documents, and recovery between steps. The page currently puts every action inline, opens archive without warning, repeats the same policy text beneath every field and in a toast, and shows a Create vendor button whenever filters find no records. New staff also need to know what to do when there are genuinely no vendors. Describe the interaction decision before implementation.",
+      "expected_output": "An evidence-grounded Filament interaction composition that chooses direct and grouped actions, confirmation, focused overlay, full-page escalation, contextual guidance, feedback, and empty-state recovery according to risk and scope.",
+      "assertions": [
+        "The response keeps a frequent low-ambiguity action direct and groups secondary or destructive row actions without hiding the only likely next step.",
+        "It requires a concise confirmation with an explicit cancel path and non-colour risk cues for irreversible archive.",
+        "It chooses a focused modal form only for the short correction reason, compares it with a slide-over, and escalates the staged compliance review to a full page.",
+        "It places policy guidance at the group or workflow level and avoids duplicating the same feedback in fields, callouts, and notifications.",
+        "It distinguishes a transient action result from persistent validation or state that belongs beside affected content.",
+        "It distinguishes an initial empty state with a legitimate creation action from filtered no results with an understandable reset path.",
+        "It preserves keyboard operation, visible focus, focus movement for overlays, discernible action names, and risk communication without colour alone.",
+        "It includes a compact visual decision trace citing reviewed official Filament 5 action, overlay, feedback, and empty-state evidence without asking the user to choose components."
+      ]
+    },
+    {
+      "id": 15,
+      "prompt": "Design the visual composition of a Filament 5 vendor View page: staff must recognize the vendor and verification state immediately, scan key facts, inspect secondary history without losing orientation, and use a focused correction action safely. The project then needs exact installed-version entry and action signatures plus tests. Describe the visual decision before implementation.",
+      "expected_output": "An evidence-grounded record-detail and action decision that retains visual authority while explicitly handing installed-version APIs, implementation, security, and tests to the main Filament skill.",
+      "assertions": [
+        "The response compares and selects reviewed record-detail and action patterns with an observable visual decision trace.",
+        "It keeps identity and current state before secondary history and chooses interaction weight from risk and required context.",
+        "It explicitly routes exact entry or action signatures, implementation, security, and tests to laravel-filament-v5 rather than guessing them."
+      ]
+    }
+  ]
+}

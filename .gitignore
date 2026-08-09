@@ -1,2 +1,20 @@
 .docs/
 .claude/
+
+# Generated analysis and Python cache artifacts
+graphify-out/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+*.log
+.env*
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.vscode/
+.idea/

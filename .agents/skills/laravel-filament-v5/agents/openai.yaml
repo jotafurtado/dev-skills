@@ -1,4 +1,0 @@
-interface:
-  display_name: "Laravel Filament v5"
-  short_description: "Build and review secure Filament 5 interfaces"
-  default_prompt: "Use $laravel-filament-v5 to build or review this Filament 5 change against the installed version, official components, security boundaries, and relevant tests."

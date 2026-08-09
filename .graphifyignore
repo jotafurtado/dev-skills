@@ -1,9 +1,12 @@
 # Repository metadata and local agent state
 .git/
 .claude/
-.docs/
+.agents/
 
 # Generated analysis and Python cache artifacts
 graphify-out/
 __pycache__/
 *.py[cod]
+
+# Resolved Composer fixture
+.filament-fixture/

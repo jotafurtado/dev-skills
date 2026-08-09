@@ -1,5 +1,8 @@
-.docs/
 .claude/
+
+# Local skill install artifacts (npx skills) — machine-specific; never version these
+.agents/
+skills-lock.json
 
 # Generated analysis and Python cache artifacts
 graphify-out/
@@ -18,3 +21,6 @@ Thumbs.db
 *.swp
 .vscode/
 .idea/
+
+# Composer fixture used to verify composition APIs
+.filament-fixture/

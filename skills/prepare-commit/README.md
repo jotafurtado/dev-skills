@@ -2,7 +2,7 @@
 
 AI agent skill for preparing small Git commits. It writes Conventional Commits 1.0.0 messages in the language established by the user or project, keeps an existing `CHANGELOG.md` up to date when a change is notable, and defers to the host agent's native Git and permission protocols.
 
-Current version: **1.3.0**
+Current version: **1.4.0**
 
 ## Install
 
@@ -20,11 +20,11 @@ php artisan boost:add-skill jotafurtado/dev-skills --skill prepare-commit
 
 - Host precedence for amend, hooks, push, permissions, and allowed commands
 - Conventional Commits types: `feat` and `fix` have specification-defined semantics; additional project types are supported
-- Message language selected from user instruction, project convention, recent history, then Brazilian Portuguese as fallback
-- Keep a Changelog categories, including breaking changes, deprecations, removals, and security fixes
+- Language for each sink (commit message, changelog entry) selected from user instruction, project convention, the existing artefact for that sink, then Brazilian Portuguese as fallback
+- When a root `CHANGELOG.md` exists, routes to `references/changelog.md` for relevance, Keep a Changelog classification (including breaking changes, deprecations, removals, and security fixes), and entry format
 - Atomic concern-by-concern staging with explicit paths and full cached-diff review; no interactive staging
 - Flags untracked files that look like `.gitignore` candidates (env files, IDE metadata, build output, OS artifacts, logs) before staging anything
-- Project tests, linters, and formatters only when the host permits their discovery and execution
+- Project tests, linters, and formatters discovered once in validation, then reused per concern when staging
 - Portable safeguards: no commit or push without the corresponding explicit request, no secret staging, and no silent alteration of unrelated work
 - Optional `--push` flag: pushes once after all of the run's commits, still bound by host push permissions, and never force-pushes
 

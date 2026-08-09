@@ -2,10 +2,10 @@
 name: prepare-commit
 description: "Prepares small Git commits with Conventional Commits messages in the language established by the user or project and keeps CHANGELOG.md up to date. Use when the user asks to commit, stage changes, write a commit message, follow Conventional Commits, or prepare changes for versioning."
 license: MIT
-compatibility: "Designed for Cursor, Claude Code, Windsurf, and Copilot; requires Git."
 metadata:
+  compatibility: "Designed for Cursor, Claude Code, Windsurf, and Copilot; requires Git."
   author: jotafurtado
-  version: "1.3.0"
+  version: "1.4.0"
   domain: workflow
   role: specialist
   scope: implementation
@@ -19,11 +19,20 @@ metadata:
 
 Prepare small, reviewable, traceable commits using Conventional Commits 1.0.0, and keep `CHANGELOG.md` up to date when a change is notable to users, integrators, or operators.
 
-Determine the commit language in this order: explicit user instruction, documented project convention, recent commit history, then Brazilian Portuguese as the fallback. Keep the subject, body, and footer values in that language; preserve required machine-readable tokens such as `BREAKING CHANGE` and keep type tokens consistent with the project. A request scoped to "this commit" does not change the project's default for future commits.
+Determine the language for each written sink — the commit message and, when applicable, a changelog entry — in this order:
+
+1. Explicit user instruction. Note whether it is scoped to this run or changes the project default. A request scoped to "this commit" does not change the project's default for future commits.
+2. Documented project convention.
+3. The existing artefact for the sink being written: recent commit history for the commit message; the changelog file for a changelog entry.
+4. Brazilian Portuguese as the fallback.
+
+Because step 3 is sink-specific, a Portuguese commit message paired with an English changelog entry (or the reverse) is a deliberate outcome when those artefacts disagree and no higher rule unifies them. Keep the subject, body, footer values, and changelog prose in the language selected for that sink; preserve required machine-readable tokens such as `BREAKING CHANGE` and keep type tokens consistent with the project.
 
 ## Host Precedence and Portable Guarantees
 
 The host agent's native protocols and current user instructions take precedence over this skill. Follow the host exactly for amend eligibility, failed or modifying hooks, push, permissions, allowed commands, and command execution. This skill narrows commit behavior; it never grants permission or overrides a more restrictive host protocol.
+
+Steps 1–7 describe portable operations. Whether the host allows a given operation is resolved at this seam, not re-derived in each step.
 
 Portable guarantees:
 
@@ -34,6 +43,14 @@ Portable guarantees:
 - Preserve user and third-party work; do not revert, reformat, unstage, or reorganize it silently.
 - Amend only when the host protocol allows it and all host preconditions hold. If the host has no amend protocol, require an explicit amend request and verify the target commit is local and unpushed. Never amend after a failed or rejected commit; create a new commit after fixing the cause. Amend hook-generated follow-up changes only when the host explicitly permits that case.
 - Do not use interactive Git commands. In particular, never suggest or run `git add -p`.
+
+## Reference routing
+
+Load only the files needed for the task:
+
+| Task touches | Read |
+| --- | --- |
+| An existing root `CHANGELOG.md` that may need an entry | `references/changelog.md` |
 
 ## Flow
 
@@ -104,7 +121,7 @@ Format:
 Rules:
 
 - The description must immediately follow `: `, be short, clear, and have no trailing period.
-- Use the language selected in the Goal section consistently.
+- Use the language selected in the Goal section consistently for this sink.
 - Prefer explaining the "why" in the body when the change isn't obvious from the diff.
 - Use `feat` only for new functionality.
 - Use `fix` only for a behavior correction.
@@ -126,59 +143,27 @@ Evita redirecionamentos incorretos quando o token já foi invalidado.
 
 ### 4. Update CHANGELOG
 
-First check whether `CHANGELOG.md` exists at the repo root, subject to the host's allowed read/edit operations. If it doesn't, skip this step; don't create one unprompted.
-
-If it exists, update it when the change is relevant to users, operations, integration, API, public documentation, or observable behavior.
-
-Don't update the changelog for purely internal changes — formatting, small test tweaks, local cleanup, or maintenance with no external impact — unless the user asks for it.
-
-When updating:
-
-- Read the existing format before editing.
-- Preserve the language, order, and style already used in the file.
-- Use the `## [Unreleased]` section when it exists.
-- If it doesn't exist yet (but the file does), create `## [Unreleased]` in a place consistent with the file's structure.
-- Classify entries by user-visible impact, not by commit type alone.
-
-Use the existing structure when it intentionally differs. Otherwise follow Keep a Changelog's six categories:
-
-| Change | Section | Rule |
-| --- | --- | --- |
-| `feat` | `### Added` | New user-visible capability. |
-| `fix` | `### Fixed` | User-visible bug fix, except vulnerability fixes. |
-| Vulnerability fix | `### Security` | Use regardless of commit type; avoid exposing exploit details. |
-| Deprecation | `### Deprecated` | Announce functionality that will be removed and provide an alternative. |
-| Removal | `### Removed` | State what was removed and the migration path when relevant. |
-| Breaking change | `### Changed` or `### Removed` | Make the break and migration explicit; use `Removed` when removal is the cause. |
-| `perf` | `### Changed` | Include only when the improvement is observable or operationally relevant. |
-| `docs` | Existing custom documentation section or `### Changed` | Include only notable public-documentation changes; otherwise omit. |
-| `revert` | Category matching its effect | Describe the user-visible restoration or withdrawal. |
-| `refactor`, `style`, `test`, `build`, `ci`, `chore` | Usually no entry | These are normally internal. Use `### Changed`, `### Fixed`, or `### Security` only when the actual effect is notable externally. |
-
-Write entries in the same language as the rest of the changelog file, unless the user explicitly requested a different language for this commit — in that case, follow their request instead, even if it doesn't match the rest of the file. Example (default, Portuguese):
-
-```markdown
-- Adiciona filtros por status aos relatórios administrativos.
-```
+Check whether `CHANGELOG.md` exists at the repo root. If it does not, skip this step and do not create one unprompted. If it does, load `references/changelog.md` and follow it.
 
 ### 5. Validate
 
-Before committing:
+Before committing, discover which project checks apply to this run:
 
-- Run tests, linters, or formatters only when the host protocol permits the required discovery and commands.
-- When permitted, detect the project's own checks and run the smallest relevant non-interactive set. Do not assume a stack or broaden the diff with an unrestricted auto-fix.
-- If the host restricts this workflow to Git inspection/commit commands, skip project checks rather than conflicting with that protocol. Report checks not run and why.
+- Detect the project's own tests, linters, or formatters and run the smallest relevant non-interactive set. Do not assume a stack or broaden the diff with an unrestricted auto-fix.
+- If no usable checks are found, or a discovered check cannot be run, report what was skipped and why.
 - Re-read `git diff` and `git diff --cached` to confirm only what should be included is included.
+
+Step 5 owns check discovery for the run. Step 6 reuses that discovered set for per-concern verification after staging; it does not rediscover checks.
 
 ### 6. Stage and Commit Atomically
 
 Split the work by concern before staging. For each concern, define its message and exact paths, then complete this loop before moving to the next:
 
-1. Confirm the index has no pre-staged changes from another concern. If it does, stop and resolve according to the host protocol and user direction; never unstage silently.
+1. Confirm the index has no pre-staged changes from another concern. If it does, stop and ask the user how to proceed; never unstage silently.
 2. Stage explicit paths only: `git add -- <path-1> <path-2>`.
 3. Inspect the complete candidate commit with `git diff --cached --stat` and `git diff --cached`.
-4. If the cached diff contains another concern, unrelated work, or sensitive data, do not commit. Adjust only through non-interactive operations allowed by the host, or ask the user how to proceed.
-5. Run permitted checks for that concern, then inspect `git diff --cached` again if a check changed files.
+4. If the cached diff contains another concern, unrelated work, or sensitive data, do not commit. Adjust only through non-interactive operations, or ask the user how to proceed.
+5. Run the checks discovered in Step 5 for that concern, then inspect `git diff --cached` again if a check changed files.
 6. Commit that concern, run `git status --short`, and repeat the loop for the next concern.
 
 Never use `git add .`, `git add -A`, `git add -p`, or another interactive staging command. If separate concerns share the same file, path-based staging cannot split them atomically; ask the user to separate the file changes or approve one coherent commit instead of suggesting interactive staging.
@@ -205,6 +190,5 @@ After the commit:
 Recognize `--push` or equivalent explicit phrasing as the push authorization required by the portable guarantees above.
 
 - Push once, after every commit in the current run has been created — not after each individual commit inside the Step 6 loop.
-- Follow the host's push protocol and permissions exactly; this flag never bypasses a host restriction or approval prompt.
 - Never force-push. If the push is rejected (e.g., the remote has diverged), report the error and ask the user how to proceed instead of retrying with `--force`.
 - Report the branch and remote pushed to, alongside the commit hashes.

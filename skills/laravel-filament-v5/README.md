@@ -27,7 +27,7 @@ php artisan boost:add-skill jotafurtado/dev-skills --skill laravel-filament-v5
 - Minimal visual fallback for installations without the dedicated UI/UX skill: official-component choice, established-theme preservation, and accessibility guardrails
 - Compatibility screenshot index for that fallback; it does not replace the dedicated visual catalog
 - Filament-specific visual authority that supersedes generic CSS-first guidance while retaining accessibility, responsive, performance, and UX requirements
-- Delegation to `laravel-filament-5-ui-ux` for every material Filament visual selection and composition decision when that dedicated skill is installed
+- Delegation to `laravel-filament-v5-ui-ux` for every material Filament visual selection and composition decision when that dedicated skill is installed
 - Evidence protocol: installed lock/vendor source first, official versioned docs second, exact upstream tags third, and aggregators only as source-checked discovery aids
 - Documentation routing authority: for Filament-specific questions, this skill is the entry point ahead of generic doc-lookup tools (find-docs, Context7, Laravel Boost's `search-docs`), which stay subordinate to its evidence protocol
 - Behavioral output evals plus trigger/non-trigger queries for regression testing
@@ -46,7 +46,7 @@ laravel-filament-v5/
     ├── resources.md                # Resource anatomy: generation, navigation, getUrl(), authorization, extracting classes
     ├── infolists.md                # Read-only display entries
     ├── forms.md                    # Form fields + recurring patterns
-    ├── tables.md                   # Columns, filters, empty states, grouping, record layouts (Split/Stack/Panel)
+    ├── tables.md                   # Columns, filters, empty states, grouping, summaries, layout component API
     ├── layout.md                   # Sections, grids, tabs, wizards, primes, callouts, EmptyState
     ├── actions.md                  # Actions, modals, table action placement
     ├── widgets.md                  # Stats, charts, table widgets, dashboards
@@ -57,7 +57,7 @@ laravel-filament-v5/
     ├── security.md                 # Authorization, tenancy, uploads, HTML, import/export, sensitive state
     ├── advanced-features.md        # Pages, clusters, search, tenancy, import/export, nesting, plugins
     ├── testing.md                  # Pest + Livewire behavior, authorization, and tenant testing
-    ├── ui-composition.md           # Filament-aligned defaults, page recipes, hierarchy, composition patterns
+    ├── ui-composition.md           # Minimal visual fallback when laravel-filament-v5-ui-ux is unavailable
     └── screenshots.md              # Index of official docs screenshots for on-demand visual reference
 ```
 

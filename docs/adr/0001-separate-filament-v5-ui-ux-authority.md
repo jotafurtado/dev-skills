@@ -1,6 +1,6 @@
 # Separate Filament 5 UI/UX authority
 
-Status: Accepted
+Status: Superseded by ADR-0002
 
 ## Context
 
@@ -10,9 +10,9 @@ Adding more visual detail to the same skill would increase its routing depth and
 
 ## Decision
 
-Create `laravel-filament-5-ui-ux` as the exclusive authority for visual pattern discovery, selection, composition, responsive behavior, and UI/UX review inside Filament 5 interfaces.
+Create `laravel-filament-v5-ui-ux` as the exclusive authority for visual pattern discovery, selection, composition, responsive behavior, and UI/UX review inside Filament 5 interfaces.
 
-Keep `laravel-filament-v5` authoritative for installed-version resolution, API signatures, implementation, security, and tests. It delegates material visual work to `laravel-filament-5-ui-ux`; the UI/UX skill delegates version-sensitive implementation facts back to `laravel-filament-v5`.
+Keep `laravel-filament-v5` authoritative for installed-version resolution, API signatures, implementation, security, and tests. It delegates material visual work to `laravel-filament-v5-ui-ux`; the UI/UX skill delegates version-sensitive implementation facts back to `laravel-filament-v5`.
 
 The UI/UX skill uses a pre-interpreted catalog with three layers:
 

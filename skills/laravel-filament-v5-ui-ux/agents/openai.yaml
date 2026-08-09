@@ -1,0 +1,4 @@
+interface:
+  display_name: "Laravel Filament v5 UI UX"
+  short_description: "Ready-to-adapt Filament 5 compositions"
+  default_prompt: "Use $laravel-filament-v5-ui-ux to pick a reference composition for this Filament 5 surface and adapt it."

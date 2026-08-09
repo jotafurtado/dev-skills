@@ -1,6 +1,8 @@
 # Layout & static content — schemas (`Filament\Schemas\Components\*`)
 
-Apply to both forms AND infolists (same Schema system in v5). For *when* to use each one — hierarchy, page flow — see `references/ui-composition.md`; this file is the API inventory.
+Apply to both forms AND infolists (same Schema system in v5).
+
+For *which* page structure to build — grouping, columns, sections, tabs, wizards, density — use `laravel-filament-v5-ui-ux`, `references/form-layout.md`. This file is the API inventory.
 
 Table signatures are focused fragments. Code blocks include the imports needed by the shown composition; add surrounding schema/class context.
 

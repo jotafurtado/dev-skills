@@ -50,5 +50,9 @@
   {
     "query": "Migrate a Filament 4 Resource to Filament 5.",
     "should_trigger": false
+  },
+  {
+    "query": "Change the label of one field in an existing Filament 5 form.",
+    "should_trigger": false
   }
 ]

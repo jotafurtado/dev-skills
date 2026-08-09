@@ -4,6 +4,8 @@ Used inside `public static function table(Table $table): Table`.
 
 Signatures below are focused fragments. Add imports for the shown columns, filters, actions, icons, and `Filament\Tables\Table` in the target class.
 
+For *which* table composition to build — column order, filter choice, grouping, summaries, responsive record layouts — use `laravel-filament-v5-ui-ux`, `references/table.md`. This file is the API inventory.
+
 ## Columns (`Filament\Tables\Columns\*`)
 
 | Component | For | Minimal signature | 5.x doc |
@@ -47,26 +49,33 @@ $table
 
 ## Grouping rows
 
-`->defaultGroup('status')` on the `Table` groups rows under headers — a deliberate alternative to a redundant status column when users scan by state. Group headers show the attribute value by default; customize with a `Group` object (`Filament\Tables\Grouping\Group`): `Group::make('status')->getTitleFromRecordUsing(fn ($record): string => ...)`, `->label('State')`, `->getDescriptionFromRecordUsing(...)`. ([grouping doc](https://filamentphp.com/docs/5.x/tables/grouping.md))
+`->defaultGroup('status')` on the `Table` groups rows under headers. Group headers show the attribute value by default; customize with a `Group` object (`Filament\Tables\Grouping\Group`): `Group::make('status')->getTitleFromRecordUsing(fn ($record): string => ...)`, `->label('State')`, `->getDescriptionFromRecordUsing(...)`. ([grouping doc](https://filamentphp.com/docs/5.x/tables/grouping.md))
 
-## Record layouts — Split, Stack, Panel, grid
+## Summaries
 
-For records where a photo/identity block matters more than comparable facts (people, products, cards), columns compose into layouts from `Filament\Tables\Columns\Layout\*` ([layout doc](https://filamentphp.com/docs/5.x/tables/layout.md)):
+Summarizers attach to a column with `->summarize()` (`Filament\Tables\Columns\Summarizers\*`): `Average`, `Count`, `Range`, `Sum`. The first column in a table cannot carry a summarizer. ([summaries doc](https://filamentphp.com/docs/5.x/tables/summaries.md))
 
-| Component | For | Minimal signature |
-|---|---|---|
-| `Split` | Side-by-side blocks that stack below a breakpoint | `Split::make([ImageColumn::make('avatar')->grow(false), Stack::make([...])])->from('md')` — `->grow(false)` on inner columns prevents whitespace |
-| `Stack` | Vertical stack inside a row or Split | `Stack::make([TextColumn::make('name'), TextColumn::make('email')])` |
-| `Panel` | Pre-styled collapsible container for the long tail | `Panel::make([...])->collapsible()` — `->collapsed(false)` expands by default |
+## Record layout components (`Filament\Tables\Columns\Layout\*`)
 
-- Card grid: `$table->contentGrid(['md' => 2, 'xl' => 3])` renders records as cards instead of rows.
-- `->stackedOnMobile()` on the table stacks columns on small screens without a layout component.
-- Regular columns beat card grids for compare-and-scan work — see `references/ui-composition.md` for when each fits, and `references/screenshots.md` (`tables/layout/*`) for the official look.
+Columns can be composed into layout components ([layout doc](https://filamentphp.com/docs/5.x/tables/layout.md)):
+
+| Component | Minimal signature |
+|---|---|
+| `Split` | `Split::make([...])->from('md')` — `->grow(false)` on inner columns prevents whitespace |
+| `Stack` | `Stack::make([...])` — `->space(1)`, `->alignment(Alignment::End)`, `->visibleFrom('md')` |
+| `Grid` | `Grid::make(['lg' => 2])->schema([...])` — CSS Grid, equal tracks; `->columnSpan([...])` per component |
+| `Panel` | `Panel::make([...])->collapsible()` — `->collapsed(false)` expands by default |
+
+Table-level: `->contentGrid(['md' => 2, 'xl' => 3])` renders records as cards; `->stackedOnMobile()` stacks cells on small screens without a layout component.
+
+## Pagination
+
+`->paginated([10, 25, 50, 100, 'all'])`, `->defaultPaginationPageOption(25)`, `->extremePaginationLinks()`, `->paginated(false)` to disable. ([overview doc](https://filamentphp.com/docs/5.x/tables/overview.md))
 
 ## Table-level conventions
 
-- Actions go in `->recordActions([...])`, `->groupedBulkActions([...])`, `->toolbarActions([...])` — the v3 `->actions()` / `->bulkActions()` no longer exist. Details in `references/actions.md`.
+- Actions go in `->recordActions([...])`, `->toolbarActions([...])` — the v3 `->actions()` / `->bulkActions()` no longer exist. Bulk actions wrap in `BulkActionGroup::make([...])`. Details in `references/actions.md`.
 - Use `->defaultSort('created_at', direction: 'desc')` when the domain has a meaningful default order; otherwise make the intentionally unordered behavior clear in review.
 - `->searchable()` on key text columns; `->sortable()` where ordering is meaningful.
-- `->toggleable(isToggledHiddenByDefault: true)` for secondary columns — keeps the default view scannable (see `ui-composition.md`).
+- `->toggleable(isToggledHiddenByDefault: true)` hides a column by default while keeping it available.
 - For a reusable domain status, prefer a model-cast enum implementing `HasColor` / `HasLabel` / `HasIcon`, so tables, infolists, and forms share semantics. A documented `->color(fn (string $state) => ...)` callback remains valid for local or non-enum state; avoid duplicating the same mapping across surfaces.

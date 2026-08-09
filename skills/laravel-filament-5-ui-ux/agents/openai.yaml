@@ -1,4 +1,0 @@
-interface:
-  display_name: "Laravel Filament 5 UI UX"
-  short_description: "Compose evidence-grounded Filament 5 UI"
-  default_prompt: "Use $laravel-filament-5-ui-ux to choose and compose an official Filament 5 visual pattern for this interface."

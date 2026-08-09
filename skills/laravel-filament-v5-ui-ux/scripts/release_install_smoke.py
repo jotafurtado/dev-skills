@@ -11,7 +11,7 @@ import tempfile
 from pathlib import Path
 
 
-SKILLS = ("laravel-filament-5-ui-ux", "laravel-filament-v5")
+SKILLS = ("laravel-filament-v5-ui-ux", "laravel-filament-v5")
 DEFAULT_AGENTS = ("codex", "claude-code", "cursor")
 
 

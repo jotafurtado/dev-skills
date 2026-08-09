@@ -1,6 +1,6 @@
 # Compatibility screenshot lookup
 
-Use this reference only when `laravel-filament-5-ui-ux` is unavailable. The dedicated skill's reviewed local catalog is the authority for visual discovery and composition when installed.
+Use this reference only when `laravel-filament-v5-ui-ux` is unavailable. The dedicated skill's reviewed local catalog is the authority for visual discovery and composition when installed.
 
 Official Filament 5 screenshot URLs follow:
 

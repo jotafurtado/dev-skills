@@ -8,9 +8,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 UI_UX_ROOT = ROOT / "skills" / "laravel-filament-v5-ui-ux"
-SYNC_SCRIPT = UI_UX_ROOT / "scripts" / "sync_screenshot_inventory.py"
-VALIDATE_SCRIPT = UI_UX_ROOT / "scripts" / "validate_compositions.py"
-VERIFY_APIS_SCRIPT = UI_UX_ROOT / "scripts" / "verify_filament_apis.py"
+MAINTENANCE = ROOT / "maintenance" / "filament-ui-ux"
+SYNC_SCRIPT = MAINTENANCE / "scripts" / "sync_screenshot_inventory.py"
+VALIDATE_SCRIPT = MAINTENANCE / "scripts" / "validate_compositions.py"
+VERIFY_APIS_SCRIPT = MAINTENANCE / "scripts" / "verify_filament_apis.py"
 REFERENCES = UI_UX_ROOT / "references"
 INVENTORY_PATH = ROOT / "maintenance" / "filament-ui-ux" / "screenshot-inventory.json"
 MAIN_FILAMENT_SKILL_PATH = ROOT / "skills" / "laravel-filament-v5" / "SKILL.md"
@@ -18,8 +19,8 @@ MAIN_FILAMENT_QUERY_EVALS_PATH = ROOT / "skills" / "laravel-filament-v5" / "eval
 UI_UX_QUERY_EVALS_PATH = UI_UX_ROOT / "evals" / "eval_queries.json"
 UI_UX_SKILL_PATH = UI_UX_ROOT / "SKILL.md"
 UI_UX_RELEASE_PATH = UI_UX_ROOT / "RELEASE.md"
-UI_UX_RELEASE_VERIFICATION_PATH = REFERENCES / "release-verification.md"
-UI_UX_INSTALL_SMOKE_SCRIPT = UI_UX_ROOT / "scripts" / "release_install_smoke.py"
+UI_UX_RELEASE_VERIFICATION_PATH = MAINTENANCE / "release-verification.md"
+UI_UX_INSTALL_SMOKE_SCRIPT = MAINTENANCE / "scripts" / "release_install_smoke.py"
 
 PHP = shutil.which("php")
 
@@ -482,15 +483,15 @@ class CrossSkillContractTests(unittest.TestCase):
         release = UI_UX_RELEASE_PATH.read_text()
         verification = UI_UX_RELEASE_VERIFICATION_PATH.read_text()
 
-        self.assertFalse((UI_UX_ROOT / "scripts" / "run_forward_evals.py").exists())
+        self.assertFalse((MAINTENANCE / "scripts" / "run_forward_evals.py").exists())
         self.assertFalse((UI_UX_ROOT / "evals" / "forward-runs").exists())
         self.assertIn("discontinued", verification.lower())
         self.assertIn("narrative forward evaluations", release.lower())
 
     def test_query_engine_and_catalog_are_removed(self):
         for path in (
-            UI_UX_ROOT / "scripts" / "query_visual_catalog.py",
-            UI_UX_ROOT / "scripts" / "build_catalog_index.py",
+            MAINTENANCE / "scripts" / "query_visual_catalog.py",
+            MAINTENANCE / "scripts" / "build_catalog_index.py",
             REFERENCES / "visual-catalog.json",
             REFERENCES / "visual-catalog-index.md",
         ):

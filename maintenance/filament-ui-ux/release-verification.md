@@ -10,11 +10,11 @@ The baseline skill owns installed-version API signatures, authorization, securit
 
 | Gate | Command | Passing condition |
 |---|---|---|
-| Composition validation | `python3 scripts/validate_compositions.py` | Every PHP block parses; every pattern carries `When`, `Not when`, and an official `Source`; no placeholder identifiers; no namespace removed in Filament 5 |
+| Composition validation | `python3 maintenance/filament-ui-ux/scripts/validate_compositions.py` | Every PHP block parses; every pattern carries `When`, `Not when`, and an official `Source`; no placeholder identifiers; no namespace removed in Filament 5 |
 | Deterministic tests | `python3 -m unittest discover -s tests -p 'test_laravel_filament_v5_ui_ux.py'` | All pass |
-| Skill structure | `node scripts/validate_skill.mjs skills/laravel-filament-v5-ui-ux` | Valid |
-| Clean install | `python3 scripts/release_install_smoke.py` | Candidate and paired installs resolve from the repository origin |
-| Filament resolution | `python3 scripts/verify_filament_apis.py` | Every Filament class imported and every enum case referenced by a composition exists in the resolved `filament/filament` version |
+| Skill structure | `node maintenance/validate_skill.mjs skills/laravel-filament-v5-ui-ux` | Valid |
+| Clean install | `python3 maintenance/filament-ui-ux/scripts/release_install_smoke.py` | Candidate and paired installs resolve from the repository origin |
+| Filament resolution | `python3 maintenance/filament-ui-ux/scripts/verify_filament_apis.py` | Every Filament class imported and every enum case referenced by a composition exists in the resolved `filament/filament` version |
 
 The Composer fixture is the gate that PHP syntax linting cannot cover: a renamed or removed API parses correctly and still fails at runtime. Run it before publishing, never only the linter.
 
@@ -22,7 +22,7 @@ The fixture resolves into `.filament-fixture/` at the repository root and is reu
 
 ## Coverage
 
-Coverage is the release metric, reported by `scripts/validate_compositions.py`.
+Coverage is the release metric, reported by `maintenance/filament-ui-ux/scripts/validate_compositions.py`.
 
 | Surface | File | Patterns | Variants |
 |---|---|---|---|

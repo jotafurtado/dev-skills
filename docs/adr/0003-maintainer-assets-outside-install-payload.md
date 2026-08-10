@@ -12,12 +12,20 @@ The discovery role is real, and it is a maintainer's role. Keeping that role whi
 
 ## Decision
 
-Move `screenshot-inventory.json` out of the skill install payload to `maintenance/filament-ui-ux/screenshot-inventory.json` at the repository root.
+Draw a seam between installed modules and maintainer assets: content under `skills/` is what the installer ships, and everything whose only reader is a maintainer lives outside that tree.
 
-Draw a seam between installed modules and maintainer assets: content under `skills/` is what the installer ships; maintainer-only discovery and coverage data live outside that tree. ADR-0002's retention of the inventory stands; only its location is amended.
+Move to `maintenance/` at the repository root:
+
+- `screenshot-inventory.json`, the discovery asset
+- the release scripts: composition validation, Filament API verification, inventory synchronization, and the clean-install smoke test
+- the release-verification note, which documents those gates
+- `validate_skill.mjs`, which validates any skill in the repository and was reachable only through one skill's directory
+
+ADR-0002's retention of the inventory stands; only its location is amended.
 
 ## Consequences
 
 - The coverage gate keeps working from the new path; an official pattern in the inventory without a reference composition remains tracked as an uncovered pattern.
-- `references/` becomes exclusively reference compositions plus the release-verification note — no JSON.
-- Release tooling now spans two roots: composition files under the skill, and the screenshot inventory under `maintenance/`.
+- `references/` becomes exclusively reference compositions.
+- Maintainer tooling lives in one root. Release commands gain a longer path, and scripts that derive paths from their own location compute them from the repository root instead of a skill root.
+- `validate_skill.mjs` becomes visibly repository-wide. Housing it under one skill is why two other skills carried non-conforming frontmatter undetected.

@@ -1,6 +1,20 @@
-# Release 2.0.0
+# Release 2.1.0
 
 `laravel-filament-v5-ui-ux` is a Filament 5.x only composition library. It ships ready-to-adapt code for forms, schemas, record tables, record details and infolists, dashboards, panel shells, and contextual actions with feedback. It does not provide Filament 3.x or 4.x guidance.
+
+## What changed in 2.1.0
+
+The compositions are unchanged. This release moves maintainer assets out of what
+the installer ships and states the seam between the two skills unconditionally.
+
+- **Maintainer assets leave the payload.** The screenshot inventory, the release
+  scripts, and the release-verification note move to `maintenance/`. The installer
+  copies the whole skill directory, so anything under `skills/` reaches every
+  consuming agent's disk; none of these had a use-time reader. See
+  [`docs/adr/0003-maintainer-assets-outside-install-payload.md`](../../docs/adr/0003-maintainer-assets-outside-install-payload.md).
+- **`references/` is now exclusively reference compositions.**
+- **The form seam is named.** `references/form-layout.md` is the entry point for the
+  form surface; alternatives that live in another file now say which one.
 
 ## What changed in 2.0.0
 
@@ -14,7 +28,7 @@ This is a breaking change to what the skill delivers. Previous versions returned
 
 ## Coverage
 
-22 patterns and 76 variants across 8 surfaces, all lint-clean. Coverage is the release metric: an official pattern present in the screenshot inventory without a reference composition is expansion work, reported by `scripts/validate_compositions.py`.
+22 patterns and 76 variants across 8 surfaces, all lint-clean. Coverage is the release metric: an official pattern present in the screenshot inventory without a reference composition is expansion work, reported by `maintenance/filament-ui-ux/scripts/validate_compositions.py`.
 
 ## Authority boundary
 
@@ -40,4 +54,4 @@ Synchronize the screenshot inventory, review new or changed evidence, and conver
 
 ## Release gates
 
-Run composition validation (`scripts/validate_compositions.py`), the deterministic tests, eval JSON parsing, the clean-install smoke test (`scripts/release_install_smoke.py`), and a final authority-boundary review. Composition validation is the substantive gate: it parses every PHP block with `php -l` under the six fragment shapes, and rejects a pattern missing `When`, `Not when`, or an official `Source`. Verify the compositions resolve against the target Filament version with `scripts/verify_filament_apis.py`, which resolves a Composer fixture and checks every imported Filament class and enum case against the installed source. The verification reference records the candidate comparison. Keep the skill presented under the Jota Furtado Dev Skills repository origin.
+Run composition validation (`maintenance/filament-ui-ux/scripts/validate_compositions.py`), the deterministic tests, eval JSON parsing, the clean-install smoke test (`maintenance/filament-ui-ux/scripts/release_install_smoke.py`), and a final authority-boundary review. Composition validation is the substantive gate: it parses every PHP block with `php -l` under the six fragment shapes, and rejects a pattern missing `When`, `Not when`, or an official `Source`. Verify the compositions resolve against the target Filament version with `maintenance/filament-ui-ux/scripts/verify_filament_apis.py`, which resolves a Composer fixture and checks every imported Filament class and enum case against the installed source. The verification reference records the candidate comparison. Keep the skill presented under the Jota Furtado Dev Skills repository origin.

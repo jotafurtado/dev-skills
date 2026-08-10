@@ -20,8 +20,8 @@ import sys
 from pathlib import Path
 
 
-SKILL_ROOT = Path(__file__).resolve().parents[1]
-REPO_ROOT = SKILL_ROOT.parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[3]
+SKILL_ROOT = REPO_ROOT / "skills" / "laravel-filament-v5-ui-ux"
 REFERENCES = SKILL_ROOT / "references"
 DEFAULT_FIXTURE = REPO_ROOT / ".filament-fixture"
 DEFAULT_CONSTRAINT = "^5.0"

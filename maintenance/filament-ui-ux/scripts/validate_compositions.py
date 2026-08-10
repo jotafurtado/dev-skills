@@ -23,8 +23,8 @@ from pathlib import Path
 from typing import Any
 
 
-SKILL_ROOT = Path(__file__).resolve().parents[1]
-REPO_ROOT = SKILL_ROOT.parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[3]
+SKILL_ROOT = REPO_ROOT / "skills" / "laravel-filament-v5-ui-ux"
 REFERENCES = SKILL_ROOT / "references"
 INVENTORY_PATH = REPO_ROOT / "maintenance" / "filament-ui-ux" / "screenshot-inventory.json"
 DOC_PREFIX = "https://filamentphp.com/docs/5.x/"

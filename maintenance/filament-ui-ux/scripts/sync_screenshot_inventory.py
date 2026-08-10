@@ -15,8 +15,8 @@ from urllib.error import URLError
 from urllib.request import Request, urlopen
 
 
-SKILL_ROOT = Path(__file__).resolve().parents[1]
-REPO_ROOT = SKILL_ROOT.parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[3]
+SKILL_ROOT = REPO_ROOT / "skills" / "laravel-filament-v5-ui-ux"
 DEFAULT_INDEX_URL = "https://filamentphp.com/docs/5.x"
 DEFAULT_OUTPUT = REPO_ROOT / "maintenance" / "filament-ui-ux" / "screenshot-inventory.json"
 SCREENSHOT_PATTERN = re.compile(

@@ -13,6 +13,7 @@ Each skill lives in its own folder under [`skills/`](./skills), with a `SKILL.md
 | [laravel-filament-v5-ui-ux](./skills/laravel-filament-v5-ui-ux) | Ready-to-adapt Filament 5 compositions for tables, forms, record details, dashboards, panel shells, and action feedback — pasteable code with official provenance. | `npx skills add jotafurtado/dev-skills --skill laravel-filament-v5-ui-ux` |
 | [prepare-commit](./skills/prepare-commit) | Prepare atomic Git commits with Conventional Commits, host-safe staging, project-aware language, and CHANGELOG.md maintenance. | `npx skills add jotafurtado/dev-skills --skill prepare-commit` |
 | [sdd-workflow](./skills/sdd-workflow) | Run Kiro-inspired Requirements-First, Design-First, Quick Plan, and Bugfix specs with sequential IDs, persistent state, and verified execution. | `npx skills add jotafurtado/dev-skills --skill sdd-workflow` |
+| [implement-with-subagents](./skills/implement-with-subagents) | Orchestrate parallel `/implement` waves over the ready-for-agent frontier with isolated workers and orchestrator-owned review/commit. | `npx skills add jotafurtado/dev-skills --skill implement-with-subagents` |
 
 ## Install
 

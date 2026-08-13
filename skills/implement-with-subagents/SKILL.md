@@ -1,22 +1,23 @@
 ---
 name: implement-with-subagents
-description: "Orchestrates parallel implementation of ready-for-agent tickets whose blockers are done, using isolated workers and orchestrator-owned review and commit. Use only when the user explicitly invokes /implement-with-subagents or asks to implement open tickets in parallel with subagents. Do not use for a single ticket (use /implement), triage, wayfinding, or editing Matt Pocock skills."
+description: "Orchestrates parallel implementation of ready-for-agent frontier tickets with isolated workers and orchestrator-owned review and commit. User-invoked via /implement-with-subagents."
 license: MIT
 metadata:
   compatibility: "Requires Matt Pocock /implement, /tdd, and /code-review installed. Harness-agnostic contract; see references/host-adapters.md."
   author: jotafurtado
-  version: "1.0.0"
+  version: "1.1.0"
   domain: workflow
   role: orchestrator
   scope: implementation
   tags: "implement, subagents, parallel, tickets, worktree, orchestration"
+disable-model-invocation: true
 ---
 
 # Implement with subagents
 
 Orchestrate **waves** of **workers** over the issue-tracker **frontier**. This skill extends the Matt Pocock [`/implement`](https://github.com/mattpocock/skills) contract with parallel subagents — it does not patch or vendor that skill.
 
-Read glossary terms in [`CONTEXT.md`](CONTEXT.md). Architecture decision: [`docs/adr/0004-implement-with-subagents-orchestration.md`](../../docs/adr/0004-implement-with-subagents-orchestration.md).
+Read glossary terms in [`CONTEXT.md`](CONTEXT.md). Decisions: [`docs/adr/0004-implement-with-subagents-orchestration.md`](../../docs/adr/0004-implement-with-subagents-orchestration.md), [`docs/adr/0005-allow-disable-model-invocation.md`](../../docs/adr/0005-allow-disable-model-invocation.md).
 
 ## Provenance and dependencies
 
@@ -39,16 +40,9 @@ If `/implement`, `/tdd`, or `/code-review` is missing, stop and tell the user to
 
 ### 1. Discover and compute the frontier
 
-Follow the tracker in `docs/agents/issue-tracker.md`. Load every candidate that still carries `ready-for-agent`.
-
-A ticket is on the **frontier** when:
-
-- it has `ready-for-agent`, and
-- every ticket listed in its blocking edges is complete (acceptance criteria done / issue closed — whatever the tracker uses for "done"; absence of `ready-for-agent` alone is not enough if acceptance boxes remain open after a failed claim).
+Follow the tracker in `docs/agents/issue-tracker.md`. The **frontier** is every `ready-for-agent` ticket whose blockers are complete — scan checklist in [references/ticket-lifecycle.md](references/ticket-lifecycle.md); complete-blocker rule in [references/orchestrator-flow.md](references/orchestrator-flow.md).
 
 If the frontier is empty, report why (none ready, or all ready tickets still blocked) and stop.
-
-Detail: [references/ticket-lifecycle.md](references/ticket-lifecycle.md).
 
 ### 2. Human gate (first wave only)
 

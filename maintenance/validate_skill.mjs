@@ -10,6 +10,7 @@ const ALLOWED_PROPERTIES = new Set([
   "license",
   "allowed-tools",
   "metadata",
+  "disable-model-invocation",
 ]);
 
 function fail(message) {

@@ -28,6 +28,18 @@ _Avoid_: Full implement, partial implement, implement-without-commit (as the glo
 Removing `ready-for-agent` from a frontier ticket (plus a tracker comment) so no other orchestrator grabs it before this wave finishes with it.
 _Avoid_: Assign, lock, checkout
 
+**Dirty-tree integrate**:
+Copying the worker's uncommitted worktree paths into the orchestrator branch using `git status` in the worktree as the source of truth — not merging a ticket branch that never received commits.
+_Avoid_: Merge the ticket branch, apply (when it means merge-only)
+
+**Degraded review**:
+Standards + Spec axes run in-process by the orchestrator because `/code-review` could not spawn; still bound by the P0 / Spec-fail gate.
+_Avoid_: Skipped review, informal look
+
+**Resume handshake**:
+Re-validating git log, worktrees, and tracker state after a session gap before any further claim or spawn; SHAs only from `git rev-parse` / `git log`.
+_Avoid_: Continue from memory
+
 **Host adapter**:
 The harness-specific way to realize the portable orchestration contract (spawn, isolate, await, integrate). OMP's `task` + isolated worktree is one adapter; others map the same verbs.
 _Avoid_: Runtime plugin, backend

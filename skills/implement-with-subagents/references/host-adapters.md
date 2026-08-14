@@ -1,35 +1,34 @@
 # Host adapters
 
-Portable verbs this skill needs: **spawn**, **isolate**, **await**, **integrate**, **cleanup**. Map them on the current harness. Prefer the host's native isolation; do not invent a second worktree scheme when one exists.
+Portable verbs: **spawn**, **isolate**, **await**, **integrate**, **cleanup**. This file tells *what* must hold; *how* is up to the agent using the host's native capabilities.
 
-## OMP (Oh My Pi)
+> In OMP, saying **"orchestrate"** triggers native multi-phase + parallel subagent orchestration — prefer that when available. Let the agent pick the concrete mechanism (isolated worktree, task tool, etc.) that best satisfies the invariants below.
 
-Primary reference host.
+## Invariants (all hosts)
 
-| Verb | How |
-| --- | --- |
-| spawn | Use the `task` tool; one task per ticket; agent type suited to implementation (typically `task`). |
-| isolate | Request an isolated git worktree for the task (`isolated: true` / host equivalent). Confirm the worker's cwd is the worktree. |
-| await | Wait until every task in the wave settles; use the Agent Hub / task completion signals the host provides. Do not poll with ad-hoc sleeps when the host notifies on completion. |
-| integrate | Apply or merge the task worktree into the orchestrator's current branch. Prefer the host's apply/merge controls when present; otherwise `git fetch`/`merge`/`rebase` from the worktree branch onto the current branch, resolving via `/resolving-merge-conflicts` only if already mid-conflict. |
-| cleanup | Remove or keep worktrees with `omp worktree` as appropriate; keep failed/review-blocked trees until the user discards them. |
+- **Isolation**: each worker gets its own worktree/branch. No two workers write the same working tree concurrently.
+- **No commit by worker**: workers leave dirty tree only.
+- **Integrate = dirty tree** (see below), not `git merge` of an uncommitted ticket branch.
+- **Await = settlement**: do not integrate until `outcome: success`.
 
-Workers should receive the same skills discovery the orchestrator has (`/implement`, `/tdd` visible). If the isolated session strips skills, pass an explicit instruction to load them.
+## Integrate — dirty tree is the default
 
-## Cursor / other Task-capable hosts
+Workers **must not commit**, so `git merge ticket/...` is usually a no-op.
 
-| Verb | How |
-| --- | --- |
-| spawn | Host Task / subagent API — one subagent per ticket, in parallel. |
-| isolate | Prefer a worktree-backed runner when the host offers one (e.g. isolated/best-of-n worktree). Otherwise create `git worktree add` on a branch named after the ticket and set the subagent cwd there. |
-| await | Host parallel task completion. |
-| integrate | Merge each ticket branch into the current branch sequentially in the post-worker phase. |
-| cleanup | `git worktree remove` when done; keep on failure/review block. |
+1. Only after `outcome: success`.
+2. `git status --short` in the worktree is authoritative (include untracked).
+3. `filesTouched` is index only — copy **status**, not just the list.
+4. Copy every path from status into orchestrator tree (skip `node_modules`, caches, `.env*`). Use `git checkout` only if the path was committed; otherwise copy file contents.
+5. Run focused tests on orchestrator branch, then review/commit per SKILL.md.
+
+## How to choose a mechanism
+
+Let the agent decide using the host's native tools:
+
+- If the host offers isolated worktrees / `task --isolated` / `orchestrate`, use it.
+- If native isolation fails, fallback is always `git worktree add -b ticket/<id>-<slug> .worktrees/<slug>` and spawn subagents with cwd = that worktree. Ensure `.worktrees/` is gitignored.
+- State the chosen adapter in the first-wave confirmation (`adapter: <name>`); if you fall back mid-wave, note it in the report.
 
 ## Hosts without subagents
 
-Do not fake parallelism inside one context window. Tell the user this skill needs a harness that can spawn isolated workers, and fall back to serial `/implement` per frontier ticket only if they explicitly ask for that degraded mode.
-
-## Adapter choice
-
-Detect the host from available tools (OMP `task` + `omp worktree`, Cursor Task, etc.). State which adapter you are using in the first-wave confirmation so the user can object before spawn.
+Do not fake parallelism in one window. Tell the user this host needs isolated workers; fall back to serial `/implement` only if explicitly requested.

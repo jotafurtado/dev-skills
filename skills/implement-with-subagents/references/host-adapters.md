@@ -1,13 +1,11 @@
 # Host adapters
 
-Portable verbs: **spawn**, **isolate**, **await**, **integrate**, **cleanup**. This file tells *what* must hold; *how* is up to the agent using the host's native capabilities.
-
-> In OMP, saying **"orchestrate"** triggers native multi-phase + parallel subagent orchestration — prefer that when available. Let the agent pick the concrete mechanism (isolated worktree, task tool, etc.) that best satisfies the invariants below.
+**Principle:** invariants are fixed; mechanism is chosen by the agent. This skill prescribes *what* must hold (isolate, dirty-tree, no-commit), the host prescribes *how* to get subagents.
 
 ## Invariants (all hosts)
 
-- **Isolation**: each worker gets its own worktree/branch. No two workers write the same working tree concurrently.
-- **No commit by worker**: workers leave dirty tree only.
+- **Isolation**: one worktree/branch per worker. No concurrent writes to the same tree.
+- **No commit by worker**: workers leave a dirty tree only.
 - **Integrate = dirty tree** (see below), not `git merge` of an uncommitted ticket branch.
 - **Await = settlement**: do not integrate until `outcome: success`.
 
@@ -21,13 +19,25 @@ Workers **must not commit**, so `git merge ticket/...` is usually a no-op.
 4. Copy every path from status into orchestrator tree (skip `node_modules`, caches, `.env*`). Use `git checkout` only if the path was committed; otherwise copy file contents.
 5. Run focused tests on orchestrator branch, then review/commit per SKILL.md.
 
-## How to choose a mechanism
+## Trigger words by host (hints, not requirements)
 
-Let the agent decide using the host's native tools:
+Use the host's native trigger when you want to *force* parallelism. Otherwise let automatic delegation decide.
 
-- If the host offers isolated worktrees / `task --isolated` / `orchestrate`, use it.
-- If native isolation fails, fallback is always `git worktree add -b ticket/<id>-<slug> .worktrees/<slug>` and spawn subagents with cwd = that worktree. Ensure `.worktrees/` is gitignored.
-- State the chosen adapter in the first-wave confirmation (`adapter: <name>`); if you fall back mid-wave, note it in the report.
+| Host | How to nudge subagents | Where roles live |
+|---|---|---|
+| **OMP** | Type **`orchestrate`** — glows and forces multi-phase + parallel orchestration. Otherwise auto-delegates when task looks complex. Agent `task` role + `.omp/agents/*.md` (description) drives routing. | `task` tool (`isolated: true`), Agent Hub `Alt+A` |
+| **Claude Code** | Say **`use subagents`** / **`in parallel`** / **`Task: ...`** in the prompt. Or `/agents`. Custom agents routed by **description** in `.claude/agents/`. | `Explore` (Haiku, read-only), `Plan`, `General-purpose` |
+| **Cursor** | **`/orchestrate`** skill or `/create-subagent`. Foreground vs background controls sequencing. Auto-delegation on complex tasks. | `.cursor/agents/` + `.cursor/rules/` + `SKILL.md` |
+| **Codex** | **`Delegate` / `Split` / `Break into sub-tasks`** in prompt, or `AGENTS.md` in repo. “Ultra” mode may auto-parallelize. | `AGENTS.md` |
+| **OpenCode** | Manual **`@explore`** / **`@<name>`** mention. Auto via Build/Plan based on **description** (`mode: subagent`). | `opencode.json` / `.opencode/agent/` |
+
+> No host requires a magic word — descriptive intent is enough. The table just makes “force it now” reliable.
+
+## How the agent should choose
+
+1. Prefer the host's native isolated mechanism if available (OMP `isolated: true`, Claude Code subagents, Cursor orchestrate, OpenCode `@`).
+2. If native isolation fails to start, **fallback is always portable**: `git worktree add -b ticket/<id>-<slug> .worktrees/<slug>` and spawn subagents with `cwd = that worktree`. Ensure `.worktrees/` is gitignored.
+3. Announce the chosen adapter in the first-wave confirmation (`adapter: <name>`); note any mid-wave fallback in the wave report.
 
 ## Hosts without subagents
 

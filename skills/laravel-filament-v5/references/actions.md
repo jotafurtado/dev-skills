@@ -4,6 +4,8 @@
 
 Signatures below are focused fragments; import each action class and the host `Filament\Tables\Table` in the target class.
 
+For *which* action and feedback arrangement to build — grouping, confirmation, overlays, notifications, callouts, empty states — use `laravel-filament-v5-ui-ux`, `references/action-feedback.md`. This file is the API inventory.
+
 | Component | Minimal signature | 5.x doc |
 |---|---|---|
 | `Action` | `Action::make('approve')->requiresConfirmation()->action(fn ($record) => ...)` | [overview](https://filamentphp.com/docs/5.x/actions/overview.md) |

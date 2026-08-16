@@ -32,6 +32,8 @@ public function infolist(Schema $schema): Schema
 
 Do not make the Resource method non-static or the custom View page method static. See the official [Viewing records](https://filamentphp.com/docs/5.x/resources/viewing-records.md) examples.
 
+For *which* record-detail arrangement to build — identity, status, facts, media, repeated data, long-tail detail — use `laravel-filament-v5-ui-ux`, `references/record-detail.md`. This file is the API inventory.
+
 The remaining snippets are focused fragments. If in doubt about a method, fetch its `.md` page instead of guessing.
 
 | Component | For | Minimal signature | 5.x doc |

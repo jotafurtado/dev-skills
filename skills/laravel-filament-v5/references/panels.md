@@ -4,6 +4,8 @@ The panel provider is a Laravel service provider at `app/Providers/Filament/Admi
 
 Snippets are focused fragments; retain the generated provider class and add the displayed imports.
 
+For *which* panel-shell arrangement to build — top versus sidebar navigation, grouping, branding, and authentication surfaces — use `laravel-filament-v5-ui-ux`, `references/panel-shell.md`. This file is the API inventory.
+
 ## Identity — colors, logo, font
 
 ([styling overview](https://filamentphp.com/docs/5.x/styling/overview.md))

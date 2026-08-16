@@ -116,6 +116,44 @@ class CompositionValidationTests(unittest.TestCase):
         self.assertEqual(expected_patterns, patterns)
         self.assertGreater(variants, patterns)
 
+    def test_shipped_library_has_no_uncovered_families(self):
+        inventory = json.loads(INVENTORY_PATH.read_text())
+        self.assertEqual([], self.validate.uncovered_patterns(inventory, references=REFERENCES))
+
+    def test_uncovered_family_is_reported(self):
+        directory = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, directory, ignore_errors=True)
+        (directory / "table.md").write_text("## Standard compare-and-scan table\n")
+        inventory = {
+            "screenshots": [
+                {"decision_relevance": "decision-changing", "family": "brand-new-surface"},
+                {"decision_relevance": "decision-changing", "family": "standard-compare-and-scan-table"},
+            ]
+        }
+        self.assertEqual(
+            ["brand-new-surface"],
+            self.validate.uncovered_patterns(inventory, references=directory),
+        )
+
+    def test_action_feedback_family_matches_its_heading(self):
+        self.assertTrue(
+            self.validate.heading_covers_family(
+                "action-feedback-overlays",
+                "Action, feedback, and overlays",
+            )
+        )
+
+    def test_coverage_report_lists_uncovered_families(self):
+        report = self.validate.format_coverage_report(22, 76, ["brand-new-surface"])
+        self.assertIn("22 patterns, 76 variants", report)
+        self.assertIn("- brand-new-surface", report)
+        self.assertIn("expansion work, not a defect", report)
+        self.assertNotIn("Uncovered official patterns: none.", report)
+
+    def test_coverage_report_says_none_when_covered(self):
+        report = self.validate.format_coverage_report(22, 76, [])
+        self.assertIn("Uncovered official patterns: none.", report)
+
     def test_pattern_without_when_is_rejected(self):
         broken = COMPOSITION.replace("**When**: the record needs one scan line.\n\n", "")
         errors = self.validate.validate_composition("example.md", broken, php=None)
@@ -564,13 +602,20 @@ class CrossSkillContractTests(unittest.TestCase):
                 self.assertNotIn(branch, source, f"{label} branches on sibling availability: {branch!r}")
 
     def test_sibling_skill_defers_arrangement_to_the_composition_library(self):
-        tables = (ROOT / "skills" / "laravel-filament-v5" / "references" / "tables.md").read_text()
-        layout = (ROOT / "skills" / "laravel-filament-v5" / "references" / "layout.md").read_text()
-
-        self.assertIn("references/table.md", tables)
-        self.assertIn("references/form-layout.md", layout)
-        self.assertIn("API inventory", tables)
-        self.assertIn("API inventory", layout)
+        expected = {
+            "tables.md": "references/table.md",
+            "layout.md": "references/form-layout.md",
+            "forms.md": "references/form-layout.md",
+            "infolists.md": "references/record-detail.md",
+            "widgets.md": "references/dashboard.md",
+            "actions.md": "references/action-feedback.md",
+            "panels.md": "references/panel-shell.md",
+        }
+        root = ROOT / "skills" / "laravel-filament-v5" / "references"
+        for name, pointer in expected.items():
+            text = (root / name).read_text()
+            self.assertIn("API inventory", text, name)
+            self.assertIn(pointer, text, name)
 
     def test_cross_skill_trigger_evals_keep_visual_work_out_of_main_skill(self):
         main_queries = json.loads(MAIN_FILAMENT_QUERY_EVALS_PATH.read_text())

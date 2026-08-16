@@ -36,7 +36,7 @@ Coverage is the release metric, reported by `maintenance/filament-ui-ux/scripts/
 | Actions and feedback (cross-surface) | `references/action-feedback.md` | 1 | 7 |
 | **Total** | | **22** | **76** |
 
-An official pattern present in `maintenance/filament-ui-ux/screenshot-inventory.json` without a reference composition is an uncovered pattern: expansion work, not a defect.
+An official pattern present in `maintenance/filament-ui-ux/screenshot-inventory.json` without a reference composition is an uncovered pattern: expansion work, not a defect. After a successful run, `validate_compositions.py` prints the list (or `none`); it does not fail the gate.
 
 ## Evidence: local reviewed catalog
 

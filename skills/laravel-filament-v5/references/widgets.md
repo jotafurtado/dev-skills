@@ -4,6 +4,8 @@ Widgets are Livewire components. Three official templates cover almost every das
 
 Class examples omit the application namespace and are therefore fragments; retain the generated class context and add the displayed imports.
 
+For *which* dashboard arrangement to build — stats, charts, table-widget queues, filters, and spans — use `laravel-filament-v5-ui-ux`, `references/dashboard.md`. This file is the API inventory.
+
 ```bash
 php artisan make:filament-widget MyWidget            # asks: custom / chart / stats overview / table
 php artisan make:filament-widget StatsOverview --stats-overview

@@ -9,6 +9,9 @@ Two gates:
 * Every pattern must carry ``When``, ``Not when``, and ``Source`` with official
   Filament URLs, use no placeholder identifiers, and avoid namespaces removed in
   Filament 5.
+
+A successful run then prints shipped coverage and lists inventory families that
+have no matching reference composition. Those are expansion work, not errors.
 """
 
 from __future__ import annotations
@@ -214,6 +217,69 @@ def coverage(*, references: Path = REFERENCES) -> tuple[int, int]:
     return patterns, variants
 
 
+_STOPWORDS = frozenset({"a", "an", "and", "for", "of", "or", "the", "to", "with"})
+
+
+def _slug(value: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
+
+
+def _tokens(value: str) -> set[str]:
+    return {part for part in _slug(value).split("-") if part and part not in _STOPWORDS}
+
+
+def heading_covers_family(family: str, heading: str) -> bool:
+    """True when a composition ``##`` heading represents an inventory family."""
+    if _slug(family) == _slug(heading):
+        return True
+    family_tokens, heading_tokens = _tokens(family), _tokens(heading)
+    if not family_tokens or not heading_tokens:
+        return False
+    return family_tokens <= heading_tokens or heading_tokens <= family_tokens
+
+
+def uncovered_patterns(
+    inventory: dict[str, Any], *, references: Path = REFERENCES
+) -> list[str]:
+    """Return decision-changing inventory families with no composition heading.
+
+    Expansion work, not a validation error. A family is covered when any ``##``
+    heading in the shipped compositions matches it.
+    """
+    headings: list[str] = []
+    for name in COMPOSITION_FILES:
+        path = references / name
+        if path.is_file():
+            headings.extend(PATTERN_HEADING.findall(path.read_text()))
+
+    families = sorted(
+        {
+            screenshot["family"]
+            for screenshot in inventory.get("screenshots", [])
+            if screenshot.get("decision_relevance") == "decision-changing"
+            and screenshot.get("family")
+        }
+    )
+    return [
+        family
+        for family in families
+        if not any(heading_covers_family(family, heading) for heading in headings)
+    ]
+
+
+def format_coverage_report(
+    patterns: int, variants: int, uncovered: list[str]
+) -> str:
+    """Return the human-readable coverage block printed after a successful run."""
+    lines = [f"Composition validation passed: {patterns} patterns, {variants} variants."]
+    if uncovered:
+        lines.append("Uncovered official patterns (expansion work, not a defect):")
+        lines.extend(f"- {family}" for family in uncovered)
+    else:
+        lines.append("Uncovered official patterns: none.")
+    return "\n".join(lines)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Validate Filament 5 reference compositions.")
     parser.add_argument("--references", type=Path, default=REFERENCES)
@@ -229,14 +295,16 @@ def main() -> None:
     if not args.skip_php and php is None:
         raise SystemExit("php was not found on PATH; install php or pass --skip-php")
 
+    inventory = json.loads(args.inventory.read_text())
     errors = validate_compositions(references=args.references, php=php)
-    errors.extend(validate_inventory(json.loads(args.inventory.read_text())))
+    errors.extend(validate_inventory(inventory))
     errors = sorted(errors)
     if errors:
         raise SystemExit("Composition validation failed:\n- " + "\n- ".join(errors))
 
     patterns, variants = coverage(references=args.references)
-    print(f"Composition validation passed: {patterns} patterns, {variants} variants.")
+    uncovered = uncovered_patterns(inventory, references=args.references)
+    print(format_coverage_report(patterns, variants, uncovered))
 
 
 if __name__ == "__main__":

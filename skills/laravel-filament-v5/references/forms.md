@@ -4,6 +4,8 @@ Used inside `public static function form(Schema $schema): Schema`. Top-level is 
 
 Signatures in the tables below are focused fragments; add the component imports and surrounding Resource/schema class context.
 
+For *which* form arrangement to build — page structure, field geometry, collection, upload, relationship, and rich-content controls — use `laravel-filament-v5-ui-ux`, `references/form-layout.md`. This file is the API inventory.
+
 | Component | For | Minimal signature | 5.x doc |
 |---|---|---|---|
 | `TextInput` | Text, email, number, password | `TextInput::make('email')->email()->required()` | [text-input](https://filamentphp.com/docs/5.x/forms/text-input.md) |

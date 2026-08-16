@@ -68,8 +68,6 @@ public static function form(Schema $schema): Schema
 
 ---
 
----
-
 ## Responsive columns
 
 **When**: ordinary short related fields can share a row, long fields need space for their expected value, and short high-importance fields need a deliberately prominent span.
@@ -121,8 +119,6 @@ public static function form(Schema $schema): Schema
 **Responsive**: define one column before larger breakpoints, and give long, high-importance fields a deliberate full or wider span.
 
 **Accessibility**: preserve a logical DOM and keyboard order when changing visual spans, and never rely on column position to communicate requiredness or sequence.
-
----
 
 ---
 
@@ -250,8 +246,6 @@ Section::make('Order notes')
 
 ---
 
----
-
 ## Aside sections
 
 **When**: a group heading and description deserve a separate scan lane, and the panel has enough width for context beside controls.
@@ -302,8 +296,6 @@ public static function form(Schema $schema): Schema
 **Responsive**: return heading and controls to a readable vertical flow on narrow screens.
 
 **Accessibility**: associate descriptions with their group rather than encoding meaning only in side-by-side placement, and keep heading order logical when the layout stacks.
-
----
 
 ---
 
@@ -494,8 +486,6 @@ public static function form(Schema $schema): Schema
 
 ---
 
----
-
 ## Horizontal tabs
 
 **When**: a small number of short group labels and frequent switching between parallel groups.
@@ -624,8 +614,6 @@ Add `scrollable(false)` so overflowing tabs move into the dropdown instead of sc
 ```php
 ->scrollable(false)
 ```
-
----
 
 ---
 

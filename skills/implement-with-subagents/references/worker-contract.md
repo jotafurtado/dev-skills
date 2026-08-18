@@ -12,6 +12,8 @@ Give the worker:
 4. The hard exclusions below.
 5. The required result shape below.
 
+Use the prompt template below. Fill the bracketed values; do not invent extra duties.
+
 ## Hard exclusions
 
 The worker MUST:
@@ -49,6 +51,46 @@ If `skillsLoaded` is empty, the orchestrator treats the run as **prompt-only** a
 - **success**: acceptance criteria are demonstrably met in this worktree; tests proving them are green; no commit was made.
 - **failure**: cannot meet criteria, tests stay red, or an unrecoverable error — return why; leave the tree as-is for orchestrator inspection when useful.
 
-## Provenance note for the worker prompt
+## Prompt template
 
-You may include one line: "Execution contract from Matt Pocock `/implement` (TDD + verify); review and commit are intentionally withheld for the orchestrator (`implement-with-subagents`)." Do not paste the full text of Matt's skill into the prompt — instruct the worker to invoke the installed skill (or open the absolute `SKILL.md` paths you passed).
+Copy this into the worker spawn. Replace the brace placeholders. Do not paste the full text of Matt's skills — instruct the worker to invoke them (or open the absolute `SKILL.md` paths).
+
+```
+You implement exactly one ticket in this isolated worktree. Do not review. Do not commit.
+
+Ticket path: {absolute tracker path}
+Ticket text:
+{full ticket markdown}
+
+Load and follow the installed Matt Pocock skills:
+- /implement — TDD + ticket verification only
+- /tdd — at the seams named in the ticket (or confirm seams briefly if unnamed)
+
+Absolute skill paths (use these if the isolated session cannot discover skills):
+- {absolute path to implement/SKILL.md}
+- {absolute path to tdd/SKILL.md}
+
+Hard exclusions:
+- Do not run /code-review
+- Do not git commit, amend, rebase, or push
+- Do not edit tracker labels or status
+- Do not start any other ticket
+- Do not edit files outside this worktree root
+- Leave all changes uncommitted
+
+Execution contract from Matt Pocock /implement (TDD + verify); review and commit are intentionally withheld for the orchestrator (implement-with-subagents).
+
+When finished, return JSON only:
+{
+  "outcome": "success" | "failure",
+  "filesTouched": [],
+  "testsRun": [],
+  "criteriaMet": [],
+  "skillsLoaded": ["implement", "tdd"],
+  "orchestratorBlockers": []
+}
+```
+
+## Provenance note
+
+Do not paste a private fork of Matt's skills into the worker prompt.

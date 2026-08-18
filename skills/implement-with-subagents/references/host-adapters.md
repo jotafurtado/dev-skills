@@ -11,13 +11,28 @@
 
 ## Integrate — dirty tree is the default
 
-Workers **must not commit**, so `git merge ticket/...` is usually a no-op.
+Workers **must not commit**, so `git merge ticket/...` is usually a no-op: the ticket branch stays at the orchestrator SHA and the real diff lives in the worktree filesystem. After `outcome: success`, transfer that dirty tree onto the orchestrator branch.
 
-1. Only after `outcome: success`.
-2. `git status --short` in the worktree is authoritative (include untracked).
-3. `filesTouched` is index only — copy **status**, not just the list.
-4. Copy every path from status into orchestrator tree (skip `node_modules`, caches, `.env*`). Use `git checkout` only if the path was committed; otherwise copy file contents.
-5. Run focused tests on orchestrator branch, then review/commit per SKILL.md.
+Prefer a host apply/merge **only** when it actually copies those filesystem paths. Never declare success on `Already up to date` or an empty merge of an uncommitted ticket branch.
+
+### Procedure
+
+Run 1–5 in the worker worktree, then 6–8 on the orchestrator branch.
+
+1. Confirm `outcome: success`. Do not copy a mid-flight tree.
+2. Record `git rev-parse HEAD` in the worktree. It must equal the SHA the worker started from. If the worker committed, that is a contract violation: restore `ready-for-agent`, comment, leave the tree, continue.
+3. Capture `git status --short` in the worktree. This list is authoritative. `filesTouched` is an index for comparison only — copy **status**, not just the list. If status is empty when the ticket required work, fail the integrate the same way as a red worker.
+4. Classify each status path (include untracked `??`):
+   - **Skip** local junk even if it appears: `node_modules/`, caches, `.env` / `.env.*` except a tracked `.env.example`, OS junk (`.DS_Store`, `Thumbs.db`), editor metadata. Ignored build artifacts are absent from status by design — do not go looking for them.
+   - **Tracked modifications**: copy the worktree file bytes onto the same relative path in the orchestrator tree (`mkdir -p` parents as needed). Do **not** `git checkout` the ticket branch — there is no commit to check out.
+   - **Untracked files (`??`)**: copy file contents the same way; there is no blob.
+   - **Deletions**: delete the corresponding path on the orchestrator tree.
+   - **Renames (`R`)**: delete the old path and copy the new path.
+   - Never copy the worktree's `.git`.
+5. **Completeness check** before tests: every non-junk path from step 3 must be represented on the orchestrator tree (present with matching content, or absent if it was a deletion). Diff the filtered worktree status against orchestrator paths. If any ticket path is missing or content differs, fail: restore `ready-for-agent`, comment the missing paths, leave the worktree, continue to the next ticket.
+6. Run focused tests on the orchestrator branch.
+7. Review and commit per `SKILL.md`.
+8. Only after `git rev-parse HEAD` shows the new commit, mark the ticket done and clean the worktree.
 
 ## Trigger words by host (hints, not requirements)
 

@@ -1,6 +1,6 @@
 # Orchestrator flow
 
-Edge cases and completion criteria for `/implement-with-subagents`. The Flow in `SKILL.md` is authoritative — this file does not restate those steps.
+Edge cases for `/implement-with-subagents`. The Flow in `SKILL.md` is authoritative — this file does not restate those steps.
 
 ## Complete blocker
 
@@ -29,21 +29,17 @@ Treat resume as a **mini-gate**: list remaining frontier + live worktrees and ge
 
 ## Await — do not integrate early
 
-Do not start dirty-tree integrate for a ticket until that worker has settled with `outcome: success`. Mid-flight files in the worktree are not a deliverable. Inspecting them for curiosity is fine; copying them is not.
+Do not copy a mid-flight worktree. Inspecting it is fine; dirty-tree integrate starts only after `outcome: success`.
 
-## Post-worker order
+## Post-worker extras
 
-Process successful workers in ascending ticket id/number order.
+The numbered post-worker loop in `SKILL.md` is authoritative. Do not start a different order.
 
-1. Record `fixed-point` = current orchestrator `HEAD` (`git rev-parse HEAD`).
-2. **Integrate** via dirty-tree rules in [host-adapters.md](host-adapters.md). On conflict or incomplete copy: restore `ready-for-agent`, comment, leave worktree, continue.
-3. Run project tests on the orchestrator branch after integrate.
-4. Run `/code-review` against the fixed point with the ticket as spec source.
-5. **Review gate**: P0 or Spec-fail → do not commit; restore `ready-for-agent`; comment; leave worktree; continue.
-6. Commit only after a clean (or explicitly degraded-but-passing) review gate.
-7. Only after `git rev-parse HEAD` shows the new commit: mark acceptance criteria done / tracker done comment; then cleanup worktree.
-
-Never mark the ticket done in the same staging area *before* the feature commit exists on the log. Tracker edits for “done” happen **after** the commit SHA is real.
+- Process successful workers in ascending ticket id/number order.
+- On integrate conflict or incomplete copy: restore `ready-for-agent`, comment, leave the worktree, continue.
+- `/code-review` uses the recorded fixed point as the diff base and the ticket as spec source.
+- Tracker edits for “done” happen **after** the commit SHA is real — never in the same index as an uncommitted feature diff.
+- Cleanup the worktree only after `git rev-parse HEAD` shows the new commit.
 
 ## Degraded `/code-review`
 
@@ -60,14 +56,8 @@ Do not claim or spawn the next wave until every successful ticket from the curre
 
 ## Tracker markdown hygiene
 
-When editing issue files, write **pure file contents** only. Never write tool display wrappers (`[path#hash]` headers or `N:` line-number prefixes) back into the ticket. After claim/done, the file must remain valid markdown.
+When editing issue files, follow write hygiene in [ticket-lifecycle.md](ticket-lifecycle.md): pure file contents only — no tool display wrappers.
 
 ## Final report
 
-Always end with:
-
-- Committed (ticket → commit sha from `git log`)
-- Re-queued (`ready-for-agent` restored): worker failure / review gate / integrate conflict
-- Still blocked (waiting on incomplete blockers)
-- Worktrees left for inspection (paths)
-- `review: ok` or `review: degraded` per ticket when relevant
+Follow **Verify** in `SKILL.md`. A SHA enters the report only after `git rev-parse` / `git log` shows it.

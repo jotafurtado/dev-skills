@@ -1,11 +1,11 @@
 ---
 name: prepare-commit
-description: "Prepares small Git commits with Conventional Commits messages in the language established by the user or project and keeps CHANGELOG.md up to date. Use when the user asks to commit, stage changes, write a commit message, follow Conventional Commits, or prepare changes for versioning."
+description: "Prepares small atomic Git commits with Conventional Commits messages in the language established by the user or project, stages by concern, and updates an existing CHANGELOG.md when the change is notable. Use when the user asks to commit, prepare a commit, write or revise a commit message, follow Conventional Commits for a commit, or commit and push. Do not trigger on git status, diff, log, or blame alone; PR or merge-request text; rebase, merge, or cherry-pick; version bumps or releases; changelog-only edits; or an isolated mention of Conventional Commits without intent to commit. Staging files during implementation without a commit request is not a trigger."
 license: MIT
 metadata:
   compatibility: "Designed for Cursor, Claude Code, Windsurf, and Copilot; requires Git."
   author: jotafurtado
-  version: "1.4.0"
+  version: "1.4.1"
   domain: workflow
   role: specialist
   scope: implementation
@@ -15,9 +15,7 @@ metadata:
 
 # Prepare Commit
 
-## Goal
-
-Prepare small, reviewable, traceable commits using Conventional Commits 1.0.0, and keep `CHANGELOG.md` up to date when a change is notable to users, integrators, or operators.
+## Preflight
 
 Determine the language for each written sink — the commit message and, when applicable, a changelog entry — in this order:
 
@@ -28,11 +26,11 @@ Determine the language for each written sink — the commit message and, when ap
 
 Because step 3 is sink-specific, a Portuguese commit message paired with an English changelog entry (or the reverse) is a deliberate outcome when those artefacts disagree and no higher rule unifies them. Keep the subject, body, footer values, and changelog prose in the language selected for that sink; preserve required machine-readable tokens such as `BREAKING CHANGE` and keep type tokens consistent with the project.
 
-## Host Precedence and Portable Guarantees
+## Gates
 
 The host agent's native protocols and current user instructions take precedence over this skill. Follow the host exactly for amend eligibility, failed or modifying hooks, push, permissions, allowed commands, and command execution. This skill narrows commit behavior; it never grants permission or overrides a more restrictive host protocol.
 
-Steps 1–7 describe portable operations. Whether the host allows a given operation is resolved at this seam, not re-derived in each step.
+Flow steps describe portable operations. Whether the host allows a given operation is resolved at this seam, not re-derived in each step.
 
 Portable guarantees:
 
@@ -45,8 +43,6 @@ Portable guarantees:
 - Do not use interactive Git commands. In particular, never suggest or run `git add -p`.
 
 ## Reference routing
-
-Load only the files needed for the task:
 
 | Task touches | Read |
 | --- | --- |
@@ -121,12 +117,8 @@ Format:
 Rules:
 
 - The description must immediately follow `: `, be short, clear, and have no trailing period.
-- Use the language selected in the Goal section consistently for this sink.
+- Use the language selected in Preflight consistently for this sink.
 - Prefer explaining the "why" in the body when the change isn't obvious from the diff.
-- Use `feat` only for new functionality.
-- Use `fix` only for a behavior correction.
-- Use `refactor` when the expected behavior doesn't change.
-- Use `chore` for maintenance with no direct user impact.
 - For a breaking change, use `!` after the type/scope (`feat(api)!: ...`) or a `BREAKING CHANGE: <explanation>` footer. Prefer both when migration guidance is useful. A breaking change may use any type and maps to SemVer MAJOR.
 
 Examples:
@@ -143,7 +135,7 @@ Evita redirecionamentos incorretos quando o token já foi invalidado.
 
 ### 4. Update CHANGELOG
 
-Check whether `CHANGELOG.md` exists at the repo root. If it does not, skip this step and do not create one unprompted. If it does, load `references/changelog.md` and follow it.
+Check whether `CHANGELOG.md` exists at the repo root. If it does not, skip this step and do not create one unprompted. If it does, read `references/changelog.md` and follow it.
 
 ### 5. Validate
 
@@ -179,16 +171,20 @@ EOF
 )"
 ```
 
-After the commit:
-
-- Run `git status --short`.
-- Report the short commit hash, the message used, and any check that passed or is still pending.
-- Push only per Step 7.
-
 ### 7. Push (only when requested)
 
 Recognize `--push` or equivalent explicit phrasing as the push authorization required by the portable guarantees above.
 
 - Push once, after every commit in the current run has been created — not after each individual commit inside the Step 6 loop.
 - Never force-push. If the push is rejected (e.g., the remote has diverged), report the error and ask the user how to proceed instead of retrying with `--force`.
-- Report the branch and remote pushed to, alongside the commit hashes.
+
+## Verify
+
+After each commit:
+
+- Report the short commit hash, the message used, and any check that passed or is still pending.
+
+After the run:
+
+- Report remaining staged, unstaged, or untracked files.
+- Push only per Step 7. If pushed, report the branch, remote, and commit hashes.

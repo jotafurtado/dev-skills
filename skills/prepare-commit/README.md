@@ -2,7 +2,7 @@
 
 AI agent skill for preparing small Git commits. It writes Conventional Commits 1.0.0 messages in the language established by the user or project, keeps an existing `CHANGELOG.md` up to date when a change is notable, and defers to the host agent's native Git and permission protocols.
 
-Current version: **1.4.0**
+Current version: **1.4.1**
 
 ## Install
 
@@ -30,7 +30,7 @@ php artisan boost:add-skill jotafurtado/dev-skills --skill prepare-commit
 
 ## Invocation Behavior
 
-The frontmatter intentionally omits `disable-model-invocation`. Cursor therefore may load this skill automatically when a request clearly concerns staging or committing, which is its primary use case. It can still be invoked manually with `/prepare-commit`.
+The frontmatter intentionally omits `disable-model-invocation`. Cursor therefore may load this skill automatically when a request clearly concerns committing, which is its primary use case. It can still be invoked manually with `/prepare-commit`. Staging during implementation, git inspection, and PR text are not triggers.
 
 ## Requirements
 

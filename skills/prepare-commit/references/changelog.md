@@ -1,6 +1,6 @@
 # Changelog updates
 
-Load this reference only when `CHANGELOG.md` exists at the repo root. For entry language, follow the shared ladder in the Goal section of `SKILL.md` — do not apply a separate language rule here.
+Load this reference only when `CHANGELOG.md` exists at the repo root. For entry language, follow the shared ladder in Preflight of `SKILL.md` — do not apply a separate language rule here.
 
 ## Relevance
 

@@ -4,7 +4,7 @@ This repo is a collection of [Agent Skills](https://skills.sh) (`SKILL.md` forma
 
 ## Content and tone
 
-- **Write skill content in English** — `SKILL.md` and every file under `references/`. (A skill may still *produce* output in another language when that is its documented behavior, e.g. `prepare-commit` writes pt-BR commit messages.)
+- **Write skill content in English** — `SKILL.md` and every file under `references/`. (A skill may still *produce* output in another language when that is its documented behavior or configured by user/project conventions.)
 - **No decorative emojis** in skill files. Use plain words: `Don't` / `Do`, `Never` / `Always` — not check/cross marks.
 - Keep prose dense and instructional. Prefer concrete rules and examples over general advice.
 
@@ -28,3 +28,13 @@ This repo is a collection of [Agent Skills](https://skills.sh) (`SKILL.md` forma
 ## Adding a new skill
 
 See the "Adding a New Skill" section in `README.md` for the mechanics (create the folder, write `SKILL.md` + `README.md`, add a row to the README table).
+
+## Agent skills
+
+### Issue tracker
+
+Issues and specs are tracked as Markdown files under `.scratch/`. See `docs/agents/issue-tracker.md`.
+
+### Domain docs
+
+This repository uses a single-context domain documentation layout. See `docs/agents/domain.md`.

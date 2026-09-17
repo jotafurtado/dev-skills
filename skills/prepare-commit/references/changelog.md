@@ -1,6 +1,6 @@
 # Changelog updates
 
-Load this reference only when `CHANGELOG.md` exists at the repo root. For entry language, follow the shared ladder in Preflight of `SKILL.md` — do not apply a separate language rule here.
+When Step 4 finds an existing root `CHANGELOG.md`, read this reference before deciding whether an entry is relevant. Resolve the entry language only through [Preflight in `SKILL.md`](../SKILL.md#preflight).
 
 ## Relevance
 
@@ -13,9 +13,9 @@ Don't update the changelog for purely internal changes — formatting, small tes
 When updating:
 
 - Read the existing format before editing.
-- Preserve the order and style already used in the file.
-- Use the `## [Unreleased]` section when it exists.
-- If it doesn't exist yet (but the file does), create `## [Unreleased]` in a place consistent with the file's structure.
+- Preserve intentional structure, headings, order, style, and bullet conventions. A language instruction for a new entry does not authorize translating historical entries or reorganizing the file.
+- Use the existing unreleased section and its heading. If absent, add one consistent with the file's structure; use `## [Unreleased]` above the latest release when no custom convention applies.
+- Write concise entries describing user impact.
 - Classify entries by user-visible impact, not by commit type alone.
 
 Use the existing structure when it intentionally differs. Otherwise follow [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)'s six categories:
@@ -33,10 +33,16 @@ Use the existing structure when it intentionally differs. Otherwise follow [Keep
 | `revert` | Category matching its effect | Describe the user-visible restoration or withdrawal. |
 | `refactor`, `style`, `test`, `build`, `ci`, `chore` | Usually no entry | These are normally internal. Use `### Changed`, `### Fixed`, or `### Security` only when the actual effect is notable externally. |
 
-## Entry example
+## Entry examples
 
-Example (default Portuguese sink from the shared ladder):
+Match the language resolved for the changelog sink in Preflight of `SKILL.md`:
 
 ```markdown
-- Adiciona filtros por status aos relatórios administrativos.
+### Added
+- Stripe webhook signature validation for checkout events.
+```
+
+```markdown
+### Fixed
+- Handle expired refresh tokens gracefully during session restoration.
 ```

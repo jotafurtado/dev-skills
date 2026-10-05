@@ -7697,14 +7697,16 @@
     {
       "alt": "Table with bulk action",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/actions/bulk.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/actions.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/actions.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/actions/bulk.jpg",
       "name": "tables/actions/bulk",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "standard-compare-and-scan-table",
+      "variant": "bulk-selection"
     },
     {
       "alt": "Table with grouped and ungrouped bulk actions",
@@ -7721,14 +7723,16 @@
     {
       "alt": "Table with action group",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/actions/group.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/actions.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/actions.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/actions/group.jpg",
       "name": "tables/actions/group",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "standard-compare-and-scan-table",
+      "variant": "direct-row-action"
     },
     {
       "alt": "Table with button action group",
@@ -7805,14 +7809,16 @@
     {
       "alt": "Table with empty state",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/empty-state.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/empty-state.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/empty-state.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/empty-state.jpg",
       "name": "tables/empty-state",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "standard-compare-and-scan-table",
+      "variant": "empty-versus-filtered-empty"
     },
     {
       "alt": "Table with empty state actions",
@@ -7877,14 +7883,16 @@
     {
       "alt": "Table with grouping",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/grouping.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/grouping.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/grouping.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/grouping.jpg",
       "name": "tables/grouping",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "standard-compare-and-scan-table",
+      "variant": "grouped-rows"
     },
     {
       "alt": "Table with collapsible groups",
@@ -8265,26 +8273,30 @@
     {
       "alt": "Table with columns",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/overview/columns.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/overview.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/overview/columns.jpg",
       "name": "tables/overview/columns",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "standard-compare-and-scan-table",
+      "variant": "column-scan"
     },
     {
       "alt": "Table with filters",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/overview/filters.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/overview.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/overview/filters.jpg",
       "name": "tables/overview/filters",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "standard-compare-and-scan-table",
+      "variant": "purposeful-filters"
     },
     {
       "alt": "Table with relationship column",
@@ -8337,14 +8349,16 @@
     {
       "alt": "Table with default pagination",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/pagination/default.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/overview.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/overview.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/pagination/default.jpg",
       "name": "tables/pagination/default",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "standard-compare-and-scan-table",
+      "variant": "positional-pagination"
     },
     {
       "alt": "Table with extreme pagination links",
@@ -8409,14 +8423,16 @@
     {
       "alt": "Table with summaries",
       "dark_image": "https://filamentphp.com/docs/images/5.x/dark/tables/summaries.jpg",
-      "decision_relevance": "non-decision-changing",
+      "decision_relevance": "decision-changing",
       "documentation": "https://filamentphp.com/docs/5.x/tables/summaries.md",
       "documentation_pages": [
         "https://filamentphp.com/docs/5.x/tables/summaries.md"
       ],
       "light_image": "https://filamentphp.com/docs/images/5.x/light/tables/summaries.jpg",
       "name": "tables/summaries",
-      "status": "reviewed"
+      "status": "reviewed",
+      "family": "standard-compare-and-scan-table",
+      "variant": "decision-summary"
     },
     {
       "alt": "Table with average summary",

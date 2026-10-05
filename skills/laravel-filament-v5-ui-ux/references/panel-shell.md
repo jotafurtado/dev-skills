@@ -42,9 +42,9 @@ public function panel(Panel $panel): Panel
 
 ### Variant: Top navigation
 
-**When**: there are few peer destinations with short, stable labels.
+**When**: top navigation is already the shell, and each destination needs a short label, icon, and stable order so the horizontal scan stays readable.
 
-**Not when**: a horizontal bar would hide, wrap, or flatten a meaningful domain hierarchy.
+**Not when**: the destination set still needs a sidebar, cluster, or separate panel, or a label is too long for the bar to show it.
 
 **Source**: [panels/navigation/top-navigation](https://filamentphp.com/docs/images/5.x/light/panels/navigation/top-navigation.jpg)
 

@@ -29,6 +29,27 @@ def installed_skill_paths(workspace: Path, skill: str) -> list[str]:
     return sorted(str(path.relative_to(workspace)) for path in workspace.rglob(f"{skill}/SKILL.md"))
 
 
+MAINTAINER_PAYLOAD_NAMES = {
+    "screenshot-inventory.json",
+    "release-verification.md",
+    "visual-catalog.json",
+    "sync_visual_catalog.py",
+    "query_visual_catalog.py",
+}
+
+
+def verify_payload_has_no_maintainer_assets(skill_root: Path) -> None:
+    leaked = sorted(
+        str(path.relative_to(skill_root))
+        for path in skill_root.rglob("*")
+        if path.name in MAINTAINER_PAYLOAD_NAMES or (path.name == "scripts" and path.is_dir())
+    )
+    if leaked:
+        raise RuntimeError(
+            f"{skill_root.name} install payload contains maintainer assets: {', '.join(leaked)}"
+        )
+
+
 def verify_installed_presentation(workspace: Path, paths: list[str], skill: str) -> None:
     for relative_skill_path in paths:
         skill_root = workspace / Path(relative_skill_path).parent
@@ -44,6 +65,7 @@ def verify_installed_presentation(workspace: Path, paths: list[str], skill: str)
             release = skill_root / "RELEASE.md"
             if not release.is_file() or "Jota Furtado Dev Skills" not in release.read_text():
                 raise RuntimeError("UI/UX release presentation lost its Jota Furtado Dev Skills grouping")
+        verify_payload_has_no_maintainer_assets(skill_root)
 
 
 def verify_install(workspace: Path, source: Path, agent: str, skills: tuple[str, ...]) -> dict[str, object]:

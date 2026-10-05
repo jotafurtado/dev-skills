@@ -2,11 +2,11 @@
 name: sdd-workflow
 description: "Runs a Kiro-inspired Spec-Driven Development workflow with Requirements-First, Design-First, Quick Plan, and Bugfix modes before implementation. Creates numbered, versioned artifacts under sdd-specs/ and executes approved tasks with traceability and verification. Use only when the user explicitly asks for SDD, a Kiro-style spec, spec-driven development, avoiding vibe coding, writing a spec, or planning before implementation. Do not auto-apply to ordinary feature, refactor, or bug requests that do not ask for a spec workflow."
 license: MIT
+compatibility: "Designed for Claude Code, Cursor, Windsurf, and Copilot."
 metadata:
-  compatibility: "Designed for Claude Code, Cursor, Windsurf, and Copilot."
   tags: "spec-driven-development, sdd, kiro, planning, requirements, design, bugfix, workflow"
   author: jotafurtado
-  version: "2.0.0"
+  version: "2.0.1"
   domain: workflow
   role: specialist
   scope: planning-and-implementation
@@ -298,22 +298,5 @@ run and appears as the last dependency wave in “run all”. When it starts, se
 2. Run broader relevant checks.
 3. Reconcile code and artifacts without hiding deviations.
 4. On success, mark T900 checked, tasks status `complete`,
-   `current_phase: complete`, and spec status `complete`. On failure, leave T900
-   unchecked and set spec status `blocked`.
-5. Store `last_convergence_at`, set `last_convergence_result` to `passed` or
-   `failed`, clear active tasks, increment the tasks revision, update its hash,
-   and report completed work, evidence, optional tasks left, and remaining
-   risks.
 
-## Reference routing
-
-Load only what the current phase needs:
-
-- `requirements.md` → `references/requirements-template.md`
-- `bugfix.md` → `references/bugfix-template.md`
-- `design.md` → `references/design-template.md`
-- `tasks.md` → `references/tasks-template.md`
-- `spec.yaml`, resume, approval, invalidation → `references/spec-state-template.yaml`
-
-The templates define this skill's portable file schema. Do not present their
-exact headings, IDs, metadata, or directory path as requirements of Kiro itself.
+[Showing lines 1-300 of 320. Use :301 to continue]

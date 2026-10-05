@@ -1,0 +1,24 @@
+diff --git a/src/auth/login.ts b/src/auth/login.ts
+index 1111111..2222222 100644
+--- a/src/auth/login.ts
++++ b/src/auth/login.ts
+@@ -12,6 +12,10 @@ export async function login(email: string, password: string) {
+   if (!user) {
+     throw new AuthError('invalid_credentials');
+   }
++  await audit.log('login_success', { userId: user.id });
+   return createSession(user);
+ }
+diff --git a/tests/auth/login.test.ts b/tests/auth/login.test.ts
+index 3333333..4444444 100644
+--- a/tests/auth/login.test.ts
++++ b/tests/auth/login.test.ts
+@@ -20,4 +20,8 @@ describe('login', () => {
+   it('rejects unknown users', async () => {
+     await expect(login('missing@example.com', 'secret')).rejects.toThrow();
+   });
++
++  it('records audit events on success', async () => {
++    await expect(login('ok@example.com', 'secret')).resolves.toBeDefined();
++  });
+ });

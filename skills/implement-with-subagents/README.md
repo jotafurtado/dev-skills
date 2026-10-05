@@ -39,6 +39,15 @@ Not for a single ticket — use `/implement`. Not for triaging or labeling issue
 - `docs/agents/issue-tracker.md` from setup
 - A host that can spawn isolated subagents (OMP recommended; Cursor with manual worktree fallback supported — see `references/host-adapters.md`)
 
+## Maintenance
+
+```bash
+npm ci
+node maintenance/validate_skill.mjs skills/implement-with-subagents
+python3 maintenance/eval_skills.py validate-datasets
+python3 maintenance/eval_skills.py run --judge mock --out maintenance/evals-out
+```
+
 ## License
 
 MIT

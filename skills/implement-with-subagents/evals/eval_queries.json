@@ -1,0 +1,102 @@
+[
+  {
+    "query": "/implement-with-subagents billing",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Implement the ready-for-agent frontier tickets in parallel.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Run parallel workers over every unblocked ready-for-agent issue.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "query": "Orchestrate subagents for all ready-for-agent tickets whose blockers are done.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Use implement-with-subagents to land the current agent-ready wave.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "query": "Spawn isolated worktree workers for each frontier ticket and integrate after review.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Implement multiple ready-for-agent tickets at once with one worker per ticket.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "query": "Run the next wave once tickets 101 and 102 are ready-for-agent.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Parallelize implementation across the ready-for-agent backlog.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "query": "Drive /implement-with-subagents for the auth feature slug.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "/implement ticket 42",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Triage these GitHub issues and label ready ones.",
+    "should_trigger": false,
+    "split": "validation"
+  },
+  {
+    "query": "Write an SDD spec before implementing billing retries.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Commit the finished auth work.",
+    "should_trigger": false,
+    "split": "validation"
+  },
+  {
+    "query": "Use subagents to research how authentication works here.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Implement this single ready-for-agent ticket now.",
+    "should_trigger": false,
+    "split": "validation"
+  },
+  {
+    "query": "Parallelize everything in the repo with subagents.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Add ready-for-agent labels to the backlog.",
+    "should_trigger": false,
+    "split": "validation"
+  },
+  {
+    "query": "Run code-review on my branch.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Implement ticket 103 even though ticket 99 is still open.",
+    "should_trigger": false,
+    "split": "validation"
+  }
+]

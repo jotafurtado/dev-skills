@@ -1,6 +1,15 @@
-# Release 2.1.0
+# Release 2.1.3
 
 `laravel-filament-v5-ui-ux` is a Filament 5.x only composition library. It ships ready-to-adapt code for forms, schemas, record tables, record details and infolists, dashboards, panel shells, and contextual actions with feedback. It does not provide Filament 3.x or 4.x guidance.
+
+## What changed in 2.1.3
+
+- Sibling discovery now has a concrete file/name contract and a maintainer checker.
+- Table compositions route installed-version API assumptions to the core skill.
+- Form and panel-shell handoffs distinguish page structure from field treatment.
+- Install smoke rejects maintainer assets in the installed payload.
+- Release gates document their PHP, Composer, Node, and network prerequisites.
+- Live evaluation separates isolated prompt evidence from executed-agent proof.
 
 ## What changed in 2.1.0
 
@@ -55,3 +64,5 @@ Synchronize the screenshot inventory, review new or changed evidence, and conver
 ## Release gates
 
 Run composition validation (`maintenance/filament-ui-ux/scripts/validate_compositions.py`), the deterministic tests, eval JSON parsing, the clean-install smoke test (`maintenance/filament-ui-ux/scripts/release_install_smoke.py`), and a final authority-boundary review. Composition validation is the substantive gate: it parses every PHP block with `php -l` under the six fragment shapes, and rejects a pattern missing `When`, `Not when`, or an official `Source`. Verify the compositions resolve against the target Filament version with `maintenance/filament-ui-ux/scripts/verify_filament_apis.py`, which resolves a Composer fixture and checks every imported Filament class and enum case against the installed source. The verification reference records the candidate comparison. Keep the skill presented under the Jota Furtado Dev Skills repository origin.
+
+The unit suite and composition validation answer different questions. The unit module checks maintainer mechanics (fragment wrapping, inventory sync, symbol collection, sibling discovery). `validate_compositions.py` checks the records an agent pastes. `verify_filament_apis.py` needs `php` and `composer` on `PATH`, writes a gitignored `.filament-fixture/` at the repository root, and needs network access the first time that fixture is resolved. `release_install_smoke.py` needs `npx` and network access. Preconditions and the split are recorded in `maintenance/filament-ui-ux/release-verification.md`. Passing a discontinued forward-run transcript is not a release result.

@@ -41,6 +41,39 @@ npx skills add jotafurtado/dev-skills
 2. Add a `skills/<skill-name>/README.md` for humans (what it does, install command, requirements).
 3. Add a row to the table above.
 
+## Maintenance
+
+Repository-level maintainer commands:
+
+```bash
+npm ci
+node maintenance/validate_skill.mjs skills/<skill-name>
+python3 maintenance/eval_skills.py validate-datasets
+python3 maintenance/eval_skills.py run --judge mock --out maintenance/evals-out
+python3 maintenance/eval_skills.py run --judge description --out maintenance/evals-out
+```
+
+`--judge mock` is a simulated offline CI check, not evidence of agent quality. `--judge description` is a deterministic lexical activator, not a model benchmark. `--judge live` calls an OpenAI-compatible chat endpoint and is skipped as `missing_credentials` unless `EVAL_SKILLS_API_KEY`, `OPENAI_API_KEY`, or `OPENROUTER_API_KEY` is set (`EVAL_SKILLS_BASE_URL` and `EVAL_SKILLS_MODEL` optional; OpenRouter defaults to `google/gemini-3.5-flash-lite`). Live output evaluations use isolated prompts, not a tool-enabled coding agent; proposed code is not proof of executed tests.
+
+```bash
+EVAL_SKILLS_API_KEY=... \
+EVAL_SKILLS_BASE_URL=https://openrouter.ai/api/v1 \
+EVAL_SKILLS_MODEL=google/gemini-3.5-flash-lite \
+python3 maintenance/eval_skills.py run --judge live --out maintenance/evals-out/live-run
+```
+
+Use `--output-only` for a candidate-versus-baseline output run without trigger repetitions. Use `--skill <name>` to scope a run. Each run writes per-case grading and timing, one benchmark per skill, and a repository summary. Fixture bytes and the base instruction are identical across variants; the candidate additionally receives the complete skill and matching references. Malformed JSON, incomplete grading, fabricated quotes, and truncated completions are infrastructure/protocol skips, not skill failures. `--gate` fails an all-skipped live bucket and genuine candidate failures, not baseline failures.
+
+The live grader selects assertion IDs and inclusive output-line ranges. The harness copies those lines verbatim into `grading.json`, rather than asking the model to reproduce PHP backslashes or evidence text. IDs, ranges, boolean types, completeness, and duplicates are validated. Quote existence does not prove semantic correctness; review disputed grades in their full output context.
+
+The live adapter allows up to 8,192 answer tokens, 2,048 selection tokens, and 4,096 grading tokens. Available provider token counts are persisted; missing telemetry stays null. Keep generated artifacts outside `skills/` and use a new output directory for each comparable run.
+
+The dated [release closure](docs/research/release-closure-2026-10-04.md) records the current versions, exercised checks, live artifacts, and disputed model grades. Do not treat raw model scores as certified quality metrics.
+
+Skill-specific verification (for example Filament composition checks) is documented in each skill's README.
+
+The frontmatter validator uses the `yaml` package from `package-lock.json`. It accepts standard YAML scalars and mappings, validates metadata types, and explicitly permits the boolean `disable-model-invocation` client extension. Install maintainer dependencies with `npm ci`; they are not part of installed skills.
+
 ## License
 
 MIT

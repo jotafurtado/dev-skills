@@ -4,6 +4,8 @@ State changes need clear feedback, but not duplicate feedback. Check the Resourc
 
 Signatures below are focused fragments; import `Filament\Notifications\Notification` and any action/enum classes in the host class.
 
+For *which* notification and feedback arrangement to build — flash versus durable channels, confirmations, callouts, empty states — use `laravel-filament-v5-ui-ux`, `references/action-feedback.md`. This file is the API inventory.
+
 ## Flash notifications
 
 In PHP, `send()` flashes through the session from request-handling code. It is not suitable for a queued job: the worker has no browser session to receive it, so use a durable channel instead. ([overview](https://filamentphp.com/docs/5.x/notifications/overview.md))

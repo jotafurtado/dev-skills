@@ -1,0 +1,44 @@
+{
+  "skill_name": "implement-with-subagents",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Run /implement-with-subagents for the attached frontier. Claim tickets, spawn one isolated worker per ready issue, and integrate only successful workers after review.",
+      "expected_output": "A wave plan that includes only tickets 101 and 102, with claim comments, isolated workers, dirty-tree integrate, review gate, and sequential commits.",
+      "files": [
+        "maintenance/eval-fixtures/implement-with-subagents/frontier-issues.json"
+      ],
+      "assertions": [
+        "The response includes only tickets whose blockers are complete and carry ready-for-agent.",
+        "It spawns one worker per frontier ticket rather than one worker for the whole wave.",
+        "It keeps ticket 103 out of the wave because blocker 99 is still open.",
+        "It commits only after review and records real commit SHAs rather than assuming success."
+      ],
+      "limits": [
+        "real commit SHAs cannot be proven by an isolated prompt"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "During a parallel wave, worker A fails tests but worker B succeeds. Continue integrating B, restore A's ready-for-agent eligibility, and do not abort the whole wave.",
+      "expected_output": "Failure-isolated orchestration that integrates only the green worker, skips the red worker's worktree, and restores eligibility for the failed ticket.",
+      "assertions": [
+        "The response integrates only the successful worker's changes.",
+        "It does not merge or commit the failing worker's worktree.",
+        "It restores ready-for-agent or equivalent eligibility for the failed ticket.",
+        "Successful siblings continue through review and commit without being blocked by the failure."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "/implement ticket 101 by itself in this worktree.",
+      "expected_output": "A redirect to the single-ticket /implement flow because parallel orchestration was not requested.",
+      "assertions": [
+        "The response does not start a multi-worker wave for a single explicit ticket.",
+        "It points the user to /implement or equivalent single-ticket handling.",
+        "It avoids claiming or removing ready-for-agent from unrelated frontier tickets.",
+        "It does not describe parallel worktree orchestration as the primary path."
+      ]
+    }
+  ]
+}

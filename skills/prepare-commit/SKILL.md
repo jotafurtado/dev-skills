@@ -2,10 +2,10 @@
 name: prepare-commit
 description: "Prepares small atomic Git commits with Conventional Commits messages in the language established by the user or project, stages by concern, and updates an existing CHANGELOG.md when the change is notable. Use when the user asks to commit, prepare a commit, write or revise a commit message, follow Conventional Commits for a commit, or commit and push. Do not trigger on git status, diff, log, or blame alone; PR or merge-request text; rebase, merge, or cherry-pick; version bumps or releases; changelog-only edits; or an isolated mention of Conventional Commits without intent to commit. Staging files during implementation without a commit request is not a trigger."
 license: MIT
+compatibility: "Designed for Cursor, Claude Code, Windsurf, and Copilot; requires Git."
 metadata:
-  compatibility: "Designed for Cursor, Claude Code, Windsurf, and Copilot; requires Git."
   author: jotafurtado
-  version: "1.4.1"
+  version: "1.4.2"
   domain: workflow
   role: specialist
   scope: implementation

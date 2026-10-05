@@ -1,0 +1,102 @@
+[
+  {
+    "query": "Prepare a commit for these auth changes with a Conventional Commits message.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Write the commit message and commit this fix.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Commit and push the staged billing changes.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "query": "Revise this commit message to follow Conventional Commits before committing.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Stage by concern and commit only the login audit work.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "query": "Create small atomic commits for the refactor, one concern at a time.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Follow Conventional Commits and commit the README update.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "query": "Prepare commits for this branch and update CHANGELOG for the user-visible fix.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Commit these changes in Portuguese using Conventional Commits.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "query": "Make a fix commit for the session timeout bug and push.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Run git status and summarize the working tree.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Show me git diff for src/auth.",
+    "should_trigger": false,
+    "split": "validation"
+  },
+  {
+    "query": "What does git log say about the last five commits?",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Open a pull request for this branch.",
+    "should_trigger": false,
+    "split": "validation"
+  },
+  {
+    "query": "Rebase feature/auth onto main.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Bump the package version to 2.0.0 and tag a release.",
+    "should_trigger": false,
+    "split": "validation"
+  },
+  {
+    "query": "Merge main into this feature branch.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Cherry-pick commit abc123 onto release.",
+    "should_trigger": false,
+    "split": "validation"
+  },
+  {
+    "query": "What is Conventional Commits?",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Edit CHANGELOG.md only; do not commit yet.",
+    "should_trigger": false,
+    "split": "validation"
+  }
+]

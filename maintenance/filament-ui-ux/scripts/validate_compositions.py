@@ -229,13 +229,39 @@ def _tokens(value: str) -> set[str]:
 
 
 def heading_covers_family(family: str, heading: str) -> bool:
-    """True when a composition ``##`` heading represents an inventory family."""
+    """True when a composition ``##`` heading represents an inventory family.
+
+    A heading covers a family when their slugs are identical, or when their
+    token sets are identical after dropping stopwords. Subset matches are not
+    coverage: ``sections`` does not cover ``Aside sections``.
+    """
     if _slug(family) == _slug(heading):
         return True
     family_tokens, heading_tokens = _tokens(family), _tokens(heading)
     if not family_tokens or not heading_tokens:
         return False
-    return family_tokens <= heading_tokens or heading_tokens <= family_tokens
+    return family_tokens == heading_tokens
+
+
+def composition_headings(*, references: Path = REFERENCES) -> list[str]:
+    """Return every ``##`` heading in the shipped composition files."""
+    headings: list[str] = []
+    for name in COMPOSITION_FILES:
+        path = references / name
+        if path.is_file():
+            headings.extend(PATTERN_HEADING.findall(path.read_text()))
+    return headings
+
+
+def _decision_changing_families(inventory: dict[str, Any]) -> list[str]:
+    return sorted(
+        {
+            screenshot["family"]
+            for screenshot in inventory.get("screenshots", [])
+            if screenshot.get("decision_relevance") == "decision-changing"
+            and screenshot.get("family")
+        }
+    )
 
 
 def uncovered_patterns(
@@ -246,29 +272,36 @@ def uncovered_patterns(
     Expansion work, not a validation error. A family is covered when any ``##``
     heading in the shipped compositions matches it.
     """
-    headings: list[str] = []
-    for name in COMPOSITION_FILES:
-        path = references / name
-        if path.is_file():
-            headings.extend(PATTERN_HEADING.findall(path.read_text()))
-
-    families = sorted(
-        {
-            screenshot["family"]
-            for screenshot in inventory.get("screenshots", [])
-            if screenshot.get("decision_relevance") == "decision-changing"
-            and screenshot.get("family")
-        }
-    )
+    headings = composition_headings(references=references)
     return [
         family
-        for family in families
+        for family in _decision_changing_families(inventory)
         if not any(heading_covers_family(family, heading) for heading in headings)
     ]
 
 
+def orphan_headings(
+    inventory: dict[str, Any], *, references: Path = REFERENCES
+) -> list[str]:
+    """Return composition headings that match no decision-changing family.
+
+    Expansion work, not a validation error. Without this list, a shipped
+    composition can sit outside the family inventory and never appear as
+    uncovered.
+    """
+    families = _decision_changing_families(inventory)
+    return [
+        heading
+        for heading in composition_headings(references=references)
+        if not any(heading_covers_family(family, heading) for family in families)
+    ]
+
+
 def format_coverage_report(
-    patterns: int, variants: int, uncovered: list[str]
+    patterns: int,
+    variants: int,
+    uncovered: list[str],
+    orphans: list[str] | None = None,
 ) -> str:
     """Return the human-readable coverage block printed after a successful run."""
     lines = [f"Composition validation passed: {patterns} patterns, {variants} variants."]
@@ -277,6 +310,9 @@ def format_coverage_report(
         lines.extend(f"- {family}" for family in uncovered)
     else:
         lines.append("Uncovered official patterns: none.")
+    if orphans:
+        lines.append("Composition headings with no inventory family:")
+        lines.extend(f"- {heading}" for heading in orphans)
     return "\n".join(lines)
 
 
@@ -304,7 +340,8 @@ def main() -> None:
 
     patterns, variants = coverage(references=args.references)
     uncovered = uncovered_patterns(inventory, references=args.references)
-    print(format_coverage_report(patterns, variants, uncovered))
+    orphans = orphan_headings(inventory, references=args.references)
+    print(format_coverage_report(patterns, variants, uncovered, orphans))
 
 
 if __name__ == "__main__":

@@ -10,6 +10,10 @@
         "The response selects CodeEntry for the read-only JSON payload rather than custom Blade or the form-only CodeEditor.",
         "The response checks for phiki/phiki and does not add it without authorization.",
         "Any proposed imports and configuration use Filament 5 namespaces and schema APIs."
+      ],
+      "files": [
+        "maintenance/eval-fixtures/filament-v5/composer.lock.snippet",
+        "maintenance/eval-fixtures/filament-v5/order-view-json-pre.blade.php"
       ]
     },
     {
@@ -21,6 +25,10 @@
         "The table uses recordActions() and groupedBulkActions() or toolbarActions() as appropriate instead of actions()/bulkActions().",
         "The modal uses schema() instead of the old form() method.",
         "The response proposes or implements focused tests through the Livewire page that hosts the actions."
+      ],
+      "files": [
+        "maintenance/eval-fixtures/filament-v5/composer.lock.snippet",
+        "maintenance/eval-fixtures/filament-v5/v3-orders-table-fragment.php"
       ]
     },
     {
@@ -33,6 +41,10 @@
         "The FileUpload design uses private storage deliberately and prevents or isolates cross-tenant path reuse, including preventFilePathTampering() when appropriate.",
         "Tests cover an allowed actor, a denied actor, and crafted cross-tenant record and file identifiers.",
         "The response does not use tableSelect filters or hidden/disabled fields as the sole security boundary."
+      ],
+      "files": [
+        "maintenance/eval-fixtures/filament-v5/composer.lock.snippet",
+        "maintenance/eval-fixtures/filament-v5/tenant-users-table.php"
       ]
     },
     {
@@ -45,6 +57,10 @@
         "It identifies that custom action visibility is not sufficient server-side authorization.",
         "It checks whether the export query is scoped to records the actor may view because exports do not perform per-record policy checks.",
         "Findings are prioritized and reference the supplied file or clearly request exact line data if unavailable."
+      ],
+      "files": [
+        "maintenance/eval-fixtures/filament-v5/composer.lock.snippet",
+        "maintenance/eval-fixtures/filament-v5/orders-table.php"
       ]
     },
     {
@@ -57,6 +73,9 @@
         "It maps display primitives to official infolist/schema components before proposing custom Blade.",
         "Status remains understandable without color alone, and responsive/accessibility concerns are retained.",
         "Any custom view is justified by a documented gap and kept to the smallest needed surface."
+      ],
+      "files": [
+        "maintenance/eval-fixtures/filament-v5/composer.lock.snippet"
       ]
     },
     {
@@ -69,6 +88,12 @@
         "The exporter query is explicitly tenant/authorization scoped because export does not check every record policy.",
         "User-authored formula-leading cells are neutralized or handled according to an explicit spreadsheet policy.",
         "The response covers required migrations, queue/storage behavior, download authorization, limits, and a representative queued test."
+      ],
+      "files": [
+        "maintenance/eval-fixtures/filament-v5/composer.lock.snippet"
+      ],
+      "limits": [
+        "queued import, migrations, and download authorization cannot be proven by an isolated prompt"
       ]
     },
     {
@@ -81,6 +106,9 @@
         "It does not introduce an unrelated typeface, gradient card system, or bespoke component styling merely for distinctiveness.",
         "It retains keyboard, responsive, accessibility, performance, UX copy, and feedback considerations that do not conflict with Filament's visual system.",
         "If it proposes a documented custom theme or CSS hook, it ties that escape to a concrete product requirement rather than generic novelty."
+      ],
+      "files": [
+        "maintenance/eval-fixtures/filament-v5/composer.lock.snippet"
       ]
     },
     {
@@ -91,6 +119,12 @@
         "The response delegates visual alternatives and composition selection to laravel-filament-v5-ui-ux rather than replacing its decision.",
         "It checks the installed lockfile, vendor source, or official versioned docs before giving an entry signature.",
         "It handles implementation, authorization or tenancy concerns where relevant, and focused Livewire or schema tests."
+      ],
+      "files": [
+        "maintenance/eval-fixtures/filament-v5/composer.lock.snippet"
+      ],
+      "limits": [
+        "installed infolist entry signatures cannot be proven without vendor source; the fixture only pins filament/filament v5.1.1"
       ]
     }
   ]

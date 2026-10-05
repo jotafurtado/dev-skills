@@ -24,9 +24,9 @@ Examples use a `Customer` / `Order` domain consistently across this library.
 
 **When**: one short, self-explanatory group would gain no clarity from a container that only adds visual weight.
 
-**Not when**: groups need names, descriptions, or separate actions, or field order or width needs stronger structure.
+**Not when**: groups need names, descriptions, or separate actions, field order or width needs stronger structure, or the task is labels, guidance, or field state (`form-fields.md`) rather than page structure.
 
-**Alternatives**: responsive-columns, sections, fieldsets.
+**Alternatives**: responsive-columns, sections, fieldsets. After this page structure is chosen, compose everyday fields from `form-fields.md` and collection, upload, relationship, or rich-content controls from `form-inputs.md`.
 
 **Source**: [schemas/layouts](https://filamentphp.com/docs/5.x/schemas/layouts.md) · [schemas/layout/flex/simple](https://filamentphp.com/docs/images/5.x/light/schemas/layout/flex/simple.jpg)
 

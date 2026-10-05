@@ -1,0 +1,11 @@
+{
+  "name": "dev-skills-maintenance",
+  "private": true,
+  "scripts": {
+    "test": "python3 -m unittest discover -s tests",
+    "validate:datasets": "python3 maintenance/eval_skills.py validate-datasets"
+  },
+  "devDependencies": {
+    "yaml": "2.9.1"
+  }
+}

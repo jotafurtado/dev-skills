@@ -44,6 +44,15 @@ The frontmatter intentionally omits `disable-model-invocation`. Cursor therefore
 - [Cursor Agent Skills](https://cursor.com/docs/skills)
 - [Agent Skills specification](https://agentskills.io/)
 
+## Maintenance
+
+```bash
+npm ci
+node maintenance/validate_skill.mjs skills/prepare-commit
+python3 maintenance/eval_skills.py validate-datasets
+python3 maintenance/eval_skills.py run --judge mock --out maintenance/evals-out
+```
+
 ## License
 
 MIT

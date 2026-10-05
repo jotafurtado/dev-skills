@@ -120,6 +120,15 @@ requirements.
 - [Correctness with Property-Based Tests](https://kiro.dev/docs/specs/correctness/)
 - [Cursor Agent Skills](https://cursor.com/docs/skills)
 
+## Maintenance
+
+```bash
+npm ci
+node maintenance/validate_skill.mjs skills/sdd-workflow
+python3 maintenance/eval_skills.py validate-datasets
+python3 maintenance/eval_skills.py run --judge mock --out maintenance/evals-out
+```
+
 ## License
 
 MIT

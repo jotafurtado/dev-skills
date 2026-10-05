@@ -75,6 +75,15 @@ lists Composer 2 and Laravel 10.x through 13.x, plus frontend requirements for
 custom Nova packages. The installed Composer lockfile and generated Nova
 scaffolds remain the source of truth for each project.
 
+## Maintenance
+
+```bash
+npm ci
+node maintenance/validate_skill.mjs skills/laravel-nova-5
+python3 maintenance/eval_skills.py validate-datasets
+python3 maintenance/eval_skills.py run --judge mock --out maintenance/evals-out
+```
+
 ## License
 
 MIT

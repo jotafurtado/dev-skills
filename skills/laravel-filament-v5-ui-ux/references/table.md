@@ -4,7 +4,7 @@ Ready-to-adapt table compositions for Filament 5. Pick the one whose `When` matc
 
 Examples use a `Customer` / `Order` domain consistently across this library.
 
-`laravel-filament-v5` owns field API signatures, authorization, and tests. This file owns how the components are arranged.
+`laravel-filament-v5` owns field API signatures, authorization, and tests. This file owns how the components are arranged. Keep the pasteable snippets below. Before shipping them, confirm version-sensitive calls such as `recordActions()`, `contentGrid()`, `stackedOnMobile()`, `Split::from()`, and `visibleFrom()` against that skill's `references/tables.md` and the installed Filament source. The release gate `verify_filament_apis.py` checks every imported Filament class and enum case in these snippets against a Composer fixture; it does not choose the arrangement.
 
 | Pattern | Use it for |
 |---|---|

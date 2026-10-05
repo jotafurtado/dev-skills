@@ -1,0 +1,41 @@
+{
+  "skill_name": "laravel-filament-v5-ui-ux",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our Filament 5 account settings form wastes desktop width and buries categories. Choose a composition from the UI/UX library, explain why it fits, and outline the layout changes without writing production PHP.",
+      "expected_output": "A visual composition recommendation grounded in the shipped reference patterns, with hierarchy, grouping, and responsive behavior called out and API implementation deferred to laravel-filament-v5.",
+      "assertions": [
+        "The response selects or adapts a documented Filament 5 composition pattern instead of inventing a bespoke layout system.",
+        "It addresses category grouping, desktop width usage, and mobile readability.",
+        "It defers installed-version API signatures, authorization, and tests to laravel-filament-v5.",
+        "It does not propose unrelated frontend stacks such as React or generic Blade admin pages."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Review only the mobile composition of this Filament 5 operations table: identity columns, exception highlighting, filters, and bulk actions feel cramped on phones. Recommend a composition adjustment and note what the core Filament skill should implement.",
+      "expected_output": "A read-only visual review that names a table composition variant, explains mobile trade-offs, and routes implementation concerns to the core skill.",
+      "assertions": [
+        "The response stays in review mode and does not claim to have edited files.",
+        "It references table composition concerns such as column priority, density, and action placement.",
+        "It preserves row identity and available actions instead of removing functionality for aesthetics alone.",
+        "It routes API, security, and test work to laravel-filament-v5."
+      ],
+      "files": [
+        "maintenance/eval-fixtures/filament-v5-ui-ux/operations-table.php"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Build a Filament 5 OrderResource with a status filter and bulk approve action. We only need the resource working; no visual redesign.",
+      "expected_output": "A refusal or handoff that treats the request as functional Filament work owned by laravel-filament-v5 rather than a composition-selection task for this skill.",
+      "assertions": [
+        "The response does not treat the task as a visual composition or layout selection exercise.",
+        "It directs functional resource, filter, bulk action, authorization, and test work to laravel-filament-v5.",
+        "It avoids pasting large implementation diffs that belong in the core Filament skill.",
+        "It does not load unrelated UI polish guidance as the primary answer."
+      ]
+    }
+  ]
+}

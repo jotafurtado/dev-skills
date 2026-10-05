@@ -2,10 +2,10 @@
 name: implement-with-subagents
 description: "Orchestrates parallel waves of isolated workers over ready-for-agent frontier tickets; the orchestrator reviews and commits. User-invoked via /implement-with-subagents (optional feature slug). Use when the user asks to implement multiple ready-for-agent tickets in parallel. Do not trigger for a single ticket (use /implement), triaging or labeling (use /triage), writing specs, committing existing work, or a generic request to use subagents without a ready-for-agent frontier."
 license: MIT
+compatibility: "Requires Matt Pocock /implement, /tdd, and /code-review installed. Harness-agnostic contract; spawn/isolate/integrate in references/host-adapters.md."
 metadata:
-  compatibility: "Requires Matt Pocock /implement, /tdd, and /code-review installed. Harness-agnostic contract; spawn/isolate/integrate in references/host-adapters.md."
   author: jotafurtado
-  version: "1.2.2"
+  version: "1.2.3"
   domain: workflow
   role: orchestrator
   scope: implementation

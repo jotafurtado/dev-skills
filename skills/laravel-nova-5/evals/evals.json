@@ -1,0 +1,45 @@
+{
+  "skill_name": "laravel-nova-5",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "In a Laravel app whose composer.lock pins laravel/nova 5.0.0, add a queued Nova Action that exports selected invoices to CSV with per-record authorization and tenant scoping. Implement the action and focused tests.",
+      "expected_output": "A version-verified Nova 5 action with scoped queries, queued execution, and tests for allowed and denied actors.",
+      "files": [
+        "maintenance/eval-fixtures/nova-5/composer.lock.snippet"
+      ],
+      "assertions": [
+        "The response checks composer.lock or installed vendor source before relying on a Nova signature.",
+        "The exporter or action query is explicitly tenant and authorization scoped.",
+        "The action is registered on the resource using Nova 5 APIs rather than invented helpers.",
+        "Tests cover at least one allowed actor and one denied or cross-tenant case."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Migrate the attached Nova 4 Invoice resource to Nova 5 and update any deprecated field or action APIs.",
+      "expected_output": "A scoped migration of the supplied resource to Nova 5 with updated namespaces and methods verified against the installed release.",
+      "files": [
+        "maintenance/eval-fixtures/nova-5/composer.lock.snippet",
+        "maintenance/eval-fixtures/nova-5/invoice-resource-v4.php"
+      ],
+      "assertions": [
+        "The response updates the resource to Nova 5 field and resource APIs instead of leaving v4 signatures in place.",
+        "It inspects the installed Nova version before proposing method names.",
+        "It limits changes to the migration scope rather than rewriting unrelated resources.",
+        "It calls out any required composer or provider changes tied to Nova 5."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We have two confirmed Nova 4 projects and need to migrate custom tools and cards between them. No Nova 5 target is planned.",
+      "expected_output": "A refusal or redirect that does not treat confirmed Nova 4-only work as a Nova 5 implementation task.",
+      "assertions": [
+        "The response does not assume laravel/nova 5.x is installed or the migration target.",
+        "It explains that Nova 5-specific guidance is out of scope for confirmed Nova 4-only work.",
+        "It avoids generating Nova 5 resource or action code for the request.",
+        "It may suggest verifying the actual installed Nova major before proceeding."
+      ]
+    }
+  ]
+}

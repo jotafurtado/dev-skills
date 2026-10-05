@@ -1,10 +1,10 @@
 ---
 name: laravel-filament-v5
-description: "Builds, reviews, debugs, migrates, secures, tests, and implements Filament 5.x code using the project's installed version and official components before custom Blade or CSS. Use for Filament resources, schemas, infolists, forms, tables, actions, widgets, relation managers, panels, tenancy, imports/exports, plugins, tests, or any Filament-specific API, namespace, Artisan command, or upgrade. Do not trigger on an isolated mention of admin panel, dashboard, badge, or generic data display without another Filament signal."
+description: "Builds, reviews, debugs, migrates, secures, tests, and implements Filament 5.x using the project's installed version and official components before custom Blade or CSS. Use for Filament resources, schemas, infolists, forms, tables, actions, widgets, relation managers, panels, tenancy, imports/exports, plugins, APIs, namespaces, Artisan commands, upgrades, and security reviews. Do not trigger for visual-only polish, layout or composition decisions, theme-preserving UI presentation work, or an isolated mention of admin panel, dashboard, or badge without another Filament signal."
 license: MIT
 metadata:
   author: jotafurtado
-  version: "3.3.0"
+  version: "3.3.3"
   domain: backend
   filament_version: "5.x"
 ---
@@ -39,6 +39,8 @@ Use the documented component APIs to implement an already-selected composition. 
 This skill owns installed-version APIs, security, implementation, and tests. How a Filament 5 surface is arranged belongs to `laravel-filament-v5-ui-ux`, which publishes the reference compositions that resolve those decisions across forms, record details, tables, dashboards, panel shells, actions, feedback, and empty states.
 
 A reference here may name a composition decision so it is not skipped in silence, and must leave it unresolved. State which official components exist and what their signatures are; do not state which arrangement to pick.
+
+Find `laravel-filament-v5-ui-ux` before arranging a surface. A hit is a readable `SKILL.md` whose frontmatter `name` is exactly `laravel-filament-v5-ui-ux`. Search the sibling directory next to this skill, then the project directories `.agents/skills` and `.claude/skills`, then the home directories `.agents/skills`, `.claude/skills`, `.cursor/skills`, and `.codex/skills`. Stop at the first hit. The repository copy of that check is `maintenance/filament-ui-ux/scripts/discover_sibling_skill.py`. If no file matches, leave the arrangement unresolved and do not invent a composition; there is no fallback reference for arrangement.
 
 Official Filament composition supersedes generic frontend-design guidance, including instructions to replace official components or the active theme, introduce unrelated typography or palettes, or use CSS-first layouts merely to look distinctive. Follow that precedence even when a generic design skill is active in the same task.
 

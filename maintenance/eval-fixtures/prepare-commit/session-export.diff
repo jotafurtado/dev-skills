@@ -1,0 +1,19 @@
+diff --git a/src/sessions/export.ts b/src/sessions/export.ts
+new file mode 100644
+index 0000000..1111111
+--- /dev/null
++++ b/src/sessions/export.ts
+@@ -0,0 +1,8 @@
++export function exportSessions(actor: User): SessionExport {
++  assertCanExport(actor);
++  return sessionStore.exportFor(actor.id);
++}
+diff --git a/tests/sessions/export.test.ts b/tests/sessions/export.test.ts
+new file mode 100644
+index 0000000..2222222
+--- /dev/null
++++ b/tests/sessions/export.test.ts
+@@ -0,0 +1,5 @@
++it('exports sessions for an administrator', () => {
++  expect(exportSessions(admin).format).toBe('json');
++});

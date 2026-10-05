@@ -1,0 +1,41 @@
+{
+  "skill_name": "sdd-workflow",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use requirements-first SDD for a tenant-scoped CSV export endpoint. Create the numbered artifacts under sdd-specs/ and stop for approval before implementation.",
+      "expected_output": "Versioned requirements and downstream SDD artifacts with explicit approval gates and no production code yet.",
+      "assertions": [
+        "The response creates or names artifacts under sdd-specs/ rather than jumping straight to code.",
+        "It uses requirements-first ordering and records approval gates before implementation.",
+        "Requirements state observable behavior contracts instead of premature class diagrams only.",
+        "It does not modify unrelated application code during the spec phase."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Start SDD bugfix mode for the attached payment timeout report. Produce the bugfix artifact and behavior contract before any fix.",
+      "expected_output": "A bugfix.md-style artifact with reproduction, impact, and behavior contract entries derived from the report.",
+      "files": [
+        "maintenance/eval-fixtures/sdd-workflow/payment-bug-report.md"
+      ],
+      "assertions": [
+        "The response captures reproduction steps and observed failure from the supplied report.",
+        "It writes explicit current defective behavior contracts before proposing code changes.",
+        "It selects bugfix mode rather than a greenfield feature template.",
+        "It stops for approval or explicit proceed signal before implementing the fix."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Add pagination to the invoices API endpoint today; no spec workflow requested.",
+      "expected_output": "A refusal to auto-apply SDD or a redirect to ordinary implementation because the user did not request spec-driven development.",
+      "assertions": [
+        "The response does not invent an sdd-specs tree for an ordinary feature request.",
+        "It treats the ask as direct implementation unless the user explicitly opts into SDD.",
+        "It avoids blocking delivery with spec artifacts the user did not request.",
+        "It may briefly note SDD is available but does not force the workflow."
+      ]
+    }
+  ]
+}

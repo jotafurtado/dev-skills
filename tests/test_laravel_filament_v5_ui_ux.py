@@ -12,15 +12,13 @@ MAINTENANCE = ROOT / "maintenance" / "filament-ui-ux"
 SYNC_SCRIPT = MAINTENANCE / "scripts" / "sync_screenshot_inventory.py"
 VALIDATE_SCRIPT = MAINTENANCE / "scripts" / "validate_compositions.py"
 VERIFY_APIS_SCRIPT = MAINTENANCE / "scripts" / "verify_filament_apis.py"
+DISCOVER_SCRIPT = MAINTENANCE / "scripts" / "discover_sibling_skill.py"
 REFERENCES = UI_UX_ROOT / "references"
 INVENTORY_PATH = ROOT / "maintenance" / "filament-ui-ux" / "screenshot-inventory.json"
 MAIN_FILAMENT_SKILL_PATH = ROOT / "skills" / "laravel-filament-v5" / "SKILL.md"
 MAIN_FILAMENT_QUERY_EVALS_PATH = ROOT / "skills" / "laravel-filament-v5" / "evals" / "eval_queries.json"
 UI_UX_QUERY_EVALS_PATH = UI_UX_ROOT / "evals" / "eval_queries.json"
 UI_UX_SKILL_PATH = UI_UX_ROOT / "SKILL.md"
-UI_UX_RELEASE_PATH = UI_UX_ROOT / "RELEASE.md"
-UI_UX_RELEASE_VERIFICATION_PATH = MAINTENANCE / "release-verification.md"
-UI_UX_INSTALL_SMOKE_SCRIPT = MAINTENANCE / "scripts" / "release_install_smoke.py"
 
 PHP = shutil.which("php")
 
@@ -43,6 +41,10 @@ def load_validate_module():
 
 def load_verify_apis_module():
     return _load("verify_filament_apis", VERIFY_APIS_SCRIPT)
+
+
+def load_discover_module():
+    return _load("discover_sibling_skill", DISCOVER_SCRIPT)
 
 
 COMPOSITION = """# Example
@@ -120,6 +122,10 @@ class CompositionValidationTests(unittest.TestCase):
         inventory = json.loads(INVENTORY_PATH.read_text())
         self.assertEqual([], self.validate.uncovered_patterns(inventory, references=REFERENCES))
 
+    def test_shipped_library_has_no_orphan_headings(self):
+        inventory = json.loads(INVENTORY_PATH.read_text())
+        self.assertEqual([], self.validate.orphan_headings(inventory, references=REFERENCES))
+
     def test_uncovered_family_is_reported(self):
         directory = Path(tempfile.mkdtemp())
         self.addCleanup(shutil.rmtree, directory, ignore_errors=True)
@@ -143,16 +149,25 @@ class CompositionValidationTests(unittest.TestCase):
             )
         )
 
-    def test_coverage_report_lists_uncovered_families(self):
-        report = self.validate.format_coverage_report(22, 76, ["brand-new-surface"])
-        self.assertIn("22 patterns, 76 variants", report)
-        self.assertIn("- brand-new-surface", report)
-        self.assertIn("expansion work, not a defect", report)
-        self.assertNotIn("Uncovered official patterns: none.", report)
+    def test_subset_tokens_are_not_coverage(self):
+        self.assertFalse(self.validate.heading_covers_family("sections", "Aside sections"))
+        self.assertFalse(self.validate.heading_covers_family("aside-sections", "Sections"))
+        self.assertTrue(self.validate.heading_covers_family("sections", "Sections"))
+        self.assertTrue(self.validate.heading_covers_family("aside-sections", "Aside sections"))
 
-    def test_coverage_report_says_none_when_covered(self):
-        report = self.validate.format_coverage_report(22, 76, [])
-        self.assertIn("Uncovered official patterns: none.", report)
+    def test_orphan_heading_is_reported(self):
+        directory = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, directory, ignore_errors=True)
+        (directory / "table.md").write_text("## Standard compare-and-scan table\n## Brand new surface\n")
+        inventory = {
+            "screenshots": [
+                {"decision_relevance": "decision-changing", "family": "standard-compare-and-scan-table"},
+            ]
+        }
+        self.assertEqual(
+            ["Brand new surface"],
+            self.validate.orphan_headings(inventory, references=directory),
+        )
 
     def test_pattern_without_when_is_rejected(self):
         broken = COMPOSITION.replace("**When**: the record needs one scan line.\n\n", "")
@@ -221,6 +236,14 @@ class ScreenshotInventoryTests(unittest.TestCase):
 
     def test_shipped_inventory_is_valid(self):
         self.assertEqual([], self.validate.validate_inventory(self.inventory))
+
+    def test_inventory_lives_outside_the_install_payload(self):
+        self.assertTrue(INVENTORY_PATH.is_file())
+        self.assertNotIn(UI_UX_ROOT, INVENTORY_PATH.parents)
+        self.assertFalse((REFERENCES / "screenshot-inventory.json").exists())
+        self.assertFalse((UI_UX_ROOT / "scripts").exists())
+        self.assertTrue((MAINTENANCE / "scripts" / "discover_sibling_skill.py").is_file())
+        self.assertFalse((MAINTENANCE / "scripts" / "sync_visual_catalog.py").exists())
 
     def test_unreviewed_screenshot_is_rejected(self):
         errors = self.validate.validate_inventory(self._one(status="unreviewed"))
@@ -291,6 +314,25 @@ class ScreenshotInventoryTests(unittest.TestCase):
             self.assertEqual("reviewed", screenshots[screenshot]["status"])
             self.assertEqual("decision-changing", screenshots[screenshot]["decision_relevance"])
             self.assertEqual("responsive-identity-centred-table", screenshots[screenshot]["family"])
+            self.assertEqual(variant, screenshots[screenshot]["variant"])
+
+    def test_standard_compare_and_scan_table_family_is_assigned(self):
+        screenshots = {item["name"]: item for item in self.inventory["screenshots"]}
+        expected_variants = {
+            "tables/overview/columns": "column-scan",
+            "tables/overview/filters": "purposeful-filters",
+            "tables/actions/group": "direct-row-action",
+            "tables/actions/bulk": "bulk-selection",
+            "tables/empty-state": "empty-versus-filtered-empty",
+            "tables/grouping": "grouped-rows",
+            "tables/summaries": "decision-summary",
+            "tables/pagination/default": "positional-pagination",
+        }
+
+        for screenshot, variant in expected_variants.items():
+            self.assertEqual("reviewed", screenshots[screenshot]["status"])
+            self.assertEqual("decision-changing", screenshots[screenshot]["decision_relevance"])
+            self.assertEqual("standard-compare-and-scan-table", screenshots[screenshot]["family"])
             self.assertEqual(variant, screenshots[screenshot]["variant"])
 
     def test_action_feedback_evidence_is_reviewed_and_assigned_to_variants(self):
@@ -494,37 +536,12 @@ class ScreenshotSynchronizationTests(unittest.TestCase):
         self.assertEqual([first_page, second_page], inventory["screenshots"][0]["documentation_pages"])
 
 
+
+
 class CrossSkillContractTests(unittest.TestCase):
-    def test_release_metadata_and_notes_state_scope_authority_and_gates(self):
-        skill = UI_UX_SKILL_PATH.read_text()
-        release = UI_UX_RELEASE_PATH.read_text()
-        verification = UI_UX_RELEASE_VERIFICATION_PATH.read_text()
-        smoke_script = UI_UX_INSTALL_SMOKE_SCRIPT.read_text()
-
-        self.assertIn('version: "2.1.0"', skill)
-        self.assertIn('filament_version: "5.x"', skill)
-        self.assertIn("Filament 5.x only", release)
-        self.assertIn("laravel-filament-v5", release)
-        self.assertIn("offline", release.lower())
-        self.assertIn("release_install_smoke.py", release)
-        self.assertIn("validate_compositions.py", release)
-        self.assertIn("verify_filament_apis.py", release)
-        self.assertIn("Authority: `laravel-filament-v5`", verification)
-        self.assertIn("Evidence: local reviewed catalog", verification)
-        self.assertIn("verify_filament_apis.py", verification)
-        self.assertIn("cursor", smoke_script)
-        self.assertIn("--copy", smoke_script)
-        self.assertIn("Jota Furtado Dev Skills", smoke_script)
-        self.assertIn("README.md", smoke_script)
-
     def test_narrative_forward_evaluation_is_retired(self):
-        release = UI_UX_RELEASE_PATH.read_text()
-        verification = UI_UX_RELEASE_VERIFICATION_PATH.read_text()
-
         self.assertFalse((MAINTENANCE / "scripts" / "run_forward_evals.py").exists())
         self.assertFalse((UI_UX_ROOT / "evals" / "forward-runs").exists())
-        self.assertIn("discontinued", verification.lower())
-        self.assertIn("narrative forward evaluations", release.lower())
 
     def test_query_engine_and_catalog_are_removed(self):
         for path in (
@@ -536,86 +553,16 @@ class CrossSkillContractTests(unittest.TestCase):
             with self.subTest(path=path.name):
                 self.assertFalse(path.exists())
 
-    def test_skill_routes_every_surface_to_a_composition_file(self):
-        validate = load_validate_module()
-        skill = UI_UX_SKILL_PATH.read_text()
-
-        for name in validate.COMPOSITION_FILES:
-            with self.subTest(reference=name):
-                self.assertIn(f"`references/{name}`", skill)
-
-    def test_skill_imposes_no_mandatory_workflow(self):
-        skill = UI_UX_SKILL_PATH.read_text()
-
-        self.assertIn("no required workflow", skill.lower())
-        self.assertNotIn("Mandatory visual decision flow", skill)
-        self.assertNotIn("visual decision trace", skill.lower())
-
     def test_skill_directory_matches_its_declared_name(self):
-        skill = UI_UX_SKILL_PATH.read_text()
-
-        self.assertIn("name: laravel-filament-v5-ui-ux", skill)
         self.assertEqual("laravel-filament-v5-ui-ux", UI_UX_ROOT.name)
-
-    def test_skill_states_the_sibling_pairing(self):
-        skill = UI_UX_SKILL_PATH.read_text()
-
-        self.assertIn(
-            "--skill laravel-filament-v5-ui-ux --skill laravel-filament-v5",
-            skill,
+        self.assertEqual(
+            "laravel-filament-v5-ui-ux",
+            load_discover_module().frontmatter_name(UI_UX_SKILL_PATH),
         )
-        self.assertIn("If it is not installed, say so", skill)
-
-    def test_cross_skill_contract_routes_visual_selection_to_ui_ux_skill(self):
-        main_skill = MAIN_FILAMENT_SKILL_PATH.read_text()
-        ui_ux_skill = UI_UX_SKILL_PATH.read_text()
-
-        self.assertIn(
-            "How a Filament 5 surface is arranged belongs to `laravel-filament-v5-ui-ux`",
-            main_skill,
+        self.assertEqual(
+            "laravel-filament-v5",
+            load_discover_module().frontmatter_name(MAIN_FILAMENT_SKILL_PATH),
         )
-        self.assertIn(
-            "Let `laravel-filament-v5` own installed-version APIs, security, implementation, and tests.",
-            ui_ux_skill,
-        )
-
-    def test_main_skill_names_composition_decisions_without_resolving_them(self):
-        main_skill = MAIN_FILAMENT_SKILL_PATH.read_text()
-
-        self.assertIn("may name a composition decision", main_skill)
-        self.assertIn("must leave it unresolved", main_skill)
-
-    def test_main_skill_does_not_branch_on_sibling_installation(self):
-        """The skill format has no dependency or runtime-detection mechanism, so a
-        branch on whether the sibling is installed cannot be evaluated. The seam is
-        stated unconditionally instead."""
-        main_skill = MAIN_FILAMENT_SKILL_PATH.read_text()
-        screenshots = (
-            ROOT / "skills" / "laravel-filament-v5" / "references" / "screenshots.md"
-        ).read_text()
-
-        for source, label in (
-            (main_skill, "SKILL.md"),
-            (screenshots, "references/screenshots.md"),
-        ):
-            for branch in ("when it is installed", "when installed", "is unavailable", "were unavailable", "was unavailable"):
-                self.assertNotIn(branch, source, f"{label} branches on sibling availability: {branch!r}")
-
-    def test_sibling_skill_defers_arrangement_to_the_composition_library(self):
-        expected = {
-            "tables.md": "references/table.md",
-            "layout.md": "references/form-layout.md",
-            "forms.md": "references/form-layout.md",
-            "infolists.md": "references/record-detail.md",
-            "widgets.md": "references/dashboard.md",
-            "actions.md": "references/action-feedback.md",
-            "panels.md": "references/panel-shell.md",
-        }
-        root = ROOT / "skills" / "laravel-filament-v5" / "references"
-        for name, pointer in expected.items():
-            text = (root / name).read_text()
-            self.assertIn("API inventory", text, name)
-            self.assertIn(pointer, text, name)
 
     def test_cross_skill_trigger_evals_keep_visual_work_out_of_main_skill(self):
         main_queries = json.loads(MAIN_FILAMENT_QUERY_EVALS_PATH.read_text())
@@ -633,6 +580,75 @@ class CrossSkillContractTests(unittest.TestCase):
         self.assertFalse(main_visual_query["should_trigger"])
         self.assertTrue(ui_ux_visual_query["should_trigger"])
 
+
+class SiblingDiscoveryTests(unittest.TestCase):
+    def setUp(self):
+        self.discover = load_discover_module()
+
+    def _write_skill(self, root: Path, name: str, frontmatter_name: str | None = None) -> Path:
+        skill = root / name
+        skill.mkdir(parents=True)
+        declared = name if frontmatter_name is None else frontmatter_name
+        (skill / "SKILL.md").write_text(f"---\nname: {declared}\n---\n\n# {declared}\n")
+        return skill / "SKILL.md"
+
+    def test_sibling_directory_wins_over_later_roots(self):
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            skills = root / "skills"
+            self._write_skill(skills, "laravel-filament-v5-ui-ux")
+            expected = self._write_skill(skills, "laravel-filament-v5")
+            home = root / "home"
+            self._write_skill(home / ".agents" / "skills", "laravel-filament-v5")
+            found = self.discover.discover_sibling_skill(
+                "laravel-filament-v5",
+                skill_dir=skills / "laravel-filament-v5-ui-ux",
+                project=root / "project",
+                home=home,
+            )
+            self.assertEqual(expected, found)
+
+    def test_project_agents_directory_is_next(self):
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            project = root / "project"
+            expected = self._write_skill(project / ".agents" / "skills", "laravel-filament-v5")
+            self._write_skill(project / ".claude" / "skills", "laravel-filament-v5")
+            found = self.discover.discover_sibling_skill(
+                "laravel-filament-v5",
+                skill_dir=root / "skills" / "laravel-filament-v5-ui-ux",
+                project=project,
+                home=root / "home",
+            )
+            self.assertEqual(expected, found)
+
+    def test_wrong_frontmatter_name_is_skipped(self):
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            home = root / "home"
+            self._write_skill(
+                home / ".agents" / "skills",
+                "laravel-filament-v5",
+                frontmatter_name="other-skill",
+            )
+            expected = self._write_skill(home / ".claude" / "skills", "laravel-filament-v5")
+            found = self.discover.discover_sibling_skill(
+                "laravel-filament-v5",
+                project=root / "project",
+                home=home,
+            )
+            self.assertEqual(expected, found)
+
+    def test_no_matching_file_returns_none(self):
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            found = self.discover.discover_sibling_skill(
+                "laravel-filament-v5",
+                skill_dir=root / "skills" / "laravel-filament-v5-ui-ux",
+                project=root / "project",
+                home=root / "home",
+            )
+            self.assertIsNone(found)
 
 if __name__ == "__main__":
     unittest.main()

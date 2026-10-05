@@ -1,0 +1,20 @@
+[
+  {
+    "id": 101,
+    "title": "Add password reset email template",
+    "labels": ["ready-for-agent"],
+    "blockers": []
+  },
+  {
+    "id": 102,
+    "title": "Expose audit log export endpoint",
+    "labels": ["ready-for-agent"],
+    "blockers": []
+  },
+  {
+    "id": 103,
+    "title": "Ship billing webhook retries",
+    "labels": ["ready-for-agent"],
+    "blockers": [99]
+  }
+]

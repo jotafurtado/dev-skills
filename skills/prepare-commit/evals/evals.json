@@ -1,0 +1,51 @@
+{
+  "skill_name": "prepare-commit",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Commit the attached login audit changes. Stage only the auth concern, use Conventional Commits, and do not touch unrelated files.",
+      "expected_output": "One atomic commit with an English Conventional Commits message, explicit path staging, and no changelog edit because the change is internal.",
+      "files": [
+        "maintenance/eval-fixtures/prepare-commit/staged-diff.sample"
+      ],
+      "assertions": [
+        "The response stages explicit paths for the auth concern instead of blanket git add -A.",
+        "The resulting commit message uses a Conventional Commits type and imperative summary.",
+        "It does not amend, skip hooks, or push unless explicitly requested.",
+        "It leaves unrelated paths unstaged and reports the final git status."
+      ],
+      "limits": [
+        "the final git status after commit cannot be proven by an isolated prompt"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Commit the user-visible session export feature and update the existing CHANGELOG under Unreleased.",
+      "expected_output": "A commit plus changelog entry classified by user-visible impact, preserving the file's existing format.",
+      "files": [
+        "maintenance/eval-fixtures/prepare-commit/CHANGELOG.sample.md",
+        "maintenance/eval-fixtures/prepare-commit/session-export.diff"
+      ],
+      "assertions": [
+        "The response adds a changelog entry under the existing Unreleased section.",
+        "The changelog entry describes user-visible impact rather than internal refactor wording.",
+        "The commit message remains Conventional Commits and matches the staged feature scope.",
+        "It reads the changelog format before editing instead of inventing a new structure."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Run git status and tell me whether anything is staged.",
+      "expected_output": "A read-only status summary with no commit created.",
+      "assertions": [
+        "The response reports working tree and staging state without creating a commit.",
+        "It does not draft a Conventional Commits message because no commit was requested.",
+        "It does not stage or push changes.",
+        "It may suggest next steps but keeps the operation inspection-only."
+      ],
+      "files": [
+        "maintenance/eval-fixtures/prepare-commit/git-status.sample"
+      ]
+    }
+  ]
+}

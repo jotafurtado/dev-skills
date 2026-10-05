@@ -16,7 +16,7 @@ Examples use a `Customer` / `Order` domain consistently across this library.
 
 **When**: ordinary fields need labels, expected-value guidance, and clear state feedback.
 
-**Not when**: the problem is primarily page-level grouping, sequencing, or navigation.
+**Not when**: the problem is primarily page-level grouping, sequencing, or navigation. Flat content is that page-structure choice in `form-layout.md`, not a field-treatment choice.
 
 **Alternatives**: responsive-columns (`form-layout.md`), fieldsets (`form-layout.md`), sections (`form-layout.md`), aside-sections (`form-layout.md`).
 

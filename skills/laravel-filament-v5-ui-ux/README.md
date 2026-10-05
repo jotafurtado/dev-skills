@@ -18,7 +18,7 @@ npx skills add jotafurtado/dev-skills --skill laravel-filament-v5
 
 ## Authority and fallback
 
-This skill owns surface composition and responsive arrangement inside Filament 5. `laravel-filament-v5` owns installed-version APIs, security, implementation, and tests; install both for implementation work.
+This skill owns surface composition and responsive arrangement inside Filament 5. `laravel-filament-v5` owns installed-version APIs, security, implementation, and tests; install both for implementation work. Whether that sibling file is present is the check in `SKILL.md`, implemented by `maintenance/filament-ui-ux/scripts/discover_sibling_skill.py`. If no file matches, there is no fallback composition module.
 
 Compositions work offline after installation — provenance travels inside each one, so nothing is fetched at use time. There is no required workflow, no mandatory screenshot inspection, and no decision trace. Use custom Blade, Livewire, CSS, or theme work only after recording the official candidates checked and the concrete gap they cannot cover.
 
@@ -68,7 +68,8 @@ maintenance/                        # maintainer assets, outside the payload
         ├── validate_compositions.py
         ├── verify_filament_apis.py
         ├── sync_screenshot_inventory.py
-        └── release_install_smoke.py
+        ├── release_install_smoke.py
+        └── discover_sibling_skill.py
 ```
 
 The maintainer screenshot inventory lives outside the skill install payload at `maintenance/filament-ui-ux/screenshot-inventory.json`.
@@ -79,6 +80,7 @@ The maintainer screenshot inventory lives outside the skill install payload at `
 python3 -m unittest discover -s tests -p 'test_laravel_filament_v5_ui_ux.py'
 python3 maintenance/filament-ui-ux/scripts/validate_compositions.py
 python3 maintenance/filament-ui-ux/scripts/verify_filament_apis.py
+npm ci
 node maintenance/validate_skill.mjs skills/laravel-filament-v5-ui-ux
 ```
 
@@ -96,3 +98,12 @@ python3 maintenance/filament-ui-ux/scripts/validate_compositions.py
 ```
 
 The synchronizer uses bounded concurrency and retries, fails explicitly on incomplete crawls, writes stable JSON, retains matching human review fields, and makes new or materially changed screenshots unreviewed.
+
+## Maintenance
+
+```bash
+npm ci
+node maintenance/validate_skill.mjs skills/laravel-filament-v5-ui-ux
+python3 maintenance/eval_skills.py validate-datasets
+python3 maintenance/eval_skills.py run --judge mock --out maintenance/evals-out
+```

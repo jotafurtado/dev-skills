@@ -1,0 +1,102 @@
+[
+  {
+    "query": "Build a Laravel Nova 5 User resource with Gravatar and searchable email.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Add a Nova Action to email invoice reminders for overdue accounts.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Create a Nova lens that surfaces high-value customers for sales.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "query": "Review Nova File fields in our panel for private-disk exposure.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Migrate this Nova 4 Invoice resource to Nova 5.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "query": "Add a Nova Trend metric for monthly recurring revenue.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Configure a Nova dashboard with cards for support workload.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "query": "Fix a Nova filter that leaks another tenant's records.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Write Pest tests for Nova resource authorization on Team membership.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "query": "Register a Nova BelongsToMany attach authorization rule for projects.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Migrate custom tools and cards from Nova 4 to Nova 5.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "query": "Migrate custom Nova tools between two confirmed Nova 4 projects.",
+    "should_trigger": false,
+    "split": "validation"
+  },
+  {
+    "query": "Build a Filament 5 admin panel for orders.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Create a generic back-office CRUD interface.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Explain Laravel Eloquent relationships in general.",
+    "should_trigger": false,
+    "split": "validation"
+  },
+  {
+    "query": "Prepare an atomic git commit for these Nova changes.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Run an SDD spec before implementing this Nova dashboard.",
+    "should_trigger": false,
+    "split": "validation"
+  },
+  {
+    "query": "Implement all ready-for-agent tickets in parallel.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Upgrade Laravel framework without touching Nova.",
+    "should_trigger": false,
+    "split": "validation"
+  },
+  {
+    "query": "Polish Nova 3 styling with custom CSS only.",
+    "should_trigger": false,
+    "split": "train"
+  }
+]

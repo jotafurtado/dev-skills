@@ -1,10 +1,10 @@
 ---
 name: laravel-filament-v5-ui-ux
-description: "Provides ready-to-adapt Filament 5.x compositions for record tables, form and schema page structure, everyday fields, collection and upload and relationship and rich-content controls, record details and infolists, operational dashboards, panel shells with navigation and authentication, and contextual actions with confirmations, notifications, callouts, and empty states. Use when building or restructuring a Filament 5 surface; use alongside laravel-filament-v5 for API signatures, security, and tests. Do not trigger for generic frontend work, non-Filament interfaces, Filament 3/4, small local edits, API or security-only tasks, or UI review unless the user asks for a review."
+description: "Guides Filament 5.x composition choices for layout structure, visual hierarchy, responsive behavior, theme-preserving presentation, and visual-only page arrangement across tables, forms, infolists, dashboards, panels, and actions. Use when selecting, designing, or reviewing how a Filament 5 surface is organized, prioritized, or displayed on different screen sizes. Use alongside laravel-filament-v5 for installed-version APIs, security, migrations, and tests. Do not trigger for functional Resource, table, action, or API implementation without a composition decision; generic frontend work; Filament 3/4; single-field tweaks; or upgrade-only tasks."
 license: MIT
 metadata:
   author: jotafurtado
-  version: "2.1.0"
+  version: "2.1.3"
   domain: frontend
   filament_version: "5.x"
 ---
@@ -40,13 +40,19 @@ These files are the only source for the surfaces they cover.
 
 ## Pairing
 
-Compositions are code, so implementation work almost always needs `laravel-filament-v5` installed alongside this skill — it owns API signatures, authorization, security, and tests. Install both for any task that will ship the composition:
+Compositions are code, so implementation work uses `laravel-filament-v5` for API signatures, authorization, security, and tests. Install both for any task that will ship the composition:
 
 ```bash
 npx skills add jotafurtado/dev-skills --skill laravel-filament-v5-ui-ux --skill laravel-filament-v5
 ```
 
-This skill alone is sufficient only while the work stays inside arrangement. The moment a task needs an exact signature, an authorization boundary, a migration, or a test, that is the sibling skill's territory. If it is not installed, say so before emitting a composition that depends on it rather than reconstructing those facts here.
+Find that sibling before treating a signature as known. A hit is a readable `SKILL.md` whose frontmatter `name` is exactly `laravel-filament-v5`. Search in this order and stop at the first hit:
+
+1. The sibling directory next to this skill (`../laravel-filament-v5/SKILL.md`).
+2. The project being edited: `.agents/skills` (Cursor and Codex), then `.claude/skills` (Claude Code).
+3. The home directory: `.agents/skills`, `.claude/skills`, `.cursor/skills`, then `.codex/skills`.
+
+The repository copy of that check is `maintenance/filament-ui-ux/scripts/discover_sibling_skill.py`. An installed copy of this skill does not include the script, so apply the same order by reading the files. If no file matches, there is no fallback composition module and no reconstructed signature. Arrangement-only work may paste the composition and must say the sibling file was not found. A task that ships code stops and asks for the install above.
 
 ## Authority
 

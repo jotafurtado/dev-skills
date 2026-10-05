@@ -83,7 +83,7 @@ FileUpload::make('attachment')
 
 Also apply these rules:
 
-- Choose disk, directory, and visibility from the actual access model. Visibility defaults to private unless the disk is literally named `public`.
+- Choose disk, directory, and visibility from the actual access model. Follow the SKILL.md upload invariant for the private-versus-`public` default.
 - Add `visibility('public')` only for files intended for unauthenticated public delivery.
 - Validate file type and size according to the domain; do not trust the original client filename or MIME claim alone.
 - Configure `APP_URL` and storage CORS correctly when previews use another origin.

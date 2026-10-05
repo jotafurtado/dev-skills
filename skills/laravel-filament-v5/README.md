@@ -1,6 +1,6 @@
 # Laravel Filament v5
 
-AI agent skill for building, reviewing, debugging, migrating, securing, testing, and designing Filament 5.x code. It resolves the project's installed version first, checks the official component for the current surface before custom Blade/CSS, and treats authorization and tenant isolation as server-side boundaries.
+AI agent skill for building, reviewing, debugging, migrating, securing, testing, and implementing Filament 5.x code. It resolves the project's installed version first, checks the official component for the current surface before custom Blade/CSS, and treats authorization and tenant isolation as server-side boundaries.
 
 ## Install
 
@@ -65,12 +65,16 @@ laravel-filament-v5/
 
 Baseline sources: [Filament 5 installation](https://filamentphp.com/docs/5.x/introduction/installation.md) and [upgrade guide](https://filamentphp.com/docs/5.x/upgrade-guide.md).
 
-## Maintenance and evaluation
+## Maintenance
 
-- Run `skills-ref validate skills/laravel-filament-v5` when the Agent Skills reference CLI is available.
-- Run every case in `evals/evals.json` against the candidate skill and a clean previous-version baseline, then grade the listed assertions with concrete evidence.
-- Use `evals/eval_queries.json` to regression-test implicit activation separately from output quality.
-- Before publishing API changes, compare every versioned documentation link with `https://filamentphp.com/docs/llms.txt` and verify minor/patch-sensitive signatures against installed source or the matching upstream tag.
+```bash
+npm ci
+node maintenance/validate_skill.mjs skills/laravel-filament-v5
+python3 maintenance/eval_skills.py validate-datasets
+python3 maintenance/eval_skills.py run --judge mock --out maintenance/evals-out
+```
+
+Before publishing API changes, compare every versioned documentation link with `https://filamentphp.com/docs/llms.txt` and verify minor/patch-sensitive signatures against installed source or the matching upstream tag.
 
 ## License
 

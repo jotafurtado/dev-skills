@@ -1,0 +1,102 @@
+[
+  {
+    "query": "Write an SDD spec before implementing the billing webhook retries.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Run a Kiro-style spec-driven development workflow for this feature.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Create sdd-specs artifacts for the export endpoint and wait for approval before coding.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "query": "I want to avoid vibe coding; plan this payment module with SDD first.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Start SDD bugfix mode for the checkout timeout described below.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "query": "Use requirements-first SDD for the new admin reporting feature.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Draft a Kiro-inspired design-first spec for the notifications service.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "query": "Run Quick Plan SDD for a small CLI flag addition.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Write a spec and tasks under sdd-specs before touching production code.",
+    "should_trigger": true,
+    "split": "validation"
+  },
+  {
+    "query": "Plan before implementation using spec-driven development for auth hardening.",
+    "should_trigger": true,
+    "split": "train"
+  },
+  {
+    "query": "Fix the null pointer in PaymentService.php.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Add a user profile settings page to the app.",
+    "should_trigger": false,
+    "split": "validation"
+  },
+  {
+    "query": "Refactor the repository layer to use interfaces.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Write unit tests for InvoiceCalculator.",
+    "should_trigger": false,
+    "split": "validation"
+  },
+  {
+    "query": "Prepare a git commit for these changes.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Implement ready-for-agent tickets in parallel.",
+    "should_trigger": false,
+    "split": "validation"
+  },
+  {
+    "query": "Design the Filament 5 dashboard layout.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Can you plan this feature? No SDD wording needed.",
+    "should_trigger": false,
+    "split": "validation"
+  },
+  {
+    "query": "Review this pull request for security issues.",
+    "should_trigger": false,
+    "split": "train"
+  },
+  {
+    "query": "Ship the export endpoint today without writing a spec.",
+    "should_trigger": false,
+    "split": "validation"
+  }
+]

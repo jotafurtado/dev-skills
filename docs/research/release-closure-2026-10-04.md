@@ -14,8 +14,10 @@ O repositório versiona cada skill, não a coleção inteira.
 | `laravel-filament-v5` | 3.3.3 |
 | `laravel-filament-v5-ui-ux` | 2.1.3 |
 | `laravel-nova-5` | 2.0.2 |
-| `prepare-commit` | 1.4.2 |
+| `prepare-commit` | 1.5.0 |
 | `sdd-workflow` | 2.0.1 |
+
+Na integração com `origin/main`, `prepare-commit` mantém a versão remota 1.5.0 e suas melhorias de fluxo e transporte literal de mensagens, junto da correção local de `compatibility` no campo padrão. A avaliação datada abaixo usou a versão 1.4.2 antes desse merge; não houve reavaliação paga da versão integrada.
 
 Este registro descreve a verificação anterior ao commit e à publicação. A implementação preservou o índice previamente preparado pelo usuário; o prepare-commit opera com autorização separada.
 

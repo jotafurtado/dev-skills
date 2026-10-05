@@ -2,7 +2,7 @@
 
 AI agent skill for preparing small Git commits. It writes Conventional Commits 1.0.0 messages in the language established by the user or project, keeps an existing `CHANGELOG.md` up to date when a change is notable, and defers to the host agent's native Git and permission protocols.
 
-Current version: **1.4.1**
+Current version: **1.5.0**
 
 ## Install
 
@@ -20,17 +20,19 @@ php artisan boost:add-skill jotafurtado/dev-skills --skill prepare-commit
 
 - Host precedence for amend, hooks, push, permissions, and allowed commands
 - Conventional Commits types: `feat` and `fix` have specification-defined semantics; additional project types are supported
-- Language for each sink (commit message, changelog entry) selected from user instruction, project convention, the existing artefact for that sink, then Brazilian Portuguese as fallback
-- When a root `CHANGELOG.md` exists, routes to `references/changelog.md` for relevance, Keep a Changelog classification (including breaking changes, deprecations, removals, and security fixes), and entry format
+- Independent language selection for commit messages and changelog entries through Preflight: applicable explicit user instruction, documented project convention, the destination's existing artifact, conversation language, then English
+- Language- and framework-agnostic scopes across technical layers (`api`, `auth`, `ui`, `cli`, `db`, `core`) and domain modules (`billing`, `notifications`, `search`)
+- Conditional changelog maintenance: a root `CHANGELOG.md` requires loading the [changelog reference](references/changelog.md) before deciding whether an entry is needed; absent changelogs are not created unless requested
+- One authority for changelog relevance and organization: the reference preserves intentional project formats and uses Keep a Changelog as the default, with entry language resolved by Preflight
+- Project-derived checks from actual scripts, configuration, and CI: the smallest sufficient non-interactive set for the affected work, with unavailable checks distinguished from failures
+- Literal multiline message transport permitted by the host: direct Git arguments preferred, otherwise a UTF-8 temporary file without a BOM; no universal shell-quoting guarantee
 - Atomic concern-by-concern staging with explicit paths and full cached-diff review; no interactive staging
 - Flags untracked files that look like `.gitignore` candidates (env files, IDE metadata, build output, OS artifacts, logs) before staging anything
-- Project tests, linters, and formatters discovered once in validation, then reused per concern when staging
 - Portable safeguards: no commit or push without the corresponding explicit request, no secret staging, and no silent alteration of unrelated work
 - Optional `--push` flag: pushes once after all of the run's commits, still bound by host push permissions, and never force-pushes
-
 ## Invocation Behavior
 
-The frontmatter intentionally omits `disable-model-invocation`. Cursor therefore may load this skill automatically when a request clearly concerns committing, which is its primary use case. It can still be invoked manually with `/prepare-commit`. Staging during implementation, git inspection, and PR text are not triggers.
+The frontmatter intentionally omits `disable-model-invocation`. Compatible agent harnesses (Cursor, Claude Code, Codex, Windsurf, Copilot, Cline, Roo Code, etc.) may load this skill automatically when a request clearly concerns committing, which is its primary use case. It can also be invoked manually with `/prepare-commit`. Staging during implementation, git inspection, and PR text are not triggers.
 
 ## Requirements
 

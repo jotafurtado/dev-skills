@@ -12,4 +12,4 @@ Investigações datadas que embasaram decisões deste repositório. Enquanto `do
 | [skills-audit.md](./skills-audit.md) | 2026-07-13 | Auditoria das skills do repositório: descoberta, precisão, uso de contexto, segurança e verificabilidade |
 | [sdd-workflow-research.md](./sdd-workflow-research.md) | 2026-07-13 | Pesquisa oficial sobre o Kiro usada para reformular a skill `sdd-workflow` |
 
-Estes documentos são registros do momento em que foram escritos. Nomes de skills, caminhos de arquivo e conclusões refletem o estado do repositório naquela data e não são atualizados depois — para o estado atual, consulte `docs/adr/`, `CONTEXT.md` e as próprias skills.
+Estes documentos são registros do momento em que foram escritos. Nomes de skills, caminhos de arquivo e conclusões refletem o estado do repositório naquela data e não são atualizados depois — para o estado atual, consulte `docs/adr/` e as próprias skills.

@@ -1,6 +1,6 @@
 # Parallel implement via orchestrator-owned review and commit
 
-Status: Accepted
+Status: Superseded by Matt Pocock's [`/implement-spec`](https://github.com/mattpocock/skills/blob/main/skills/engineering/implement-spec/SKILL.md); `implement-with-subagents` was removed on 2026-10-19
 
 ## Context
 

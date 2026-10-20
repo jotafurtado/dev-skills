@@ -227,8 +227,6 @@ class MockJudge(Judge):
         "changelog": "prepare-commit",
         "sdd": "sdd-workflow",
         "spec-driven": "sdd-workflow",
-        "subagent": "implement-with-subagents",
-        "workpool": "implement-with-subagents",
     }
 
     NEGATIVE_HINTS: dict[str, tuple[str, ...]] = {
@@ -562,7 +560,7 @@ def interpret_grade(raw: str, assertions: list[str], output_text: str) -> dict[s
 
 
 def _is_skill_reference(path: str) -> bool:
-    return bool(Path(path).suffix) and (path == "CONTEXT.md" or path.startswith("references/"))
+    return bool(Path(path).suffix) and path.startswith("references/")
 
 
 def _paths_in(text: str) -> list[str]:
@@ -636,7 +634,7 @@ def routing_entries(skill_md: str) -> list[tuple[str, str]]:
                     if _is_skill_reference(path):
                         entries.append((blurb, path))
         index += 1
-    for match in re.finditer(r"`((?:references/[^`]+)|CONTEXT\.md)`", skill_md):
+    for match in re.finditer(r"`(references/[^`]+)`", skill_md):
         start = skill_md.rfind("\n", 0, match.start()) + 1
         end = skill_md.find("\n", match.end())
         sentence = skill_md[start: end if end != -1 else len(skill_md)]
@@ -649,9 +647,6 @@ def routing_entries(skill_md: str) -> list[tuple[str, str]]:
 def relevant_reference_paths(skill_dir: Path, skill_md: str, prompt: str) -> list[str]:
     selected: list[str] = []
     seen: set[str] = set()
-    if re.search(r"\(CONTEXT\.md\)|`CONTEXT\.md`", skill_md) and (skill_dir / "CONTEXT.md").is_file():
-        selected.append("CONTEXT.md")
-        seen.add("CONTEXT.md")
     for blurb, path in routing_entries(skill_md):
         if path in seen or not route_matches(blurb, prompt):
             continue

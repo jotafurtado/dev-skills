@@ -13,3 +13,8 @@ __pycache__/
 
 # Local Agent-Native runtime validation laboratory
 .agent-native-fixture/
+
+# Agent-Native evaluation evidence and captured implementation deltas
+maintenance/agent-native/evidence/
+maintenance/agent-native/implementations/
+maintenance/agent-native/node_modules

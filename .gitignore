@@ -31,6 +31,7 @@ Thumbs.db
 
 # Local Agent-Native runtime validation laboratory
 .agent-native-fixture/
+maintenance/agent-native/node_modules
 
 # Generated skill evaluation artifacts
 maintenance/evals-out/

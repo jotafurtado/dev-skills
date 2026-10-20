@@ -29,7 +29,7 @@ This repo is a collection of [Agent Skills](https://skills.sh) (`SKILL.md` forma
 
 - **Each skill is versioned independently** through `metadata.version` in its `SKILL.md` frontmatter, following SemVer. The collection itself has no version.
 - **Every version bump gets a `CHANGELOG.md` entry** at the repo root, headed `## <skill>@<version> - YYYY-MM-DD`, written in pt-BR in Keep a Changelog sections (`Adicionado`, `Alterado`, `Corrigido`, `Removido`).
-- **Every new version gets a Git tag and a GitHub release** named `<skill>@<version>`, created after the bump commit is pushed: `gh release create <skill>@<version> --title "<skill>@<version>" --notes "<that version's CHANGELOG entry>"`. Never move or reuse an existing tag.
+- **Every new version gets a Git tag and a GitHub release** named `<skill>@<version>`, created after the bump commit is pushed: `gh release create <skill>@<version> --title "<skill>@<version>" --notes "<that version's CHANGELOG entry>" --latest=false`. Pass `--latest=false` so GitHub does not badge one skill as the latest release of the whole collection. Never move or reuse an existing tag.
 
 ## Adding a new skill
 

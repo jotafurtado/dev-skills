@@ -23,14 +23,19 @@ This repo is a collection of [Agent Skills](https://skills.sh) (`SKILL.md` forma
 
 ## Licensing
 
-- This repo is MIT. **Only build from officially-licensed sources.** Never copy text from an unlicensed project (e.g. `ulpi-io/skills` has no license — architecture may inspire, text may not be copied).
+- This repo is MIT. **Only build from officially-licensed sources.** Never copy text from an unlicensed project; its architecture may inspire, its text may not be copied.
+
+## Versioning and releases
+
+- **Each skill is versioned independently** through `metadata.version` in its `SKILL.md` frontmatter, following SemVer. The collection itself has no version.
+- **Every version bump gets a `CHANGELOG.md` entry** at the repo root, headed `## <skill>@<version> - YYYY-MM-DD`, written in pt-BR in Keep a Changelog sections (`Adicionado`, `Alterado`, `Corrigido`, `Removido`).
+- **Every new version gets a Git tag and a GitHub release** named `<skill>@<version>`, created after the bump commit is pushed: `gh release create <skill>@<version> --title "<skill>@<version>" --notes "<that version's CHANGELOG entry>"`. Never move or reuse an existing tag.
 
 ## Adding a new skill
 
 See the "Adding a New Skill" section in `README.md` for the mechanics (create the folder, write `SKILL.md` + `README.md`, add a row to the README table).
 
 ---
-
 
 ## graphify
 
@@ -39,7 +44,7 @@ This project has a knowledge graph at graphify-out/ with god nodes, community st
 When the user types `/graphify`, use the installed graphify skill or instructions before doing anything else.
 
 Rules:
-- For codebase questions, first run `graphify query "<question>"` when graphify-out/graph.json exists. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
+- When graphify-out/graph.json exists, run `graphify query "<question>"` before your first grep, search or source-file read for a codebase question, and put this rule in every subagent prompt that explores code. Read raw files only for lines the graph or an earlier read already located. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
 - Dirty graphify-out/ files are expected after hooks or incremental updates; dirty graph files are not a reason to skip graphify. Only skip graphify if the task is about stale or incorrect graph output, or the user explicitly says not to use it.
 - If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
 - Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.

@@ -1,6 +1,6 @@
 # Jota Furtado Dev Skills
 
-A collection of [Agent Skills](https://skills.sh) for AI coding assistants — Claude Code, Cursor, Windsurf, Copilot, and any tool that speaks the `SKILL.md` format.
+A collection of [Agent Skills](https://skills.sh) for AI coding assistants like Claude Code, Codex, Cursor, Windsurf, Copilot, Pi, Oh My Pi, Open Code and any tool that speaks the `SKILL.md` format.
 
 Each skill lives in its own folder under [`skills/`](./skills), with a `SKILL.md` (loaded by the agent) and a `README.md` (for humans browsing GitHub or skills.sh).
 

@@ -1,0 +1,63 @@
+Based on the provided incident brief (`maintenance/eval-fixtures/agent-native/context-sync.md`), here is the diagnosis, repair sequence, and focused verification scenarios. 
+
+*Note: Since no tests have been run and source packages are not supplied, all specific root causes are treated as hypotheses based on the observed symptoms.*
+
+---
+
+### Part 1: Diagnosis & Distinction of Causes vs. Framework Behavior
+
+#### Likely Causes (Hypotheses)
+1. **Broken Module Import Paths:** A new page attempts to import `useNavigationState` from a Core package instead of the local app hook (`app/hooks/use-navigation-state.ts`), leading to fragmented navigation state and uncoordinated tab IDs.
+2. **Missing Actor/Context Validation:** The view-screen action blindly loads any supplied record ID without verifying the current actor or project context, causing stale selection carry-over (Project A's ID persisting in Project B).
+3. **Mismatched Cache Keys:** UI mutations update the database, but raw queries using custom/hardcoded cache keys fail to invalidate or update, meaning data changes only appear after a full page reload.
+4. **Aggressive Unconditional Polling:** A newly added global timer refetches *every* query every second, ignoring whether the screen is active or static (e.g., settings pages).
+5. **Decentralized Tab/Navigation Polling:** Each component generating its own tab ID and polling navigation commands independently causes race conditions, double-navigations, and UI jitter when writing selections.
+
+#### Verified Framework Behavior (Directly from Observations)
+* **Stale State persistence:** Navigation from Project A to Project B leaves the agent with A's selected record ID.
+* **Cache isolation failure:** Raw queries with custom cache keys do not automatically sync with database mutations.
+* **Global refetch overhead:** Timers executing per-second refetches impact static settings pages unnecessarily.
+* **Concurrency conflicts:** Component-level tab ID generation and independent polling directly result in duplicate navigation commands and visible rendering jitter.
+
+---
+
+### Part 2: Ordered Repair Sequence
+
+Distinguish carefully between **UI actions**, **local agent-run refreshes**, and **remote updates** during the repair:
+
+1. **Step 1: Fix Navigation Source of Truth (UI Actions & Local State)**
+   * *Action:* Correct the import on the new page to use the local app hook (`app/hooks/use-navigation-state.ts`) rather than the Core import.
+   * *Action:* Centralize tab ID generation and navigation command polling to a single provider or root layout instead of letting every component create its own tab ID. This eliminates duplicate navigation commands and selection jitter.
+
+2. **Step 2: Secure Context Switch & Record Loading (UI Actions)**
+   * *Action:* Update the view-screen action to validate the current actor and project context against the requested record ID before loading data. If the record belongs to Project A and the user is in Project B, reject or reset the selection immediately upon navigation.
+
+3. **Step 3: Align Cache Invalidation (Local Agent-Run Refreshes)**
+   * *Action:* Audit raw queries with custom cache keys. Ensure that UI and agent-driven mutations explicitly invalidate or update those specific cache keys so changes render immediately without requiring a full page reload.
+
+4. **Step 4: Optimize Polling and Scopo-Targeted Refetches (Remote Updates & Static Pages)**
+   * *Action:* Remove the global 1-second timer refetching *all* queries. 
+   * *Action:* Implement targeted polling or real-time subscriptions *only* where required (e.g., the shared project list that must show edits from a second user). 
+   * *Action:* Explicitly exempt static settings pages from remote-update polling and background refetches.
+
+---
+
+### Part 3: Focused Verification Scenarios
+
+To verify the fixes without modifying files, test the following scenarios against the system:
+
+1. **Cross-Project Navigation Test (UI / Selection Isolation):**
+   * *Action:* Select a record in Project A, then immediately navigate to Project B.
+   * *Expected Result:* The agent and UI immediately drop Project A's record ID. No stale record ID from Project A is retained in Project B.
+
+2. **Mutation Cache Consistency Test (Local Refreshes):**
+   * *Action:* Perform a UI or agent-driven mutation that updates a record using a raw query with a custom cache key.
+   * *Expected Result:* The updated data reflects instantly in the UI without requiring a manual full-page reload.
+
+3. **Navigation Jitter & Duplicate Command Test (UI Actions):**
+   * *Action:* Trigger a navigation sequence across components that previously generated independent tab IDs.
+   * *Expected Result:* Navigation commands execute exactly once, tab IDs remain consistent, and no visual jitter occurs when writing selections.
+
+4. **Settings Page Resource Efficiency Test (Remote Updates / Static Pages):**
+   * *Action:* Navigate to a static settings page and monitor network/query activity over a 5-second window.
+   * *Expected Result:* Zero background refetches or polling requests occur on the static settings page, while the shared project list continues to properly reflect remote updates from a second user.

@@ -1,0 +1,54 @@
+: ping 1792290953236
+
+data: {"type":"activity","id":"agentkit:internal:run-1792290953194-fvvgli:starting-agent","label":"Starting agent","seq":0,"eventId":"run-1792290953194-fvvgli:0"}
+
+data: {"type":"activity","id":"agentkit:internal:run-1792290953194-fvvgli:contacting-model","label":"Contacting model","seq":1,"eventId":"run-1792290953194-fvvgli:1"}
+
+data: {"type":"suggestions","suggestions":[],"seq":2,"eventId":"run-1792290953194-fvvgli:2"}
+
+data: {"type":"model_stream","status":"start","seq":3,"eventId":"run-1792290953194-fvvgli:3"}
+
+data: {"type":"tool_input_start","tool":"create-task","id":"call_11511","seq":4,"eventId":"run-1792290953194-fvvgli:4"}
+
+data: {"type":"activity","label":"Preparing create-task action","tool":"create-task","id":"call_11511","seq":5,"eventId":"run-1792290953194-fvvgli:5"}
+
+data: {"type":"tool_input_delta","tool":"create-task","id":"call_11511","text":"{\"title\":\"Real agent ba7b8959-eeaa-4acf-8ace-a40cbd16cc43\"}","seq":6,"eventId":"run-1792290953194-fvvgli:6"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":7,"eventId":"run-1792290953194-fvvgli:7"}
+
+data: {"type":"tool_start","id":"call_11511","tool":"create-task","input":{"title":"Real agent ba7b8959-eeaa-4acf-8ace-a40cbd16cc43"},"seq":8,"eventId":"run-1792290953194-fvvgli:8"}
+
+data: {"type":"tool_done","id":"call_11511","tool":"create-task","input":{"title":"Real agent ba7b8959-eeaa-4acf-8ace-a40cbd16cc43"},"result":"{\n  \"id\": \"cfc5a95c-4192-49c1-8009-013acb547a4e\",\n  \"title\": \"Real agent ba7b8959-eeaa-4acf-8ace-a40cbd16cc43\",\n  \"completed\": false,\n  \"createdAt\": \"2026-10-18T02:35:55.502Z\"\n}","completedSideEffect":true,"approvalPause":false,"seq":9,"eventId":"run-1792290953194-fvvgli:9"}
+
+data: {"type":"model_stream","status":"start","seq":10,"eventId":"run-1792290953194-fvvgli:10"}
+
+data: {"type":"tool_input_start","tool":"navigate","id":"call_234914","seq":11,"eventId":"run-1792290953194-fvvgli:11"}
+
+data: {"type":"activity","label":"Preparing navigate action","tool":"navigate","id":"call_234914","seq":12,"eventId":"run-1792290953194-fvvgli:12"}
+
+data: {"type":"tool_input_delta","tool":"navigate","id":"call_234914","text":"{\"id\":\"cfc5a95c-4192-49c1-8009-013acb547a4e\",\"view\":\"tasks\"}","seq":13,"eventId":"run-1792290953194-fvvgli:13"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":14,"eventId":"run-1792290953194-fvvgli:14"}
+
+data: {"type":"tool_start","id":"call_234914","tool":"navigate","input":{"id":"cfc5a95c-4192-49c1-8009-013acb547a4e","view":"tasks"},"seq":15,"eventId":"run-1792290953194-fvvgli:15"}
+
+data: {"type":"tool_done","id":"call_234914","tool":"navigate","input":{"id":"cfc5a95c-4192-49c1-8009-013acb547a4e","view":"tasks"},"result":"Navigating to tasks","completedSideEffect":true,"approvalPause":false,"seq":16,"eventId":"run-1792290953194-fvvgli:16"}
+
+data: {"type":"model_stream","status":"start","seq":17,"eventId":"run-1792290953194-fvvgli:17"}
+
+data: {"type":"text","text":"I","seq":18,"eventId":"run-1792290953194-fvvgli:18"}
+
+data: {"type":"text","text":" have created the private task titled \"Real agent ba7b8959-ee","seq":19,"eventId":"run-1792290953194-fvvgli:19"}
+
+data: {"type":"text","text":"aa-4acf-8ace-a40cbd16cc43\" and opened it for you.","seq":20,"eventId":"run-1792290953194-fvvgli:20"}
+
+data: {"type":"model_stream","status":"end","reason":"end_turn","seq":21,"eventId":"run-1792290953194-fvvgli:21"}
+
+data: {"type":"model_stream","status":"start","seq":22,"eventId":"run-1792290953194-fvvgli:22"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":23,"eventId":"run-1792290953194-fvvgli:23"}
+
+data: {"type":"suggestions","suggestions":[{"label":"View task details","prompt":"Show the details of the task I just created.","id":"run-1792290953194-fvvgli:follow-up:1","runId":"run-1792290953194-fvvgli","updatedAt":"2026-10-18T02:36:00.564Z"},{"label":"Edit task description","prompt":"Add a description to this task.","id":"run-1792290953194-fvvgli:follow-up:2","runId":"run-1792290953194-fvvgli","updatedAt":"2026-10-18T02:36:00.564Z"}],"seq":24,"eventId":"run-1792290953194-fvvgli:24"}
+
+data: {"type":"done","seq":25,"eventId":"run-1792290953194-fvvgli:25"}
+

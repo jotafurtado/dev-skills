@@ -1,0 +1,71 @@
+{
+  "assertion_results": [
+    {
+      "evidence": "1. **Broken Module Import Paths:** A new page attempts to import `useNavigationState` from a Core package instead of the local app hook (`app/hooks/use-navigation-state.ts`), leading to fragmented navigation state and uncoordinated tab IDs.\n",
+      "evidence_end_line": 10,
+      "evidence_start_line": 10,
+      "passed": true,
+      "text": "The response identifies useNavigationState as an app/template hook rather than assuming it is a Core export, and investigates the installed navigation primitive."
+    },
+    {
+      "evidence": "   * *Action:* Update the view-screen action to validate the current actor and project context against the requested record ID before loading data. If the record belongs to Project A and the user is in Project B, reject or reset the selection immediately upon navigation.\n",
+      "evidence_end_line": 33,
+      "evidence_start_line": 33,
+      "passed": true,
+      "text": "The response clears stale selection and resolves view-screen records through authorized scoped reads."
+    },
+    {
+      "evidence": "3. **Step 3: Align Cache Invalidation (Local Agent-Run Refreshes)**\n   * *Action:* Audit raw queries with custom cache keys. Ensure that UI and agent-driven mutations explicitly invalidate or update those specific cache keys so changes render immediately without requiring a full page reload.\n",
+      "evidence_end_line": 36,
+      "evidence_start_line": 35,
+      "passed": true,
+      "text": "The response traces action completion, query keys, invalidation, and refetch before adding manual polling."
+    },
+    {
+      "evidence": "4. **Step 4: Optimize Polling and Scopo-Targeted Refetches (Remote Updates & Static Pages)**\n   * *Action:* Remove the global 1-second timer refetching *all* queries. \n   * *Action:* Implement targeted polling or real-time subscriptions *only* where required (e.g., the shared project list that must show edits from a second user). \n   * *Action:* Explicitly exempt static settings pages from remote-update polling and background refetches.\n",
+      "evidence_end_line": 41,
+      "evidence_start_line": 38,
+      "passed": true,
+      "text": "The response distinguishes local run refresh from remote-tab sync and requires a reason and version check for background sync."
+    },
+    {
+      "evidence": "   * *Action:* Centralize tab ID generation and navigation command polling to a single provider or root layout instead of letting every component create its own tab ID. This eliminates duplicate navigation commands and selection jitter.\n",
+      "evidence_end_line": 30,
+      "evidence_start_line": 30,
+      "passed": true,
+      "text": "The response reuses tab/request-source identity and framework command consumption to address jitter and duplicate navigation."
+    },
+    {
+      "evidence": "1. **Cross-Project Navigation Test (UI / Selection Isolation):**\n   * *Action:* Select a record in Project A, then immediately navigate to Project B.\n   * *Expected Result:* The agent and UI immediately drop Project A's record ID. No stale record ID from Project A is retained in Project B.\n\n2. **Mutation Cache Consistency Test (Local Refreshes):**\n   * *Action:* Perform a UI or agent-driven mutation that updates a record using a raw query with a custom cache key.\n   * *Expected Result:* The updated data reflects instantly in the UI without requiring a manual full-page reload.\n\n3. **Navigation Jitter & Duplicate Command Test (UI Actions):**\n   * *Action:* Trigger a navigation sequence across components that previously generated independent tab IDs.\n   * *Expected Result:* Navigation commands execute exactly once, tab IDs remain consistent, and no visual jitter occurs when writing selections.\n\n4. **Settings Page Resource Efficiency Test (Remote Updates / Static Pages):**\n   * *Action:* Navigate to a static settings page and monitor network/query activity over a 5-second window.\n   * *Expected Result:* Zero background refetches or polling requests occur on the static settings page, while the shared project list continues to properly reflect remote updates from a second user.",
+      "evidence_end_line": 63,
+      "evidence_start_line": 49,
+      "passed": true,
+      "text": "The response proposes separate UI-write, agent-write, route/selection, and second-tab checks without claiming executed results."
+    }
+  ],
+  "case_id": "output-004-no_skill",
+  "counts_as_skill_grade": true,
+  "evidence_mode": "model",
+  "execution": "isolated_prompt",
+  "expected_output": "An app-owned navigation-hook investigation, semantic context cleanup, action refresh tracing, and justified remote-sync policy without blanket timers.",
+  "files": [
+    "maintenance/eval-fixtures/agent-native/context-sync.md"
+  ],
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "output",
+  "limits": [
+    "Observed symptoms are synthetic. Installed framework code is absent, so root causes remain hypotheses until inspected."
+  ],
+  "passed": true,
+  "prompt": "Diagnose the Agent-Native navigation and stale-screen problems in the attached incident brief. Give the repair sequence and focused verification scenarios. Distinguish likely causes from verified framework behavior; do not modify files.",
+  "raw_reply": "```json\n{\"results\": [{\"assertion_id\": 1, \"passed\": true, \"evidence_start_line\": 10, \"evidence_end_line\": 10}, {\"assertion_id\": 2, \"passed\": true, \"evidence_start_line\": 33, \"evidence_end_line\": 33}, {\"assertion_id\": 3, \"passed\": true, \"evidence_start_line\": 35, \"evidence_end_line\": 36}, {\"assertion_id\": 4, \"passed\": true, \"evidence_start_line\": 38, \"evidence_end_line\": 41}, {\"assertion_id\": 5, \"passed\": true, \"evidence_start_line\": 30, \"evidence_end_line\": 30}, {\"assertion_id\": 6, \"passed\": true, \"evidence_start_line\": 49, \"evidence_end_line\": 63}]}\n```",
+  "skill": "agent-native",
+  "summary": {
+    "failed": 0,
+    "pass_rate": 1.0,
+    "passed": 6,
+    "total": 6
+  },
+  "variant": "no_skill"
+}

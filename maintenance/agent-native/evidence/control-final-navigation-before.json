@@ -1,0 +1,9 @@
+{
+  "tabId": "d5ba00b6-56fe-468d-9d5e-802447df09ba",
+  "url": "http://localhost:4312/tasks",
+  "navigation": {
+    "view": "tasks",
+    "path": "/tasks"
+  },
+  "command": null
+}

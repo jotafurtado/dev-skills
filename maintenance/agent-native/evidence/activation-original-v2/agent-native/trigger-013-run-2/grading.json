@@ -1,0 +1,17 @@
+{
+  "case_id": "trigger-013-run-2",
+  "expected_should_trigger": false,
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "trigger",
+  "passed": true,
+  "query": "Add an action button to a Laravel Nova resource.",
+  "raw_reply": null,
+  "run_index": 2,
+  "selected_skills": [
+    "laravel-nova-5"
+  ],
+  "skill": "agent-native",
+  "split": "train",
+  "triggered": false
+}

@@ -1,0 +1,53 @@
+Based on the incident brief provided, here is the diagnosis, repair sequence, and focused verification scenarios for the Agent-Native navigation and stale-screen problems.
+
+---
+
+### Diagnosis
+
+#### 1. Likely Causes (Hypotheses)
+* **Incorrect Hook Import:** A newly added page is attempting to import `useNavigationState` from an external/Core package rather than the local app hook (`app/hooks/use-navigation-state.ts`), leading to fragmented navigation state tracking.
+* **Actor-Agnostic Record Loading:** The view-screen action blindly loads any supplied record ID without validating whether it belongs to the current actor or active project context (causing project A's record to bleed into project B).
+* **Mismatched Cache Keys:** UI mutations update the database successfully, but raw queries using custom cache keys fail to invalidate or update, requiring a full page reload to surface agent edits.
+* **Unscoped Polling and Timers:** A global timer refetches *every* query every second indiscriminately (even on static settings pages), and independent component-level tab IDs poll navigation commands separately, causing duplicate navigation triggers and visual jitter due to race conditions.
+
+#### 2. Verified Framework Behavior (from Observations)
+* Navigating from project A to project B leaves the agent with project A's selected record ID.
+* Agent edits only appear after a full page reload (confirming cache invalidation/sync failure).
+* Writing selection causes visible jitter because multiple components write/poll independently.
+* Static settings pages incorrectly share the same aggressive refetch/remote-update requirements as collaborative views.
+
+---
+
+### Repair Sequence
+
+To resolve these issues, apply fixes in the following order, distinguishing between UI actions, local agent-run refreshes, and remote updates:
+
+1. **Step 1: Unify Navigation State (UI Actions)**
+   * **Action:** Correct the import on the new page to use `app/hooks/use-navigation-state.ts` instead of the Core import.
+   * **Action:** Centralize tab ID creation and navigation command polling to a single provider or top-level component to eliminate duplicate navigation commands and selection jitter.
+
+2. **Step 2: Enforce Context Boundaries on Navigation (Local Agent-Run Refreshes)**
+   * **Action:** Update the view-screen action to validate that the requested record ID matches the currently active project/actor context (clearing or rejecting mismatched selections when switching from project A to project B).
+
+3. **Step 3: Align Cache Invalidation with Mutations (Local & Remote Updates)**
+   * **Action:** Replace raw queries using isolated custom cache keys with a unified caching/mutation mechanism that automatically invalidates related queries upon a UI mutation, eliminating the need for a full page reload.
+
+4. **Step 4: Scope Polling and Refetches (Performance & Remote Updates)**
+   * **Action:** Remove the global 1-second refetch timer. 
+   * **Action:** Implement targeted, context-aware revalidation: apply real-time/shared project list updates *only* where collaborative edits occur (e.g., the shared project list), while explicitly excluding static settings pages from unnecessary polling.
+
+---
+
+### Focused Verification Scenarios
+
+1. **Cross-Project Navigation Verification:**
+   * *Action:* Select a record in Project A, then immediately navigate to Project B.
+   * *Expected Result:* The agent and UI instantly drop Project A's record ID and initialize with Project B's context (no lingering stale ID from A).
+
+2. **Mutation & Cache Freshness Verification:**
+   * *Action:* Perform a UI mutation that updates a record, without manually reloading the page.
+   * *Expected Result:* The updated data reflects immediately on the screen via cache invalidation, without requiring a full page reload.
+
+3. **Scoped Polling & Jitter-Free Selection Verification:**
+   * *Action:* Navigate through the app and inspect network/console activity while visiting a static settings page, followed by a collaborative project list.
+   * *Expected Result:* Static settings pages exhibit zero background polling/refetches. Collaborative views update appropriately without duplicate navigation commands or visible UI selection jitter.

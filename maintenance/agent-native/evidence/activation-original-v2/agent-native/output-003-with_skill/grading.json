@@ -1,0 +1,64 @@
+{
+  "assertion_results": [
+    {
+      "evidence": "### 1. Reusable Building-Block Family\n* **Chat Surface & Components:** Instead of building a custom textarea and a raw fetch loop, use the Toolkit's supported chat composition family (such as `AgentChatSurface` or `AssistantChat`) along with the official composer and conversation blocks (`PromptComposer`, `AgentConversation`).\n* **Runtime Adapters:** Rely on the framework's standard Core chat hooks and runtime adapters (e.g., `useChatThreads` and `createHttpAgentChatRuntime` from `@agent-native/core/client/agent-chat`) to manage streaming responses, thread history, attachments, and tool results without duplicating runtime logic or copying source code.\n",
+      "evidence_end_line": 5,
+      "evidence_start_line": 3,
+      "passed": true,
+      "text": "The response selects a documented Toolkit chat family such as AgentPanel, AgentChatSurface, or AssistantChat according to the requested custom layout."
+    },
+    {
+      "evidence": "* **Chat Surface & Components:** Instead of building a custom textarea and a raw fetch loop, use the Toolkit's supported chat composition family (such as `AgentChatSurface` or `AssistantChat`) along with the official composer and conversation blocks (`PromptComposer`, `AgentConversation`).\n* **Runtime Adapters:** Rely on the framework's standard Core chat hooks and runtime adapters (e.g., `useChatThreads` and `createHttpAgentChatRuntime` from `@agent-native/core/client/agent-chat`) to manage streaming responses, thread history, attachments, and tool results without duplicating runtime logic or copying source code.\n",
+      "evidence_end_line": 5,
+      "evidence_start_line": 4,
+      "passed": true,
+      "text": "The response preserves shared thread, streaming, attachment, tool-result, and application-context behavior rather than replacing chat with an independent fetch loop."
+    },
+    {
+      "evidence": "### 3. Ownership Boundaries and Security to Preserve\n* **Credentials Management:** **Reject** storing provider API keys in `localStorage` or calling model providers directly from the browser. Keep all credentials and provider calls strictly on the server side.\n* **Access Control & Authorization:** **Reject** the assumption that placing a record ID into the chat context automatically grants the agent permission to read it. Context-picker selection only provides UI metadata; all agent tools and actions must independently enforce server-side authorization checks against actor ownership and organization boundaries.\n",
+      "evidence_end_line": 14,
+      "evidence_start_line": 12,
+      "passed": true,
+      "text": "The response keeps credentials server-side and treats source/selection context as distinct from authorization."
+    },
+    {
+      "evidence": "* **Chat Surface & Components:** Instead of building a custom textarea and a raw fetch loop, use the Toolkit's supported chat composition family (such as `AgentChatSurface` or `AssistantChat`) along with the official composer and conversation blocks (`PromptComposer`, `AgentConversation`).\n* **Runtime Adapters:** Rely on the framework's standard Core chat hooks and runtime adapters (e.g., `useChatThreads` and `createHttpAgentChatRuntime` from `@agent-native/core/client/agent-chat`) to manage streaming responses, thread history, attachments, and tool results without duplicating runtime logic or copying source code.\n",
+      "evidence_end_line": 5,
+      "evidence_start_line": 4,
+      "passed": true,
+      "text": "The response uses existing app-local control adapters and supported composition or customization rather than copying Toolkit internals."
+    },
+    {
+      "evidence": "Based on the project fixtures and Agent-Native architecture principles, here is the design review and recommended implementation direction for the chat redesign:\n\n### 1. Reusable Building-Block Family\n* **Chat Surface & Components:** Instead of building a custom textarea and a raw fetch loop, use the Toolkit's supported chat composition family (such as `AgentChatSurface` or `AssistantChat`) along with the official composer and conversation blocks (`PromptComposer`, `AgentConversation`).\n* **Runtime Adapters:** Rely on the framework's standard Core chat hooks and runtime adapters (e.g., `useChatThreads` and `createHttpAgentChatRuntime` from `@agent-native/core/client/agent-chat`) to manage streaming responses, thread history, attachments, and tool results without duplicating runtime logic or copying source code.\n\n### 2. Composition Direction\n* Create a dedicated two-column layout page in the app.\n* Place the project list/records view on the left column, preserving standard navigation and selection state.\n* Render the supported chat surface in the right column, wired to the framework's chat runtime and seeded with the currently selected project context via semantic navigation/context hooks.\n\n### 3. Ownership Boundaries and Security to Preserve\n* **Credentials Management:** **Reject** storing provider API keys in `localStorage` or calling model providers directly from the browser. Keep all credentials and provider calls strictly on the server side.\n* **Access Control & Authorization:** **Reject** the assumption that placing a record ID into the chat context automatically grants the agent permission to read it. Context-picker selection only provides UI metadata; all agent tools and actions must independently enforce server-side authorization checks against actor ownership and organization boundaries.\n* **App-Owned Domain Logic:** Maintain app-owned domain models and database transactions, using the action boundary to validate inputs and execute effects securely.",
+      "evidence_end_line": 15,
+      "evidence_start_line": 1,
+      "passed": false,
+      "text": "The response requires checking the installed exports and provider or runtime obligations before committing to imports or props."
+    }
+  ],
+  "case_id": "output-003-with_skill",
+  "counts_as_skill_grade": true,
+  "evidence_mode": "model",
+  "execution": "isolated_prompt",
+  "expected_output": "A Toolkit composition retaining Core-backed chat behavior, app-local UI adapters, and server-side authorization/credentials.",
+  "files": [
+    "maintenance/eval-fixtures/agent-native/chat-redesign.md"
+  ],
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "output",
+  "limits": [
+    "The brief provides product requirements and a rejected design, not installed Toolkit API declarations."
+  ],
+  "passed": false,
+  "prompt": "Choose an implementation direction for the Agent-Native chat redesign in the attached brief. Identify the reusable building-block family and the ownership boundaries to preserve. Do not generate speculative component props or modify files.",
+  "raw_reply": "```json\n{\"results\": [{\"assertion_id\": 1, \"passed\": true, \"evidence_start_line\": 3, \"evidence_end_line\": 5}, {\"assertion_id\": 2, \"passed\": true, \"evidence_start_line\": 4, \"evidence_end_line\": 5}, {\"assertion_id\": 3, \"passed\": true, \"evidence_start_line\": 12, \"evidence_end_line\": 14}, {\"assertion_id\": 4, \"passed\": true, \"evidence_start_line\": 4, \"evidence_end_line\": 5}, {\"assertion_id\": 5, \"passed\": false, \"evidence_start_line\": 1, \"evidence_end_line\": 15}]}\n```",
+  "skill": "agent-native",
+  "summary": {
+    "failed": 1,
+    "pass_rate": 0.8,
+    "passed": 4,
+    "total": 5
+  },
+  "variant": "with_skill"
+}

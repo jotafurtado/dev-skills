@@ -1,0 +1,20 @@
+{
+  "case_id": "output-001-no_skill",
+  "evidence_mode": "model",
+  "execution": "isolated_prompt",
+  "expected_output": "A shared action-centered task workflow with scoped access, typed inputs, agent-visible context, and explicit API/version verification limits.",
+  "files": [
+    "maintenance/eval-fixtures/agent-native/first-feature.md"
+  ],
+  "finish_reason": null,
+  "infrastructure": "protocol",
+  "kind": "output",
+  "limits": [
+    "Synthetic review fixture only; no installed runtime, package API declarations, or runnable app is supplied."
+  ],
+  "passed": null,
+  "prompt": "Review the proposed first feature in the attached Agent-Native project brief. Give a concrete corrected implementation approach and acceptance checks. Use only available evidence for API claims; do not modify files or install packages.",
+  "raw_reply": "```json\n{\"results\": [{\"assertion_id\": 1, \"passed\": true, \"evidence_start_line\": 14, \"evidence_end_line\": 15}, {\"assertion_id\": 2, \"passed\": true, \"evidence_start_line\": 17, \"evidence_end_line\": 18}, {\"assertion_id\": 3, \"passed\": true, \"evidence_start_line\": 20, \"evidence_end_line\": 25}, {\"assertion_id\": 4, \"passed\": false, \"evidence_start_line\": 1, \"evidence_end_line\": 39}, {\"assertion_id\": 5, \"passed\": true, \"evidence_start_line\": 31, \"evidence_end_line\": 38}]}\n```",
+  "skill": "agent-native",
+  "variant": "no_skill"
+}

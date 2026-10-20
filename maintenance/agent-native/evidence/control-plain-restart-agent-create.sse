@@ -1,0 +1,56 @@
+: ping 1792291092683
+
+data: {"type":"activity","id":"agentkit:internal:run-1792291092659-sva1yy:starting-agent","label":"Starting agent","seq":0,"eventId":"run-1792291092659-sva1yy:0"}
+
+data: {"type":"activity","id":"agentkit:internal:run-1792291092659-sva1yy:contacting-model","label":"Contacting model","seq":1,"eventId":"run-1792291092659-sva1yy:1"}
+
+data: {"type":"suggestions","suggestions":[],"seq":2,"eventId":"run-1792291092659-sva1yy:2"}
+
+data: {"type":"model_stream","status":"start","seq":3,"eventId":"run-1792291092659-sva1yy:3"}
+
+data: {"type":"tool_input_start","tool":"create-task","id":"call_33863","seq":4,"eventId":"run-1792291092659-sva1yy:4"}
+
+data: {"type":"activity","label":"Preparing create-task action","tool":"create-task","id":"call_33863","seq":5,"eventId":"run-1792291092659-sva1yy:5"}
+
+data: {"type":"tool_input_delta","tool":"create-task","id":"call_33863","text":"{\"title\":\"Real agent 31c9c162-bb46-4e1f-95d9-beabea20543f\"}","seq":6,"eventId":"run-1792291092659-sva1yy:6"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":7,"eventId":"run-1792291092659-sva1yy:7"}
+
+data: {"type":"tool_start","id":"call_33863","tool":"create-task","input":{"title":"Real agent 31c9c162-bb46-4e1f-95d9-beabea20543f"},"seq":8,"eventId":"run-1792291092659-sva1yy:8"}
+
+data: {"type":"tool_done","id":"call_33863","tool":"create-task","input":{"title":"Real agent 31c9c162-bb46-4e1f-95d9-beabea20543f"},"result":"{\n  \"id\": \"de2757f7-ca6a-406a-8c21-c7db56ed2a13\",\n  \"title\": \"Real agent 31c9c162-bb46-4e1f-95d9-beabea20543f\",\n  \"completed\": false,\n  \"createdAt\": \"2026-10-17 23:38:15.101-03\",\n  \"urlPath\": \"/tasks?taskId=de2757f7-ca6a-406a-8c21-c7db56ed2a13\",\n  \"_receipt\": {\n    \"changed\": true,\n    \"verified\": true,\n    \"subject\": \"de2757f7-ca6a-406a-8c21-c7db56ed2a13\",\n    \"summary\": \"Tarefa criada e verificada.\"\n  }\n}","completedSideEffect":true,"approvalPause":false,"seq":9,"eventId":"run-1792291092659-sva1yy:9"}
+
+data: {"type":"model_stream","status":"start","seq":10,"eventId":"run-1792291092659-sva1yy:10"}
+
+data: {"type":"tool_input_start","tool":"navigate","id":"call_1435769","seq":11,"eventId":"run-1792291092659-sva1yy:11"}
+
+data: {"type":"activity","label":"Preparing navigate action","tool":"navigate","id":"call_1435769","seq":12,"eventId":"run-1792291092659-sva1yy:12"}
+
+data: {"type":"tool_input_delta","tool":"navigate","id":"call_1435769","text":"{\"view\":\"tasks\",\"taskId\":\"de2757f7-ca6a-406a-8c21-c7db56ed2a13\",\"path\":\"/tasks\"}","seq":13,"eventId":"run-1792291092659-sva1yy:13"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":14,"eventId":"run-1792291092659-sva1yy:14"}
+
+data: {"type":"tool_start","id":"call_1435769","tool":"navigate","input":{"view":"tasks","taskId":"de2757f7-ca6a-406a-8c21-c7db56ed2a13","path":"/tasks"},"seq":15,"eventId":"run-1792291092659-sva1yy:15"}
+
+data: {"type":"tool_done","id":"call_1435769","tool":"navigate","input":{"view":"tasks","taskId":"de2757f7-ca6a-406a-8c21-c7db56ed2a13","path":"/tasks"},"result":"{\n  \"message\": \"Navegação solicitada.\",\n  \"path\": \"/tasks\"\n}","completedSideEffect":true,"approvalPause":false,"seq":16,"eventId":"run-1792291092659-sva1yy:16"}
+
+data: {"type":"model_stream","status":"start","seq":17,"eventId":"run-1792291092659-sva1yy:17"}
+
+data: {"type":"text","text":"I","seq":18,"eventId":"run-1792291092659-sva1yy:18"}
+
+data: {"type":"text","text":" have created the private task titled \"Real agent 31c9c162","seq":19,"eventId":"run-1792291092659-sva1yy:19"}
+
+data: {"type":"text","text":"-bb46-4e1f-95d9-beabea20543f\"","seq":20,"eventId":"run-1792291092659-sva1yy:20"}
+
+data: {"type":"text","text":" and navigated to it.","seq":21,"eventId":"run-1792291092659-sva1yy:21"}
+
+data: {"type":"model_stream","status":"end","reason":"end_turn","seq":22,"eventId":"run-1792291092659-sva1yy:22"}
+
+data: {"type":"model_stream","status":"start","seq":23,"eventId":"run-1792291092659-sva1yy:23"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":24,"eventId":"run-1792291092659-sva1yy:24"}
+
+data: {"type":"suggestions","suggestions":[],"seq":25,"eventId":"run-1792291092659-sva1yy:25"}
+
+data: {"type":"done","seq":26,"eventId":"run-1792291092659-sva1yy:26"}
+

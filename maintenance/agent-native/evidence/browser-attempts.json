@@ -1,0 +1,221 @@
+{
+  "note": "All available browser result JSON files, without selecting favorable repetitions. Consult the report for harness corrections and interruption boundaries.",
+  "attempts": [
+    {
+      "file": "candidate-browser-canonical.json",
+      "stats": {
+        "startTime": "2026-10-18T02:47:25.731Z",
+        "duration": 113785.127,
+        "expected": 7,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "classification": "final-harness"
+    },
+    {
+      "file": "candidate-browser-cold-recheck.json",
+      "stats": {
+        "startTime": "2026-10-18T02:33:27.446Z",
+        "duration": 1248.203,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "classification": "preserved-earlier-attempt"
+    },
+    {
+      "file": "candidate-browser-cold-recheck2.json",
+      "stats": {
+        "startTime": "2026-10-18T02:34:20.445Z",
+        "duration": 110952.96800000001,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "classification": "preserved-earlier-attempt"
+    },
+    {
+      "file": "candidate-browser-final.json",
+      "stats": {
+        "startTime": "2026-10-18T02:25:09.528Z",
+        "duration": 39522.586,
+        "expected": 7,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "classification": "preserved-earlier-attempt"
+    },
+    {
+      "file": "candidate-browser-focused1.json",
+      "stats": {
+        "startTime": "2026-10-18T02:20:10.827Z",
+        "duration": 17959.573,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 2,
+        "flaky": 0
+      },
+      "classification": "preserved-earlier-attempt"
+    },
+    {
+      "file": "candidate-browser-focused2.json",
+      "stats": {
+        "startTime": "2026-10-18T02:20:35.760Z",
+        "duration": 52184.808,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "classification": "preserved-earlier-attempt"
+    },
+    {
+      "file": "candidate-browser-focused3.json",
+      "stats": {
+        "startTime": "2026-10-18T02:22:03.546Z",
+        "duration": 45603.314000000006,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "classification": "preserved-earlier-attempt"
+    },
+    {
+      "file": "candidate-browser-focused4.json",
+      "stats": {
+        "startTime": "2026-10-18T02:23:39.858Z",
+        "duration": 18091.062,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "classification": "preserved-earlier-attempt"
+    },
+    {
+      "file": "candidate-browser-focused5.json",
+      "stats": {
+        "startTime": "2026-10-18T02:24:28.055Z",
+        "duration": 23176.414,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "classification": "preserved-earlier-attempt"
+    },
+    {
+      "file": "candidate-browser-initial.json",
+      "stats": {
+        "startTime": "2026-10-18T02:13:16.106Z",
+        "duration": 500.6579999999999,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "classification": "preserved-earlier-attempt"
+    },
+    {
+      "file": "candidate-browser-sequential.json",
+      "stats": {
+        "startTime": "2026-10-18T02:16:41.908Z",
+        "duration": 159837.308,
+        "expected": 5,
+        "skipped": 0,
+        "unexpected": 2,
+        "flaky": 0
+      },
+      "classification": "preserved-earlier-attempt"
+    },
+    {
+      "file": "control-browser-canonical.json",
+      "stats": {
+        "startTime": "2026-10-18T02:45:05.918Z",
+        "duration": 68461.194,
+        "expected": 6,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "classification": "final-harness"
+    },
+    {
+      "file": "control-browser-confirmed.json",
+      "stats": {
+        "startTime": "2026-10-18T02:43:26.772Z",
+        "duration": 91479.204,
+        "expected": 5,
+        "skipped": 0,
+        "unexpected": 2,
+        "flaky": 0
+      },
+      "classification": "preserved-earlier-attempt"
+    },
+    {
+      "file": "control-browser-diagnostic.json",
+      "stats": {
+        "startTime": "2026-10-18T02:34:30.079Z",
+        "duration": 107521.881,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "classification": "temporary-instrumentation-diagnostic"
+    },
+    {
+      "file": "control-browser-final.json",
+      "stats": {
+        "startTime": "2026-10-18T02:26:08.765Z",
+        "duration": 112697.827,
+        "expected": 6,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "classification": "preserved-earlier-attempt"
+    },
+    {
+      "file": "control-browser-focused1.json",
+      "stats": {
+        "startTime": "2026-10-18T02:32:29.998Z",
+        "duration": 63053.328,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "classification": "preserved-earlier-attempt"
+    },
+    {
+      "file": "control-browser-plain-restart.json",
+      "stats": {
+        "startTime": "2026-10-18T02:36:46.327Z",
+        "duration": 128598.625,
+        "expected": 5,
+        "skipped": 0,
+        "unexpected": 2,
+        "flaky": 0
+      },
+      "classification": "preserved-earlier-attempt"
+    },
+    {
+      "file": "control-browser-verified.json",
+      "stats": {
+        "startTime": "2026-10-18T02:40:11.554Z",
+        "duration": 165263.421,
+        "expected": 6,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "classification": "preserved-earlier-attempt"
+    }
+  ]
+}

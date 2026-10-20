@@ -1,0 +1,422 @@
+{
+  "config": {
+    "argv": [
+      "/opt/homebrew/Cellar/node@24/24.22.0/bin/node",
+      "<repository>/.agent-native-fixture/harness/node_modules/playwright/cli.js",
+      "test",
+      "--config",
+      "maintenance/agent-native/playwright.config.ts"
+    ],
+    "configFile": "<repository>/maintenance/agent-native/playwright.config.ts",
+    "rootDir": "<repository>/maintenance/agent-native/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "<repository>/.agent-native-fixture/playwright-output-candidate",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "<repository>/maintenance/agent-native/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 120000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "<repository>/.agent-native-fixture/playwright-output-candidate",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "<repository>/maintenance/agent-native/tests",
+        "snapshotDir": "<repository>/maintenance/agent-native/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 120000,
+        "use": {
+          "baseURL": "http://localhost:4311",
+          "headless": true,
+          "trace": "off",
+          "screenshot": "only-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "<repository>/.agent-native-fixture/evidence/candidate-browser-sequential.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "tasks.spec.ts",
+      "file": "tasks.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "actions: validation, persistence, anonymous and cross-owner boundaries",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 591,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T02:16:42.254Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d2d3f88df070d751ab05-e291ca0aef8309e2a4c2",
+          "file": "tasks.spec.ts",
+          "line": 57,
+          "column": 1
+        },
+        {
+          "title": "UI: loading, empty, create by keyboard, complete, failure without success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 74630,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T02:16:43.389Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d2d3f88df070d751ab05-65a9aa04160b473f2038",
+          "file": "tasks.spec.ts",
+          "line": 77,
+          "column": 1
+        },
+        {
+          "title": "UI: list error is recoverable",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5070,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T02:17:58.030Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d2d3f88df070d751ab05-7de664d1fffb6c787b58",
+          "file": "tasks.spec.ts",
+          "line": 98,
+          "column": 1
+        },
+        {
+          "title": "sync: same owner in a second authenticated session",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10293,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T02:18:03.108Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d2d3f88df070d751ab05-96892349e017cf9d7564",
+          "file": "tasks.spec.ts",
+          "line": 108,
+          "column": 1
+        },
+        {
+          "title": "context: selected task is published and removed after route change",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 22518,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"value\": Object {\u001b[39m\n\u001b[2m    \"id\": \"83cc1d57-8b88-4647-adae-247bc0b62b83\",\u001b[22m\n\u001b[32m-   },\u001b[39m\n\u001b[31m+   \"kind\": \"task\",\u001b[39m\n\u001b[2m  }\u001b[22m\n\nCall Log:\n- Timeout 20000ms exceeded while waiting on the predicate",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"value\": Object {\u001b[39m\n\u001b[2m    \"id\": \"83cc1d57-8b88-4647-adae-247bc0b62b83\",\u001b[22m\n\u001b[32m-   },\u001b[39m\n\u001b[31m+   \"kind\": \"task\",\u001b[39m\n\u001b[2m  }\u001b[22m\n\nCall Log:\n- Timeout 20000ms exceeded while waiting on the predicate\n    at <repository>/maintenance/agent-native/tests/tasks.spec.ts:130:71",
+                    "location": {
+                      "file": "<repository>/maintenance/agent-native/tests/tasks.spec.ts",
+                      "column": 71,
+                      "line": 130
+                    },
+                    "snippet": "  128 |   await expect(page.getByRole('heading', { name: 'Context task' })).toBeVisible();\n  129 |   await expect.poll(tab).not.toBe('');\n> 130 |   await expect.poll(() => state(context.request, 'selection', tab())).toMatchObject({ value: { id: task.id } });\n      |                                                                       ^\n  131 |   await page.getByRole('link', { name: /Get started|Primeiros Passos|Início|Home/i }).first().click();\n  132 |   await expect(page).toHaveURL(/\\/home$/);\n  133 |   await expect.poll(() => state(context.request, 'selection', tab())).toMatchObject({ value: null });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "<repository>/maintenance/agent-native/tests/tasks.spec.ts",
+                        "column": 71,
+                        "line": 130
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"value\": Object {\u001b[39m\n\u001b[2m    \"id\": \"83cc1d57-8b88-4647-adae-247bc0b62b83\",\u001b[22m\n\u001b[32m-   },\u001b[39m\n\u001b[31m+   \"kind\": \"task\",\u001b[39m\n\u001b[2m  }\u001b[22m\n\nCall Log:\n- Timeout 20000ms exceeded while waiting on the predicate\n\n  128 |   await expect(page.getByRole('heading', { name: 'Context task' })).toBeVisible();\n  129 |   await expect.poll(tab).not.toBe('');\n> 130 |   await expect.poll(() => state(context.request, 'selection', tab())).toMatchObject({ value: { id: task.id } });\n      |                                                                       ^\n  131 |   await page.getByRole('link', { name: /Get started|Primeiros Passos|Início|Home/i }).first().click();\n  132 |   await expect(page).toHaveURL(/\\/home$/);\n  133 |   await expect.poll(() => state(context.request, 'selection', tab())).toMatchObject({ value: null });\n    at <repository>/maintenance/agent-native/tests/tasks.spec.ts:130:71"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T02:18:13.407Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "<repository>/.agent-native-fixture/playwright-output-candidate/tasks-context-selected-tas-74e5c--removed-after-route-change/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "<repository>/.agent-native-fixture/playwright-output-candidate/tasks-context-selected-tas-74e5c--removed-after-route-change/error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "<repository>/maintenance/agent-native/tests/tasks.spec.ts",
+                    "column": 71,
+                    "line": 130
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d2d3f88df070d751ab05-6ff60cb3b2fe6224e602",
+          "file": "tasks.spec.ts",
+          "line": 124,
+          "column": 1
+        },
+        {
+          "title": "interaction: narrow screen and keyboard retain usable controls",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3514,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T02:18:36.220Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d2d3f88df070d751ab05-107c6bfc51ca212209f3",
+          "file": "tasks.spec.ts",
+          "line": 136,
+          "column": 1
+        },
+        {
+          "title": "real OpenRouter agent: create, navigate once, context, complete, chat continuity",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 41838,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Real agent 30e0230e-0f33-445d-8858-bb7e534e72e8' })\nExpected: visible\nTimeout: 30000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Real agent 30e0230e-0f33-445d-8858-bb7e534e72e8' }) with timeout 30000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Real agent 30e0230e-0f33-445d-8858-bb7e534e72e8' })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Real agent 30e0230e-0f33-445d-8858-bb7e534e72e8' })\nExpected: visible\nTimeout: 30000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Real agent 30e0230e-0f33-445d-8858-bb7e534e72e8' }) with timeout 30000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Real agent 30e0230e-0f33-445d-8858-bb7e534e72e8' })\u001b[22m\n\n    at <repository>/maintenance/agent-native/tests/tasks.spec.ts:157:60",
+                    "location": {
+                      "file": "<repository>/maintenance/agent-native/tests/tasks.spec.ts",
+                      "column": 60,
+                      "line": 157
+                    },
+                    "snippet": "  155 |   const creation = await chat(context.request, `Create exactly one private task titled \"${title}\" using create-task, then use navigate to open it. Do not write code.`, tab(), 'agent-create');\n  156 |   expect(creation).toContain('create-task'); expect(creation).toContain('navigate');\n> 157 |   await expect(page.getByRole('heading', { name: title })).toBeVisible({ timeout: 30_000 });\n      |                                                            ^\n  158 |   const rows = (await list(context.request)).filter(task => task.title === title);\n  159 |   expect(rows).toHaveLength(1); expect(transitions).toBe(1);\n  160 |   const read = await chat(context.request, 'Call view-screen, identify the currently open task by id and title, then complete that task using complete-task. Do not navigate.', tab(), 'agent-complete');"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "<repository>/maintenance/agent-native/tests/tasks.spec.ts",
+                        "column": 60,
+                        "line": 157
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Real agent 30e0230e-0f33-445d-8858-bb7e534e72e8' })\nExpected: visible\nTimeout: 30000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Real agent 30e0230e-0f33-445d-8858-bb7e534e72e8' }) with timeout 30000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Real agent 30e0230e-0f33-445d-8858-bb7e534e72e8' })\u001b[22m\n\n\n  155 |   const creation = await chat(context.request, `Create exactly one private task titled \"${title}\" using create-task, then use navigate to open it. Do not write code.`, tab(), 'agent-create');\n  156 |   expect(creation).toContain('create-task'); expect(creation).toContain('navigate');\n> 157 |   await expect(page.getByRole('heading', { name: title })).toBeVisible({ timeout: 30_000 });\n      |                                                            ^\n  158 |   const rows = (await list(context.request)).filter(task => task.title === title);\n  159 |   expect(rows).toHaveLength(1); expect(transitions).toBe(1);\n  160 |   const read = await chat(context.request, 'Call view-screen, identify the currently open task by id and title, then complete that task using complete-task. Do not navigate.', tab(), 'agent-complete');\n    at <repository>/maintenance/agent-native/tests/tasks.spec.ts:157:60"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T02:18:39.861Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "<repository>/.agent-native-fixture/playwright-output-candidate/tasks-real-OpenRouter-agen-e1891-xt-complete-chat-continuity/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "<repository>/.agent-native-fixture/playwright-output-candidate/tasks-real-OpenRouter-agen-e1891-xt-complete-chat-continuity/error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "<repository>/maintenance/agent-native/tests/tasks.spec.ts",
+                    "column": 60,
+                    "line": 157
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d2d3f88df070d751ab05-161fc3841c47443d44ac",
+          "file": "tasks.spec.ts",
+          "line": 147,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-18T02:16:41.908Z",
+    "duration": 159837.308,
+    "expected": 5,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

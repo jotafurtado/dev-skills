@@ -1,0 +1,36 @@
+Based on the evaluation fixture for the Agent-Native project, the proposed feature implementation violates core Agent-Native architecture principles. It introduces disconnected browser-only and agent-only code paths, bypasses server-side authorization, and hides application context in local component state.
+
+Below is a corrected implementation approach and verification plan following the Agent-Native framework guidelines.
+
+---
+
+### 1. Corrected Implementation Approach
+
+#### Action & Data Layer (`actions/complete-task.ts`)
+Instead of separate browser routes and agent tools with direct SQL updates, define a single shared action using `@agent-native/core/action`:
+- **Unified Action:** Create an action (e.g., `completeTask`) that accepts a validated input schema (`taskId`).
+- **Server-Side Authorization:** Derive the trusted actor/owner server-side from the run context rather than accepting an unverified `ownerId` from the caller. Enforce access control so users can only complete tasks they own or belong to their organization.
+- **Shared Path:** Both the UI action mutation hook and the agent use this exact same action definition and validation path.
+
+#### Application Context & UI (`app/hooks/use-navigation-state.ts` or components)
+- **Semantic Context:** Publish the open task ID to framework application state (or via the app's navigation/route hook) rather than trapping it solely in local React component state. This allows the in-app agent to resolve what task the user has open.
+- **UI State & Feedback:** Use `@agent-native/core/client/hooks` (`useActionQuery` for listing tasks and `useActionMutation` for completing them). Handle pending, empty, failure, and success states properly instead of assuming optimistic success.
+
+#### Domain Instructions
+- Add clear descriptions and input schemas to the action so the agent understands how and when to invoke task completion.
+
+---
+
+### 2. Acceptance Checks
+
+Verify the corrected feature against the following criteria:
+
+| Area | Verification Scenario | Expected Result |
+| --- | --- | --- |
+| **Action & Authorization** | Invoke `completeTask` with a valid `taskId` as an authorized owner. | The task status updates successfully in the SQL database. |
+| **Authorization Failure** | Attempt to complete a task belonging to another user/organization, or pass an unverified owner ID. | The server rejects the mutation based on server-side access checks. |
+| **Dual-Surface Consistency** | Perform the completion via both the UI mutation hook and the agent chat interface. | Both paths execute the exact same action contract, validation, and database effect. |
+| **Application Context** | Navigate to a specific task in the UI and prompt the agent to complete "my open task". | The agent successfully resolves the open task ID from the published application context and targets the correct record. |
+| **UI Lifecycle** | Trigger the task completion from the UI list/view. | The UI correctly reflects pending, success, or error states rather than blindly showing a success toast on click. |
+
+*Note: Since installation evidence and package docs are missing from this synthetic fixture, exact imported paths and method signatures must be verified against the installed `@agent-native/core` declarations before writing actual code.*

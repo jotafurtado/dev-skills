@@ -1,0 +1,17 @@
+Based on the provided project evidence, here is the analysis and resolution for the compatibility problem:
+
+### 1. Source Precedence
+The source precedence to follow, from highest to lowest authority, is:
+1. **Local build failure / App manifest Core constraint (`^0.198.0`) and lockfile resolutions (`0.198.0` / `0.198.1`)**: Defines the actual installed runtime boundaries and constraints of the current environment.
+2. **Existing domain controls (`@/components/ui/*`) and local skills inventory (`agent-native-docs`, `agent-native-toolkit`)**: Represents the established patterns and available local documentation/tooling within the project.
+3. **Copied website example (`ProjectSettingsFilter`)**: Lowest precedence, as it relies on an invented export name from an external or mismatched example that does not match the currently installed public entry point.
+
+### 2. Smallest Safe Change Path
+Reject the developer's proposals to upgrade dependencies or use deep private imports. Instead, apply the minimal local fix:
+1. Consult the local skills inventory (`agent-native-toolkit` / `agent-native-docs`) to identify the correct, officially supported public export for settings filtering available in Core `0.198.0` / Toolkit `0.198.1`.
+2. Update the new settings layout to import the correct public export rather than the non-existent `ProjectSettingsFilter`.
+3. If no direct equivalent public export exists, build the project-specific filter locally using the existing domain controls (`@/components/ui/*`) rather than hacking private deep-imports from the Toolkit.
+
+### 3. What Remains Unverified
+* The exact internal implementation details and private source file structure of the Toolkit (since full installed exports and source type declarations were not supplied).
+* Whether the website example's `ProjectSettingsFilter` corresponds to a future version, a deprecated API, or a completely fictitious component that has no equivalent in the current `0.198.x` release.

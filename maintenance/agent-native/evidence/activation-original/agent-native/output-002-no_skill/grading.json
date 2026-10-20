@@ -1,0 +1,64 @@
+{
+  "assertion_results": [
+    {
+      "evidence": "1. **Local App Manifest & Lockfile Constraints:** (`^0.198.0` core / `0.198.0` core resolution / `0.198.1` toolkit resolution) \u2013 defines the stable runtime boundaries currently established for the project.\n",
+      "evidence_end_line": 5,
+      "evidence_start_line": 5,
+      "passed": true,
+      "text": "The response identifies exact resolved Core and Toolkit versions separately from the manifest constraint."
+    },
+    {
+      "evidence": "3. **External Website Examples / Copied Snippets:** (Lowest precedence) \u2013 promotional or documentation examples that may reference fictional exports (`ProjectSettingsFilter`), unreleased APIs, or mismatched versions.\n",
+      "evidence_end_line": 7,
+      "evidence_start_line": 7,
+      "passed": true,
+      "text": "The response prioritizes installed documentation, public exports, and types over the current website example."
+    },
+    {
+      "evidence": "Reject the developer's proposals to upgrade all dependencies or deep-import private source files, as these risk breaking the working app manifest constraints and runtime stability. Instead, use the following minimal repair path:\n1. **Verify the Public API:** Inspect the actual exports available in the currently installed Toolkit (`0.198.1`) and Core (`0.198.0`) to find the correct, officially supported name for the settings filter component rather than relying on the copied website example's invented name (`ProjectSettingsFilter`).\n2. **Local Adaptation:** If no direct equivalent export exists in the public entry point, wrap or compose an equivalent filter using the existing domain controls imported through `@/components/ui/*` inside the project-specific settings layout.\n",
+      "evidence_end_line": 12,
+      "evidence_start_line": 10,
+      "passed": true,
+      "text": "The response preserves app-local controls and shared runtime ownership instead of deep-importing private source or copying runtime internals."
+    },
+    {
+      "evidence": "Reject the developer's proposals to upgrade all dependencies or deep-import private source files, as these risk breaking the working app manifest constraints and runtime stability. Instead, use the following minimal repair path:\n1. **Verify the Public API:** Inspect the actual exports available in the currently installed Toolkit (`0.198.1`) and Core (`0.198.0`) to find the correct, officially supported name for the settings filter component rather than relying on the copied website example's invented name (`ProjectSettingsFilter`).\n",
+      "evidence_end_line": 11,
+      "evidence_start_line": 10,
+      "passed": true,
+      "text": "The response does not prescribe an unrequested upgrade, install latest, or claim that the proposed unavailable export exists."
+    },
+    {
+      "evidence": "### 3. What Remains Unverified\n* The exact contents of the full installed exports, source code, and type declarations of the Toolkit and Core packages (as noted in the fixture, these have not been supplied).\n* Whether the website example was written for a future version (e.g., beyond `0.198.x`) or uses a deprecated/internal component name.",
+      "evidence_end_line": 16,
+      "evidence_start_line": 14,
+      "passed": true,
+      "text": "The response identifies the missing installed API evidence and does not present a guessed replacement signature as verified."
+    }
+  ],
+  "case_id": "output-002-no_skill",
+  "counts_as_skill_grade": true,
+  "evidence_mode": "model",
+  "execution": "isolated_prompt",
+  "expected_output": "A bounded version-local investigation that preserves exact pins, uses public exports, and reuses app adapters instead of upgrading or importing private source.",
+  "files": [
+    "maintenance/eval-fixtures/agent-native/existing-app.md"
+  ],
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "output",
+  "limits": [
+    "Version numbers are synthetic project evidence, not a claim about a published release's exports."
+  ],
+  "passed": true,
+  "prompt": "Resolve the compatibility problem in the attached Agent-Native app evidence. State the smallest safe change path, the source precedence you would use, and what remains unverified. Do not change files or dependencies.",
+  "raw_reply": "```json\n{\"results\": [{\"assertion_id\": 1, \"passed\": true, \"evidence_start_line\": 5, \"evidence_end_line\": 5}, {\"assertion_id\": 2, \"passed\": true, \"evidence_start_line\": 7, \"evidence_end_line\": 7}, {\"assertion_id\": 3, \"passed\": true, \"evidence_start_line\": 10, \"evidence_end_line\": 12}, {\"assertion_id\": 4, \"passed\": true, \"evidence_start_line\": 10, \"evidence_end_line\": 11}, {\"assertion_id\": 5, \"passed\": true, \"evidence_start_line\": 14, \"evidence_end_line\": 16}]}\n```",
+  "skill": "agent-native",
+  "summary": {
+    "failed": 0,
+    "pass_rate": 1.0,
+    "passed": 5,
+    "total": 5
+  },
+  "variant": "no_skill"
+}

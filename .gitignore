@@ -4,6 +4,7 @@
 
 # Local skill install artifacts (npx skills) — machine-specific; never version these
 .agents/
+.codex/
 skills-lock.json
 
 # Generated analysis and Python cache artifacts
@@ -27,6 +28,9 @@ Thumbs.db
 
 # Composer fixture used to verify composition APIs
 .filament-fixture/
+
+# Local Agent-Native runtime validation laboratory
+.agent-native-fixture/
 
 # Generated skill evaluation artifacts
 maintenance/evals-out/

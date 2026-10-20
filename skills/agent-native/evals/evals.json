@@ -1,0 +1,62 @@
+{
+  "skill_name": "agent-native",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Review the proposed first feature in the attached Agent-Native project brief. Give a concrete corrected implementation approach and acceptance checks. Use only available evidence for API claims; do not modify files or install packages.",
+      "expected_output": "A shared action-centered task workflow with scoped access, typed inputs, agent-visible context, and explicit API/version verification limits.",
+      "files": ["maintenance/eval-fixtures/agent-native/first-feature.md"],
+      "assertions": [
+        "The response replaces the separate UI and agent write implementations with one shared typed action boundary.",
+        "The response derives identity server-side and scopes reads and writes rather than trusting the submitted ownerId.",
+        "The response accounts for UI, actions, reusable instructions when needed, and application context without requiring a new skill for every action.",
+        "The response explicitly says that exact framework signatures cannot be verified from this fixture and requests installed version-matched docs or types before implementation.",
+        "The response proposes invalid-input, denied-caller, and UI/agent result-visibility checks without claiming to have executed them."
+      ],
+      "limits": ["Synthetic review fixture only; no installed runtime, package API declarations, or runnable app is supplied."]
+    },
+    {
+      "id": 2,
+      "prompt": "Resolve the compatibility problem in the attached Agent-Native app evidence. State the smallest safe change path, the source precedence you would use, and what remains unverified. Do not change files or dependencies.",
+      "expected_output": "A bounded version-local investigation that preserves exact pins, uses public exports, and reuses app adapters instead of upgrading or importing private source.",
+      "files": ["maintenance/eval-fixtures/agent-native/existing-app.md"],
+      "assertions": [
+        "The response identifies exact resolved Core and Toolkit versions separately from the manifest constraint.",
+        "The response prioritizes installed documentation, public exports, and types over the current website example.",
+        "The response preserves app-local controls and shared runtime ownership instead of deep-importing private source or copying runtime internals.",
+        "The response does not prescribe an unrequested upgrade, install latest, or claim that the proposed unavailable export exists.",
+        "The response identifies the missing installed API evidence and does not present a guessed replacement signature as verified."
+      ],
+      "limits": ["Version numbers are synthetic project evidence, not a claim about a published release's exports."]
+    },
+    {
+      "id": 3,
+      "prompt": "Choose an implementation direction for the Agent-Native chat redesign in the attached brief. Identify the reusable building-block family and the ownership boundaries to preserve. Do not generate speculative component props or modify files.",
+      "expected_output": "A Toolkit composition retaining Core-backed chat behavior, app-local UI adapters, and server-side authorization/credentials.",
+      "files": ["maintenance/eval-fixtures/agent-native/chat-redesign.md"],
+      "assertions": [
+        "The response selects a documented Toolkit chat family such as AgentPanel, AgentChatSurface, or AssistantChat according to the requested custom layout.",
+        "The response preserves shared thread, streaming, attachment, tool-result, and application-context behavior rather than replacing chat with an independent fetch loop.",
+        "The response keeps credentials server-side and treats source/selection context as distinct from authorization.",
+        "The response uses existing app-local control adapters and supported composition or customization rather than copying Toolkit internals.",
+        "The response requires checking the installed exports and provider or runtime obligations before committing to imports or props."
+      ],
+      "limits": ["The brief provides product requirements and a rejected design, not installed Toolkit API declarations."]
+    },
+    {
+      "id": 4,
+      "prompt": "Diagnose the Agent-Native navigation and stale-screen problems in the attached incident brief. Give the repair sequence and focused verification scenarios. Distinguish likely causes from verified framework behavior; do not modify files.",
+      "expected_output": "An app-owned navigation-hook investigation, semantic context cleanup, action refresh tracing, and justified remote-sync policy without blanket timers.",
+      "files": ["maintenance/eval-fixtures/agent-native/context-sync.md"],
+      "assertions": [
+        "The response identifies useNavigationState as an app/template hook rather than assuming it is a Core export, and investigates the installed navigation primitive.",
+        "The response clears stale selection and resolves view-screen records through authorized scoped reads.",
+        "The response traces action completion, query keys, invalidation, and refetch before adding manual polling.",
+        "The response distinguishes local run refresh from remote-tab sync and requires a reason and version check for background sync.",
+        "The response reuses tab/request-source identity and framework command consumption to address jitter and duplicate navigation.",
+        "The response proposes separate UI-write, agent-write, route/selection, and second-tab checks without claiming executed results."
+      ],
+      "limits": ["Observed symptoms are synthetic. Installed framework code is absent, so root causes remain hypotheses until inspected."]
+    }
+  ]
+}

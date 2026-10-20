@@ -1,0 +1,82 @@
+{
+  "tabId": "5d1281e0-0df8-4445-9ddc-ef202c5f354d",
+  "url": "http://localhost:4312/tasks",
+  "navigation": {
+    "view": "tasks",
+    "path": "/tasks"
+  },
+  "command": null,
+  "globalCommand": null,
+  "trace": [
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4312/tasks"
+    },
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4312/tasks"
+    },
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4312/tasks"
+    },
+    {
+      "kind": "console",
+      "text": "Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)."
+    },
+    {
+      "kind": "request",
+      "method": "PUT",
+      "url": "http://localhost:4312/_agent-native/application-state/navigation:5d1281e0-0df8-4445-9ddc-ef202c5f354d",
+      "data": "{\"view\":\"tasks\",\"path\":\"/tasks\"}"
+    },
+    {
+      "kind": "request",
+      "method": "GET",
+      "url": "http://localhost:4312/_agent-native/application-state?keys=navigate%3A5d1281e0-0df8-4445-9ddc-ef202c5f354d",
+      "data": null
+    },
+    {
+      "kind": "response",
+      "url": "http://localhost:4312/_agent-native/application-state?keys=navigate%3A5d1281e0-0df8-4445-9ddc-ef202c5f354d",
+      "body": "{\"values\":{},\"missing\":[\"navigate:5d1281e0-0df8-4445-9ddc-ef202c5f354d\"]}"
+    },
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4312/tasks"
+    },
+    {
+      "kind": "request",
+      "method": "GET",
+      "url": "http://localhost:4312/_agent-native/application-state?keys=navigate%3A5d1281e0-0df8-4445-9ddc-ef202c5f354d",
+      "data": null
+    },
+    {
+      "kind": "response",
+      "url": "http://localhost:4312/_agent-native/application-state?keys=navigate%3A5d1281e0-0df8-4445-9ddc-ef202c5f354d",
+      "body": "{\"values\":{},\"missing\":[\"navigate:5d1281e0-0df8-4445-9ddc-ef202c5f354d\"]}"
+    },
+    {
+      "kind": "request",
+      "method": "GET",
+      "url": "http://localhost:4312/_agent-native/application-state?keys=navigate%3A5d1281e0-0df8-4445-9ddc-ef202c5f354d",
+      "data": null
+    },
+    {
+      "kind": "response",
+      "url": "http://localhost:4312/_agent-native/application-state?keys=navigate%3A5d1281e0-0df8-4445-9ddc-ef202c5f354d",
+      "body": "{\"values\":{},\"missing\":[\"navigate:5d1281e0-0df8-4445-9ddc-ef202c5f354d\"]}"
+    },
+    {
+      "kind": "request",
+      "method": "GET",
+      "url": "http://localhost:4312/_agent-native/application-state?keys=navigate%3A5d1281e0-0df8-4445-9ddc-ef202c5f354d",
+      "data": null
+    },
+    {
+      "kind": "response",
+      "url": "http://localhost:4312/_agent-native/application-state?keys=navigate%3A5d1281e0-0df8-4445-9ddc-ef202c5f354d",
+      "body": "{\"values\":{},\"missing\":[\"navigate:5d1281e0-0df8-4445-9ddc-ef202c5f354d\"]}"
+    }
+  ]
+}

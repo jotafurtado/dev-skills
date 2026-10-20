@@ -1,0 +1,19 @@
+Based on the provided project evidence, here is the analysis and resolution for the compatibility problem:
+
+### 1. Source Precedence
+The source precedence to resolve this issue, from highest to lowest authority, is:
+1. **Local build failure / Local skills inventory (`agent-native-docs`, `agent-native-toolkit`)**: Confirms what is actually present and exportable in the currently installed environment.
+2. **Existing domain controls (`@/components/ui/*`)**: Establishes the established architectural pattern for importing UI components within the app.
+3. **App manifest Core constraint (`^0.198.0`) and Lockfile resolutions**: Defines the pinned versions (`0.198.0` for Core, `0.198.1` for Toolkit) which must be respected without upgrading.
+4. **Website example (`ProjectSettingsFilter`)**: Lowest precedence, as it represents external documentation/copy-pasted code that may reference non-existent, renamed, or private exports for this specific version.
+
+### 2. Smallest Safe Change Path
+Reject the developer's proposals to upgrade dependencies or use deep private imports. Instead, follow this minimal repair path:
+1. **Inspect local toolkit exports**: Query the local `agent-native-toolkit` skill or public entry point to find the correct, officially supported export name for the settings filter corresponding to versions `0.198.x`.
+2. **Update the import statement**: Replace the invented `ProjectSettingsFilter` import in the settings layout with the correct public export name found in step 1, maintaining the existing `@/components/ui/*` or standard public entry point convention.
+3. **Alternative (if no public export exists)**: If the toolkit does not export a filter component in `0.198.x`, construct a lightweight project-specific filter directly inside the app's settings layout using the existing working domain controls, matching the local design system.
+
+### 3. What Remains Unverified
+* The full installed exports, internal source code, and type declarations of the Toolkit package (as explicitly noted in the fixture, these were not supplied).
+* Whether the website example was written for a future version (e.g., `^0.199.x` or higher) that actually introduces `ProjectSettingsFilter`.
+* Whether local runtime behavior matches type declarations once the correct import name is substituted.

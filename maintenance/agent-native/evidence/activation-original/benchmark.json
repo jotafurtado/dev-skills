@@ -1,0 +1,80 @@
+{
+  "evidence_mode": "model",
+  "infrastructure_failures": [],
+  "judge": "live",
+  "run_summary": {
+    "delta": {
+      "pass_rate": 0.5
+    },
+    "no_skill": {
+      "pass_rate": {
+        "mean": 0.5,
+        "stddev": 0.0
+      }
+    },
+    "output": {
+      "duration_ms": {
+        "mean": 5079.625,
+        "stddev": 1210.0141463532566
+      }
+    },
+    "trigger": {
+      "duration_ms": {
+        "mean": 1428.9333333333334,
+        "stddev": 235.8885235774635
+      }
+    },
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0
+      }
+    }
+  },
+  "skills": {
+    "agent-native": {
+      "output": {
+        "no_skill": {
+          "cases": 4,
+          "failed": 2,
+          "infrastructure_skipped": 0,
+          "pass_rate": 0.5,
+          "passed": 2,
+          "ungraded": 0
+        },
+        "with_skill": {
+          "cases": 4,
+          "failed": 0,
+          "infrastructure_skipped": 0,
+          "pass_rate": 1.0,
+          "passed": 4,
+          "ungraded": 0
+        }
+      },
+      "trigger": {
+        "by_split": {
+          "train": {
+            "cases": 36,
+            "failed": 1,
+            "infrastructure_skipped": 0,
+            "pass_rate": 0.9722222222222222,
+            "passed": 35
+          },
+          "validation": {
+            "cases": 24,
+            "failed": 1,
+            "infrastructure_skipped": 0,
+            "pass_rate": 0.9583333333333334,
+            "passed": 23
+          }
+        },
+        "cases": 60,
+        "failed": 2,
+        "infrastructure_skipped": 0,
+        "pass_rate": 0.9666666666666667,
+        "passed": 58,
+        "ungraded": 0
+      }
+    }
+  }
+}

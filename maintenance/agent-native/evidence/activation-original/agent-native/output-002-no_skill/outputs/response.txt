@@ -1,0 +1,16 @@
+Based on the provided project evidence, here is the analysis and resolution for the compatibility problem:
+
+### 1. Source Precedence
+The source precedence to resolve the export mismatch should follow this order:
+1. **Local App Manifest & Lockfile Constraints:** (`^0.198.0` core / `0.198.0` core resolution / `0.198.1` toolkit resolution) – defines the stable runtime boundaries currently established for the project.
+2. **Existing Domain Controls & Local Skills Inventory:** (`@/components/ui/*`, `agent-native-docs`, `agent-native-toolkit`) – the established local architecture and available documentation/tooling.
+3. **External Website Examples / Copied Snippets:** (Lowest precedence) – promotional or documentation examples that may reference fictional exports (`ProjectSettingsFilter`), unreleased APIs, or mismatched versions.
+
+### 2. Smallest Safe Change Path
+Reject the developer's proposals to upgrade all dependencies or deep-import private source files, as these risk breaking the working app manifest constraints and runtime stability. Instead, use the following minimal repair path:
+1. **Verify the Public API:** Inspect the actual exports available in the currently installed Toolkit (`0.198.1`) and Core (`0.198.0`) to find the correct, officially supported name for the settings filter component rather than relying on the copied website example's invented name (`ProjectSettingsFilter`).
+2. **Local Adaptation:** If no direct equivalent export exists in the public entry point, wrap or compose an equivalent filter using the existing domain controls imported through `@/components/ui/*` inside the project-specific settings layout.
+
+### 3. What Remains Unverified
+* The exact contents of the full installed exports, source code, and type declarations of the Toolkit and Core packages (as noted in the fixture, these have not been supplied).
+* Whether the website example was written for a future version (e.g., beyond `0.198.x`) or uses a deprecated/internal component name.

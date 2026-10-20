@@ -1,0 +1,51 @@
+Based on the incident brief and the Agent-Native framework specifications in `references/context-sync.md`, here is the diagnosis, repair sequence, and verification plan for the navigation and stale-screen problems. 
+
+No project source files have been modified.
+
+---
+
+### Diagnosis & Likely Causes vs. Verified Behavior
+
+1. **Importing `useNavigationState` from Core vs. App Hook**
+   * *Hypothesis/Verified:* The app contains `app/hooks/use-navigation-state.ts`. Importing this hook directly from Core instead of the app-local file breaks the app's custom router/navigation integration, causing broken state synchronization.
+2. **Stale Selection After Navigation (Project A to B)**
+   * *Likely Cause:* The view or page component failed to clear or update the selected record ID when switching routes. Selection state is not automatically scoped out when transitioning parents unless explicitly cleaned up.
+3. **`view-screen` Action Lacking Authorization**
+   * *Verified Vulnerability:* As noted in `references/actions-data.md` and `references/context-sync.md`, UI context-picker selection and view-screen resolution do not grant data access. Loading any supplied record ID without checking the actor/ownership exposes unauthorized resources to the agent and user.
+4. **Raw Query with Custom Cache Key Showing Stale Results**
+   * *Likely Cause:* Bypassing the framework's standard action query/mutation hooks (`useActionQuery`, `useActionMutation`) in favor of raw queries with custom, unaligned keys prevents the automatic action refresh path and change-version integration from invalidating the cache.
+5. **Agent Edits Only Appearing After Full Page Reload**
+   * *Likely Cause:* The UI is not using the framework's supported sync or action mutation/query hooks, meaning state updates performed by the agent do not trigger localized query invalidations or refetches.
+6. **Refetch Timer on Every Query Every Second**
+   * *Likely Cause:* Manually added polling intervals bypass the opt-in architecture. The framework's data and sync guide notes that background sync should be opt-in, scoped, and handled via structured mechanisms like `useDbSync` rather than brute-force intervals on static pages.
+7. **Multiple Tab IDs and Duplicate Commands / UI Jitter**
+   * *Likely Cause:* Decentralizing tab ID creation and polling across individual components rather than using a centralized framework container creates race conditions, duplicate command consumption, and self-originated refetch jitter.
+8. **Multi-User Remote Updates vs. Static Settings**
+   * *Requirement:* Shared lists require targeted remote sync (e.g., opted-in `useDbSync`), while static settings pages should explicitly opt out to avoid unnecessary background traffic.
+
+---
+
+### Repair Sequence
+
+1. **Fix Navigation Imports and State Architecture**
+   * Update all pages and components to import `useNavigationState` from the app-local file (`app/hooks/use-navigation-state.ts`) rather than attempting direct Core imports.
+   * Centralize tab ID generation and command polling at the shell/layout level to prevent duplicate navigation command execution and self-inflicted jitter.
+2. **Secure the `view-screen` Action**
+   * Refactor the `view-screen` action to enforce server-side actor, ownership, and organization access checks before returning any record details to the agent or UI.
+3. **Align Data Fetching with Framework Hooks**
+   * Replace raw queries using custom cache keys with `useActionQuery` and `useActionMutation` so that mutations automatically participate in the framework's action refresh and invalidation lifecycle.
+   * Remove brute-force one-second refetch timers.
+4. **Implement Scoped Remote Sync**
+   * For the shared project list requiring cross-user edits, opt into the framework's structured sync mechanism (`useDbSync`) with appropriate scoping. Leave static settings pages detached from background sync.
+5. **Ensure Selection Cleanup**
+   * Update route transitions to explicitly clear or reset selection state when navigating between different entities (e.g., moving from Project A to Project B).
+
+---
+
+### Focused Verification Scenarios
+
+* **Navigation & Selection Isolation:** Change routes from Project A to Project B; confirm that Project A's selected record ID is cleared and the agent receives only Project B's context.
+* **Access Control:** Attempt to resolve an unauthorized record ID via the `view-screen` action/agent context; verify that access is denied and data is withheld.
+* **Mutation & UI Refresh:** Perform a UI mutation and an agent-driven edit on a shared resource; confirm that the UI updates immediately without requiring a full page reload or manual refresh.
+* **Jitter & Duplicate Prevention:** Trigger navigation commands through the agent and verify that the command runs exactly once per tab without causing layout or selection jitter.
+* **Remote Updates & Scoping:** Modify a shared project list from a second user/tab and verify that the changes appear via opted-in sync, while confirming that static settings pages have no background polling/refetch activity.

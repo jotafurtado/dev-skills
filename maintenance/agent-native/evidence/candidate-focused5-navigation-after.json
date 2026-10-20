@@ -1,0 +1,90 @@
+{
+  "tabId": "e2dc92c5-241e-4eb0-ad09-710139519e56",
+  "url": "http://localhost:4311/tasks?id=2e421966-1822-4415-aa1f-832ca90ca710",
+  "navigation": {
+    "view": "tasks",
+    "path": "/tasks",
+    "taskId": "2e421966-1822-4415-aa1f-832ca90ca710"
+  },
+  "command": null,
+  "globalCommand": null,
+  "trace": [
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4311/tasks"
+    },
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4311/tasks"
+    },
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4311/tasks"
+    },
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4311/tasks"
+    },
+    {
+      "kind": "console",
+      "text": "Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)."
+    },
+    {
+      "kind": "request",
+      "method": "PUT",
+      "url": "http://localhost:4311/_agent-native/application-state/navigation:e2dc92c5-241e-4eb0-ad09-710139519e56",
+      "data": "{\"view\":\"tasks\",\"path\":\"/tasks\"}"
+    },
+    {
+      "kind": "request",
+      "method": "GET",
+      "url": "http://localhost:4311/_agent-native/application-state?keys=navigate%3Ae2dc92c5-241e-4eb0-ad09-710139519e56",
+      "data": null
+    },
+    {
+      "kind": "response",
+      "url": "http://localhost:4311/_agent-native/application-state?keys=navigate%3Ae2dc92c5-241e-4eb0-ad09-710139519e56",
+      "body": "{\"values\":{},\"missing\":[\"navigate:e2dc92c5-241e-4eb0-ad09-710139519e56\"]}"
+    },
+    {
+      "kind": "request",
+      "method": "GET",
+      "url": "http://localhost:4311/_agent-native/application-state?keys=navigate%3Ae2dc92c5-241e-4eb0-ad09-710139519e56",
+      "data": null
+    },
+    {
+      "kind": "request",
+      "method": "DELETE",
+      "url": "http://localhost:4311/_agent-native/application-state/navigate:e2dc92c5-241e-4eb0-ad09-710139519e56",
+      "data": null
+    },
+    {
+      "kind": "console",
+      "text": "flushSync was called from inside a lifecycle method. React cannot flush when React is already rendering. Consider moving this call to a scheduler task or micro task."
+    },
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4311/tasks?id=2e421966-1822-4415-aa1f-832ca90ca710"
+    },
+    {
+      "kind": "response",
+      "url": "http://localhost:4311/_agent-native/application-state?keys=navigate%3Ae2dc92c5-241e-4eb0-ad09-710139519e56",
+      "body": "{\"values\":{\"navigate:e2dc92c5-241e-4eb0-ad09-710139519e56\":{\"view\":\"tasks\",\"path\":\"/tasks?id=2e421966-1822-4415-aa1f-832ca90ca710\",\"_writeId\":\"1792290280273-hb3gfw\"}},\"missing\":[]}"
+    },
+    {
+      "kind": "response",
+      "url": "http://localhost:4311/_agent-native/application-state/navigate:e2dc92c5-241e-4eb0-ad09-710139519e56",
+      "body": "{\"ok\":true}"
+    },
+    {
+      "kind": "request",
+      "method": "PUT",
+      "url": "http://localhost:4311/_agent-native/application-state/navigation:e2dc92c5-241e-4eb0-ad09-710139519e56",
+      "data": "{\"view\":\"tasks\",\"path\":\"/tasks\",\"taskId\":\"2e421966-1822-4415-aa1f-832ca90ca710\"}"
+    },
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4311/tasks?id=2e421966-1822-4415-aa1f-832ca90ca710"
+    }
+  ]
+}

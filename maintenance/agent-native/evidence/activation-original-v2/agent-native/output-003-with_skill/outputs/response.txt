@@ -1,0 +1,15 @@
+Based on the project fixtures and Agent-Native architecture principles, here is the design review and recommended implementation direction for the chat redesign:
+
+### 1. Reusable Building-Block Family
+* **Chat Surface & Components:** Instead of building a custom textarea and a raw fetch loop, use the Toolkit's supported chat composition family (such as `AgentChatSurface` or `AssistantChat`) along with the official composer and conversation blocks (`PromptComposer`, `AgentConversation`).
+* **Runtime Adapters:** Rely on the framework's standard Core chat hooks and runtime adapters (e.g., `useChatThreads` and `createHttpAgentChatRuntime` from `@agent-native/core/client/agent-chat`) to manage streaming responses, thread history, attachments, and tool results without duplicating runtime logic or copying source code.
+
+### 2. Composition Direction
+* Create a dedicated two-column layout page in the app.
+* Place the project list/records view on the left column, preserving standard navigation and selection state.
+* Render the supported chat surface in the right column, wired to the framework's chat runtime and seeded with the currently selected project context via semantic navigation/context hooks.
+
+### 3. Ownership Boundaries and Security to Preserve
+* **Credentials Management:** **Reject** storing provider API keys in `localStorage` or calling model providers directly from the browser. Keep all credentials and provider calls strictly on the server side.
+* **Access Control & Authorization:** **Reject** the assumption that placing a record ID into the chat context automatically grants the agent permission to read it. Context-picker selection only provides UI metadata; all agent tools and actions must independently enforce server-side authorization checks against actor ownership and organization boundaries.
+* **App-Owned Domain Logic:** Maintain app-owned domain models and database transactions, using the action boundary to validate inputs and execute effects securely.

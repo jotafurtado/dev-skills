@@ -1,0 +1,15 @@
+{
+  "case_id": "trigger-000-run-2",
+  "expected_should_trigger": true,
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "trigger",
+  "passed": false,
+  "query": "No app @agent-native/core, a lista atualiza ap\u00f3s clique, mas n\u00e3o ap\u00f3s uma escrita de outra aba. Corrija o opt-in de sync.",
+  "raw_reply": null,
+  "run_index": 2,
+  "selected_skills": [],
+  "skill": "agent-native",
+  "split": "validation",
+  "triggered": false
+}

@@ -1,0 +1,13 @@
+Based on the provided brief, here is the implementation direction for the Agent-Native chat redesign:
+
+### 1. Reusable Building-Block Family
+Instead of copying the Toolkit composer source and bypassing runtime adapters to build an app-owned textarea and fetch loop, the implementation should use the **existing Core-backed chat and Toolkit UI** as the reusable building-block family. 
+
+### 2. Minimal Composition Direction
+* **Leverage Existing Primitives:** Compose the new two-column project page using the established thread history, streaming responses, attachments, tool results, and selected-record context rather than writing a custom fetch loop and maintaining separate conversation state.
+* **Preserve Ordinary Controls:** Continue wrapping ordinary controls with their app-local adapters.
+* **Defer Execution:** Wait for actual installed exports and provider contracts before writing any concrete code or component props.
+
+### 3. Ownership Boundaries to Preserve
+* **Agent Runtime & Adapters:** Do not bypass the established runtime adapters or manage API keys directly in `localStorage` via a parallel fetch loop; keep agent communication tied to the Core-backed chat architecture.
+* **Security & Permissions Boundaries:** Do not assume that placing a private project record ID into the chat context automatically grants the agent permission to load it. The authorization check must remain distinct from the UI record picker state to prevent unauthorized data access by the agent.

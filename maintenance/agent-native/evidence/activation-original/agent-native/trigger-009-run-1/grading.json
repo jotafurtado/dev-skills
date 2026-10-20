@@ -1,0 +1,17 @@
+{
+  "case_id": "trigger-009-run-1",
+  "expected_should_trigger": true,
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "trigger",
+  "passed": true,
+  "query": "Extend the Agent-Native Chat template with a record details page and agent navigation.",
+  "raw_reply": null,
+  "run_index": 1,
+  "selected_skills": [
+    "agent-native"
+  ],
+  "skill": "agent-native",
+  "split": "validation",
+  "triggered": true
+}

@@ -1,0 +1,36 @@
+Based on the provided Agent-Native project fixture and the principles of the `@agent-native/core` architecture (where actions, validation, authorization, and data share a single path for both human UI and agent use), here is a review of the proposed first feature, a corrected implementation approach, and verification checks.
+
+### Review of the Proposed Implementation
+
+The proposed approach violates core Agent-Native tenets:
+1. **Divergent Paths**: Separate browser-only routes and agent tools duplicate logic and split the validation/effect boundary.
+2. **Missing Authorization**: Accepting `ownerId` from the caller without verifying it against the authenticated actor introduces a security vulnerability.
+3. **Client-Only Context**: Storing the open task ID solely in local component state makes it invisible to the agent (it requires framework application/navigation state).
+4. **Skipped Seams**: Omitting input schemas, action descriptions, validation, and error states breaks discoverability for the agent and robustness for the UI.
+
+---
+
+### Corrected Implementation Approach
+
+1. **Define a Shared Action (`actions/complete-task.ts`)**:
+   - Use `defineAction` from `@agent-native/core/action`.
+   - Provide a clear agent-facing description and an input schema (e.g., using Zod) requiring `taskId`.
+   - Derive the authenticated user server-side from the run context rather than trusting client inputs.
+   - Enforce access control to verify that the task belongs to the current user before mutating the database.
+
+2. **Publish Application Context (`app/hooks/use-navigation-state.ts` or equivalent)**:
+   - Wire the currently open task ID into the app's semantic navigation/route state so the agent can automatically resolve what the user is looking at.
+
+3. **Connect the UI (`app/`)**:
+   - Use `useActionQuery` to fetch the task list.
+   - Use `useActionMutation` to invoke the shared `complete-task` action from the UI button.
+   - Handle loading, pending, failure, and success states explicitly rather than assuming immediate success.
+
+---
+
+### Acceptance Checks
+
+- **UI Path**: A user clicks complete on a task in the UI; the action validates the input, checks server-side ownership, updates the SQL database, and reflects the updated status with proper pending/success handling.
+- **Agent Path**: The agent reads the active task ID from the application context, invokes the exact same shared action, and successfully completes the task under identical authorization rules.
+- **Authorization Boundary**: A caller attempting to pass an arbitrary `ownerId` or complete a task owned by another user is rejected server-side.
+- **Limitations**: Because no installed package declarations or workspace manifests were supplied in this fixture, exact import paths (`@agent-native/core/action`, etc.) must be verified against the target environment's package exports before final execution.

@@ -1,0 +1,15 @@
+{
+  "case_id": "trigger-014-run-1",
+  "expected_should_trigger": false,
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "trigger",
+  "passed": true,
+  "query": "Make this ordinary React dashboard responsive with Tailwind. It has no Agent-Native dependency.",
+  "raw_reply": null,
+  "run_index": 1,
+  "selected_skills": [],
+  "skill": "agent-native",
+  "split": "train",
+  "triggered": false
+}

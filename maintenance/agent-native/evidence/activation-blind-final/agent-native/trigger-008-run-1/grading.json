@@ -1,0 +1,15 @@
+{
+  "case_id": "trigger-008-run-1",
+  "expected_should_trigger": false,
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "trigger",
+  "passed": true,
+  "query": "My Electron desktop app uses Drizzle and PGlite directly. Add a local inventory table; there is no Agent-Native dependency or chat runtime.",
+  "raw_reply": null,
+  "run_index": 1,
+  "selected_skills": [],
+  "skill": "agent-native",
+  "split": "validation",
+  "triggered": false
+}

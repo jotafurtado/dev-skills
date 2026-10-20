@@ -1,0 +1,38 @@
+{
+  "tabId": "9c6767fd-eee8-424f-8aa5-4cf1950b731e",
+  "url": "http://localhost:4311/tasks",
+  "navigation": {
+    "view": "tasks",
+    "path": "/tasks"
+  },
+  "command": null,
+  "globalCommand": null,
+  "trace": [
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4311/tasks"
+    },
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4311/tasks"
+    },
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4311/tasks"
+    },
+    {
+      "kind": "console",
+      "text": "Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)."
+    },
+    {
+      "kind": "request",
+      "method": "PUT",
+      "url": "http://localhost:4311/_agent-native/application-state/navigation:9c6767fd-eee8-424f-8aa5-4cf1950b731e",
+      "data": "{\"view\":\"tasks\",\"path\":\"/tasks\"}"
+    },
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4311/tasks"
+    }
+  ]
+}

@@ -10,3 +10,6 @@ __pycache__/
 
 # Resolved Composer fixture
 .filament-fixture/
+
+# Local Agent-Native runtime validation laboratory
+.agent-native-fixture/

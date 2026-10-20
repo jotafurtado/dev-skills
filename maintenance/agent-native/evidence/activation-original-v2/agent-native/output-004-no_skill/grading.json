@@ -1,0 +1,71 @@
+{
+  "assertion_results": [
+    {
+      "evidence": "1. **Import Mismatch & State Drift:** Importing `useNavigationState` from Core instead of the local app hook (`app/hooks/use-navigation-state.ts`) bypasses app-specific state synchronization logic, leading to stale selection data (retaining project A's record ID after navigating to project B).\n",
+      "evidence_end_line": 10,
+      "evidence_start_line": 10,
+      "passed": true,
+      "text": "The response identifies useNavigationState as an app/template hook rather than assuming it is a Core export, and investigates the installed navigation primitive."
+    },
+    {
+      "evidence": "2. **Missing Authorization/Context Checks:** The view-screen action loads any supplied record ID blindly without verifying the current actor, creating security and stale-context risks.\n",
+      "evidence_end_line": 11,
+      "evidence_start_line": 11,
+      "passed": true,
+      "text": "The response clears stale selection and resolves view-screen records through authorized scoped reads."
+    },
+    {
+      "evidence": "3. **Cache Key Disconnect:** A raw query utilizing a custom cache key fails to invalidate or update when a UI mutation occurs, meaning data only updates after a full page reload.\n",
+      "evidence_end_line": 12,
+      "evidence_start_line": 12,
+      "passed": true,
+      "text": "The response traces action completion, query keys, invalidation, and refetch before adding manual polling."
+    },
+    {
+      "evidence": "* Agent edits **do not** automatically propagate to the UI without a full page reload (indicating a lack of reactive cache invalidation or real-time sync for local agent runs).\n* Static settings pages and shared project lists currently share the same aggressive polling/refetch behavior despite having entirely different remote-update requirements.\n",
+      "evidence_end_line": 19,
+      "evidence_start_line": 18,
+      "passed": true,
+      "text": "The response distinguishes local run refresh from remote-tab sync and requires a reason and version check for background sync."
+    },
+    {
+      "evidence": "   * Component-level tab ID generation causes duplicate command polling, resulting in double navigation execution and visual selection jitter.\n",
+      "evidence_end_line": 15,
+      "evidence_start_line": 15,
+      "passed": true,
+      "text": "The response reuses tab/request-source identity and framework command consumption to address jitter and duplicate navigation."
+    },
+    {
+      "evidence": "1. **Navigation Context Isolation Test:**\n   * *Action:* Navigate from Project A to Project B.\n   * *Expected Result:* The view immediately reflects Project B's selected record ID. Project A's ID is entirely cleared; no jitter or duplicate navigation commands occur.\n2. **Mutation & Cache Sync Test:**\n   * *Action:* Perform a UI mutation (e.g., editing a record).\n   * *Expected Result:* The updated data displays immediately without requiring a full page reload. Raw queries with custom cache keys correctly reflect the new state.\n3. **Resource Usage & Polling Test:**\n   * *Action:* Navigate to a static settings page and monitor network/query activity.\n   * *Expected Result:* The 1-second global refetch timer does not fire on static settings pages. \n4. **Multi-User Remote Update Test:**\n   * *Action:* Make an edit from a second user account while viewing the shared project list.\n   * *Expected Result:* The shared project list updates to show the remote edit, while static pages remain unaffected by background sync noise.",
+      "evidence_end_line": 57,
+      "evidence_start_line": 46,
+      "passed": true,
+      "text": "The response proposes separate UI-write, agent-write, route/selection, and second-tab checks without claiming executed results."
+    }
+  ],
+  "case_id": "output-004-no_skill",
+  "counts_as_skill_grade": true,
+  "evidence_mode": "model",
+  "execution": "isolated_prompt",
+  "expected_output": "An app-owned navigation-hook investigation, semantic context cleanup, action refresh tracing, and justified remote-sync policy without blanket timers.",
+  "files": [
+    "maintenance/eval-fixtures/agent-native/context-sync.md"
+  ],
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "output",
+  "limits": [
+    "Observed symptoms are synthetic. Installed framework code is absent, so root causes remain hypotheses until inspected."
+  ],
+  "passed": true,
+  "prompt": "Diagnose the Agent-Native navigation and stale-screen problems in the attached incident brief. Give the repair sequence and focused verification scenarios. Distinguish likely causes from verified framework behavior; do not modify files.",
+  "raw_reply": "```json\n{\"results\": [{\"assertion_id\": 1, \"passed\": true, \"evidence_start_line\": 10, \"evidence_end_line\": 10}, {\"assertion_id\": 2, \"passed\": true, \"evidence_start_line\": 11, \"evidence_end_line\": 11}, {\"assertion_id\": 3, \"passed\": true, \"evidence_start_line\": 12, \"evidence_end_line\": 12}, {\"assertion_id\": 4, \"passed\": true, \"evidence_start_line\": 18, \"evidence_end_line\": 19}, {\"assertion_id\": 5, \"passed\": true, \"evidence_start_line\": 15, \"evidence_end_line\": 15}, {\"assertion_id\": 6, \"passed\": true, \"evidence_start_line\": 46, \"evidence_end_line\": 57}]}\n```",
+  "skill": "agent-native",
+  "summary": {
+    "failed": 0,
+    "pass_rate": 1.0,
+    "passed": 6,
+    "total": 6
+  },
+  "variant": "no_skill"
+}

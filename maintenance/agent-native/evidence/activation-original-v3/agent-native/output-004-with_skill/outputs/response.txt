@@ -1,0 +1,55 @@
+Based on the provided incident brief (`maintenance/eval-fixtures/agent-native/context-sync.md`), here is the diagnosis, repair sequence, and focused verification scenarios for the Agent-Native navigation and stale-screen issues.
+
+---
+
+### Diagnosis & Likely Causes
+
+| Observed Symptom / Incident | Hypothesized Cause vs. Framework Contract |
+| --- | --- |
+| **New page imports `useNavigationState` from Core** | Incorrect import. As noted in the app context and references, `useNavigationState` is an app-local template hook (`app/hooks/use-navigation-state.ts`), whereas the documented Core primitive is `useAgentRouteState` from `@agent-native/core/client/navigation`. |
+| **Agent retains project A's selected record ID after moving to project B** | Selection cleanup failure. The UI is updating the route/view without clearing or updating the active selection state when changing scope, leaving stale selection context exposed to the agent. |
+| **`view-screen` action loads any record ID without access checks** | Authorization bypass. The action trusts incoming IDs from the agent context/input without verifying actor permissions or ownership boundaries server-side. |
+| **UI mutation updates DB, but raw query with custom cache key stays stale** | Cache key misalignment. Bypassing standard action query hooks or using arbitrary custom cache keys prevents the framework's automatic mutation refresh path and query invalidation from working correctly. |
+| **Agent edits appear only after full page reload** | Missing refresh integration. The UI is not hooked into action completion signals, change/version signals, or local chat-run refreshes. |
+| **New timer refetches every query every second globally** | Anti-pattern/Polling jitter. Recreating manual timers or polling instead of relying on scoped framework actions or opt-in remote sync (`useDbSync`) causes unnecessary refetch jitter. |
+| **Components create individual tab IDs, duplicate navigation commands, and jitter** | Broken tab identity & fragmented command consumption. Fragmented tab ID generation and multiple independent command consumers cause race conditions where navigate commands run twice and writes trigger self-refetch loops. |
+| **Shared project list needs remote updates; static settings do not** | Architectural scoping. Remote sync is opt-in and should be applied selectively (e.g., via `useDbSync` where appropriate) rather than globally across static pages. |
+
+---
+
+### Repair Sequence
+
+1. **Fix Navigation Hook Imports & Tab Identity**
+   - Correct the new page import to use the app-local navigation hook (`app/hooks/use-navigation-state.ts`) or the official Core primitive (`useAgentRouteState` from `@agent-native/core/client/navigation`) consistently.
+   - Centralize tab ID creation and command consumption at the app layout/shell level rather than letting individual components instantiate their own tab identities and duplicate polling loops.
+
+2. **Correct Selection Cleanup & Context Handoff**
+   - Update route transitions so that when the active container or parent view changes (e.g., from project A to project B), any selections tied to the previous scope are explicitly cleared.
+   - Ensure semantic navigation and context publishing correctly map route state to stable IDs.
+
+3. **Secure Server-Side Access Control in Actions**
+   - Refactor the `view-screen` action (and all other actions receiving context IDs) to derive trusted identity server-side and enforce actor, ownership, and organization boundaries rather than blindly trusting input IDs.
+
+4. **Align Caching and Data Refresh Paths**
+   - Replace raw queries using isolated custom cache keys with standard action query hooks (`useActionQuery` / `useActionMutation`) so they participate in the framework's automatic invalidation and change-version refresh path.
+   - Remove the global 1-second polling timer across static pages.
+
+5. **Configure Scoped Remote Sync**
+   - For shared surfaces requiring real-time updates (like the shared project list), opt in specifically using the supported `useDbSync` contract or framework-provided remote-sync mechanisms. Leave static settings pages un-synced.
+
+---
+
+### Focused Verification Scenarios
+
+1. **Navigation & Selection Cleanup:**
+   - *Action:* Navigate from Project A (with a record selected) to Project B.
+   - *Expected:* The agent context immediately reflects Project B's route and clears Project A's stale selection ID.
+2. **Access Control (`view-screen`):**
+   - *Action:* Pass an unauthorized record ID via the agent context to `view-screen`.
+   - *Expected:* The action rejects the request and denies access based on server-side authorization checks.
+3. **Data Mutation & Query Refresh:**
+   - *Action:* Perform a UI mutation on a project item.
+   - *Expected:* The view updates immediately without requiring a full page reload, and no recurring timer jitter occurs on unrelated static pages.
+4. **Remote Updates (Multi-Tab / Multi-User):**
+   - *Action:* Modify a shared project list item from a second tab or user.
+   - *Expected:* The change propagates to opted-in views via the remote sync mechanism without triggering self-refetched navigation jitter, while static settings pages remain unaffected.

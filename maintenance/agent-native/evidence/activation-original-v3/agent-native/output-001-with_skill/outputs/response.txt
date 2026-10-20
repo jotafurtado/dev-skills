@@ -1,0 +1,32 @@
+Based on the provided Agent-Native project brief and the framework architecture (`@agent-native/core`), the proposed first feature design violates core Agent-Native principles by splitting the UI and agent paths, bypassing server-side authorization, putting context only in local React state, and skipping input validation.
+
+Here is a concrete corrected implementation approach and acceptance checklist following Agent-Native patterns.
+
+---
+
+### Corrected Implementation Approach
+
+1. **Define a Shared Action (`actions/complete-task.ts`)**
+   - Use `defineAction` from `@agent-native/core/action` to define a single operation for task completion.
+   - **Input Schema:** Validate incoming arguments (`taskId`) using the app's supported schema library. Do not accept an arbitrary `ownerId` from the caller; derive the trusted actor/owner server-side from the action run context.
+   - **Agent Discoverability:** Provide a clear description and meaningful input schema so the in-app agent can select and invoke the operation correctly.
+   - **Authorization:** Enforce server-side access checks to verify that the authenticated user/actor owns or has rights to the requested task.
+
+2. **Connect the UI via Action Hooks**
+   - Replace the browser-only POST route with `@agent-native/core/client/hooks` (`useActionQuery` for listing tasks and `useActionMutation` or `callAction` for completing a task).
+   - Handle pending, empty, failure, and success states properly rather than assuming immediate success via a toast.
+
+3. **Publish Semantic Application Context**
+   - Move the open task ID out of purely local React component state and publish it through framework application state (e.g., using the app's navigation or selection context hook, such as `useNavigationState` or framework equivalent) so the agent can inspect what the user currently has open.
+   - Implement or use a `view-screen` action or context resolver so the agent can resolve the open task ID into authorized record summaries.
+
+---
+
+### Acceptance Checks
+
+- **UI Path:** A user can view their task list via the shared action query, select a task, click complete, and see the UI update correctly through pending, success, or failure states.
+- **Agent Path:** The in-app agent can read the active task ID from application context, invoke the exact same `complete-task` action, and achieve the identical state change.
+- **Authorization Verification:** 
+  - An allowed caller owning the task successfully completes it.
+  - A denied caller attempting to complete another user's task or passing a forged `ownerId` is rejected server-side.
+- **Validation:** Calls with missing or malformed `taskId` arguments are rejected by the action schema validation boundary before hitting database logic.

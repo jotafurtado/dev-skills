@@ -1,0 +1,15 @@
+{
+  "case_id": "trigger-007-run-2",
+  "expected_should_trigger": false,
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "trigger",
+  "passed": true,
+  "query": "Revise this product strategy article about agent-native user experiences. It discusses a general design principle and contains no BuilderIO implementation.",
+  "raw_reply": null,
+  "run_index": 2,
+  "selected_skills": [],
+  "skill": "agent-native",
+  "split": "validation",
+  "triggered": false
+}

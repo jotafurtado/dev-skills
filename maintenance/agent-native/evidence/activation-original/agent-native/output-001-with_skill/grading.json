@@ -1,0 +1,64 @@
+{
+  "assertion_results": [
+    {
+      "evidence": "1. **Define a Shared Action (`actions/complete-task.ts`)**:\n   - Use `defineAction` from `@agent-native/core/action`.\n   - Provide a clear agent-facing description and an input schema (e.g., using Zod) requiring `taskId`.\n   - Derive the authenticated user server-side from the run context rather than trusting client inputs.\n   - Enforce access control to verify that the task belongs to the current user before mutating the database.\n\n",
+      "evidence_end_line": 20,
+      "evidence_start_line": 15,
+      "passed": true,
+      "text": "The response replaces the separate UI and agent write implementations with one shared typed action boundary."
+    },
+    {
+      "evidence": "   - Derive the authenticated user server-side from the run context rather than trusting client inputs.\n   - Enforce access control to verify that the task belongs to the current user before mutating the database.\n",
+      "evidence_end_line": 19,
+      "evidence_start_line": 18,
+      "passed": true,
+      "text": "The response derives identity server-side and scopes reads and writes rather than trusting the submitted ownerId."
+    },
+    {
+      "evidence": "2. **Publish Application Context (`app/hooks/use-navigation-state.ts` or equivalent)**:\n   - Wire the currently open task ID into the app's semantic navigation/route state so the agent can automatically resolve what the user is looking at.\n\n3. **Connect the UI (`app/`)**:\n   - Use `useActionQuery` to fetch the task list.\n   - Use `useActionMutation` to invoke the shared `complete-task` action from the UI button.\n   - Handle loading, pending, failure, and success states explicitly rather than assuming immediate success.\n",
+      "evidence_end_line": 27,
+      "evidence_start_line": 21,
+      "passed": true,
+      "text": "The response accounts for UI, actions, reusable instructions when needed, and application context without requiring a new skill for every action."
+    },
+    {
+      "evidence": "- **Limitations**: Because no installed package declarations or workspace manifests were supplied in this fixture, exact import paths (`@agent-native/core/action`, etc.) must be verified against the target environment's package exports before final execution.",
+      "evidence_end_line": 36,
+      "evidence_start_line": 36,
+      "passed": true,
+      "text": "The response explicitly says that exact framework signatures cannot be verified from this fixture and requests installed version-matched docs or types before implementation."
+    },
+    {
+      "evidence": "- **UI Path**: A user clicks complete on a task in the UI; the action validates the input, checks server-side ownership, updates the SQL database, and reflects the updated status with proper pending/success handling.\n- **Agent Path**: The agent reads the active task ID from the application context, invokes the exact same shared action, and successfully completes the task under identical authorization rules.\n- **Authorization Boundary**: A caller attempting to pass an arbitrary `ownerId` or complete a task owned by another user is rejected server-side.\n- **Limitations**: Because no installed package declarations or workspace manifests were supplied in this fixture, exact import paths (`@agent-native/core/action`, etc.) must be verified against the target environment's package exports before final execution.",
+      "evidence_end_line": 36,
+      "evidence_start_line": 33,
+      "passed": true,
+      "text": "The response proposes invalid-input, denied-caller, and UI/agent result-visibility checks without claiming to have executed them."
+    }
+  ],
+  "case_id": "output-001-with_skill",
+  "counts_as_skill_grade": true,
+  "evidence_mode": "model",
+  "execution": "isolated_prompt",
+  "expected_output": "A shared action-centered task workflow with scoped access, typed inputs, agent-visible context, and explicit API/version verification limits.",
+  "files": [
+    "maintenance/eval-fixtures/agent-native/first-feature.md"
+  ],
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "output",
+  "limits": [
+    "Synthetic review fixture only; no installed runtime, package API declarations, or runnable app is supplied."
+  ],
+  "passed": true,
+  "prompt": "Review the proposed first feature in the attached Agent-Native project brief. Give a concrete corrected implementation approach and acceptance checks. Use only available evidence for API claims; do not modify files or install packages.",
+  "raw_reply": "```json\n{\"results\": [{\"assertion_id\": 1, \"passed\": true, \"evidence_start_line\": 15, \"evidence_end_line\": 20}, {\"assertion_id\": 2, \"passed\": true, \"evidence_start_line\": 18, \"evidence_end_line\": 19}, {\"assertion_id\": 3, \"passed\": true, \"evidence_start_line\": 21, \"evidence_end_line\": 27}, {\"assertion_id\": 4, \"passed\": true, \"evidence_start_line\": 36, \"evidence_end_line\": 36}, {\"assertion_id\": 5, \"passed\": true, \"evidence_start_line\": 33, \"evidence_end_line\": 36}]}\n```",
+  "skill": "agent-native",
+  "summary": {
+    "failed": 0,
+    "pass_rate": 1.0,
+    "passed": 5,
+    "total": 5
+  },
+  "variant": "with_skill"
+}

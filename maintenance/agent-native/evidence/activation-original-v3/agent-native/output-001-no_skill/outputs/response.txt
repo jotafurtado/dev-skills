@@ -1,0 +1,38 @@
+Based on the provided project brief (`maintenance/eval-fixtures/agent-native/first-feature.md`), here is a review of the proposed first feature, a concrete corrected implementation approach, and corresponding acceptance checks.
+
+### Review of the Proposed Implementation
+
+The proposed implementation contains critical security, architectural, and UX flaws based on the project constraints:
+1. **Security Vulnerabilities:** It uses a browser-only POST route and an agent tool that update SQL directly *without* verifying the authenticated actor against the `ownerId`, and fetches the task list without ownership filtering. This exposes an insecure direct object reference (IDOR) risk.
+2. **State Management Flaw:** Storing the open task ID *only* in React component state prevents the in-app agent from understanding which task the user currently has open.
+3. **UX & Reliability Gaps:** Displaying a success toast immediately on click (before network resolution) and skipping input validation, action descriptions, and pending/error states will lead to misleading UI behavior.
+
+---
+
+### Concrete Corrected Implementation Approach
+
+1. **Unified Data Access & Authorization Layer:**
+   - Create a shared, server-side helper function for task completion and task listing that enforces authentication and ownership checks (verifying that the authenticated actor matches the task's `ownerId`).
+   - Route both the UI action handler and the agent tool through this single shared function to eliminate code duplication and inconsistent authorization logic.
+
+2. **Context-Aware State for Agent Integration:**
+   - Lift the open task ID out of isolated React component state and into a shared state mechanism (or context/URL state accessible to the app navigation hook and the action directory) so that the in-app agent can reliably inspect which task the user has open.
+
+3. **Robust Action Design & Error Handling:**
+   - Equip the agent tool with a clear **action description** and strict **input validation** (ensuring `taskId` and `ownerId`/auth context are valid).
+   - Implement proper **pending and error states** in the UI (disabling buttons during mutation, awaiting network resolution before showing success toasts, and handling failure states gracefully).
+
+---
+
+### Acceptance Checks
+
+1. **Authorization & Security Check:**
+   - Verify that attempting to list tasks only returns tasks belonging to the authenticated user.
+   - Verify that attempting to complete a task via either the UI route or the agent tool where the authenticated actor does not match the task's `ownerId` is rejected with an unauthorized/forbidden error.
+
+2. **Agent Context Check:**
+   - Verify that when a user opens a specific task in the UI, the in-app agent can correctly identify and reference that open task ID when requested.
+
+3. **UX & Reliability Check:**
+   - Verify that clicking the completion button triggers a loading/pending state, performs the update, and *only* displays a success toast upon successful server confirmation.
+   - Verify that network or validation errors display an appropriate error message rather than a premature success state.

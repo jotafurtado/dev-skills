@@ -1,0 +1,15 @@
+{
+  "case_id": "trigger-007-run-2",
+  "expected_should_trigger": false,
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "trigger",
+  "passed": true,
+  "query": "Discuss whether agent-native is a useful product philosophy. Do not adopt BuilderIO or any specific framework.",
+  "raw_reply": null,
+  "run_index": 2,
+  "selected_skills": [],
+  "skill": "agent-native",
+  "split": "validation",
+  "triggered": false
+}

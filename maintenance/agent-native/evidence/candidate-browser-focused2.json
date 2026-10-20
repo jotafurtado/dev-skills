@@ -1,0 +1,219 @@
+{
+  "config": {
+    "argv": [
+      "/opt/homebrew/Cellar/node@24/24.22.0/bin/node",
+      "<repository>/.agent-native-fixture/harness/node_modules/playwright/cli.js",
+      "test",
+      "--config",
+      "maintenance/agent-native/playwright.config.ts",
+      "--grep",
+      "context:|real OpenRouter"
+    ],
+    "configFile": "<repository>/maintenance/agent-native/playwright.config.ts",
+    "rootDir": "<repository>/maintenance/agent-native/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "<repository>/.agent-native-fixture/playwright-output-candidate",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "<repository>/maintenance/agent-native/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 120000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "<repository>/.agent-native-fixture/playwright-output-candidate",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "<repository>/maintenance/agent-native/tests",
+        "snapshotDir": "<repository>/maintenance/agent-native/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 120000,
+        "use": {
+          "baseURL": "http://localhost:4311",
+          "headless": true,
+          "trace": "off",
+          "screenshot": "only-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "<repository>/.agent-native-fixture/evidence/candidate-browser-focused2.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "tasks.spec.ts",
+      "file": "tasks.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "context: selected task is published and removed after route change",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4757,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T02:20:36.201Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d2d3f88df070d751ab05-6ff60cb3b2fe6224e602",
+          "file": "tasks.spec.ts",
+          "line": 128,
+          "column": 1
+        },
+        {
+          "title": "real OpenRouter agent: create, navigate once, context, complete, chat continuity",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 46812,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Real agent 2a053d8a-a6f4-47c5-a93d-f06e01cd757b' })\nExpected: visible\nTimeout: 35000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Real agent 2a053d8a-a6f4-47c5-a93d-f06e01cd757b' }) with timeout 35000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Real agent 2a053d8a-a6f4-47c5-a93d-f06e01cd757b' })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Real agent 2a053d8a-a6f4-47c5-a93d-f06e01cd757b' })\nExpected: visible\nTimeout: 35000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Real agent 2a053d8a-a6f4-47c5-a93d-f06e01cd757b' }) with timeout 35000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Real agent 2a053d8a-a6f4-47c5-a93d-f06e01cd757b' })\u001b[22m\n\n    at <repository>/maintenance/agent-native/tests/tasks.spec.ts:163:66",
+                    "location": {
+                      "file": "<repository>/maintenance/agent-native/tests/tasks.spec.ts",
+                      "column": 66,
+                      "line": 163
+                    },
+                    "snippet": "  161 |   expect(creation.events.filter(event => event.type === 'tool_start' && event.tool === 'navigate')).toHaveLength(1);\n  162 |   await writeFile(new URL(`${variant}-${process.env.LAB_RUN ?? 'final'}-navigation-before.json`, evidence), JSON.stringify({ tabId: tab(), url: page.url(), navigation: await state(context.request, 'navigation', tab()), command: await state(context.request, 'navigate', tab()) }, null, 2));\n> 163 |   try { await expect(page.getByRole('heading', { name: title })).toBeVisible({ timeout: 35_000 }); }\n      |                                                                  ^\n  164 |   finally { await writeFile(new URL(`${variant}-${process.env.LAB_RUN ?? 'final'}-navigation-after.json`, evidence), JSON.stringify({ tabId: tab(), url: page.url(), navigation: await state(context.request, 'navigation', tab()), command: await state(context.request, 'navigate', tab()), globalCommand: await state(context.request, 'navigate', '') }, null, 2)); }\n  165 |   const rows = (await list(context.request)).filter(task => task.title === title);\n  166 |   expect(rows).toHaveLength(1); expect(transitions).toBe(1);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "<repository>/maintenance/agent-native/tests/tasks.spec.ts",
+                        "column": 66,
+                        "line": 163
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Real agent 2a053d8a-a6f4-47c5-a93d-f06e01cd757b' })\nExpected: visible\nTimeout: 35000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Real agent 2a053d8a-a6f4-47c5-a93d-f06e01cd757b' }) with timeout 35000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Real agent 2a053d8a-a6f4-47c5-a93d-f06e01cd757b' })\u001b[22m\n\n\n  161 |   expect(creation.events.filter(event => event.type === 'tool_start' && event.tool === 'navigate')).toHaveLength(1);\n  162 |   await writeFile(new URL(`${variant}-${process.env.LAB_RUN ?? 'final'}-navigation-before.json`, evidence), JSON.stringify({ tabId: tab(), url: page.url(), navigation: await state(context.request, 'navigation', tab()), command: await state(context.request, 'navigate', tab()) }, null, 2));\n> 163 |   try { await expect(page.getByRole('heading', { name: title })).toBeVisible({ timeout: 35_000 }); }\n      |                                                                  ^\n  164 |   finally { await writeFile(new URL(`${variant}-${process.env.LAB_RUN ?? 'final'}-navigation-after.json`, evidence), JSON.stringify({ tabId: tab(), url: page.url(), navigation: await state(context.request, 'navigation', tab()), command: await state(context.request, 'navigate', tab()), globalCommand: await state(context.request, 'navigate', '') }, null, 2)); }\n  165 |   const rows = (await list(context.request)).filter(task => task.title === title);\n  166 |   expect(rows).toHaveLength(1); expect(transitions).toBe(1);\n    at <repository>/maintenance/agent-native/tests/tasks.spec.ts:163:66"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T02:20:41.069Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "<repository>/.agent-native-fixture/playwright-output-candidate/tasks-real-OpenRouter-agen-e1891-xt-complete-chat-continuity/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "<repository>/.agent-native-fixture/playwright-output-candidate/tasks-real-OpenRouter-agen-e1891-xt-complete-chat-continuity/error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "<repository>/maintenance/agent-native/tests/tasks.spec.ts",
+                    "column": 66,
+                    "line": 163
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d2d3f88df070d751ab05-161fc3841c47443d44ac",
+          "file": "tasks.spec.ts",
+          "line": 151,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-18T02:20:35.760Z",
+    "duration": 52184.808,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "assertion_results": [
+    {
+      "evidence": "### Reusable Building-Block Family\nThe reusable building-block family to preserve is the **Toolkit UI** (along with the Core-backed chat capabilities and existing runtime adapters). \n\nInstead of building a separate conversation state, copying composer source, or bypassing runtime adapters to talk directly to a provider via `localStorage`, the implementation should reuse the established Toolkit UI components and wrap ordinary controls with app-local adapters as intended by the existing architecture.\n",
+      "evidence_end_line": 6,
+      "evidence_start_line": 3,
+      "passed": true,
+      "text": "The response selects a documented Toolkit chat family such as AgentPanel, AgentChatSurface, or AssistantChat according to the requested custom layout."
+    },
+    {
+      "evidence": "### Ownership Boundaries to Preserve\n1. **API & Provider Layer:** Keep provider communication, API keys, and streaming logic tied to the Core/provider boundaries rather than storing API keys in `localStorage` inside an app-owned fetch loop.\n2. **State & History:** Maintain the existing thread history, streaming responses, attachments, and tool results within the established chat/Toolkit infrastructure rather than maintaining a separate, disconnected conversation state.\n",
+      "evidence_end_line": 10,
+      "evidence_start_line": 8,
+      "passed": true,
+      "text": "The response preserves shared thread, streaming, attachment, tool-result, and application-context behavior rather than replacing chat with an independent fetch loop."
+    },
+    {
+      "evidence": "### Ownership Boundaries to Preserve\n1. **API & Provider Layer:** Keep provider communication, API keys, and streaming logic tied to the Core/provider boundaries rather than storing API keys in `localStorage` inside an app-owned fetch loop.\n2. **State & History:** Maintain the existing thread history, streaming responses, attachments, and tool results within the established chat/Toolkit infrastructure rather than maintaining a separate, disconnected conversation state.\n3. **Permission & Context Security:** Preserve strict permission boundaries regarding private project records. Specifically, **do not** allow putting a record ID into the chat context to automatically grant the agent permission to load it; authorization checks must remain intact independently of the UI chat context selection.",
+      "evidence_end_line": 11,
+      "evidence_start_line": 8,
+      "passed": true,
+      "text": "The response keeps credentials server-side and treats source/selection context as distinct from authorization."
+    },
+    {
+      "evidence": "### Reusable Building-Block Family\nThe reusable building-block family to preserve is the **Toolkit UI** (along with the Core-backed chat capabilities and existing runtime adapters). \n\nInstead of building a separate conversation state, copying composer source, or bypassing runtime adapters to talk directly to a provider via `localStorage`, the implementation should reuse the established Toolkit UI components and wrap ordinary controls with app-local adapters as intended by the existing architecture.\n",
+      "evidence_end_line": 6,
+      "evidence_start_line": 3,
+      "passed": true,
+      "text": "The response uses existing app-local control adapters and supported composition or customization rather than copying Toolkit internals."
+    },
+    {
+      "evidence": "Based on the provided brief, here is the implementation direction for the Agent-Native chat redesign:\n\n",
+      "evidence_end_line": 2,
+      "evidence_start_line": 1,
+      "passed": false,
+      "text": "The response requires checking the installed exports and provider or runtime obligations before committing to imports or props."
+    }
+  ],
+  "case_id": "output-003-no_skill",
+  "counts_as_skill_grade": true,
+  "evidence_mode": "model",
+  "execution": "isolated_prompt",
+  "expected_output": "A Toolkit composition retaining Core-backed chat behavior, app-local UI adapters, and server-side authorization/credentials.",
+  "files": [
+    "maintenance/eval-fixtures/agent-native/chat-redesign.md"
+  ],
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "output",
+  "limits": [
+    "The brief provides product requirements and a rejected design, not installed Toolkit API declarations."
+  ],
+  "passed": false,
+  "prompt": "Choose an implementation direction for the Agent-Native chat redesign in the attached brief. Identify the reusable building-block family and the ownership boundaries to preserve. Do not generate speculative component props or modify files.",
+  "raw_reply": "```json\n{\"results\": [{\"assertion_id\": 1, \"passed\": true, \"evidence_start_line\": 3, \"evidence_end_line\": 6}, {\"assertion_id\": 2, \"passed\": true, \"evidence_start_line\": 8, \"evidence_end_line\": 10}, {\"assertion_id\": 3, \"passed\": true, \"evidence_start_line\": 8, \"evidence_end_line\": 11}, {\"assertion_id\": 4, \"passed\": true, \"evidence_start_line\": 3, \"evidence_end_line\": 6}, {\"assertion_id\": 5, \"passed\": false, \"evidence_start_line\": 1, \"evidence_end_line\": 2}]}\n```",
+  "skill": "agent-native",
+  "summary": {
+    "failed": 1,
+    "pass_rate": 0.8,
+    "passed": 4,
+    "total": 5
+  },
+  "variant": "no_skill"
+}

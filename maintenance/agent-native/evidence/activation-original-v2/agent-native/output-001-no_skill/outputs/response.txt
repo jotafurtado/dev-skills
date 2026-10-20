@@ -1,0 +1,38 @@
+Based on the provided project brief, here is a review of the proposed first feature, a concrete corrected implementation approach, and acceptance checks using only the available evidence.
+
+### Review of the Proposed Implementation
+
+The proposed approach contains significant security, architectural, and reliability flaws:
+1. **Security Vulnerabilities:** Allowing a browser-only POST route and an agent tool to update SQL directly using caller-supplied `taskId` and `ownerId` *without* verifying the authenticated actor against that `ownerId` creates a severe authorization flaw (Insecure Direct Object Reference). Similarly, fetching tasks without ownership filtering exposes unauthorized data.
+2. **Code Duplication & Maintenance Risk:** Maintaining separate SQL update logic for the browser route and the agent tool violates DRY principles and increases the risk of divergence.
+3. **State Management & UX Flaws:** Storing the open task ID *only* in React component state makes it inaccessible to the agent (which needs to understand which task the user has open). Furthermore, displaying a success toast immediately upon click without waiting for pending states, error handling, or input validation leads to false positives and poor UX.
+
+---
+
+### Concrete Corrected Implementation Approach
+
+1. **Shared Service Layer for Business Logic:**
+   - Extract the task completion and fetching logic into a shared service function (or action directory module) that enforces ownership and input validation. Both the UI route and the agent tool must call this single source of truth.
+
+2. **Authentication and Authorization Verification:**
+   - Ensure both the browser route and the agent tool derive the `ownerId` from the verified, authenticated session rather than trusting unverified client input. Validate that the task belongs to the authenticated actor before executing any SQL updates.
+
+3. **Unified Agent & UI Context:**
+   - Lift the "open task ID" state out of isolated React component state into a shared context, store, or URL/session state that both the UI components and the in-app agent can reliably access to determine the currently open task.
+
+4. **Robust UI/UX & Lifecycle States:**
+   - Implement proper pending, error, and success states. Only display the success toast and update the UI *after* the backend/action successfully confirms the completion.
+   - Include clear action descriptions and input validation for both user actions and agent tools.
+
+---
+
+### Acceptance Checks
+
+1. **Authorization Check:** 
+   - Verify that a user (or agent acting on behalf of a user) cannot complete or view tasks belonging to a different `ownerId`. Attempting to pass a mismatched `ownerId` or `taskId` must result in an authorization error.
+2. **Shared Logic Verification:** 
+   - Confirm that both the UI interaction path and the agent tool invoke the exact same underlying task-completion function, preventing logic drift.
+3. **Agent Context Awareness:** 
+   - Verify that when a user has a specific task open in the UI, the in-app agent correctly identifies and interacts with that exact open task ID without requiring explicit manual repetition from the user.
+4. **Reliable UI Feedback:** 
+   - Ensure that clicking the completion button correctly displays a pending state, handles network/SQL errors gracefully without showing a false-positive success toast, and only shows success upon confirmed completion.

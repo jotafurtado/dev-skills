@@ -1,0 +1,15 @@
+{
+  "case_id": "trigger-015-run-1",
+  "expected_should_trigger": false,
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "trigger",
+  "passed": true,
+  "query": "Write a SKILL.md for organizing PDF invoices. No app framework is involved.",
+  "raw_reply": null,
+  "run_index": 1,
+  "selected_skills": [],
+  "skill": "agent-native",
+  "split": "train",
+  "triggered": false
+}

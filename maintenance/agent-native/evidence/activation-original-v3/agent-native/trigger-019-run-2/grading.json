@@ -1,0 +1,15 @@
+{
+  "case_id": "trigger-019-run-2",
+  "expected_should_trigger": false,
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "trigger",
+  "passed": true,
+  "query": "Compare the term native agent with an operating system daemon. I am asking about terminology only.",
+  "raw_reply": null,
+  "run_index": 2,
+  "selected_skills": [],
+  "skill": "agent-native",
+  "split": "validation",
+  "triggered": false
+}

@@ -1,0 +1,17 @@
+{
+  "case_id": "trigger-002-run-1",
+  "expected_should_trigger": true,
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "trigger",
+  "passed": true,
+  "query": "Our Agent-Native workspace needs owner-scoped SQL reads and authenticated mutations. Review the installed action context before implementing.",
+  "raw_reply": null,
+  "run_index": 1,
+  "selected_skills": [
+    "agent-native"
+  ],
+  "skill": "agent-native",
+  "split": "validation",
+  "triggered": true
+}

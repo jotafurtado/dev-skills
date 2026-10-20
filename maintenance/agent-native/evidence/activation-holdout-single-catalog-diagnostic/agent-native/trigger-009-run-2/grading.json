@@ -1,0 +1,15 @@
+{
+  "case_id": "trigger-009-run-2",
+  "expected_should_trigger": false,
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "trigger",
+  "passed": true,
+  "query": "Configure native PostgreSQL logical replication between two servers; there is no application UI or AI runtime.",
+  "raw_reply": null,
+  "run_index": 2,
+  "selected_skills": [],
+  "skill": "agent-native",
+  "split": "validation",
+  "triggered": false
+}

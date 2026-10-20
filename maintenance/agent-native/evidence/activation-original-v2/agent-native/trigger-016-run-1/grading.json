@@ -1,0 +1,15 @@
+{
+  "case_id": "trigger-016-run-1",
+  "expected_should_trigger": false,
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "trigger",
+  "passed": true,
+  "query": "Connect the OpenAI Responses API to an existing Express service without adopting Agent-Native.",
+  "raw_reply": null,
+  "run_index": 1,
+  "selected_skills": [],
+  "skill": "agent-native",
+  "split": "validation",
+  "triggered": false
+}

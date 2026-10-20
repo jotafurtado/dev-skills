@@ -1,0 +1,56 @@
+: ping 1792290439009
+
+data: {"type":"activity","id":"agentkit:internal:run-1792290438969-pz3k3p:starting-agent","label":"Starting agent","seq":0,"eventId":"run-1792290438969-pz3k3p:0"}
+
+data: {"type":"activity","id":"agentkit:internal:run-1792290438969-pz3k3p:contacting-model","label":"Contacting model","seq":1,"eventId":"run-1792290438969-pz3k3p:1"}
+
+data: {"type":"suggestions","suggestions":[],"seq":2,"eventId":"run-1792290438969-pz3k3p:2"}
+
+data: {"type":"model_stream","status":"start","seq":3,"eventId":"run-1792290438969-pz3k3p:3"}
+
+data: {"type":"tool_input_start","tool":"create-task","id":"call_106857","seq":4,"eventId":"run-1792290438969-pz3k3p:4"}
+
+data: {"type":"activity","label":"Preparing create-task action","tool":"create-task","id":"call_106857","seq":5,"eventId":"run-1792290438969-pz3k3p:5"}
+
+data: {"type":"tool_input_delta","tool":"create-task","id":"call_106857","text":"{\"title\":\"Real agent 8bdfa973-209a-4c7d-94bd-35efd2fbe256\"}","seq":6,"eventId":"run-1792290438969-pz3k3p:6"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":7,"eventId":"run-1792290438969-pz3k3p:7"}
+
+data: {"type":"tool_start","id":"call_106857","tool":"create-task","input":{"title":"Real agent 8bdfa973-209a-4c7d-94bd-35efd2fbe256"},"seq":8,"eventId":"run-1792290438969-pz3k3p:8"}
+
+data: {"type":"tool_done","id":"call_106857","tool":"create-task","input":{"title":"Real agent 8bdfa973-209a-4c7d-94bd-35efd2fbe256"},"result":"{\n  \"id\": \"d2b9e5b8-fdff-4059-8e4a-a5480376c4c6\",\n  \"title\": \"Real agent 8bdfa973-209a-4c7d-94bd-35efd2fbe256\",\n  \"completed\": false,\n  \"createdAt\": \"2026-10-17 23:27:21.398-03\",\n  \"urlPath\": \"/tasks?taskId=d2b9e5b8-fdff-4059-8e4a-a5480376c4c6\",\n  \"_receipt\": {\n    \"changed\": true,\n    \"verified\": true,\n    \"subject\": \"d2b9e5b8-fdff-4059-8e4a-a5480376c4c6\",\n    \"summary\": \"Tarefa criada e verificada.\"\n  }\n}","completedSideEffect":true,"approvalPause":false,"seq":9,"eventId":"run-1792290438969-pz3k3p:9"}
+
+data: {"type":"model_stream","status":"start","seq":10,"eventId":"run-1792290438969-pz3k3p:10"}
+
+data: {"type":"tool_input_start","tool":"navigate","id":"call_201886","seq":11,"eventId":"run-1792290438969-pz3k3p:11"}
+
+data: {"type":"activity","label":"Preparing navigate action","tool":"navigate","id":"call_201886","seq":12,"eventId":"run-1792290438969-pz3k3p:12"}
+
+data: {"type":"tool_input_delta","tool":"navigate","id":"call_201886","text":"{\"path\":\"/tasks?taskId=d2b9e5b8-fdff-4059-8e4a-a5480376c4c6\",\"taskId\":\"d2b9e5b8-fdff-4059-8e4a-a5480376c4c6\",\"view\":\"tasks\"}","seq":13,"eventId":"run-1792290438969-pz3k3p:13"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":14,"eventId":"run-1792290438969-pz3k3p:14"}
+
+data: {"type":"tool_start","id":"call_201886","tool":"navigate","input":{"path":"/tasks?taskId=d2b9e5b8-fdff-4059-8e4a-a5480376c4c6","taskId":"d2b9e5b8-fdff-4059-8e4a-a5480376c4c6","view":"tasks"},"seq":15,"eventId":"run-1792290438969-pz3k3p:15"}
+
+data: {"type":"tool_done","id":"call_201886","tool":"navigate","input":{"path":"/tasks?taskId=d2b9e5b8-fdff-4059-8e4a-a5480376c4c6","taskId":"d2b9e5b8-fdff-4059-8e4a-a5480376c4c6","view":"tasks"},"result":"{\n  \"message\": \"Navegação solicitada.\",\n  \"path\": \"/tasks?taskId=d2b9e5b8-fdff-4059-8e4a-a5480376c4c6\"\n}","completedSideEffect":true,"approvalPause":false,"seq":16,"eventId":"run-1792290438969-pz3k3p:16"}
+
+data: {"type":"model_stream","status":"start","seq":17,"eventId":"run-1792290438969-pz3k3p:17"}
+
+data: {"type":"text","text":"I have","seq":18,"eventId":"run-1792290438969-pz3k3p:18"}
+
+data: {"type":"text","text":" created the private task titled \"Real agent 8bdfa973-2","seq":19,"eventId":"run-1792290438969-pz3k3p:19"}
+
+data: {"type":"text","text":"09a-4c7d-94bd-35efd2fbe256\"","seq":20,"eventId":"run-1792290438969-pz3k3p:20"}
+
+data: {"type":"text","text":" and navigated to it.","seq":21,"eventId":"run-1792290438969-pz3k3p:21"}
+
+data: {"type":"model_stream","status":"end","reason":"end_turn","seq":22,"eventId":"run-1792290438969-pz3k3p:22"}
+
+data: {"type":"model_stream","status":"start","seq":23,"eventId":"run-1792290438969-pz3k3p:23"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":24,"eventId":"run-1792290438969-pz3k3p:24"}
+
+data: {"type":"suggestions","suggestions":[],"seq":25,"eventId":"run-1792290438969-pz3k3p:25"}
+
+data: {"type":"done","seq":26,"eventId":"run-1792290438969-pz3k3p:26"}
+

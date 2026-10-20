@@ -1,0 +1,56 @@
+: ping 1792290334496
+
+data: {"type":"activity","id":"agentkit:internal:run-1792290334490-sesyaf:starting-agent","label":"Starting agent","seq":0,"eventId":"run-1792290334490-sesyaf:0"}
+
+data: {"type":"activity","id":"agentkit:internal:run-1792290334490-sesyaf:contacting-model","label":"Contacting model","seq":1,"eventId":"run-1792290334490-sesyaf:1"}
+
+data: {"type":"suggestions","suggestions":[],"seq":2,"eventId":"run-1792290334490-sesyaf:2"}
+
+data: {"type":"model_stream","status":"start","seq":3,"eventId":"run-1792290334490-sesyaf:3"}
+
+data: {"type":"tool_input_start","tool":"create-task","id":"call_60499","seq":4,"eventId":"run-1792290334490-sesyaf:4"}
+
+data: {"type":"activity","label":"Preparing create-task action","tool":"create-task","id":"call_60499","seq":5,"eventId":"run-1792290334490-sesyaf:5"}
+
+data: {"type":"tool_input_delta","tool":"create-task","id":"call_60499","text":"{\"title\":\"Real agent 4604b808-2aac-4e6f-8c95-6e469a55fc44\"}","seq":6,"eventId":"run-1792290334490-sesyaf:6"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":7,"eventId":"run-1792290334490-sesyaf:7"}
+
+data: {"type":"tool_start","id":"call_60499","tool":"create-task","input":{"title":"Real agent 4604b808-2aac-4e6f-8c95-6e469a55fc44"},"seq":8,"eventId":"run-1792290334490-sesyaf:8"}
+
+data: {"type":"tool_done","id":"call_60499","tool":"create-task","input":{"title":"Real agent 4604b808-2aac-4e6f-8c95-6e469a55fc44"},"result":"{\n  \"id\": \"56739cbf-f244-4f2e-885d-68d6ef17874b\",\n  \"title\": \"Real agent 4604b808-2aac-4e6f-8c95-6e469a55fc44\",\n  \"completed\": false,\n  \"createdAt\": \"2026-10-18T02:25:36.403Z\"\n}","completedSideEffect":true,"approvalPause":false,"seq":9,"eventId":"run-1792290334490-sesyaf:9"}
+
+data: {"type":"model_stream","status":"start","seq":10,"eventId":"run-1792290334490-sesyaf:10"}
+
+data: {"type":"tool_input_start","tool":"navigate","id":"call_65793","seq":11,"eventId":"run-1792290334490-sesyaf:11"}
+
+data: {"type":"activity","label":"Preparing navigate action","tool":"navigate","id":"call_65793","seq":12,"eventId":"run-1792290334490-sesyaf:12"}
+
+data: {"type":"tool_input_delta","tool":"navigate","id":"call_65793","text":"{\"view\":\"tasks\",\"id\":\"56739cbf-f244-4f2e-885d-68d6ef17874b\"}","seq":13,"eventId":"run-1792290334490-sesyaf:13"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":14,"eventId":"run-1792290334490-sesyaf:14"}
+
+data: {"type":"tool_start","id":"call_65793","tool":"navigate","input":{"view":"tasks","id":"56739cbf-f244-4f2e-885d-68d6ef17874b"},"seq":15,"eventId":"run-1792290334490-sesyaf:15"}
+
+data: {"type":"tool_done","id":"call_65793","tool":"navigate","input":{"view":"tasks","id":"56739cbf-f244-4f2e-885d-68d6ef17874b"},"result":"Navigating to tasks","completedSideEffect":true,"approvalPause":false,"seq":16,"eventId":"run-1792290334490-sesyaf:16"}
+
+data: {"type":"model_stream","status":"start","seq":17,"eventId":"run-1792290334490-sesyaf:17"}
+
+data: {"type":"text","text":"I have","seq":18,"eventId":"run-1792290334490-sesyaf:18"}
+
+data: {"type":"text","text":" created the private task \"Real agent 4604b808-2","seq":19,"eventId":"run-1792290334490-sesyaf:19"}
+
+data: {"type":"text","text":"aac-4e6f-8c95-6e469a55fc44\"","seq":20,"eventId":"run-1792290334490-sesyaf:20"}
+
+data: {"type":"text","text":" and navigated to it.","seq":21,"eventId":"run-1792290334490-sesyaf:21"}
+
+data: {"type":"model_stream","status":"end","reason":"end_turn","seq":22,"eventId":"run-1792290334490-sesyaf:22"}
+
+data: {"type":"model_stream","status":"start","seq":23,"eventId":"run-1792290334490-sesyaf:23"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":24,"eventId":"run-1792290334490-sesyaf:24"}
+
+data: {"type":"suggestions","suggestions":[],"seq":25,"eventId":"run-1792290334490-sesyaf:25"}
+
+data: {"type":"done","seq":26,"eventId":"run-1792290334490-sesyaf:26"}
+

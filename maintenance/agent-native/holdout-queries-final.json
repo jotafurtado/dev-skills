@@ -1,0 +1,12 @@
+[
+  {"query":"Our BuilderIO Agent-Native app imports supplier records. Add an import preview and a confirmed write through the existing action system, preserving the generated app conventions.","should_trigger":true,"split":"validation"},
+  {"query":"The public Toolkit import in our @agent-native/core application no longer resolves after a lockfile refresh. Inspect the resolved packages and repair the integration without an unrelated upgrade.","should_trigger":true,"split":"validation"},
+  {"query":"No projeto BuilderIO Agent-Native, cancelar a edição de uma proposta deixa o agente apontando para o registro anterior. Corrija o estado contextual e confira a troca de tela.","should_trigger":true,"split":"validation"},
+  {"query":"Extend our confirmed Agent-Native Chat scaffold with a PostgreSQL-backed approval queue that both the person and the agent can operate through the same validated capabilities.","should_trigger":true,"split":"validation"},
+  {"query":"In our @agent-native/toolkit product, a redesigned composer lost attachments and tool-result rendering. Restore the supported chat composition while preserving existing threads.","should_trigger":true,"split":"validation"},
+  {"query":"Build an assistant panel in Nuxt UI using our existing custom HTTP backend. We are not adopting the Agent-Native framework.","should_trigger":false,"split":"validation"},
+  {"query":"Fix Android permissions in an Expo React Native app that uses @react-native-community packages.","should_trigger":false,"split":"validation"},
+  {"query":"Revise this product strategy article about agent-native user experiences. It discusses a general design principle and contains no BuilderIO implementation.","should_trigger":false,"split":"validation"},
+  {"query":"My Electron desktop app uses Drizzle and PGlite directly. Add a local inventory table; there is no Agent-Native dependency or chat runtime.","should_trigger":false,"split":"validation"},
+  {"query":"Implement OpenRouter tool calling in a standalone Go command-line program using its existing HTTP client, without adding an application framework.","should_trigger":false,"split":"validation"}
+]

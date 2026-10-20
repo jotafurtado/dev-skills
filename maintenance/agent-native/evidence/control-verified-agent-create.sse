@@ -1,0 +1,56 @@
+: ping 1792291359706
+
+data: {"type":"activity","id":"agentkit:internal:run-1792291359700-alajsz:starting-agent","label":"Starting agent","seq":0,"eventId":"run-1792291359700-alajsz:0"}
+
+data: {"type":"activity","id":"agentkit:internal:run-1792291359700-alajsz:contacting-model","label":"Contacting model","seq":1,"eventId":"run-1792291359700-alajsz:1"}
+
+data: {"type":"suggestions","suggestions":[],"seq":2,"eventId":"run-1792291359700-alajsz:2"}
+
+data: {"type":"model_stream","status":"start","seq":3,"eventId":"run-1792291359700-alajsz:3"}
+
+data: {"type":"tool_input_start","tool":"create-task","id":"call_107737","seq":4,"eventId":"run-1792291359700-alajsz:4"}
+
+data: {"type":"activity","label":"Preparing create-task action","tool":"create-task","id":"call_107737","seq":5,"eventId":"run-1792291359700-alajsz:5"}
+
+data: {"type":"tool_input_delta","tool":"create-task","id":"call_107737","text":"{\"title\":\"Real agent 182bfb0e-bcb7-4d4c-8803-606078603e79\"}","seq":6,"eventId":"run-1792291359700-alajsz:6"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":7,"eventId":"run-1792291359700-alajsz:7"}
+
+data: {"type":"tool_start","id":"call_107737","tool":"create-task","input":{"title":"Real agent 182bfb0e-bcb7-4d4c-8803-606078603e79"},"seq":8,"eventId":"run-1792291359700-alajsz:8"}
+
+data: {"type":"tool_done","id":"call_107737","tool":"create-task","input":{"title":"Real agent 182bfb0e-bcb7-4d4c-8803-606078603e79"},"result":"{\n  \"id\": \"ffee7dc5-54f2-4d12-8757-0bba00469c3b\",\n  \"title\": \"Real agent 182bfb0e-bcb7-4d4c-8803-606078603e79\",\n  \"completed\": false,\n  \"createdAt\": \"2026-10-17 23:42:42.692-03\",\n  \"urlPath\": \"/tasks?taskId=ffee7dc5-54f2-4d12-8757-0bba00469c3b\",\n  \"_receipt\": {\n    \"changed\": true,\n    \"verified\": true,\n    \"subject\": \"ffee7dc5-54f2-4d12-8757-0bba00469c3b\",\n    \"summary\": \"Tarefa criada e verificada.\"\n  }\n}","completedSideEffect":true,"approvalPause":false,"seq":9,"eventId":"run-1792291359700-alajsz:9"}
+
+data: {"type":"model_stream","status":"start","seq":10,"eventId":"run-1792291359700-alajsz:10"}
+
+data: {"type":"tool_input_start","tool":"navigate","id":"call_114634","seq":11,"eventId":"run-1792291359700-alajsz:11"}
+
+data: {"type":"activity","label":"Preparing navigate action","tool":"navigate","id":"call_114634","seq":12,"eventId":"run-1792291359700-alajsz:12"}
+
+data: {"type":"tool_input_delta","tool":"navigate","id":"call_114634","text":"{\"taskId\":\"ffee7dc5-54f2-4d12-8757-0bba00469c3b\",\"view\":\"tasks\"}","seq":13,"eventId":"run-1792291359700-alajsz:13"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":14,"eventId":"run-1792291359700-alajsz:14"}
+
+data: {"type":"tool_start","id":"call_114634","tool":"navigate","input":{"taskId":"ffee7dc5-54f2-4d12-8757-0bba00469c3b","view":"tasks"},"seq":15,"eventId":"run-1792291359700-alajsz:15"}
+
+data: {"type":"tool_done","id":"call_114634","tool":"navigate","input":{"taskId":"ffee7dc5-54f2-4d12-8757-0bba00469c3b","view":"tasks"},"result":"{\n  \"message\": \"Navegação solicitada.\",\n  \"path\": \"/tasks?taskId=ffee7dc5-54f2-4d12-8757-0bba00469c3b\"\n}","completedSideEffect":true,"approvalPause":false,"seq":16,"eventId":"run-1792291359700-alajsz:16"}
+
+data: {"type":"model_stream","status":"start","seq":17,"eventId":"run-1792291359700-alajsz:17"}
+
+data: {"type":"text","text":"I have","seq":18,"eventId":"run-1792291359700-alajsz:18"}
+
+data: {"type":"text","text":" created the private task \"Real agent 182bfb0e-bcb7","seq":19,"eventId":"run-1792291359700-alajsz:19"}
+
+data: {"type":"text","text":"-4d4c-8803-606078603e79\"","seq":20,"eventId":"run-1792291359700-alajsz:20"}
+
+data: {"type":"text","text":" and navigated to it.","seq":21,"eventId":"run-1792291359700-alajsz:21"}
+
+data: {"type":"model_stream","status":"end","reason":"end_turn","seq":22,"eventId":"run-1792291359700-alajsz:22"}
+
+data: {"type":"model_stream","status":"start","seq":23,"eventId":"run-1792291359700-alajsz:23"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":24,"eventId":"run-1792291359700-alajsz:24"}
+
+data: {"type":"suggestions","suggestions":[],"seq":25,"eventId":"run-1792291359700-alajsz:25"}
+
+data: {"type":"done","seq":26,"eventId":"run-1792291359700-alajsz:26"}
+

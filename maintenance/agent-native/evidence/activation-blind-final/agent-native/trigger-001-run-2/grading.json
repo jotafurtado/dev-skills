@@ -1,0 +1,17 @@
+{
+  "case_id": "trigger-001-run-2",
+  "expected_should_trigger": true,
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "trigger",
+  "passed": true,
+  "query": "The public Toolkit import in our @agent-native/core application no longer resolves after a lockfile refresh. Inspect the resolved packages and repair the integration without an unrelated upgrade.",
+  "raw_reply": null,
+  "run_index": 2,
+  "selected_skills": [
+    "agent-native"
+  ],
+  "skill": "agent-native",
+  "split": "validation",
+  "triggered": true
+}

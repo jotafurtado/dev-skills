@@ -1,0 +1,64 @@
+{
+  "assertion_results": [
+    {
+      "evidence": "1. **Unified Data Access & Authorization Layer:**\n   - Create a shared, server-side helper function for task completion and task listing that enforces authentication and ownership checks (verifying that the authenticated actor matches the task's `ownerId`).\n   - Route both the UI action handler and the agent tool through this single shared function to eliminate code duplication and inconsistent authorization logic.\n\n",
+      "evidence_end_line": 17,
+      "evidence_start_line": 14,
+      "passed": true,
+      "text": "The response replaces the separate UI and agent write implementations with one shared typed action boundary."
+    },
+    {
+      "evidence": "1. **Unified Data Access & Authorization Layer:**\n   - Create a shared, server-side helper function for task completion and task listing that enforces authentication and ownership checks (verifying that the authenticated actor matches the task's `ownerId`).\n   - Route both the UI action handler and the agent tool through this single shared function to eliminate code duplication and inconsistent authorization logic.\n",
+      "evidence_end_line": 16,
+      "evidence_start_line": 14,
+      "passed": true,
+      "text": "The response derives identity server-side and scopes reads and writes rather than trusting the submitted ownerId."
+    },
+    {
+      "evidence": "2. **Context-Aware State for Agent Integration:**\n   - Lift the open task ID out of isolated React component state and into a shared state mechanism (or context/URL state accessible to the app navigation hook and the action directory) so that the in-app agent can reliably inspect which task the user has open.\n\n",
+      "evidence_end_line": 20,
+      "evidence_start_line": 18,
+      "passed": true,
+      "text": "The response accounts for UI, actions, reusable instructions when needed, and application context without requiring a new skill for every action."
+    },
+    {
+      "evidence": "Based on the provided project brief (`maintenance/eval-fixtures/agent-native/first-feature.md`), here is a review of the proposed first feature, a concrete corrected implementation approach, and corresponding acceptance checks.\n\n### Review of the Proposed Implementation\n\nThe proposed implementation contains critical security, architectural, and UX flaws based on the project constraints:\n1. **Security Vulnerabilities:** It uses a browser-only POST route and an agent tool that update SQL directly *without* verifying the authenticated actor against the `ownerId`, and fetches the task list without ownership filtering. This exposes an insecure direct object reference (IDOR) risk.\n2. **State Management Flaw:** Storing the open task ID *only* in React component state prevents the in-app agent from understanding which task the user currently has open.\n3. **UX & Reliability Gaps:** Displaying a success toast immediately on click (before network resolution) and skipping input validation, action descriptions, and pending/error states will lead to misleading UI behavior.\n\n---\n\n### Concrete Corrected Implementation Approach\n\n1. **Unified Data Access & Authorization Layer:**\n   - Create a shared, server-side helper function for task completion and task listing that enforces authentication and ownership checks (verifying that the authenticated actor matches the task's `ownerId`).\n   - Route both the UI action handler and the agent tool through this single shared function to eliminate code duplication and inconsistent authorization logic.\n\n2. **Context-Aware State for Agent Integration:**\n   - Lift the open task ID out of isolated React component state and into a shared state mechanism (or context/URL state accessible to the app navigation hook and the action directory) so that the in-app agent can reliably inspect which task the user has open.\n\n3. **Robust Action Design & Error Handling:**\n   - Equip the agent tool with a clear **action description** and strict **input validation** (ensuring `taskId` and `ownerId`/auth context are valid).\n   - Implement proper **pending and error states** in the UI (disabling buttons during mutation, awaiting network resolution before showing success toasts, and handling failure states gracefully).\n\n---\n\n### Acceptance Checks\n\n1. **Authorization & Security Check:**\n   - Verify that attempting to list tasks only returns tasks belonging to the authenticated user.\n   - Verify that attempting to complete a task via either the UI route or the agent tool where the authenticated actor does not match the task's `ownerId` is rejected with an unauthorized/forbidden error.\n\n2. **Agent Context Check:**\n   - Verify that when a user opens a specific task in the UI, the in-app agent can correctly identify and reference that open task ID when requested.\n\n3. **UX & Reliability Check:**\n   - Verify that clicking the completion button triggers a loading/pending state, performs the update, and *only* displays a success toast upon successful server confirmation.\n   - Verify that network or validation errors display an appropriate error message rather than a premature success state.",
+      "evidence_end_line": 38,
+      "evidence_start_line": 1,
+      "passed": false,
+      "text": "The response explicitly says that exact framework signatures cannot be verified from this fixture and requests installed version-matched docs or types before implementation."
+    },
+    {
+      "evidence": "### Acceptance Checks\n\n1. **Authorization & Security Check:**\n   - Verify that attempting to list tasks only returns tasks belonging to the authenticated user.\n   - Verify that attempting to complete a task via either the UI route or the agent tool where the authenticated actor does not match the task's `ownerId` is rejected with an unauthorized/forbidden error.\n\n2. **Agent Context Check:**\n   - Verify that when a user opens a specific task in the UI, the in-app agent can correctly identify and reference that open task ID when requested.\n\n3. **UX & Reliability Check:**\n   - Verify that clicking the completion button triggers a loading/pending state, performs the update, and *only* displays a success toast upon successful server confirmation.\n   - Verify that network or validation errors display an appropriate error message rather than a premature success state.",
+      "evidence_end_line": 38,
+      "evidence_start_line": 27,
+      "passed": true,
+      "text": "The response proposes invalid-input, denied-caller, and UI/agent result-visibility checks without claiming to have executed them."
+    }
+  ],
+  "case_id": "output-001-no_skill",
+  "counts_as_skill_grade": true,
+  "evidence_mode": "model",
+  "execution": "isolated_prompt",
+  "expected_output": "A shared action-centered task workflow with scoped access, typed inputs, agent-visible context, and explicit API/version verification limits.",
+  "files": [
+    "maintenance/eval-fixtures/agent-native/first-feature.md"
+  ],
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "output",
+  "limits": [
+    "Synthetic review fixture only; no installed runtime, package API declarations, or runnable app is supplied."
+  ],
+  "passed": false,
+  "prompt": "Review the proposed first feature in the attached Agent-Native project brief. Give a concrete corrected implementation approach and acceptance checks. Use only available evidence for API claims; do not modify files or install packages.",
+  "raw_reply": "```json\n{\"results\": [{\"assertion_id\": 1, \"passed\": true, \"evidence_start_line\": 14, \"evidence_end_line\": 17}, {\"assertion_id\": 2, \"passed\": true, \"evidence_start_line\": 14, \"evidence_end_line\": 16}, {\"assertion_id\": 3, \"passed\": true, \"evidence_start_line\": 18, \"evidence_end_line\": 20}, {\"assertion_id\": 4, \"passed\": false, \"evidence_start_line\": 1, \"evidence_end_line\": 38}, {\"assertion_id\": 5, \"passed\": true, \"evidence_start_line\": 27, \"evidence_end_line\": 38}]}\n```",
+  "skill": "agent-native",
+  "summary": {
+    "failed": 1,
+    "pass_rate": 0.8,
+    "passed": 4,
+    "total": 5
+  },
+  "variant": "no_skill"
+}

@@ -1,0 +1,17 @@
+Based on the provided project fixtures and Agent-Native framework instructions, here is the analysis and smallest safe change path to resolve the compatibility problem:
+
+### 1. Smallest safe change path
+Do **not** upgrade dependencies, and do **not** deep-import private source files from Toolkit. Instead:
+- Treat `ProjectSettingsFilter` as an invented or version-mismatched website example export.
+- Inspect the installed `@agent-native/toolkit` (and local `@/components/ui/*` domain controls) to find the officially supported public building blocks for settings layouts and filters in version `0.198.x`.
+- Compose the project-specific filter using those supported public exports and existing app UI conventions rather than copying private internals or bumping core versions.
+
+### 2. Source precedence
+When resolving the conflict between the website example and the local installation:
+1. **Installed local types and public exports** (`0.198.1` Toolkit resolution) take absolute precedence over online documentation or website examples.
+2. **Local app conventions** (`@/components/ui/*`) take precedence when extending existing screens like the settings layout.
+3. **Website examples** are treated purely as structural inspiration, not authoritative API contracts.
+
+### 3. What remains unverified
+- The exact public export name and props interface for settings/filter components available in `@agent-native/toolkit` at version `0.198.1` (since full type declarations and source files were not supplied in the fixture).
+- Runtime behavior of the composed filter until verified locally against the installed package types.

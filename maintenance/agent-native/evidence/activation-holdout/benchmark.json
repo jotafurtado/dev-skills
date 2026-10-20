@@ -1,0 +1,73 @@
+{
+  "evidence_mode": "model",
+  "infrastructure_failures": [],
+  "judge": "live",
+  "run_summary": {
+    "delta": {
+      "pass_rate": 0.0
+    },
+    "no_skill": {
+      "pass_rate": {
+        "mean": 0.0,
+        "stddev": 0.0
+      }
+    },
+    "output": {
+      "duration_ms": {
+        "mean": 0.0,
+        "stddev": 0.0
+      }
+    },
+    "trigger": {
+      "duration_ms": {
+        "mean": 1345.1,
+        "stddev": 287.6191173525617
+      }
+    },
+    "with_skill": {
+      "pass_rate": {
+        "mean": 0.0,
+        "stddev": 0.0
+      }
+    }
+  },
+  "skills": {
+    "agent-native": {
+      "output": {
+        "no_skill": {
+          "cases": 0,
+          "failed": 0,
+          "infrastructure_skipped": 0,
+          "pass_rate": 0.0,
+          "passed": 0,
+          "ungraded": 0
+        },
+        "with_skill": {
+          "cases": 0,
+          "failed": 0,
+          "infrastructure_skipped": 0,
+          "pass_rate": 0.0,
+          "passed": 0,
+          "ungraded": 0
+        }
+      },
+      "trigger": {
+        "by_split": {
+          "validation": {
+            "cases": 30,
+            "failed": 1,
+            "infrastructure_skipped": 0,
+            "pass_rate": 0.9666666666666667,
+            "passed": 29
+          }
+        },
+        "cases": 30,
+        "failed": 1,
+        "infrastructure_skipped": 0,
+        "pass_rate": 0.9666666666666667,
+        "passed": 29,
+        "ungraded": 0
+      }
+    }
+  }
+}

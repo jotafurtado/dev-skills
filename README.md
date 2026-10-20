@@ -8,6 +8,7 @@ Each skill lives in its own folder under [`skills/`](./skills), with a `SKILL.md
 
 | Skill | Description | Install |
 |---|---|---|
+| [agent-native](./skills/agent-native) | Build Agent-Native apps with shared actions, version-matched APIs, agent-visible context, and a focused Toolkit UI discovery map. | `npx skills add jotafurtado/dev-skills --skill agent-native` |
 | [laravel-nova-5](./skills/laravel-nova-5) | Build version-matched Laravel Nova 5 features with official documentation, progressive references, authorization, and verification. | `npx skills add jotafurtado/dev-skills --skill laravel-nova-5` |
 | [laravel-filament-v5](./skills/laravel-filament-v5) | Build Filament v5 admin panels with official components first — resources, infolists, forms, tables, actions, widgets, relation managers, security, and tests. | `npx skills add jotafurtado/dev-skills --skill laravel-filament-v5` |
 | [laravel-filament-v5-ui-ux](./skills/laravel-filament-v5-ui-ux) | Ready-to-adapt Filament 5 compositions for tables, forms, record details, dashboards, panel shells, and action feedback — pasteable code with official provenance. | `npx skills add jotafurtado/dev-skills --skill laravel-filament-v5-ui-ux` |

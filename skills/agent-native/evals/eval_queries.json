@@ -1,0 +1,22 @@
+[
+  {"query":"Create a new Agent-Native app with a shared task action and a browser UI.","should_trigger":true,"split":"train"},
+  {"query":"Our @agent-native/core app needs an action for approving expense reports.","should_trigger":true,"split":"train"},
+  {"query":"Pick the right @agent-native/toolkit chat surface for a full-page assistant.","should_trigger":true,"split":"train"},
+  {"query":"In this Agent-Native project, the agent cannot see the selected invoice. Fix the context bridge.","should_trigger":true,"split":"train"},
+  {"query":"Review access checks on list and update actions in our Agent-Native workspace.","should_trigger":true,"split":"train"},
+  {"query":"The @agent-native/core app screen stays stale after an agent mutation. Investigate sync.","should_trigger":true,"split":"train"},
+  {"query":"Customize AgentSidebar in an Agent-Native app without losing threads or attachments.","should_trigger":true,"split":"validation"},
+  {"query":"Our app depends on @agent-native/toolkit. Find the reusable editor and sharing components before implementing document review.","should_trigger":true,"split":"validation"},
+  {"query":"Which installed docs should we use for defineAction in this @agent-native/core project? The website example fails.","should_trigger":true,"split":"validation"},
+  {"query":"Extend the Agent-Native Chat template with a record details page and agent navigation.","should_trigger":true,"split":"validation"},
+  {"query":"Build a React Native app for Android with offline maps.","should_trigger":false,"split":"train"},
+  {"query":"Explain agent-native architecture as a general design concept, without choosing a framework.","should_trigger":false,"split":"train"},
+  {"query":"Build a Python agent with LangGraph and a command-line interface.","should_trigger":false,"split":"train"},
+  {"query":"Add an action button to a Laravel Nova resource.","should_trigger":false,"split":"train"},
+  {"query":"Make this ordinary React dashboard responsive with Tailwind. It has no Agent-Native dependency.","should_trigger":false,"split":"train"},
+  {"query":"Write a SKILL.md for organizing PDF invoices. No app framework is involved.","should_trigger":false,"split":"train"},
+  {"query":"Connect the OpenAI Responses API to an existing Express service without adopting Agent-Native.","should_trigger":false,"split":"validation"},
+  {"query":"Help me train a reinforcement learning agent for a game.","should_trigger":false,"split":"validation"},
+  {"query":"Fix synchronization between two PostgreSQL replicas using logical replication.","should_trigger":false,"split":"validation"},
+  {"query":"Compare the term native agent with an operating system daemon. I am asking about terminology only.","should_trigger":false,"split":"validation"}
+]

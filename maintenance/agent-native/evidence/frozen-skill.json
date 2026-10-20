@@ -1,0 +1,12 @@
+{
+  "frozenAt": "2026-10-18T02:44:18.272Z",
+  "reason": "Final blind holdout; no subsequent skill edits permitted in this evaluation",
+  "hashes": {
+    "SKILL.md": "1bc0d2919bd8084a188f51380d4837537de703020a289b0c0fe59b88c60844ef",
+    "references/actions-data.md": "b4572c4644971a5c28c7cce1c521f114b5a36f42f874e0a207971ead4555582d",
+    "references/architecture.md": "f8dbbfa8091b937579801e7a77b80f8e78b40869d5f2265be01ea889cf7183d7",
+    "references/context-sync.md": "708f31498f8f25f4a7713a31f050561f6337d186f463721ceb9f34a313fc7289",
+    "references/documentation.md": "8b98ee448b608c453f765df450d37f90b4104f52c57411c4fe5dde75946e671d",
+    "references/ui-toolkit.md": "de66340ea16f10d93580912ebf062151785777009556f8156fd2bc4cf3a76e93"
+  }
+}

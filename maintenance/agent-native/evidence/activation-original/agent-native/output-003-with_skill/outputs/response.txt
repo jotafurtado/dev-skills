@@ -1,0 +1,14 @@
+Based on the Agent-Native architecture and the provided brief, here is the design review and implementation direction for the chat redesign:
+
+### 1. Reusable Building-Block Family
+Instead of copying Toolkit composer source, bypassing runtime adapters, or implementing a custom textarea and fetch loop with API keys stored in `localStorage`, the app should use the established **Agent Panel / Chat Surface / Toolkit App Chat** building blocks:
+- **Chat Layer:** Use Toolkit chat components (`AgentPanel`, `AgentChatSurface`, or `AssistantChat`) combined with Core's runtime adapters (`useChatThreads`, `sendToAgentChat`, `createHttpAgentChatRuntime`) to preserve streaming responses, attachments, thread history, and tool results.
+- **App Composition:** Place these components within the right-hand column of the dedicated two-column project page layout, while maintaining the app's existing adapter seams and design conventions (such as `@/components/ui/*`).
+
+### 2. Ownership Boundaries & Security to Preserve
+- **Credentials & Runtime:** Keep provider credentials and API keys securely on the server-side, never in `localStorage` or browser state.
+- **Access Control & Authorization:** Do not assume that putting a record ID into the agent chat context automatically grants permission to read it. Authorization must be strictly enforced server-side within actions (`access`, `authorize`, or `assertAccess`) regardless of how the ID arrived from the UI or chat context.
+- **State & Sync:** Let the framework handle conversation state, thread history, and sync rather than maintaining a separate local conversation state.
+
+### 3. Implementation Status
+Implementation must wait until resolved against the actual installed package versions and types. No speculative component props, raw fetch loops, or file modifications should be introduced until those dependencies are verified.

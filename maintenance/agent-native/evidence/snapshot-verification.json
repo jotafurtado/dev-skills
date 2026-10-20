@@ -1,0 +1,12 @@
+{
+  "candidate": {
+    "changes": 26,
+    "beforeHashesMatch": true,
+    "finalContentsMatch": true
+  },
+  "control": {
+    "changes": 16,
+    "beforeHashesMatch": true,
+    "finalContentsMatch": true
+  }
+}

@@ -1,0 +1,10 @@
+Based on the provided brief, here is the design review for the Agent-Native chat redesign:
+
+### 1. Reusable Building-Block Family
+Instead of copying the Toolkit composer source, bypassing runtime adapters, and maintaining a separate conversation state with a direct fetch loop, the implementation should use the **existing Core-backed chat and Toolkit UI** as the reusable building-block family. 
+
+The app should leverage the existing thread history, streaming responses, attachments, tool results, and selected-record context rather than reinventing a parallel chat path with local storage API keys and app-owned textareas.
+
+### 2. Ownership Boundaries to Preserve
+* **Runtime & Provider Adapters:** Do not bypass the established runtime adapters. Ordinary controls must remain wrapped by their app-local adapters, and provider contracts should be respected rather than making direct fetch calls from a cloned composer.
+* **Security & Permissions Boundaries:** Preserve the security boundary around private project records. The assumption that simply putting a record ID into the chat context automatically grants the agent permission to load it must be rejected; explicit permission and access-control checks must remain intact before private records are exposed to the agent.

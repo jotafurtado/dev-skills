@@ -1,0 +1,9 @@
+Based on the provided brief and Agent-Native framework principles, here is the design review for the chat redesign:
+
+### 1. Reusable Building-Block Family
+Instead of building a custom textarea, fetch loop, and localStorage-backed API key setup (which would discard existing thread state, streaming, attachments, and tool results), the app should use the **Toolkit chat surface family** (such as `AgentPanel`, `AgentChatSurface`, or `AssistantChat` from `@agent-native/toolkit/app/chat`, combined with Core runtime adapters like `useChatThreads` or `createHttpAgentChatRuntime`). 
+
+### 2. Ownership Boundaries & Corrections to Preserve
+- **Runtime & Credentials:** Keep provider credentials secure on the server. Do not store API keys in `localStorage` or execute direct fetch loops from a copied custom composer.
+- **Toolkit Reuse:** Rely on official Toolkit components (like `PromptComposer` and `AgentConversation`) and framework runtime adapters rather than copying source files and bypassing runtime management.
+- **Context vs. Authorization (Crucial Security Boundary):** The designer's assumption that putting a record ID into chat context automatically grants the agent permission is incorrect. Context selection only publishes semantic identifiers for discoverability; authorized actions and server-side run context must explicitly re-verify actor permissions and ownership boundaries when the agent or UI resolves those IDs.

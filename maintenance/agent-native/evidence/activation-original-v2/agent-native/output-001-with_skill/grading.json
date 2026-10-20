@@ -1,0 +1,64 @@
+{
+  "assertion_results": [
+    {
+      "evidence": "#### Action & Data Layer (`actions/complete-task.ts`)\nInstead of separate browser routes and agent tools with direct SQL updates, define a single shared action using `@agent-native/core/action`:\n- **Unified Action:** Create an action (e.g., `completeTask`) that accepts a validated input schema (`taskId`).\n- **Server-Side Authorization:** Derive the trusted actor/owner server-side from the run context rather than accepting an unverified `ownerId` from the caller. Enforce access control so users can only complete tasks they own or belong to their organization.\n- **Shared Path:** Both the UI action mutation hook and the agent use this exact same action definition and validation path.\n",
+      "evidence_end_line": 13,
+      "evidence_start_line": 9,
+      "passed": true,
+      "text": "The response replaces the separate UI and agent write implementations with one shared typed action boundary."
+    },
+    {
+      "evidence": "- **Unified Action:** Create an action (e.g., `completeTask`) that accepts a validated input schema (`taskId`).\n- **Server-Side Authorization:** Derive the trusted actor/owner server-side from the run context rather than accepting an unverified `ownerId` from the caller. Enforce access control so users can only complete tasks they own or belong to their organization.\n",
+      "evidence_end_line": 12,
+      "evidence_start_line": 11,
+      "passed": true,
+      "text": "The response derives identity server-side and scopes reads and writes rather than trusting the submitted ownerId."
+    },
+    {
+      "evidence": "#### Application Context & UI (`app/hooks/use-navigation-state.ts` or components)\n- **Semantic Context:** Publish the open task ID to framework application state (or via the app's navigation/route hook) rather than trapping it solely in local React component state. This allows the in-app agent to resolve what task the user has open.\n- **UI State & Feedback:** Use `@agent-native/core/client/hooks` (`useActionQuery` for listing tasks and `useActionMutation` for completing them). Handle pending, empty, failure, and success states properly instead of assuming optimistic success.\n\n#### Domain Instructions\n- Add clear descriptions and input schemas to the action so the agent understands how and when to invoke task completion.\n\n",
+      "evidence_end_line": 21,
+      "evidence_start_line": 15,
+      "passed": true,
+      "text": "The response accounts for UI, actions, reusable instructions when needed, and application context without requiring a new skill for every action."
+    },
+    {
+      "evidence": "*Note: Since installation evidence and package docs are missing from this synthetic fixture, exact imported paths and method signatures must be verified against the installed `@agent-native/core` declarations before writing actual code.*",
+      "evidence_end_line": 36,
+      "evidence_start_line": 36,
+      "passed": true,
+      "text": "The response explicitly says that exact framework signatures cannot be verified from this fixture and requests installed version-matched docs or types before implementation."
+    },
+    {
+      "evidence": "Verify the corrected feature against the following criteria:\n\n| Area | Verification Scenario | Expected Result |\n| --- | --- | --- |\n| **Action & Authorization** | Invoke `completeTask` with a valid `taskId` as an authorized owner. | The task status updates successfully in the SQL database. |\n| **Authorization Failure** | Attempt to complete a task belonging to another user/organization, or pass an unverified owner ID. | The server rejects the mutation based on server-side access checks. |\n| **Dual-Surface Consistency** | Perform the completion via both the UI mutation hook and the agent chat interface. | Both paths execute the exact same action contract, validation, and database effect. |\n| **Application Context** | Navigate to a specific task in the UI and prompt the agent to complete \"my open task\". | The agent successfully resolves the open task ID from the published application context and targets the correct record. |\n| **UI Lifecycle** | Trigger the task completion from the UI list/view. | The UI correctly reflects pending, success, or error states rather than blindly showing a success toast on click. |\n\n",
+      "evidence_end_line": 35,
+      "evidence_start_line": 26,
+      "passed": true,
+      "text": "The response proposes invalid-input, denied-caller, and UI/agent result-visibility checks without claiming to have executed them."
+    }
+  ],
+  "case_id": "output-001-with_skill",
+  "counts_as_skill_grade": true,
+  "evidence_mode": "model",
+  "execution": "isolated_prompt",
+  "expected_output": "A shared action-centered task workflow with scoped access, typed inputs, agent-visible context, and explicit API/version verification limits.",
+  "files": [
+    "maintenance/eval-fixtures/agent-native/first-feature.md"
+  ],
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "output",
+  "limits": [
+    "Synthetic review fixture only; no installed runtime, package API declarations, or runnable app is supplied."
+  ],
+  "passed": true,
+  "prompt": "Review the proposed first feature in the attached Agent-Native project brief. Give a concrete corrected implementation approach and acceptance checks. Use only available evidence for API claims; do not modify files or install packages.",
+  "raw_reply": "```json\n{\"results\": [{\"assertion_id\": 1, \"passed\": true, \"evidence_start_line\": 9, \"evidence_end_line\": 13}, {\"assertion_id\": 2, \"passed\": true, \"evidence_start_line\": 11, \"evidence_end_line\": 12}, {\"assertion_id\": 3, \"passed\": true, \"evidence_start_line\": 15, \"evidence_end_line\": 21}, {\"assertion_id\": 4, \"passed\": true, \"evidence_start_line\": 36, \"evidence_end_line\": 36}, {\"assertion_id\": 5, \"passed\": true, \"evidence_start_line\": 26, \"evidence_end_line\": 35}]}\n```",
+  "skill": "agent-native",
+  "summary": {
+    "failed": 0,
+    "pass_rate": 1.0,
+    "passed": 5,
+    "total": 5
+  },
+  "variant": "with_skill"
+}

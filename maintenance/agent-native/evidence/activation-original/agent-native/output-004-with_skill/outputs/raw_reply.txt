@@ -1,0 +1,42 @@
+```json
+{
+  "results": [
+    {
+      "assertion_id": 1,
+      "passed": true,
+      "evidence_start_line": 9,
+      "evidence_end_line": 10
+    },
+    {
+      "assertion_id": 2,
+      "passed": true,
+      "evidence_start_line": 11,
+      "evidence_end_line": 14
+    },
+    {
+      "assertion_id": 3,
+      "passed": true,
+      "evidence_start_line": 15,
+      "evidence_end_line": 20
+    },
+    {
+      "assertion_id": 4,
+      "passed": true,
+      "evidence_start_line": 23,
+      "evidence_end_line": 24
+    },
+    {
+      "assertion_id": 5,
+      "passed": true,
+      "evidence_start_line": 21,
+      "evidence_end_line": 22
+    },
+    {
+      "assertion_id": 6,
+      "passed": true,
+      "evidence_start_line": 45,
+      "evidence_end_line": 51
+    }
+  ]
+}
+```

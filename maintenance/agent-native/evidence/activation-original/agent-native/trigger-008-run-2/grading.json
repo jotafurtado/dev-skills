@@ -1,0 +1,17 @@
+{
+  "case_id": "trigger-008-run-2",
+  "expected_should_trigger": true,
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "trigger",
+  "passed": true,
+  "query": "Which installed docs should we use for defineAction in this @agent-native/core project? The website example fails.",
+  "raw_reply": null,
+  "run_index": 2,
+  "selected_skills": [
+    "agent-native"
+  ],
+  "skill": "agent-native",
+  "split": "validation",
+  "triggered": true
+}

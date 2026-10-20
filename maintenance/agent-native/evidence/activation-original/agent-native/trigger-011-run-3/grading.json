@@ -1,0 +1,15 @@
+{
+  "case_id": "trigger-011-run-3",
+  "expected_should_trigger": false,
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "trigger",
+  "passed": true,
+  "query": "Explain agent-native architecture as a general design concept, without choosing a framework.",
+  "raw_reply": null,
+  "run_index": 3,
+  "selected_skills": [],
+  "skill": "agent-native",
+  "split": "train",
+  "triggered": false
+}

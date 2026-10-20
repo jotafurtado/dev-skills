@@ -1,0 +1,71 @@
+{
+  "assertion_results": [
+    {
+      "evidence": "1. **Importing `useNavigationState` from Core vs. App Hook**\n   * *Hypothesis/Verified:* The app contains `app/hooks/use-navigation-state.ts`. Importing this hook directly from Core instead of the app-local file breaks the app's custom router/navigation integration, causing broken state synchronization.\n",
+      "evidence_end_line": 10,
+      "evidence_start_line": 9,
+      "passed": true,
+      "text": "The response identifies useNavigationState as an app/template hook rather than assuming it is a Core export, and investigates the installed navigation primitive."
+    },
+    {
+      "evidence": "2. **Stale Selection After Navigation (Project A to B)**\n   * *Likely Cause:* The view or page component failed to clear or update the selected record ID when switching routes. Selection state is not automatically scoped out when transitioning parents unless explicitly cleaned up.\n3. **`view-screen` Action Lacking Authorization**\n   * *Verified Vulnerability:* As noted in `references/actions-data.md` and `references/context-sync.md`, UI context-picker selection and view-screen resolution do not grant data access. Loading any supplied record ID without checking the actor/ownership exposes unauthorized resources to the agent and user.\n",
+      "evidence_end_line": 14,
+      "evidence_start_line": 11,
+      "passed": true,
+      "text": "The response clears stale selection and resolves view-screen records through authorized scoped reads."
+    },
+    {
+      "evidence": "4. **Raw Query with Custom Cache Key Showing Stale Results**\n   * *Likely Cause:* Bypassing the framework's standard action query/mutation hooks (`useActionQuery`, `useActionMutation`) in favor of raw queries with custom, unaligned keys prevents the automatic action refresh path and change-version integration from invalidating the cache.\n5. **Agent Edits Only Appearing After Full Page Reload**\n   * *Likely Cause:* The UI is not using the framework's supported sync or action mutation/query hooks, meaning state updates performed by the agent do not trigger localized query invalidations or refetches.\n6. **Refetch Timer on Every Query Every Second**\n   * *Likely Cause:* Manually added polling intervals bypass the opt-in architecture. The framework's data and sync guide notes that background sync should be opt-in, scoped, and handled via structured mechanisms like `useDbSync` rather than brute-force intervals on static pages.\n",
+      "evidence_end_line": 20,
+      "evidence_start_line": 15,
+      "passed": true,
+      "text": "The response traces action completion, query keys, invalidation, and refetch before adding manual polling."
+    },
+    {
+      "evidence": "8. **Multi-User Remote Updates vs. Static Settings**\n   * *Requirement:* Shared lists require targeted remote sync (e.g., opted-in `useDbSync`), while static settings pages should explicitly opt out to avoid unnecessary background traffic.\n",
+      "evidence_end_line": 24,
+      "evidence_start_line": 23,
+      "passed": true,
+      "text": "The response distinguishes local run refresh from remote-tab sync and requires a reason and version check for background sync."
+    },
+    {
+      "evidence": "7. **Multiple Tab IDs and Duplicate Commands / UI Jitter**\n   * *Likely Cause:* Decentralizing tab ID creation and polling across individual components rather than using a centralized framework container creates race conditions, duplicate command consumption, and self-originated refetch jitter.\n",
+      "evidence_end_line": 22,
+      "evidence_start_line": 21,
+      "passed": true,
+      "text": "The response reuses tab/request-source identity and framework command consumption to address jitter and duplicate navigation."
+    },
+    {
+      "evidence": "### Focused Verification Scenarios\n\n* **Navigation & Selection Isolation:** Change routes from Project A to Project B; confirm that Project A's selected record ID is cleared and the agent receives only Project B's context.\n* **Access Control:** Attempt to resolve an unauthorized record ID via the `view-screen` action/agent context; verify that access is denied and data is withheld.\n* **Mutation & UI Refresh:** Perform a UI mutation and an agent-driven edit on a shared resource; confirm that the UI updates immediately without requiring a full page reload or manual refresh.\n* **Jitter & Duplicate Prevention:** Trigger navigation commands through the agent and verify that the command runs exactly once per tab without causing layout or selection jitter.\n* **Remote Updates & Scoping:** Modify a shared project list from a second user/tab and verify that the changes appear via opted-in sync, while confirming that static settings pages have no background polling/refetch activity.",
+      "evidence_end_line": 51,
+      "evidence_start_line": 45,
+      "passed": true,
+      "text": "The response proposes separate UI-write, agent-write, route/selection, and second-tab checks without claiming executed results."
+    }
+  ],
+  "case_id": "output-004-with_skill",
+  "counts_as_skill_grade": true,
+  "evidence_mode": "model",
+  "execution": "isolated_prompt",
+  "expected_output": "An app-owned navigation-hook investigation, semantic context cleanup, action refresh tracing, and justified remote-sync policy without blanket timers.",
+  "files": [
+    "maintenance/eval-fixtures/agent-native/context-sync.md"
+  ],
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "output",
+  "limits": [
+    "Observed symptoms are synthetic. Installed framework code is absent, so root causes remain hypotheses until inspected."
+  ],
+  "passed": true,
+  "prompt": "Diagnose the Agent-Native navigation and stale-screen problems in the attached incident brief. Give the repair sequence and focused verification scenarios. Distinguish likely causes from verified framework behavior; do not modify files.",
+  "raw_reply": "```json\n{\n  \"results\": [\n    {\n      \"assertion_id\": 1,\n      \"passed\": true,\n      \"evidence_start_line\": 9,\n      \"evidence_end_line\": 10\n    },\n    {\n      \"assertion_id\": 2,\n      \"passed\": true,\n      \"evidence_start_line\": 11,\n      \"evidence_end_line\": 14\n    },\n    {\n      \"assertion_id\": 3,\n      \"passed\": true,\n      \"evidence_start_line\": 15,\n      \"evidence_end_line\": 20\n    },\n    {\n      \"assertion_id\": 4,\n      \"passed\": true,\n      \"evidence_start_line\": 23,\n      \"evidence_end_line\": 24\n    },\n    {\n      \"assertion_id\": 5,\n      \"passed\": true,\n      \"evidence_start_line\": 21,\n      \"evidence_end_line\": 22\n    },\n    {\n      \"assertion_id\": 6,\n      \"passed\": true,\n      \"evidence_start_line\": 45,\n      \"evidence_end_line\": 51\n    }\n  ]\n}\n```",
+  "skill": "agent-native",
+  "summary": {
+    "failed": 0,
+    "pass_rate": 1.0,
+    "passed": 6,
+    "total": 6
+  },
+  "variant": "with_skill"
+}

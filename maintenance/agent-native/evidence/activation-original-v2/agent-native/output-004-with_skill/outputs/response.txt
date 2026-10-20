@@ -1,0 +1,55 @@
+Based on the incident brief and the Agent-Native context/sync architecture, here is the diagnosis, repair sequence, and focused verification plan.
+
+---
+
+### 1. Diagnosis and Distinguishing Causes
+
+The incident exhibits a mix of incorrect imports, stale client state, missing authorization checks, custom query antipatterns, and missing sync hooks.
+
+*   **Import Error (Hypothesis verified by file context):** 
+    *   *Symptom:* A new page attempts to import `useNavigationState` from `@agent-native/core/...` instead of the app-owned hook located at `app/hooks/use-navigation-state.ts`.
+    *   *Cause:* The app-owned hook pattern (`app/hooks/use-navigation-state.ts`) encapsulates local routing and state bindings; bypassing it breaks the app's navigation integration.
+*   **Stale Selection on Navigation (Hypothesis: Selection cleanup missing):**
+    *   *Symptom:* After navigating from Project A to Project B, the agent still receives Project A's selected record ID.
+    *   *Cause:* Route transitions are not resetting or clearing the prior selection state when switching scopes.
+*   **Missing Authorization in `view-screen` (Hypothesis: Security vulnerability):**
+    *   *Symptom:* The `view-screen` action loads any supplied record ID without checking the actor.
+    *   *Cause:* Exposing context IDs or direct resolution actions without server-side actor/organization validation breaks security boundaries (exposure options do not replace auth checks).
+*   **Stale Custom Query Cache (Hypothesis: Cache key mismatch / manual invalidation missing):**
+    *   *Symptom:* A UI mutation updates the database, but a raw query with a custom cache key keeps displaying its old result.
+    *   *Cause:* Using raw queries with custom cache keys bypasses the framework's standard action query/mutation hooks and version-change signals, requiring manual invalidation or alignment with standard action hooks.
+*   **Agent Edits Require Full Page Reload (Hypothesis: Missing action refresh / sync signal):**
+    *   *Symptom:* Agent edits appear only after a full page reload.
+    *   *Cause:* Agent-driven mutations are not triggering the action refresh path or cache invalidation for the views displaying those records.
+*   **Refetch Jitter from Timers (Hypothesis: Antipattern polling):**
+    *   *Symptom:* A newly added timer refetches every query each second, even on settings pages.
+    *   *Cause:* Recreating polling timers inside individual components instead of utilizing opt-in background sync or standard action hooks.
+*   **Duplicate Navigation Commands & Visible Jitter (Hypothesis: Fragmented tab identity & command loops):**
+    *   *Symptom:* Each component creates its own tab ID and polls navigation commands, causing commands to run twice and writing selection to cause visible jitter.
+    *   *Cause:* Fragmented tab identifiers violate the singleton/app-level tab identity rule, leading to race conditions and duplicate command consumption. Self-originated selection writes are also triggering continuous refetches.
+
+---
+
+### 2. Repair Sequence
+
+1.  **Fix Navigation Hook Imports:**
+    *   Update the new page to import the app-owned hook (`app/hooks/use-navigation-state.ts`) rather than attempting a direct Core import.
+2.  **Unify Tab Identity and Route-to-Context Mapping:**
+    *   Centralize tab ID creation and command consumption at the app shell level rather than inside individual components. Ensure self-originated selection/layout writes are ignored to prevent refetch jitter.
+3.  **Implement Selection Cleanup on Route Transitions:**
+    *   Update navigation handlers to clear or reset selection state whenever the active record or view context changes (e.g., moving from Project A to Project B).
+4.  **Secure `view-screen` Actions:**
+    *   Add robust server-side actor, ownership, and organization authorization checks inside the `view-screen` action implementation so that supplied IDs cannot be read without permission.
+5.  **Align Queries with Standard Action Hooks:**
+    *   Replace raw queries with custom cache keys with standard `useActionQuery` and `useActionMutation` hooks, or ensure proper cache invalidation handles the custom keys.
+6.  **Configure Opt-in Remote Sync:**
+    *   Remove custom 1-second polling timers. For the shared project list that requires multi-user collaboration, enable the supported `useDbSync` transport option selectively. Leave static settings pages opted out of remote sync to prevent unnecessary traffic.
+
+---
+
+### 3. Focused Verification Scenarios
+
+- **Route Transition & Selection Scenarios:** Navigate from Project A to Project B. Verify that the agent prompt context and selected record ID immediately reflect Project B and that Project A's ID is cleared.
+- **Authorization Enforcement:** Attempt to invoke `view-screen` with an unauthorized record ID (belonging to a different user/organization). Verify that the action rejects the request and no data is leaked.
+- **Action & Agent Edit Freshness:** Perform a mutation via the agent chat bridge and verify that the UI updates immediately without requiring a full page reload.
+- **Remote Updates & Jitter Check:** Open two tabs/users for the shared project list. Modify data in one tab and verify it appears in the second tab. Confirm that static settings pages have no background sync overhead and that self-originated updates do not cause continuous refetch jitter.

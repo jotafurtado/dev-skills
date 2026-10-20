@@ -1,0 +1,64 @@
+{
+  "assertion_results": [
+    {
+      "evidence": "- Inspect the installed `@agent-native/toolkit` (and local `@/components/ui/*` domain controls) to find the officially supported public building blocks for settings layouts and filters in version `0.198.x`.\n",
+      "evidence_end_line": 6,
+      "evidence_start_line": 6,
+      "passed": true,
+      "text": "The response identifies exact resolved Core and Toolkit versions separately from the manifest constraint."
+    },
+    {
+      "evidence": "### 2. Source precedence\nWhen resolving the conflict between the website example and the local installation:\n1. **Installed local types and public exports** (`0.198.1` Toolkit resolution) take absolute precedence over online documentation or website examples.\n2. **Local app conventions** (`@/components/ui/*`) take precedence when extending existing screens like the settings layout.\n3. **Website examples** are treated purely as structural inspiration, not authoritative API contracts.\n",
+      "evidence_end_line": 13,
+      "evidence_start_line": 9,
+      "passed": true,
+      "text": "The response prioritizes installed documentation, public exports, and types over the current website example."
+    },
+    {
+      "evidence": "Do **not** upgrade dependencies, and do **not** deep-import private source files from Toolkit. Instead:\n- Treat `ProjectSettingsFilter` as an invented or version-mismatched website example export.\n- Inspect the installed `@agent-native/toolkit` (and local `@/components/ui/*` domain controls) to find the officially supported public building blocks for settings layouts and filters in version `0.198.x`.\n- Compose the project-specific filter using those supported public exports and existing app UI conventions rather than copying private internals or bumping core versions.\n",
+      "evidence_end_line": 7,
+      "evidence_start_line": 4,
+      "passed": true,
+      "text": "The response preserves app-local controls and shared runtime ownership instead of deep-importing private source or copying runtime internals."
+    },
+    {
+      "evidence": "Do **not** upgrade dependencies, and do **not** deep-import private source files from Toolkit. Instead:\n- Treat `ProjectSettingsFilter` as an invented or version-mismatched website example export.\n- Inspect the installed `@agent-native/toolkit` (and local `@/components/ui/*` domain controls) to find the officially supported public building blocks for settings layouts and filters in version `0.198.x`.\n- Compose the project-specific filter using those supported public exports and existing app UI conventions rather than copying private internals or bumping core versions.\n",
+      "evidence_end_line": 7,
+      "evidence_start_line": 4,
+      "passed": true,
+      "text": "The response does not prescribe an unrequested upgrade, install latest, or claim that the proposed unavailable export exists."
+    },
+    {
+      "evidence": "### 3. What remains unverified\n- The exact public export name and props interface for settings/filter components available in `@agent-native/toolkit` at version `0.198.1` (since full type declarations and source files were not supplied in the fixture).\n- Runtime behavior of the composed filter until verified locally against the installed package types.",
+      "evidence_end_line": 17,
+      "evidence_start_line": 15,
+      "passed": true,
+      "text": "The response identifies the missing installed API evidence and does not present a guessed replacement signature as verified."
+    }
+  ],
+  "case_id": "output-002-with_skill",
+  "counts_as_skill_grade": true,
+  "evidence_mode": "model",
+  "execution": "isolated_prompt",
+  "expected_output": "A bounded version-local investigation that preserves exact pins, uses public exports, and reuses app adapters instead of upgrading or importing private source.",
+  "files": [
+    "maintenance/eval-fixtures/agent-native/existing-app.md"
+  ],
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "output",
+  "limits": [
+    "Version numbers are synthetic project evidence, not a claim about a published release's exports."
+  ],
+  "passed": true,
+  "prompt": "Resolve the compatibility problem in the attached Agent-Native app evidence. State the smallest safe change path, the source precedence you would use, and what remains unverified. Do not change files or dependencies.",
+  "raw_reply": "```json\n{\"results\": [{\"assertion_id\": 1, \"passed\": true, \"evidence_start_line\": 6, \"evidence_end_line\": 6}, {\"assertion_id\": 2, \"passed\": true, \"evidence_start_line\": 9, \"evidence_end_line\": 13}, {\"assertion_id\": 3, \"passed\": true, \"evidence_start_line\": 4, \"evidence_end_line\": 7}, {\"assertion_id\": 4, \"passed\": true, \"evidence_start_line\": 4, \"evidence_end_line\": 7}, {\"assertion_id\": 5, \"passed\": true, \"evidence_start_line\": 15, \"evidence_end_line\": 17}]}\n```",
+  "skill": "agent-native",
+  "summary": {
+    "failed": 0,
+    "pass_rate": 1.0,
+    "passed": 5,
+    "total": 5
+  },
+  "variant": "with_skill"
+}

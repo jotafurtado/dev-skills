@@ -1,0 +1,12 @@
+[
+  {"query":"No app @agent-native/core, a lista atualiza após clique, mas não após uma escrita de outra aba. Corrija o opt-in de sync.","should_trigger":true,"split":"validation"},
+  {"query":"Adicione tarefas privadas ao scaffold Chat de Agent-Native, com as mesmas actions disponíveis para UI e agente.","should_trigger":true,"split":"validation"},
+  {"query":"Our Agent-Native workspace needs owner-scoped SQL reads and authenticated mutations. Review the installed action context before implementing.","should_trigger":true,"split":"validation"},
+  {"query":"In an @agent-native/toolkit app, keep the existing runtime while moving chat from a sidebar into a route.","should_trigger":true,"split":"validation"},
+  {"query":"The Agent-Native navigate tool opens a record twice and retains the old selection. Repair the route/context integration.","should_trigger":true,"split":"validation"},
+  {"query":"Crie uma lista de tarefas em Laravel com Livewire e autenticação por usuário.","should_trigger":false,"split":"validation"},
+  {"query":"Use React Native para criar um chat mobile com backend Supabase.","should_trigger":false,"split":"validation"},
+  {"query":"Discuss whether agent-native is a useful product philosophy. Do not adopt BuilderIO or any specific framework.","should_trigger":false,"split":"validation"},
+  {"query":"Our generic React app uses TanStack Query and OpenRouter. Add a todo action without introducing another app framework.","should_trigger":false,"split":"validation"},
+  {"query":"Configure native PostgreSQL logical replication between two servers; there is no application UI or AI runtime.","should_trigger":false,"split":"validation"}
+]

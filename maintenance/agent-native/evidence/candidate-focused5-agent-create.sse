@@ -1,0 +1,56 @@
+: ping 1792290276566
+
+data: {"type":"activity","id":"agentkit:internal:run-1792290276558-1087o0:starting-agent","label":"Starting agent","seq":0,"eventId":"run-1792290276558-1087o0:0"}
+
+data: {"type":"activity","id":"agentkit:internal:run-1792290276558-1087o0:contacting-model","label":"Contacting model","seq":1,"eventId":"run-1792290276558-1087o0:1"}
+
+data: {"type":"suggestions","suggestions":[],"seq":2,"eventId":"run-1792290276558-1087o0:2"}
+
+data: {"type":"model_stream","status":"start","seq":3,"eventId":"run-1792290276558-1087o0:3"}
+
+data: {"type":"tool_input_start","tool":"create-task","id":"call_67605","seq":4,"eventId":"run-1792290276558-1087o0:4"}
+
+data: {"type":"activity","label":"Preparing create-task action","tool":"create-task","id":"call_67605","seq":5,"eventId":"run-1792290276558-1087o0:5"}
+
+data: {"type":"tool_input_delta","tool":"create-task","id":"call_67605","text":"{\"title\":\"Real agent 20bc1b78-ad73-45d3-bc7e-71cb39bb3bd7\"}","seq":6,"eventId":"run-1792290276558-1087o0:6"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":7,"eventId":"run-1792290276558-1087o0:7"}
+
+data: {"type":"tool_start","id":"call_67605","tool":"create-task","input":{"title":"Real agent 20bc1b78-ad73-45d3-bc7e-71cb39bb3bd7"},"seq":8,"eventId":"run-1792290276558-1087o0:8"}
+
+data: {"type":"tool_done","id":"call_67605","tool":"create-task","input":{"title":"Real agent 20bc1b78-ad73-45d3-bc7e-71cb39bb3bd7"},"result":"{\n  \"id\": \"2e421966-1822-4415-aa1f-832ca90ca710\",\n  \"title\": \"Real agent 20bc1b78-ad73-45d3-bc7e-71cb39bb3bd7\",\n  \"completed\": false,\n  \"createdAt\": \"2026-10-18T02:24:38.662Z\"\n}","completedSideEffect":true,"approvalPause":false,"seq":9,"eventId":"run-1792290276558-1087o0:9"}
+
+data: {"type":"model_stream","status":"start","seq":10,"eventId":"run-1792290276558-1087o0:10"}
+
+data: {"type":"tool_input_start","tool":"navigate","id":"call_30815","seq":11,"eventId":"run-1792290276558-1087o0:11"}
+
+data: {"type":"activity","label":"Preparing navigate action","tool":"navigate","id":"call_30815","seq":12,"eventId":"run-1792290276558-1087o0:12"}
+
+data: {"type":"tool_input_delta","tool":"navigate","id":"call_30815","text":"{\"id\":\"2e421966-1822-4415-aa1f-832ca90ca710\",\"view\":\"tasks\"}","seq":13,"eventId":"run-1792290276558-1087o0:13"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":14,"eventId":"run-1792290276558-1087o0:14"}
+
+data: {"type":"tool_start","id":"call_30815","tool":"navigate","input":{"id":"2e421966-1822-4415-aa1f-832ca90ca710","view":"tasks"},"seq":15,"eventId":"run-1792290276558-1087o0:15"}
+
+data: {"type":"tool_done","id":"call_30815","tool":"navigate","input":{"id":"2e421966-1822-4415-aa1f-832ca90ca710","view":"tasks"},"result":"Navigating to tasks","completedSideEffect":true,"approvalPause":false,"seq":16,"eventId":"run-1792290276558-1087o0:16"}
+
+data: {"type":"model_stream","status":"start","seq":17,"eventId":"run-1792290276558-1087o0:17"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":18,"eventId":"run-1792290276558-1087o0:18"}
+
+data: {"type":"model_stream","status":"start","seq":19,"eventId":"run-1792290276558-1087o0:19"}
+
+data: {"type":"text","text":"I have","seq":20,"eventId":"run-1792290276558-1087o0:20"}
+
+data: {"type":"text","text":" created the private task titled \"Real agent 20bc1b78-ad","seq":21,"eventId":"run-1792290276558-1087o0:21"}
+
+data: {"type":"text","text":"73-45d3-bc7e-71cb39bb3bd7\" and navigated","seq":22,"eventId":"run-1792290276558-1087o0:22"}
+
+data: {"type":"text","text":" to it.","seq":23,"eventId":"run-1792290276558-1087o0:23"}
+
+data: {"type":"model_stream","status":"end","reason":"end_turn","seq":24,"eventId":"run-1792290276558-1087o0:24"}
+
+data: {"type":"suggestions","suggestions":[{"label":"View tasks list","prompt":"Show my tasks list","id":"run-1792290276558-1087o0:follow-up:1","runId":"run-1792290276558-1087o0","updatedAt":"2026-10-18T02:24:42.284Z"},{"label":"Complete task","prompt":"Mark the new task as complete","id":"run-1792290276558-1087o0:follow-up:2","runId":"run-1792290276558-1087o0","updatedAt":"2026-10-18T02:24:42.284Z"}],"seq":25,"eventId":"run-1792290276558-1087o0:25"}
+
+data: {"type":"done","seq":26,"eventId":"run-1792290276558-1087o0:26"}
+

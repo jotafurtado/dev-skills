@@ -1,0 +1,15 @@
+{
+  "case_id": "trigger-017-run-3",
+  "expected_should_trigger": false,
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "trigger",
+  "passed": true,
+  "query": "Help me train a reinforcement learning agent for a game.",
+  "raw_reply": null,
+  "run_index": 3,
+  "selected_skills": [],
+  "skill": "agent-native",
+  "split": "validation",
+  "triggered": false
+}

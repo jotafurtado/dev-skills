@@ -1,0 +1,15 @@
+Based on the project evidence provided in the synthetic fixture, here is the analysis and the smallest safe change path to resolve the compatibility problem:
+
+### 1. Smallest Safe Change Path
+- **Reject** upgrading Core/Toolkit versions or deep-importing private source files. 
+- **Inspect local exports:** Verify what components are actually exported by the installed `@agent-native/toolkit` version (`0.198.1`) via public types or local documentation (`agent-native-toolkit` skill), or check if a standard project-specific filter can be composed using existing `@/components/ui/*` domain controls.
+- **Compose the UI:** Build the project-specific filter natively inside the settings layout using app-owned primitives rather than relying on the non-existent website example export (`ProjectSettingsFilter`).
+
+### 2. Source Precedence
+1. **Installed project evidence and local types/source** (Core `0.198.0`, Toolkit `0.198.1` as locked in the project).
+2. **Local skills inventory** (`agent-native-docs`, `agent-native-toolkit`).
+3. **App conventions** (`@/components/ui/*`).
+4. *Discard* external website examples or unverified documentation exports when they conflict with the local resolved package contracts.
+
+### 3. Remaining Unverified
+- The exact public API surface of `@agent-native/toolkit` `0.198.1` has not been fully verified through direct inspection of node_modules source files (since no full package source was supplied beyond the fixture's stated mismatch). Therefore, composing the filter with existing `@/components/ui/*` controls remains the safest deterministic path without assuming undocumented exports.

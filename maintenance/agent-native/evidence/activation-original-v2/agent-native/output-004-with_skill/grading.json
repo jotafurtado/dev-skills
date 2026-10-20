@@ -1,0 +1,71 @@
+{
+  "assertion_results": [
+    {
+      "evidence": "*   **Import Error (Hypothesis verified by file context):** \n    *   *Symptom:* A new page attempts to import `useNavigationState` from `@agent-native/core/...` instead of the app-owned hook located at `app/hooks/use-navigation-state.ts`.\n    *   *Cause:* The app-owned hook pattern (`app/hooks/use-navigation-state.ts`) encapsulates local routing and state bindings; bypassing it breaks the app's navigation integration.\n",
+      "evidence_end_line": 11,
+      "evidence_start_line": 9,
+      "passed": true,
+      "text": "The response identifies useNavigationState as an app/template hook rather than assuming it is a Core export, and investigates the installed navigation primitive."
+    },
+    {
+      "evidence": "*   **Stale Selection on Navigation (Hypothesis: Selection cleanup missing):**\n    *   *Symptom:* After navigating from Project A to Project B, the agent still receives Project A's selected record ID.\n    *   *Cause:* Route transitions are not resetting or clearing the prior selection state when switching scopes.\n*   **Missing Authorization in `view-screen` (Hypothesis: Security vulnerability):**\n    *   *Symptom:* The `view-screen` action loads any supplied record ID without checking the actor.\n    *   *Cause:* Exposing context IDs or direct resolution actions without server-side actor/organization validation breaks security boundaries (exposure options do not replace auth checks).\n",
+      "evidence_end_line": 17,
+      "evidence_start_line": 12,
+      "passed": true,
+      "text": "The response clears stale selection and resolves view-screen records through authorized scoped reads."
+    },
+    {
+      "evidence": "*   **Stale Custom Query Cache (Hypothesis: Cache key mismatch / manual invalidation missing):**\n    *   *Symptom:* A UI mutation updates the database, but a raw query with a custom cache key keeps displaying its old result.\n    *   *Cause:* Using raw queries with custom cache keys bypasses the framework's standard action query/mutation hooks and version-change signals, requiring manual invalidation or alignment with standard action hooks.\n",
+      "evidence_end_line": 20,
+      "evidence_start_line": 18,
+      "passed": true,
+      "text": "The response traces action completion, query keys, invalidation, and refetch before adding manual polling."
+    },
+    {
+      "evidence": "6.  **Configure Opt-in Remote Sync:**\n    *   Remove custom 1-second polling timers. For the shared project list that requires multi-user collaboration, enable the supported `useDbSync` transport option selectively. Leave static settings pages opted out of remote sync to prevent unnecessary traffic.\n",
+      "evidence_end_line": 46,
+      "evidence_start_line": 45,
+      "passed": true,
+      "text": "The response distinguishes local run refresh from remote-tab sync and requires a reason and version check for background sync."
+    },
+    {
+      "evidence": "*   **Duplicate Navigation Commands & Visible Jitter (Hypothesis: Fragmented tab identity & command loops):**\n    *   *Symptom:* Each component creates its own tab ID and polls navigation commands, causing commands to run twice and writing selection to cause visible jitter.\n    *   *Cause:* Fragmented tab identifiers violate the singleton/app-level tab identity rule, leading to race conditions and duplicate command consumption. Self-originated selection writes are also triggering continuous refetches.\n",
+      "evidence_end_line": 29,
+      "evidence_start_line": 27,
+      "passed": true,
+      "text": "The response reuses tab/request-source identity and framework command consumption to address jitter and duplicate navigation."
+    },
+    {
+      "evidence": "- **Route Transition & Selection Scenarios:** Navigate from Project A to Project B. Verify that the agent prompt context and selected record ID immediately reflect Project B and that Project A's ID is cleared.\n- **Authorization Enforcement:** Attempt to invoke `view-screen` with an unauthorized record ID (belonging to a different user/organization). Verify that the action rejects the request and no data is leaked.\n- **Action & Agent Edit Freshness:** Perform a mutation via the agent chat bridge and verify that the UI updates immediately without requiring a full page reload.\n- **Remote Updates & Jitter Check:** Open two tabs/users for the shared project list. Modify data in one tab and verify it appears in the second tab. Confirm that static settings pages have no background sync overhead and that self-originated updates do not cause continuous refetch jitter.",
+      "evidence_end_line": 55,
+      "evidence_start_line": 52,
+      "passed": true,
+      "text": "The response proposes separate UI-write, agent-write, route/selection, and second-tab checks without claiming executed results."
+    }
+  ],
+  "case_id": "output-004-with_skill",
+  "counts_as_skill_grade": true,
+  "evidence_mode": "model",
+  "execution": "isolated_prompt",
+  "expected_output": "An app-owned navigation-hook investigation, semantic context cleanup, action refresh tracing, and justified remote-sync policy without blanket timers.",
+  "files": [
+    "maintenance/eval-fixtures/agent-native/context-sync.md"
+  ],
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "output",
+  "limits": [
+    "Observed symptoms are synthetic. Installed framework code is absent, so root causes remain hypotheses until inspected."
+  ],
+  "passed": true,
+  "prompt": "Diagnose the Agent-Native navigation and stale-screen problems in the attached incident brief. Give the repair sequence and focused verification scenarios. Distinguish likely causes from verified framework behavior; do not modify files.",
+  "raw_reply": "```json\n{\"results\": [{\"assertion_id\": 1, \"passed\": true, \"evidence_start_line\": 9, \"evidence_end_line\": 11}, {\"assertion_id\": 2, \"passed\": true, \"evidence_start_line\": 12, \"evidence_end_line\": 17}, {\"assertion_id\": 3, \"passed\": true, \"evidence_start_line\": 18, \"evidence_end_line\": 20}, {\"assertion_id\": 4, \"passed\": true, \"evidence_start_line\": 45, \"evidence_end_line\": 46}, {\"assertion_id\": 5, \"passed\": true, \"evidence_start_line\": 27, \"evidence_end_line\": 29}, {\"assertion_id\": 6, \"passed\": true, \"evidence_start_line\": 52, \"evidence_end_line\": 55}]}\n```",
+  "skill": "agent-native",
+  "summary": {
+    "failed": 0,
+    "pass_rate": 1.0,
+    "passed": 6,
+    "total": 6
+  },
+  "variant": "with_skill"
+}

@@ -1,0 +1,64 @@
+{
+  "assertion_results": [
+    {
+      "evidence": "1. **Unified Service Layer for Business Logic:**\n   - Extract the task completion and listing logic into a single, shared service function (or action) used by both the UI route and the agent tool.\n   - Enforce server-side authentication for every request, deriving the `ownerId` from the verified session/token rather than trusting client-supplied parameters.\n\n",
+      "evidence_end_line": 20,
+      "evidence_start_line": 17,
+      "passed": true,
+      "text": "The response replaces the separate UI and agent write implementations with one shared typed action boundary."
+    },
+    {
+      "evidence": "   - Enforce server-side authentication for every request, deriving the `ownerId` from the verified session/token rather than trusting client-supplied parameters.\n\n2. **Secure Routes & Ownership Enforcement:**\n   - Ensure the task list route strictly filters tasks by the authenticated user's ID.\n   - Ensure the task completion handler validates that the requested `taskId` belongs to the authenticated user before executing the SQL update.\n",
+      "evidence_end_line": 23,
+      "evidence_start_line": 19,
+      "passed": true,
+      "text": "The response derives identity server-side and scopes reads and writes rather than trusting the submitted ownerId."
+    },
+    {
+      "evidence": "3. **Context-Aware State for Agent Integration:**\n   - Elevate the \"currently open task ID\" from isolated React local state into a shared state mechanism (such as a context provider, URL state, or a synchronized store) accessible to both the React UI components and the agent runtime context.\n\n4. **Robust Tooling & UI Feedback:**\n   - Define clear action descriptions and input validation schemas for the agent tool.\n   - Implement standard asynchronous UX patterns: disable controls during pending states, handle errors gracefully with failure toasts/messages, and only display success feedback upon confirmed server completion.\n",
+      "evidence_end_line": 30,
+      "evidence_start_line": 25,
+      "passed": false,
+      "text": "The response accounts for UI, actions, reusable instructions when needed, and application context without requiring a new skill for every action."
+    },
+    {
+      "evidence": "Based on the provided project brief (`maintenance/eval-fixtures/agent-native/first-feature.md`), here is a review of the proposed first feature, a concrete corrected implementation approach, and corresponding acceptance checks.\n\n",
+      "evidence_end_line": 2,
+      "evidence_start_line": 1,
+      "passed": false,
+      "text": "The response explicitly says that exact framework signatures cannot be verified from this fixture and requests installed version-matched docs or types before implementation."
+    },
+    {
+      "evidence": "### Acceptance Checks\n\n1. **Authorization & Security Check:**\n   - *Test:* Attempt to complete or list tasks belonging to User A while authenticated as User B (or unauthenticated).\n   - *Expected Result:* The system rejects the request with a `401 Unauthorized` or `403 Forbidden` error, and no SQL updates occur.\n\n2. **Agent Context Awareness Check:**\n   - *Test:* Open a specific task in the UI and prompt the in-app agent to \"complete this task\" without explicitly naming the ID.\n   - *Expected Result:* The agent successfully identifies and completes the exact task currently open in the UI, utilizing the shared active task context.\n\n3. **Unified Code Path Check:**\n   - *Test:* Inspect the codebase for task completion logic.\n   - *Expected Result:* Both the UI action route and the agent tool invoke the exact same underlying validation and SQL update function.\n\n4. **UX & Error Handling Check:**\n   - *Test:* Trigger task completion under simulated network latency or failure conditions.\n   - *Expected Result:* The UI shows a pending/loading state, does not show a premature success toast, and displays an appropriate error message if the operation fails.",
+      "evidence_end_line": 50,
+      "evidence_start_line": 34,
+      "passed": true,
+      "text": "The response proposes invalid-input, denied-caller, and UI/agent result-visibility checks without claiming to have executed them."
+    }
+  ],
+  "case_id": "output-001-no_skill",
+  "counts_as_skill_grade": true,
+  "evidence_mode": "model",
+  "execution": "isolated_prompt",
+  "expected_output": "A shared action-centered task workflow with scoped access, typed inputs, agent-visible context, and explicit API/version verification limits.",
+  "files": [
+    "maintenance/eval-fixtures/agent-native/first-feature.md"
+  ],
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "output",
+  "limits": [
+    "Synthetic review fixture only; no installed runtime, package API declarations, or runnable app is supplied."
+  ],
+  "passed": false,
+  "prompt": "Review the proposed first feature in the attached Agent-Native project brief. Give a concrete corrected implementation approach and acceptance checks. Use only available evidence for API claims; do not modify files or install packages.",
+  "raw_reply": "```json\n{\"results\": [{\"assertion_id\": 1, \"passed\": true, \"evidence_start_line\": 17, \"evidence_end_line\": 20}, {\"assertion_id\": 2, \"passed\": true, \"evidence_start_line\": 19, \"evidence_end_line\": 23}, {\"assertion_id\": 3, \"passed\": false, \"evidence_start_line\": 25, \"evidence_end_line\": 30}, {\"assertion_id\": 4, \"passed\": false, \"evidence_start_line\": 1, \"evidence_end_line\": 2}, {\"assertion_id\": 5, \"passed\": true, \"evidence_start_line\": 34, \"evidence_end_line\": 50}]}\n```",
+  "skill": "agent-native",
+  "summary": {
+    "failed": 2,
+    "pass_rate": 0.6,
+    "passed": 3,
+    "total": 5
+  },
+  "variant": "no_skill"
+}

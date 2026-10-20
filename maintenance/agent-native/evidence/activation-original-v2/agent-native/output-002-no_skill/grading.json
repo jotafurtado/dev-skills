@@ -1,0 +1,64 @@
+{
+  "assertion_results": [
+    {
+      "evidence": "3. **App manifest Core constraint (`^0.198.0`) and Lockfile resolutions**: Defines the pinned versions (`0.198.0` for Core, `0.198.1` for Toolkit) which must be respected without upgrading.\n",
+      "evidence_end_line": 7,
+      "evidence_start_line": 7,
+      "passed": true,
+      "text": "The response identifies exact resolved Core and Toolkit versions separately from the manifest constraint."
+    },
+    {
+      "evidence": "The source precedence to resolve this issue, from highest to lowest authority, is:\n1. **Local build failure / Local skills inventory (`agent-native-docs`, `agent-native-toolkit`)**: Confirms what is actually present and exportable in the currently installed environment.\n2. **Existing domain controls (`@/components/ui/*`)**: Establishes the established architectural pattern for importing UI components within the app.\n3. **App manifest Core constraint (`^0.198.0`) and Lockfile resolutions**: Defines the pinned versions (`0.198.0` for Core, `0.198.1` for Toolkit) which must be respected without upgrading.\n4. **Website example (`ProjectSettingsFilter`)**: Lowest precedence, as it represents external documentation/copy-pasted code that may reference non-existent, renamed, or private exports for this specific version.\n",
+      "evidence_end_line": 8,
+      "evidence_start_line": 4,
+      "passed": true,
+      "text": "The response prioritizes installed documentation, public exports, and types over the current website example."
+    },
+    {
+      "evidence": "### 2. Smallest Safe Change Path\nReject the developer's proposals to upgrade dependencies or use deep private imports. Instead, follow this minimal repair path:\n1. **Inspect local toolkit exports**: Query the local `agent-native-toolkit` skill or public entry point to find the correct, officially supported export name for the settings filter corresponding to versions `0.198.x`.\n2. **Update the import statement**: Replace the invented `ProjectSettingsFilter` import in the settings layout with the correct public export name found in step 1, maintaining the existing `@/components/ui/*` or standard public entry point convention.\n3. **Alternative (if no public export exists)**: If the toolkit does not export a filter component in `0.198.x`, construct a lightweight project-specific filter directly inside the app's settings layout using the existing working domain controls, matching the local design system.\n",
+      "evidence_end_line": 14,
+      "evidence_start_line": 10,
+      "passed": true,
+      "text": "The response preserves app-local controls and shared runtime ownership instead of deep-importing private source or copying runtime internals."
+    },
+    {
+      "evidence": "### 2. Smallest Safe Change Path\nReject the developer's proposals to upgrade dependencies or use deep private imports. Instead, follow this minimal repair path:\n",
+      "evidence_end_line": 11,
+      "evidence_start_line": 10,
+      "passed": true,
+      "text": "The response does not prescribe an unrequested upgrade, install latest, or claim that the proposed unavailable export exists."
+    },
+    {
+      "evidence": "### 3. What Remains Unverified\n* The full installed exports, internal source code, and type declarations of the Toolkit package (as explicitly noted in the fixture, these were not supplied).\n* Whether the website example was written for a future version (e.g., `^0.199.x` or higher) that actually introduces `ProjectSettingsFilter`.\n* Whether local runtime behavior matches type declarations once the correct import name is substituted.",
+      "evidence_end_line": 19,
+      "evidence_start_line": 16,
+      "passed": true,
+      "text": "The response identifies the missing installed API evidence and does not present a guessed replacement signature as verified."
+    }
+  ],
+  "case_id": "output-002-no_skill",
+  "counts_as_skill_grade": true,
+  "evidence_mode": "model",
+  "execution": "isolated_prompt",
+  "expected_output": "A bounded version-local investigation that preserves exact pins, uses public exports, and reuses app adapters instead of upgrading or importing private source.",
+  "files": [
+    "maintenance/eval-fixtures/agent-native/existing-app.md"
+  ],
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "output",
+  "limits": [
+    "Version numbers are synthetic project evidence, not a claim about a published release's exports."
+  ],
+  "passed": true,
+  "prompt": "Resolve the compatibility problem in the attached Agent-Native app evidence. State the smallest safe change path, the source precedence you would use, and what remains unverified. Do not change files or dependencies.",
+  "raw_reply": "```json\n{\"results\": [{\"assertion_id\": 1, \"passed\": true, \"evidence_start_line\": 7, \"evidence_end_line\": 7}, {\"assertion_id\": 2, \"passed\": true, \"evidence_start_line\": 4, \"evidence_end_line\": 8}, {\"assertion_id\": 3, \"passed\": true, \"evidence_start_line\": 10, \"evidence_end_line\": 14}, {\"assertion_id\": 4, \"passed\": true, \"evidence_start_line\": 10, \"evidence_end_line\": 11}, {\"assertion_id\": 5, \"passed\": true, \"evidence_start_line\": 16, \"evidence_end_line\": 19}]}\n```",
+  "skill": "agent-native",
+  "summary": {
+    "failed": 0,
+    "pass_rate": 1.0,
+    "passed": 5,
+    "total": 5
+  },
+  "variant": "no_skill"
+}

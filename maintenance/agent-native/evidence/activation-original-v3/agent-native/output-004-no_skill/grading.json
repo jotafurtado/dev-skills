@@ -1,0 +1,71 @@
+{
+  "assertion_results": [
+    {
+      "evidence": "* **Incorrect Hook Import:** A newly added page is attempting to import `useNavigationState` from an external/Core package rather than the local app hook (`app/hooks/use-navigation-state.ts`), leading to fragmented navigation state tracking.\n",
+      "evidence_end_line": 8,
+      "evidence_start_line": 8,
+      "passed": true,
+      "text": "The response identifies useNavigationState as an app/template hook rather than assuming it is a Core export, and investigates the installed navigation primitive."
+    },
+    {
+      "evidence": "* **Actor-Agnostic Record Loading:** The view-screen action blindly loads any supplied record ID without validating whether it belongs to the current actor or active project context (causing project A's record to bleed into project B).\n",
+      "evidence_end_line": 9,
+      "evidence_start_line": 9,
+      "passed": true,
+      "text": "The response clears stale selection and resolves view-screen records through authorized scoped reads."
+    },
+    {
+      "evidence": "   * **Action:** Replace raw queries using isolated custom cache keys with a unified caching/mutation mechanism that automatically invalidates related queries upon a UI mutation, eliminating the need for a full page reload.\n",
+      "evidence_end_line": 33,
+      "evidence_start_line": 33,
+      "passed": true,
+      "text": "The response traces action completion, query keys, invalidation, and refetch before adding manual polling."
+    },
+    {
+      "evidence": "   * **Action:** Implement targeted, context-aware revalidation: apply real-time/shared project list updates *only* where collaborative edits occur (e.g., the shared project list), while explicitly excluding static settings pages from unnecessary polling.\n",
+      "evidence_end_line": 37,
+      "evidence_start_line": 37,
+      "passed": true,
+      "text": "The response distinguishes local run refresh from remote-tab sync and requires a reason and version check for background sync."
+    },
+    {
+      "evidence": "   * **Action:** Centralize tab ID creation and navigation command polling to a single provider or top-level component to eliminate duplicate navigation commands and selection jitter.\n",
+      "evidence_end_line": 27,
+      "evidence_start_line": 27,
+      "passed": true,
+      "text": "The response reuses tab/request-source identity and framework command consumption to address jitter and duplicate navigation."
+    },
+    {
+      "evidence": "### Focused Verification Scenarios\n\n1. **Cross-Project Navigation Verification:**\n   * *Action:* Select a record in Project A, then immediately navigate to Project B.\n   * *Expected Result:* The agent and UI instantly drop Project A's record ID and initialize with Project B's context (no lingering stale ID from A).\n\n2. **Mutation & Cache Freshness Verification:**\n   * *Action:* Perform a UI mutation that updates a record, without manually reloading the page.\n   * *Expected Result:* The updated data reflects immediately on the screen via cache invalidation, without requiring a full page reload.\n\n3. **Scoped Polling & Jitter-Free Selection Verification:**\n   * *Action:* Navigate through the app and inspect network/console activity while visiting a static settings page, followed by a collaborative project list.\n   * *Expected Result:* Static settings pages exhibit zero background polling/refetches. Collaborative views update appropriately without duplicate navigation commands or visible UI selection jitter.",
+      "evidence_end_line": 53,
+      "evidence_start_line": 41,
+      "passed": true,
+      "text": "The response proposes separate UI-write, agent-write, route/selection, and second-tab checks without claiming executed results."
+    }
+  ],
+  "case_id": "output-004-no_skill",
+  "counts_as_skill_grade": true,
+  "evidence_mode": "model",
+  "execution": "isolated_prompt",
+  "expected_output": "An app-owned navigation-hook investigation, semantic context cleanup, action refresh tracing, and justified remote-sync policy without blanket timers.",
+  "files": [
+    "maintenance/eval-fixtures/agent-native/context-sync.md"
+  ],
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "output",
+  "limits": [
+    "Observed symptoms are synthetic. Installed framework code is absent, so root causes remain hypotheses until inspected."
+  ],
+  "passed": true,
+  "prompt": "Diagnose the Agent-Native navigation and stale-screen problems in the attached incident brief. Give the repair sequence and focused verification scenarios. Distinguish likely causes from verified framework behavior; do not modify files.",
+  "raw_reply": "```json\n{\"results\": [{\"assertion_id\": 1, \"passed\": true, \"evidence_start_line\": 8, \"evidence_end_line\": 8}, {\"assertion_id\": 2, \"passed\": true, \"evidence_start_line\": 9, \"evidence_end_line\": 9}, {\"assertion_id\": 3, \"passed\": true, \"evidence_start_line\": 33, \"evidence_end_line\": 33}, {\"assertion_id\": 4, \"passed\": true, \"evidence_start_line\": 37, \"evidence_end_line\": 37}, {\"assertion_id\": 5, \"passed\": true, \"evidence_start_line\": 27, \"evidence_end_line\": 27}, {\"assertion_id\": 6, \"passed\": true, \"evidence_start_line\": 41, \"evidence_end_line\": 53}]}\n```",
+  "skill": "agent-native",
+  "summary": {
+    "failed": 0,
+    "pass_rate": 1.0,
+    "passed": 6,
+    "total": 6
+  },
+  "variant": "no_skill"
+}

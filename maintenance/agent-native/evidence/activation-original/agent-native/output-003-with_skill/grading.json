@@ -1,0 +1,64 @@
+{
+  "assertion_results": [
+    {
+      "evidence": "### 1. Reusable Building-Block Family\nInstead of copying Toolkit composer source, bypassing runtime adapters, or implementing a custom textarea and fetch loop with API keys stored in `localStorage`, the app should use the established **Agent Panel / Chat Surface / Toolkit App Chat** building blocks:\n- **Chat Layer:** Use Toolkit chat components (`AgentPanel`, `AgentChatSurface`, or `AssistantChat`) combined with Core's runtime adapters (`useChatThreads`, `sendToAgentChat`, `createHttpAgentChatRuntime`) to preserve streaming responses, attachments, thread history, and tool results.\n- **App Composition:** Place these components within the right-hand column of the dedicated two-column project page layout, while maintaining the app's existing adapter seams and design conventions (such as `@/components/ui/*`).\n",
+      "evidence_end_line": 6,
+      "evidence_start_line": 3,
+      "passed": true,
+      "text": "The response selects a documented Toolkit chat family such as AgentPanel, AgentChatSurface, or AssistantChat according to the requested custom layout."
+    },
+    {
+      "evidence": "Instead of copying Toolkit composer source, bypassing runtime adapters, or implementing a custom textarea and fetch loop with API keys stored in `localStorage`, the app should use the established **Agent Panel / Chat Surface / Toolkit App Chat** building blocks:\n- **Chat Layer:** Use Toolkit chat components (`AgentPanel`, `AgentChatSurface`, or `AssistantChat`) combined with Core's runtime adapters (`useChatThreads`, `sendToAgentChat`, `createHttpAgentChatRuntime`) to preserve streaming responses, attachments, thread history, and tool results.\n- **App Composition:** Place these components within the right-hand column of the dedicated two-column project page layout, while maintaining the app's existing adapter seams and design conventions (such as `@/components/ui/*`).\n\n### 2. Ownership Boundaries & Security to Preserve\n- **Credentials & Runtime:** Keep provider credentials and API keys securely on the server-side, never in `localStorage` or browser state.\n- **Access Control & Authorization:** Do not assume that putting a record ID into the agent chat context automatically grants permission to read it. Authorization must be strictly enforced server-side within actions (`access`, `authorize`, or `assertAccess`) regardless of how the ID arrived from the UI or chat context.\n- **State & Sync:** Let the framework handle conversation state, thread history, and sync rather than maintaining a separate local conversation state.\n",
+      "evidence_end_line": 11,
+      "evidence_start_line": 4,
+      "passed": true,
+      "text": "The response preserves shared thread, streaming, attachment, tool-result, and application-context behavior rather than replacing chat with an independent fetch loop."
+    },
+    {
+      "evidence": "- **Credentials & Runtime:** Keep provider credentials and API keys securely on the server-side, never in `localStorage` or browser state.\n- **Access Control & Authorization:** Do not assume that putting a record ID into the agent chat context automatically grants permission to read it. Authorization must be strictly enforced server-side within actions (`access`, `authorize`, or `assertAccess`) regardless of how the ID arrived from the UI or chat context.\n",
+      "evidence_end_line": 10,
+      "evidence_start_line": 9,
+      "passed": true,
+      "text": "The response keeps credentials server-side and treats source/selection context as distinct from authorization."
+    },
+    {
+      "evidence": "Instead of copying Toolkit composer source, bypassing runtime adapters, or implementing a custom textarea and fetch loop with API keys stored in `localStorage`, the app should use the established **Agent Panel / Chat Surface / Toolkit App Chat** building blocks:\n- **Chat Layer:** Use Toolkit chat components (`AgentPanel`, `AgentChatSurface`, or `AssistantChat`) combined with Core's runtime adapters (`useChatThreads`, `sendToAgentChat`, `createHttpAgentChatRuntime`) to preserve streaming responses, attachments, thread history, and tool results.\n- **App Composition:** Place these components within the right-hand column of the dedicated two-column project page layout, while maintaining the app's existing adapter seams and design conventions (such as `@/components/ui/*`).\n",
+      "evidence_end_line": 6,
+      "evidence_start_line": 4,
+      "passed": true,
+      "text": "The response uses existing app-local control adapters and supported composition or customization rather than copying Toolkit internals."
+    },
+    {
+      "evidence": "### 3. Implementation Status\nImplementation must wait until resolved against the actual installed package versions and types. No speculative component props, raw fetch loops, or file modifications should be introduced until those dependencies are verified.",
+      "evidence_end_line": 14,
+      "evidence_start_line": 13,
+      "passed": true,
+      "text": "The response requires checking the installed exports and provider or runtime obligations before committing to imports or props."
+    }
+  ],
+  "case_id": "output-003-with_skill",
+  "counts_as_skill_grade": true,
+  "evidence_mode": "model",
+  "execution": "isolated_prompt",
+  "expected_output": "A Toolkit composition retaining Core-backed chat behavior, app-local UI adapters, and server-side authorization/credentials.",
+  "files": [
+    "maintenance/eval-fixtures/agent-native/chat-redesign.md"
+  ],
+  "finish_reason": null,
+  "infrastructure": null,
+  "kind": "output",
+  "limits": [
+    "The brief provides product requirements and a rejected design, not installed Toolkit API declarations."
+  ],
+  "passed": true,
+  "prompt": "Choose an implementation direction for the Agent-Native chat redesign in the attached brief. Identify the reusable building-block family and the ownership boundaries to preserve. Do not generate speculative component props or modify files.",
+  "raw_reply": "```json\n{\"results\": [{\"assertion_id\": 1, \"passed\": true, \"evidence_start_line\": 3, \"evidence_end_line\": 6}, {\"assertion_id\": 2, \"passed\": true, \"evidence_start_line\": 4, \"evidence_end_line\": 11}, {\"assertion_id\": 3, \"passed\": true, \"evidence_start_line\": 9, \"evidence_end_line\": 10}, {\"assertion_id\": 4, \"passed\": true, \"evidence_start_line\": 4, \"evidence_end_line\": 6}, {\"assertion_id\": 5, \"passed\": true, \"evidence_start_line\": 13, \"evidence_end_line\": 14}]}\n```",
+  "skill": "agent-native",
+  "summary": {
+    "failed": 0,
+    "pass_rate": 1.0,
+    "passed": 5,
+    "total": 5
+  },
+  "variant": "with_skill"
+}

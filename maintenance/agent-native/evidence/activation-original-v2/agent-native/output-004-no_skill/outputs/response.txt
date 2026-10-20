@@ -1,0 +1,57 @@
+Based on the provided incident brief (`maintenance/eval-fixtures/agent-native/context-sync.md`), here is the diagnosis, repair sequence, and focused verification scenarios. 
+
+*Note: Since package versions and source files were not supplied, all specific root causes are treated as hypotheses based on the observed symptoms.*
+
+---
+
+### Part 1: Diagnosis & Distinction of Causes vs. Framework Behavior
+
+#### Likely Causes (Hypotheses based on symptoms)
+1. **Import Mismatch & State Drift:** Importing `useNavigationState` from Core instead of the local app hook (`app/hooks/use-navigation-state.ts`) bypasses app-specific state synchronization logic, leading to stale selection data (retaining project A's record ID after navigating to project B).
+2. **Missing Authorization/Context Checks:** The view-screen action loads any supplied record ID blindly without verifying the current actor, creating security and stale-context risks.
+3. **Cache Key Disconnect:** A raw query utilizing a custom cache key fails to invalidate or update when a UI mutation occurs, meaning data only updates after a full page reload.
+4. **Aggressive Polling & Race Conditions:** 
+   * A newly added global timer refetches *every* query every second indiscriminately (even on static settings pages).
+   * Component-level tab ID generation causes duplicate command polling, resulting in double navigation execution and visual selection jitter.
+
+#### Verified Framework Behavior (Directly observed from the incident notes)
+* Agent edits **do not** automatically propagate to the UI without a full page reload (indicating a lack of reactive cache invalidation or real-time sync for local agent runs).
+* Static settings pages and shared project lists currently share the same aggressive polling/refetch behavior despite having entirely different remote-update requirements.
+* Navigation commands are being duplicated and causing UI jitter due to decentralized tab ID generation and command polling.
+
+---
+
+### Part 2: Ordered Repair Sequence
+
+The repair is structured by distinguishing three distinct data/action domains: **UI Actions**, **Local Agent-Run Refreshes**, and **Remote Updates**.
+
+#### Phase 1: Fix UI Actions & Navigation State (Local UI Domain)
+1. **Unify Navigation Hooks:** Audit and refactor the new page to import the local `useNavigationState` from `app/hooks/use-navigation-state.ts` rather than Core, ensuring consistent state scoping across pages.
+2. **Centralize Tab ID & Navigation Command Polling:** Move tab ID generation and navigation command polling out of individual components into a shared provider or root layout. This prevents duplicate command execution and eliminates selection jitter.
+3. **Enforce Actor Validation:** Update the view-screen action to validate the current actor against the requested record ID before loading data.
+
+#### Phase 2: Fix Local Agent-Run Refreshes (Agent & Mutation Domain)
+4. **Targeted Cache Invalidation:** Replace raw queries using isolated custom cache keys with mutations that properly invalidate or update the query cache, ensuring UI updates immediately after a mutation without requiring a full page reload.
+5. **Scoped Polling (Remove Global Timers):** Remove the indiscriminate 1-second global refetch timer. Restrict automatic refetching or polling exclusively to dynamic views that require it, explicitly excluding static settings pages.
+
+#### Phase 3: Handle Remote Updates (Multi-User Domain)
+6. **Differentiate Update Strategies:** 
+   * Keep static settings pages strictly local/on-demand.
+   * Implement targeted real-time subscriptions or optimized polling *only* for the shared project list to correctly display edits from a second user without overloading the client.
+
+---
+
+### Part 3: Focused Verification Scenarios
+
+1. **Navigation Context Isolation Test:**
+   * *Action:* Navigate from Project A to Project B.
+   * *Expected Result:* The view immediately reflects Project B's selected record ID. Project A's ID is entirely cleared; no jitter or duplicate navigation commands occur.
+2. **Mutation & Cache Sync Test:**
+   * *Action:* Perform a UI mutation (e.g., editing a record).
+   * *Expected Result:* The updated data displays immediately without requiring a full page reload. Raw queries with custom cache keys correctly reflect the new state.
+3. **Resource Usage & Polling Test:**
+   * *Action:* Navigate to a static settings page and monitor network/query activity.
+   * *Expected Result:* The 1-second global refetch timer does not fire on static settings pages. 
+4. **Multi-User Remote Update Test:**
+   * *Action:* Make an edit from a second user account while viewing the shared project list.
+   * *Expected Result:* The shared project list updates to show the remote edit, while static pages remain unaffected by background sync noise.

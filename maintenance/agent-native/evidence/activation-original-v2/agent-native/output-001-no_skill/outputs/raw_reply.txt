@@ -1,0 +1,3 @@
+```json
+{"results": [{"assertion_id": 1, "passed": true, "evidence_start_line": 14, "evidence_end_line": 15}, {"assertion_id": 2, "passed": true, "evidence_start_line": 17, "evidence_end_line": 18}, {"assertion_id": 3, "passed": true, "evidence_start_line": 20, "evidence_end_line": 25}, {"assertion_id": 4, "passed": false, "evidence_start_line": 1, "evidence_end_line": 39}, {"assertion_id": 5, "passed": true, "evidence_start_line": 31, "evidence_end_line": 38}]}
+```

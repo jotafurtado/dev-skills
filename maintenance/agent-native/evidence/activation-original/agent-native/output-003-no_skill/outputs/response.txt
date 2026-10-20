@@ -1,0 +1,11 @@
+Based on the provided brief, here is the implementation direction for the Agent-Native chat redesign:
+
+### Reusable Building-Block Family
+The reusable building-block family to preserve is the **Toolkit UI** (along with the Core-backed chat capabilities and existing runtime adapters). 
+
+Instead of building a separate conversation state, copying composer source, or bypassing runtime adapters to talk directly to a provider via `localStorage`, the implementation should reuse the established Toolkit UI components and wrap ordinary controls with app-local adapters as intended by the existing architecture.
+
+### Ownership Boundaries to Preserve
+1. **API & Provider Layer:** Keep provider communication, API keys, and streaming logic tied to the Core/provider boundaries rather than storing API keys in `localStorage` inside an app-owned fetch loop.
+2. **State & History:** Maintain the existing thread history, streaming responses, attachments, and tool results within the established chat/Toolkit infrastructure rather than maintaining a separate, disconnected conversation state.
+3. **Permission & Context Security:** Preserve strict permission boundaries regarding private project records. Specifically, **do not** allow putting a record ID into the chat context to automatically grant the agent permission to load it; authorization checks must remain intact independently of the UI chat context selection.

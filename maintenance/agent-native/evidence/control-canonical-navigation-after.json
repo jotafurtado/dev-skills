@@ -1,0 +1,71 @@
+{
+  "tabId": "1a76f408-bdfc-40da-a30d-293479fda95d",
+  "url": "http://localhost:4312/tasks",
+  "navigation": {
+    "view": "tasks",
+    "path": "/tasks"
+  },
+  "command": null,
+  "globalCommand": null,
+  "trace": [
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4312/tasks"
+    },
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4312/tasks"
+    },
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4312/tasks"
+    },
+    {
+      "kind": "console",
+      "text": "Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)."
+    },
+    {
+      "kind": "request",
+      "method": "PUT",
+      "url": "http://localhost:4312/_agent-native/application-state/navigation:1a76f408-bdfc-40da-a30d-293479fda95d",
+      "data": "{\"view\":\"tasks\",\"path\":\"/tasks\"}"
+    },
+    {
+      "kind": "request",
+      "method": "GET",
+      "url": "http://localhost:4312/_agent-native/application-state?keys=navigate%3A1a76f408-bdfc-40da-a30d-293479fda95d",
+      "data": null
+    },
+    {
+      "kind": "response",
+      "url": "http://localhost:4312/_agent-native/application-state?keys=navigate%3A1a76f408-bdfc-40da-a30d-293479fda95d",
+      "body": "{\"values\":{},\"missing\":[\"navigate:1a76f408-bdfc-40da-a30d-293479fda95d\"]}"
+    },
+    {
+      "kind": "navigation",
+      "url": "http://localhost:4312/tasks"
+    },
+    {
+      "kind": "request",
+      "method": "GET",
+      "url": "http://localhost:4312/_agent-native/application-state?keys=navigate%3A1a76f408-bdfc-40da-a30d-293479fda95d",
+      "data": null
+    },
+    {
+      "kind": "response",
+      "url": "http://localhost:4312/_agent-native/application-state?keys=navigate%3A1a76f408-bdfc-40da-a30d-293479fda95d",
+      "body": "{\"values\":{},\"missing\":[\"navigate:1a76f408-bdfc-40da-a30d-293479fda95d\"]}"
+    },
+    {
+      "kind": "request",
+      "method": "GET",
+      "url": "http://localhost:4312/_agent-native/application-state?keys=navigate%3A1a76f408-bdfc-40da-a30d-293479fda95d",
+      "data": null
+    },
+    {
+      "kind": "response",
+      "url": "http://localhost:4312/_agent-native/application-state?keys=navigate%3A1a76f408-bdfc-40da-a30d-293479fda95d",
+      "body": "{\"values\":{},\"missing\":[\"navigate:1a76f408-bdfc-40da-a30d-293479fda95d\"]}"
+    }
+  ]
+}

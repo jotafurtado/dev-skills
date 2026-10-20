@@ -1,0 +1,56 @@
+: ping 1792290228489
+
+data: {"type":"activity","id":"agentkit:internal:run-1792290228482-yg82j7:starting-agent","label":"Starting agent","seq":0,"eventId":"run-1792290228482-yg82j7:0"}
+
+data: {"type":"activity","id":"agentkit:internal:run-1792290228482-yg82j7:contacting-model","label":"Contacting model","seq":1,"eventId":"run-1792290228482-yg82j7:1"}
+
+data: {"type":"suggestions","suggestions":[],"seq":2,"eventId":"run-1792290228482-yg82j7:2"}
+
+data: {"type":"model_stream","status":"start","seq":3,"eventId":"run-1792290228482-yg82j7:3"}
+
+data: {"type":"tool_input_start","tool":"create-task","id":"call_22144","seq":4,"eventId":"run-1792290228482-yg82j7:4"}
+
+data: {"type":"activity","label":"Preparing create-task action","tool":"create-task","id":"call_22144","seq":5,"eventId":"run-1792290228482-yg82j7:5"}
+
+data: {"type":"tool_input_delta","tool":"create-task","id":"call_22144","text":"{\"title\":\"Real agent 2065b101-8a02-40ac-b2b5-8dfffbb747f9\"}","seq":6,"eventId":"run-1792290228482-yg82j7:6"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":7,"eventId":"run-1792290228482-yg82j7:7"}
+
+data: {"type":"tool_start","id":"call_22144","tool":"create-task","input":{"title":"Real agent 2065b101-8a02-40ac-b2b5-8dfffbb747f9"},"seq":8,"eventId":"run-1792290228482-yg82j7:8"}
+
+data: {"type":"tool_done","id":"call_22144","tool":"create-task","input":{"title":"Real agent 2065b101-8a02-40ac-b2b5-8dfffbb747f9"},"result":"{\n  \"id\": \"dfb4f52b-ec8a-4b16-8c9f-f684d7534018\",\n  \"title\": \"Real agent 2065b101-8a02-40ac-b2b5-8dfffbb747f9\",\n  \"completed\": false,\n  \"createdAt\": \"2026-10-18T02:23:51.444Z\"\n}","completedSideEffect":true,"approvalPause":false,"seq":9,"eventId":"run-1792290228482-yg82j7:9"}
+
+data: {"type":"model_stream","status":"start","seq":10,"eventId":"run-1792290228482-yg82j7:10"}
+
+data: {"type":"tool_input_start","tool":"navigate","id":"call_172976","seq":11,"eventId":"run-1792290228482-yg82j7:11"}
+
+data: {"type":"activity","label":"Preparing navigate action","tool":"navigate","id":"call_172976","seq":12,"eventId":"run-1792290228482-yg82j7:12"}
+
+data: {"type":"tool_input_delta","tool":"navigate","id":"call_172976","text":"{\"id\":\"dfb4f52b-ec8a-4b16-8c9f-f684d7534018\",\"view\":\"tasks\"}","seq":13,"eventId":"run-1792290228482-yg82j7:13"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":14,"eventId":"run-1792290228482-yg82j7:14"}
+
+data: {"type":"tool_start","id":"call_172976","tool":"navigate","input":{"id":"dfb4f52b-ec8a-4b16-8c9f-f684d7534018","view":"tasks"},"seq":15,"eventId":"run-1792290228482-yg82j7:15"}
+
+data: {"type":"tool_done","id":"call_172976","tool":"navigate","input":{"id":"dfb4f52b-ec8a-4b16-8c9f-f684d7534018","view":"tasks"},"result":"Navigating to tasks","completedSideEffect":true,"approvalPause":false,"seq":16,"eventId":"run-1792290228482-yg82j7:16"}
+
+data: {"type":"model_stream","status":"start","seq":17,"eventId":"run-1792290228482-yg82j7:17"}
+
+data: {"type":"text","text":"I have","seq":18,"eventId":"run-1792290228482-yg82j7:18"}
+
+data: {"type":"text","text":" created the private task titled \"Real agent 2065b101","seq":19,"eventId":"run-1792290228482-yg82j7:19"}
+
+data: {"type":"text","text":"-8a02-40ac-b2b5-8dfffbb747f9","seq":20,"eventId":"run-1792290228482-yg82j7:20"}
+
+data: {"type":"text","text":"\" and opened it for you.","seq":21,"eventId":"run-1792290228482-yg82j7:21"}
+
+data: {"type":"model_stream","status":"end","reason":"end_turn","seq":22,"eventId":"run-1792290228482-yg82j7:22"}
+
+data: {"type":"model_stream","status":"start","seq":23,"eventId":"run-1792290228482-yg82j7:23"}
+
+data: {"type":"model_stream","status":"end","reason":"tool_use","seq":24,"eventId":"run-1792290228482-yg82j7:24"}
+
+data: {"type":"suggestions","suggestions":[],"seq":25,"eventId":"run-1792290228482-yg82j7:25"}
+
+data: {"type":"done","seq":26,"eventId":"run-1792290228482-yg82j7:26"}
+
